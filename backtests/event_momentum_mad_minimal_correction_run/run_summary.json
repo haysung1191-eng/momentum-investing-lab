@@ -1,0 +1,12 @@
+{
+  "event_count": 2,
+  "trade_count": 10,
+  "cagr": 0.08595606502076714,
+  "max_drawdown": -0.11637185630368907,
+  "annualized_volatility": 0.11717144969587942,
+  "sharpe": 0.7849711189788003,
+  "final_nav": 1.2244741019614078,
+  "start_date": "2023-10-19",
+  "end_date": "2026-04-03",
+  "event_summary_rows": 2
+}

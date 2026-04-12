@@ -1,0 +1,6 @@
+﻿Check,Metric,Value,Threshold,Comparator,Passed,BaselineVariant,RecentStart,RecentEnd,RunTimestamp
+Current holdings >= 4,current_holdings,9.0,4.0,>=,1,equal_weight_no_mad_min4,2025-01-31,2026-02-27,2026-04-12 20:22:29
+Current top1 weight <= 0.25,current_top1_weight,0.1111111111111111,0.25,<=,1,equal_weight_no_mad_min4,2025-01-31,2026-02-27,2026-04-12 20:22:29
+Current top3 weight <= 0.60,current_top3_weight,0.3333333333333333,0.6,<=,1,equal_weight_no_mad_min4,2025-01-31,2026-02-27,2026-04-12 20:22:29
+Recent avg turnover <= 1.50,recent_avg_turnover,1.0251322751322751,1.5,<=,1,equal_weight_no_mad_min4,2025-01-31,2026-02-27,2026-04-12 20:22:29
+Recent CAGR proxy > 0,recent_cagr_proxy,0.9241962927724006,0.0,>,1,equal_weight_no_mad_min4,2025-01-31,2026-02-27,2026-04-12 20:22:29

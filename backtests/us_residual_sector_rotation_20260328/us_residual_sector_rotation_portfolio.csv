@@ -1,0 +1,3 @@
+AsOfDate,Ticker,TargetWeight,CurrentPrice,SignalRank,ResidualAlpha,Notes
+2026-03-27,SHY,0.6666666666666667,82.38999938964844,1,,safe_asset
+2026-03-27,XLK,0.3333333333333333,129.9199981689453,2,0.010731746764725662,positive_residual_alpha

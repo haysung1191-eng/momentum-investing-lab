@@ -1,0 +1,2 @@
+﻿RunId,RunStartedAt,Strategy,AsOfDate,SourceFresh,RecommendedStrategyMatch,MissingPriceCount,WeightSum,TurnoverEstimate,MaterialChange,HealthStatus,Recommendation
+20260325T234856Z_kis_pipeline,2026-03-25T23:48:56.518959+00:00,Weekly ETF RiskBudget,2026-03-27,1,1,0,0.39999999999999913,0.39999999999999913,1,OK,READY_FOR_DAILY_SHADOW_CHECK

@@ -1,0 +1,3 @@
+﻿Scope,ExpectedCount,PriceRoot,PriceFilesPresent,PriceMissingCount,PriceStaleOver7DCount,PriceLatestMinDate,PriceLatestMaxDate,FlowRoot,FlowFilesPresent,FlowMissingCount,FlowStaleOver7DCount,FlowLatestMinDate,FlowLatestMaxDate,ExpectedBusinessDate
+KR_STOCK,38,D:\AI\모멘텀 투자\data\prices_operating_institutional_v1\stock,38,0,0,2026-04-10,2026-04-10,D:\AI\모멘텀 투자\data\flows_operating_institutional_v1\stock,38,0,0,2026-04-10,2026-04-10,2026-04-10
+KR_ETF,6,D:\AI\모멘텀 투자\data\prices_operating_institutional_v1\etf,6,0,0,2026-04-10,2026-04-10,,0,0,0,,,2026-04-10

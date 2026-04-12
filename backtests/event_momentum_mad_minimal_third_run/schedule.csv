@@ -1,0 +1,35 @@
+﻿event_id,event_date,event_type,event_title,eval_date,effective_date,ticker,rank,momentum_score,mad_score,event_weight
+EVT001,2022-08-09,policy_regulation,US CHIPS and Science Act signed,2022-08-18,2022-08-19,272110,1,0.01615065174652286,3.531355526178994,1.0
+EVT002,2023-10-17,tariff_trade,US tightened advanced AI chip export controls to China,2023-10-18,2023-10-19,053610,1,0.22641394811979834,0.8885358602978434,0.5958446144985412
+EVT002,2023-10-17,tariff_trade,US tightened advanced AI chip export controls to China,2023-10-18,2023-10-19,240810,2,0.025701814228397384,1.7842606136489991,0.40415538550145874
+EVT002,2023-10-17,tariff_trade,US tightened advanced AI chip export controls to China,2023-10-25,2023-10-26,053610,1,0.3406892535540274,4.073266018866772,0.33510170048266874
+EVT002,2023-10-17,tariff_trade,US tightened advanced AI chip export controls to China,2023-10-25,2023-10-26,240810,2,0.03167143474659884,1.5568723384573506,0.6648982995173313
+EVT002,2023-10-17,tariff_trade,US tightened advanced AI chip export controls to China,2023-11-01,2023-11-02,053610,1,0.16086558397670123,0.573858444612008,1.0
+EVT002,2023-10-17,tariff_trade,US tightened advanced AI chip export controls to China,2023-11-08,2023-11-09,053610,1,0.44704268285668075,4.263523700835374,0.46243499866562926
+EVT002,2023-10-17,tariff_trade,US tightened advanced AI chip export controls to China,2023-11-08,2023-11-09,080220,2,0.10389568247309522,3.527894430497566,0.5375650013343707
+EVT002,2023-10-17,tariff_trade,US tightened advanced AI chip export controls to China,2023-11-15,2023-11-16,053610,1,0.47155190291552573,1.5732757705311624,0.47407338119814035
+EVT002,2023-10-17,tariff_trade,US tightened advanced AI chip export controls to China,2023-11-15,2023-11-16,240810,2,0.08615722968393102,1.3195660795228883,0.5259266188018596
+EVT003,2022-08-16,policy_regulation,US Inflation Reduction Act signed,2022-08-17,2022-08-18,006400,1,0.11881986645922704,0.8201913559881224,1.0
+EVT003,2022-08-16,policy_regulation,US Inflation Reduction Act signed,2022-08-24,2022-08-25,006400,1,0.04395574742322365,0.1793960923623456,1.0
+EVT003,2022-08-16,policy_regulation,US Inflation Reduction Act signed,2022-08-31,2022-09-01,006400,1,0.11666432881678723,0.7020316027088029,1.0
+EVT003,2022-08-16,policy_regulation,US Inflation Reduction Act signed,2022-09-07,2022-09-08,006400,1,0.01155956339135437,1.3070044709388977,1.0
+EVT003,2022-08-16,policy_regulation,US Inflation Reduction Act signed,2022-09-16,2022-09-19,348370,1,0.04849940356468452,4.250812957811887,1.0
+EVT004,2024-05-14,tariff_trade,US announced tariff increases on selected Chinese EV battery and clean-tech imports,2024-05-16,2024-05-17,348370,1,1.3054614914140532,1.790438924236153,1.0
+EVT004,2024-05-14,tariff_trade,US announced tariff increases on selected Chinese EV battery and clean-tech imports,2024-05-23,2024-05-24,348370,1,1.4478882878303805,5.582007472822369,1.0
+EVT004,2024-05-14,tariff_trade,US announced tariff increases on selected Chinese EV battery and clean-tech imports,2024-05-30,2024-05-31,348370,1,1.1379154144384864,0.3740757175915574,1.0
+EVT004,2024-05-14,tariff_trade,US announced tariff increases on selected Chinese EV battery and clean-tech imports,2024-06-07,2024-06-10,348370,1,1.0788254375938426,5.437083951469374,1.0
+EVT004,2024-05-14,tariff_trade,US announced tariff increases on selected Chinese EV battery and clean-tech imports,2024-06-14,2024-06-17,348370,1,1.1487808224817158,2.2818784750637784,1.0
+EVT006,2023-04-03,commodity_shock,OPEC+ announced a surprise oil output cut,2023-04-04,2023-04-05,008350,1,0.21695195580261997,0.0,1.0
+EVT006,2023-04-03,commodity_shock,OPEC+ announced a surprise oil output cut,2023-04-11,2023-04-12,038500,1,0.10664553189324873,9.981334841629115,1.0
+EVT006,2023-04-03,commodity_shock,OPEC+ announced a surprise oil output cut,2023-04-18,2023-04-19,008350,1,0.15790278943729744,0.0,1.0
+EVT006,2023-04-03,commodity_shock,OPEC+ announced a surprise oil output cut,2023-05-03,2023-05-04,008350,1,0.07877260783736191,3.1966957622461405,1.0
+EVT007,2022-12-07,policy_regulation,China formally dismantled major zero-COVID restrictions,2022-12-08,2022-12-09,123690,1,0.1333562786264594,212.33871424522616,1.0
+EVT007,2022-12-07,policy_regulation,China formally dismantled major zero-COVID restrictions,2022-12-15,2022-12-16,003230,1,0.1621897265558608,0.0,1.0
+EVT007,2022-12-07,policy_regulation,China formally dismantled major zero-COVID restrictions,2022-12-22,2022-12-23,145020,1,0.28542781035853154,1.0,1.0
+EVT007,2022-12-07,policy_regulation,China formally dismantled major zero-COVID restrictions,2022-12-29,2023-01-02,145020,1,0.21495627971067632,1.0,1.0
+EVT007,2022-12-07,policy_regulation,China formally dismantled major zero-COVID restrictions,2023-01-06,2023-01-09,145020,1,0.13503731561531254,1.2567356515564418,1.0
+EVT008,2023-02-06,policy_regulation,China resumed outbound group travel on a pilot basis,2023-02-07,2023-02-08,123690,1,0.20107011751714707,0.0,1.0
+EVT008,2023-02-06,policy_regulation,China resumed outbound group travel on a pilot basis,2023-02-14,2023-02-15,123690,1,0.15884329687961066,0.0,1.0
+EVT008,2023-02-06,policy_regulation,China resumed outbound group travel on a pilot basis,2023-02-21,2023-02-22,123690,1,0.11893827281319976,0.0,1.0
+EVT008,2023-02-06,policy_regulation,China resumed outbound group travel on a pilot basis,2023-02-28,2023-03-02,123690,1,0.044216481715879,0.0,1.0
+EVT008,2023-02-06,policy_regulation,China resumed outbound group travel on a pilot basis,2023-03-08,2023-03-09,003230,1,0.07402980608693903,1.2374879456690837,1.0

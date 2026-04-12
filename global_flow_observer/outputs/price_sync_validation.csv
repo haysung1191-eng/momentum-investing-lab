@@ -1,0 +1,11 @@
+﻿Ticker,Label,Status,Bars,FirstDate,LastDate,DuplicateDates,InvalidCloses
+SPY,US Equities,OK,2834,2015-01-02,2026-04-10,0,0
+EFA,Developed ex-US Equities,OK,2834,2015-01-02,2026-04-10,0,0
+EEM,Emerging Equities,OK,2834,2015-01-02,2026-04-10,0,0
+IEF,Intermediate Treasuries,OK,2834,2015-01-02,2026-04-10,0,0
+TLT,Long Treasuries,OK,2834,2015-01-02,2026-04-10,0,0
+LQD,Investment Grade Credit,OK,2834,2015-01-02,2026-04-10,0,0
+HYG,High Yield Credit,OK,2834,2015-01-02,2026-04-10,0,0
+GLD,Gold,OK,2834,2015-01-02,2026-04-10,0,0
+PDBC,Broad Commodities,OK,2834,2015-01-02,2026-04-10,0,0
+VNQ,REITs,OK,2834,2015-01-02,2026-04-10,0,0

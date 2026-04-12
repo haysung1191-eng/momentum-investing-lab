@@ -1,0 +1,13 @@
+﻿SignalDate,Ticker,CurrentShares,LatestPrice,CurrentMarketValue,CurrentWeight,TargetWeight,TargetNotional,ShareDelta,Action,Notes
+2026-03-31,BIL,0,91.41999816894533,0.0,0.0,0.0,0.0,0,KEEP,sized_from_account_total_capital
+2026-03-31,EEM,40,56.59000015258789,2263.6000061035156,0.1600537373921579,0.3333333333333333,4714.250024159749,43,BUY,sized_from_account_total_capital
+2026-03-31,EFA,0,98.0,0.0,0.0,0.0,0.0,0,KEEP,sized_from_account_total_capital
+2026-03-31,GLD,15,429.4100036621094,6441.150054931641,0.4554383003250298,0.3333333333333333,4714.250024159749,-5,SELL,sized_from_account_total_capital
+2026-03-31,HYG,0,79.55999755859375,0.0,0.0,0.0,0.0,0,KEEP,sized_from_account_total_capital
+2026-03-31,IEF,0,95.26000213623048,0.0,0.0,0.0,0.0,0,KEEP,sized_from_account_total_capital
+2026-03-31,IWM,0,251.2899932861328,0.0,0.0,0.0,0.0,0,KEEP,sized_from_account_total_capital
+2026-03-31,PDBC,25,17.520000457763672,438.0000114440918,0.030969932240859407,0.3333333333333333,4714.250024159749,244,BUY,sized_from_account_total_capital
+2026-03-31,QQQ,0,584.97998046875,0.0,0.0,0.0,0.0,0,KEEP,sized_from_account_total_capital
+2026-03-31,SPY,0,655.8300170898438,0.0,0.0,0.0,0.0,0,KEEP,sized_from_account_total_capital
+2026-03-31,TLT,0,86.79000091552734,0.0,0.0,0.0,0.0,0,KEEP,sized_from_account_total_capital
+2026-03-31,VNQ,0,90.2300033569336,0.0,0.0,0.0,0.0,0,KEEP,sized_from_account_total_capital

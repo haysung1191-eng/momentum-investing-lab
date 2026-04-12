@@ -1,0 +1,33 @@
+{
+  "start_date": "2016-02-01",
+  "end_date": "2026-04-02",
+  "months": 123,
+  "gross_cagr": 0.09555872589163994,
+  "net_cagr": 0.09377087685767416,
+  "spy_cagr": 0.14629837973660664,
+  "gross_final_nav": 2.5288430299027174,
+  "net_final_nav": 2.4872034735274724,
+  "spy_final_nav": 4.0068109438238055,
+  "gross_max_drawdown": -0.22410558348638798,
+  "net_max_drawdown": -0.22635282263261192,
+  "spy_max_drawdown": -0.33717272970521217,
+  "gross_volatility": 0.10641093780905207,
+  "net_volatility": 0.10638308680734389,
+  "spy_volatility": 0.17870034216874858,
+  "gross_sharpe": 0.9122944539943229,
+  "net_sharpe": 0.8971254051673125,
+  "spy_sharpe": 0.8549921869595459,
+  "drawdown_improvement_vs_spy": 0.11081990707260025,
+  "avg_monthly_turnover_one_way": 0.006489444878811571,
+  "annualized_turnover_one_way": 0.07787333854573886,
+  "cost_bps_one_way": 10,
+  "verdict": "PASS",
+  "failure_reason": "",
+  "regime_counts": {
+    "Duration Bid": 8,
+    "Inflation Tilt": 9,
+    "Mixed": 18,
+    "Risk-Off": 19,
+    "Risk-On": 69
+  }
+}

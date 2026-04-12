@@ -1,0 +1,14 @@
+{
+  "watchlist": [
+    {"ticker": "SPY", "label": "US Equities", "bucket": "equity_us"},
+    {"ticker": "EFA", "label": "Developed ex-US Equities", "bucket": "equity_dev_ex_us"},
+    {"ticker": "EEM", "label": "Emerging Equities", "bucket": "equity_em"},
+    {"ticker": "IEF", "label": "Intermediate Treasuries", "bucket": "duration_intermediate"},
+    {"ticker": "TLT", "label": "Long Treasuries", "bucket": "duration_long"},
+    {"ticker": "LQD", "label": "Investment Grade Credit", "bucket": "credit_ig"},
+    {"ticker": "HYG", "label": "High Yield Credit", "bucket": "credit_hy"},
+    {"ticker": "GLD", "label": "Gold", "bucket": "real_asset_gold"},
+    {"ticker": "PDBC", "label": "Broad Commodities", "bucket": "real_asset_commodities"},
+    {"ticker": "VNQ", "label": "REITs", "bucket": "real_asset_reits"}
+  ]
+}

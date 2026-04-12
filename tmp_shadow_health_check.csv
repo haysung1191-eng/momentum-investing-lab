@@ -1,0 +1,2 @@
+﻿RunId,RunStartedAt,Strategy,AsOfDate,SourceFresh,RecommendedStrategyMatch,MissingPriceCount,WeightSum,TurnoverEstimate,MaterialChange,HealthStatus,Recommendation
+20260308T132718Z_kis_pipeline,2026-03-08T13:27:18.719338+00:00,Biweekly Score50 MADScale,2026-03-06,1,1,0,0.39999999999999775,0.3999999999999977,1,OK,READY_FOR_DAILY_SHADOW_CHECK

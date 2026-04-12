@@ -1,0 +1,29 @@
+{
+  "primary_horizon_months": 3,
+  "labels": ["Risk-On", "Risk-Off", "Inflation Tilt", "Duration Bid", "Mixed"],
+  "logic": {
+    "Risk-On": [
+      "risk_basket > defense_basket",
+      "SPY > IEF",
+      "HYG > IEF"
+    ],
+    "Risk-Off": [
+      "defense_basket > risk_basket",
+      "IEF > SPY",
+      "TLT > HYG"
+    ],
+    "Inflation Tilt": [
+      "real_assets_strength > defense_basket",
+      "PDBC > IEF",
+      "GLD > IEF"
+    ],
+    "Duration Bid": [
+      "duration_strength > risk_basket",
+      "TLT > SPY",
+      "IEF > HYG"
+    ],
+    "Mixed": [
+      "all other cases"
+    ]
+  }
+}

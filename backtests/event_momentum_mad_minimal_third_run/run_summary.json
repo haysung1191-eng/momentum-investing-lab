@@ -1,0 +1,12 @@
+{
+  "event_count": 7,
+  "trade_count": 28,
+  "cagr": 0.01809618469509644,
+  "max_drawdown": -0.2050625396881528,
+  "annualized_volatility": 0.17523585009570175,
+  "sharpe": 0.19205926677775412,
+  "final_nav": 1.067170397208846,
+  "start_date": "2022-08-18",
+  "end_date": "2026-04-03",
+  "event_summary_rows": 7
+}

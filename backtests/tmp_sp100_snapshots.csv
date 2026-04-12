@@ -1,0 +1,607 @@
+﻿Symbol,Name,Sector,YahooTicker,SnapshotDate,RevisionDate,OldId
+AAPL,Apple Inc.,Information Technology,AAPL,2025-01-31,2025-01-25,1271728974
+ABBV,AbbVie,Health Care,ABBV,2025-01-31,2025-01-25,1271728974
+ABT,Abbott Laboratories,Health Care,ABT,2025-01-31,2025-01-25,1271728974
+ACN,Accenture,Information Technology,ACN,2025-01-31,2025-01-25,1271728974
+ADBE,Adobe Inc.,Information Technology,ADBE,2025-01-31,2025-01-25,1271728974
+AIG,American International Group,Financials,AIG,2025-01-31,2025-01-25,1271728974
+AMD,Advanced Micro Devices,Information Technology,AMD,2025-01-31,2025-01-25,1271728974
+AMGN,Amgen,Health Care,AMGN,2025-01-31,2025-01-25,1271728974
+AMT,American Tower,Real Estate,AMT,2025-01-31,2025-01-25,1271728974
+AMZN,Amazon,Consumer Discretionary,AMZN,2025-01-31,2025-01-25,1271728974
+AVGO,Broadcom,Information Technology,AVGO,2025-01-31,2025-01-25,1271728974
+AXP,American Express,Financials,AXP,2025-01-31,2025-01-25,1271728974
+BA,Boeing,Industrials,BA,2025-01-31,2025-01-25,1271728974
+BAC,Bank of America,Financials,BAC,2025-01-31,2025-01-25,1271728974
+BK,BNY Mellon,Financials,BK,2025-01-31,2025-01-25,1271728974
+BKNG,Booking Holdings,Consumer Discretionary,BKNG,2025-01-31,2025-01-25,1271728974
+BLK,BlackRock,Financials,BLK,2025-01-31,2025-01-25,1271728974
+BMY,Bristol Myers Squibb,Health Care,BMY,2025-01-31,2025-01-25,1271728974
+BRK.B,Berkshire Hathaway (Class B),Financials,BRK-B,2025-01-31,2025-01-25,1271728974
+C,Citigroup,Financials,C,2025-01-31,2025-01-25,1271728974
+CAT,Caterpillar Inc.,Industrials,CAT,2025-01-31,2025-01-25,1271728974
+CHTR,Charter Communications,Communication Services,CHTR,2025-01-31,2025-01-25,1271728974
+CL,Colgate-Palmolive,Consumer Staples,CL,2025-01-31,2025-01-25,1271728974
+CMCSA,Comcast,Communication Services,CMCSA,2025-01-31,2025-01-25,1271728974
+COF,Capital One,Financials,COF,2025-01-31,2025-01-25,1271728974
+COP,ConocoPhillips,Energy,COP,2025-01-31,2025-01-25,1271728974
+COST,Costco,Consumer Staples,COST,2025-01-31,2025-01-25,1271728974
+CRM,Salesforce,Information Technology,CRM,2025-01-31,2025-01-25,1271728974
+CSCO,Cisco,Information Technology,CSCO,2025-01-31,2025-01-25,1271728974
+CVS,CVS Health,Health Care,CVS,2025-01-31,2025-01-25,1271728974
+CVX,Chevron Corporation,Energy,CVX,2025-01-31,2025-01-25,1271728974
+DE,Deere & Company,Industrials,DE,2025-01-31,2025-01-25,1271728974
+DHR,Danaher Corporation,Health Care,DHR,2025-01-31,2025-01-25,1271728974
+DIS,Walt Disney Company (The),Communication Services,DIS,2025-01-31,2025-01-25,1271728974
+DOW,Dow Inc.,Materials,DOW,2025-01-31,2025-01-25,1271728974
+DUK,Duke Energy,Utilities,DUK,2025-01-31,2025-01-25,1271728974
+EMR,Emerson Electric,Industrials,EMR,2025-01-31,2025-01-25,1271728974
+F,Ford Motor Company,Consumer Discretionary,F,2025-01-31,2025-01-25,1271728974
+FDX,FedEx,Industrials,FDX,2025-01-31,2025-01-25,1271728974
+GD,General Dynamics,Industrials,GD,2025-01-31,2025-01-25,1271728974
+GE,GE Aerospace,Industrials,GE,2025-01-31,2025-01-25,1271728974
+GILD,Gilead Sciences,Health Care,GILD,2025-01-31,2025-01-25,1271728974
+GM,General Motors,Consumer Discretionary,GM,2025-01-31,2025-01-25,1271728974
+GOOG,Alphabet Inc. (Class C),Communication Services,GOOG,2025-01-31,2025-01-25,1271728974
+GOOGL,Alphabet Inc. (Class A),Communication Services,GOOGL,2025-01-31,2025-01-25,1271728974
+GS,Goldman Sachs,Financials,GS,2025-01-31,2025-01-25,1271728974
+HD,Home Depot,Consumer Discretionary,HD,2025-01-31,2025-01-25,1271728974
+HON,Honeywell,Industrials,HON,2025-01-31,2025-01-25,1271728974
+IBM,IBM,Information Technology,IBM,2025-01-31,2025-01-25,1271728974
+INTC,Intel,Information Technology,INTC,2025-01-31,2025-01-25,1271728974
+INTU,Intuit,Information Technology,INTU,2025-01-31,2025-01-25,1271728974
+JNJ,Johnson & Johnson,Health Care,JNJ,2025-01-31,2025-01-25,1271728974
+JPM,JPMorgan Chase,Financials,JPM,2025-01-31,2025-01-25,1271728974
+KHC,Kraft Heinz,Consumer Staples,KHC,2025-01-31,2025-01-25,1271728974
+KO,Coca-Cola Company (The),Consumer Staples,KO,2025-01-31,2025-01-25,1271728974
+LIN,Linde plc,Materials,LIN,2025-01-31,2025-01-25,1271728974
+LLY,Eli Lilly and Company,Health Care,LLY,2025-01-31,2025-01-25,1271728974
+LMT,Lockheed Martin,Industrials,LMT,2025-01-31,2025-01-25,1271728974
+LOW,Lowe's,Consumer Discretionary,LOW,2025-01-31,2025-01-25,1271728974
+MA,Mastercard,Information Technology,MA,2025-01-31,2025-01-25,1271728974
+MCD,McDonald's,Consumer Discretionary,MCD,2025-01-31,2025-01-25,1271728974
+MDLZ,Mondelēz International,Consumer Staples,MDLZ,2025-01-31,2025-01-25,1271728974
+MDT,Medtronic,Health Care,MDT,2025-01-31,2025-01-25,1271728974
+MET,MetLife,Financials,MET,2025-01-31,2025-01-25,1271728974
+META,Meta Platforms,Communication Services,META,2025-01-31,2025-01-25,1271728974
+MMM,3M,Industrials,MMM,2025-01-31,2025-01-25,1271728974
+MO,Altria,Consumer Staples,MO,2025-01-31,2025-01-25,1271728974
+MRK,Merck & Co.,Health Care,MRK,2025-01-31,2025-01-25,1271728974
+MS,Morgan Stanley,Financials,MS,2025-01-31,2025-01-25,1271728974
+MSFT,Microsoft,Information Technology,MSFT,2025-01-31,2025-01-25,1271728974
+NEE,NextEra Energy,Utilities,NEE,2025-01-31,2025-01-25,1271728974
+NFLX,"Netflix, Inc.",Communication Services,NFLX,2025-01-31,2025-01-25,1271728974
+NKE,"Nike, Inc.",Consumer Discretionary,NKE,2025-01-31,2025-01-25,1271728974
+NVDA,Nvidia,Information Technology,NVDA,2025-01-31,2025-01-25,1271728974
+ORCL,Oracle Corporation,Information Technology,ORCL,2025-01-31,2025-01-25,1271728974
+PEP,PepsiCo,Consumer Staples,PEP,2025-01-31,2025-01-25,1271728974
+PFE,Pfizer,Health Care,PFE,2025-01-31,2025-01-25,1271728974
+PG,Procter & Gamble,Consumer Staples,PG,2025-01-31,2025-01-25,1271728974
+PM,Philip Morris International,Consumer Staples,PM,2025-01-31,2025-01-25,1271728974
+PYPL,PayPal,Information Technology,PYPL,2025-01-31,2025-01-25,1271728974
+QCOM,Qualcomm,Information Technology,QCOM,2025-01-31,2025-01-25,1271728974
+RTX,RTX Corporation,Industrials,RTX,2025-01-31,2025-01-25,1271728974
+SBUX,Starbucks,Consumer Discretionary,SBUX,2025-01-31,2025-01-25,1271728974
+SCHW,Charles Schwab Corporation,Financials,SCHW,2025-01-31,2025-01-25,1271728974
+SO,Southern Company,Utilities,SO,2025-01-31,2025-01-25,1271728974
+SPG,Simon Property Group,Real Estate,SPG,2025-01-31,2025-01-25,1271728974
+T,AT&T,Communication Services,T,2025-01-31,2025-01-25,1271728974
+TGT,Target Corporation,Consumer Discretionary,TGT,2025-01-31,2025-01-25,1271728974
+TMO,Thermo Fisher Scientific,Health Care,TMO,2025-01-31,2025-01-25,1271728974
+TMUS,T-Mobile US,Communication Services,TMUS,2025-01-31,2025-01-25,1271728974
+TSLA,"Tesla, Inc.",Consumer Discretionary,TSLA,2025-01-31,2025-01-25,1271728974
+TXN,Texas Instruments,Information Technology,TXN,2025-01-31,2025-01-25,1271728974
+UNH,UnitedHealth Group,Health Care,UNH,2025-01-31,2025-01-25,1271728974
+UNP,Union Pacific Corporation,Industrials,UNP,2025-01-31,2025-01-25,1271728974
+UPS,United Parcel Service,Industrials,UPS,2025-01-31,2025-01-25,1271728974
+USB,U.S. Bancorp,Financials,USB,2025-01-31,2025-01-25,1271728974
+V,Visa Inc.,Information Technology,V,2025-01-31,2025-01-25,1271728974
+VZ,Verizon,Communication Services,VZ,2025-01-31,2025-01-25,1271728974
+WFC,Wells Fargo,Financials,WFC,2025-01-31,2025-01-25,1271728974
+WMT,Walmart,Consumer Staples,WMT,2025-01-31,2025-01-25,1271728974
+XOM,ExxonMobil,Energy,XOM,2025-01-31,2025-01-25,1271728974
+AAPL,Apple Inc.,Information Technology,AAPL,2025-02-28,2025-02-16,1276096856
+ABBV,AbbVie,Health Care,ABBV,2025-02-28,2025-02-16,1276096856
+ABT,Abbott Laboratories,Health Care,ABT,2025-02-28,2025-02-16,1276096856
+ACN,Accenture,Information Technology,ACN,2025-02-28,2025-02-16,1276096856
+ADBE,Adobe Inc.,Information Technology,ADBE,2025-02-28,2025-02-16,1276096856
+AIG,American International Group,Financials,AIG,2025-02-28,2025-02-16,1276096856
+AMD,Advanced Micro Devices,Information Technology,AMD,2025-02-28,2025-02-16,1276096856
+AMGN,Amgen,Health Care,AMGN,2025-02-28,2025-02-16,1276096856
+AMT,American Tower,Real Estate,AMT,2025-02-28,2025-02-16,1276096856
+AMZN,Amazon,Consumer Discretionary,AMZN,2025-02-28,2025-02-16,1276096856
+AVGO,Broadcom,Information Technology,AVGO,2025-02-28,2025-02-16,1276096856
+AXP,American Express,Financials,AXP,2025-02-28,2025-02-16,1276096856
+BA,Boeing,Industrials,BA,2025-02-28,2025-02-16,1276096856
+BAC,Bank of America,Financials,BAC,2025-02-28,2025-02-16,1276096856
+BK,BNY Mellon,Financials,BK,2025-02-28,2025-02-16,1276096856
+BKNG,Booking Holdings,Consumer Discretionary,BKNG,2025-02-28,2025-02-16,1276096856
+BLK,BlackRock,Financials,BLK,2025-02-28,2025-02-16,1276096856
+BMY,Bristol Myers Squibb,Health Care,BMY,2025-02-28,2025-02-16,1276096856
+BRK.B,Berkshire Hathaway (Class B),Financials,BRK-B,2025-02-28,2025-02-16,1276096856
+C,Citigroup,Financials,C,2025-02-28,2025-02-16,1276096856
+CAT,Caterpillar Inc.,Industrials,CAT,2025-02-28,2025-02-16,1276096856
+CHTR,Charter Communications,Communication Services,CHTR,2025-02-28,2025-02-16,1276096856
+CL,Colgate-Palmolive,Consumer Staples,CL,2025-02-28,2025-02-16,1276096856
+CMCSA,Comcast,Communication Services,CMCSA,2025-02-28,2025-02-16,1276096856
+COF,Capital One,Financials,COF,2025-02-28,2025-02-16,1276096856
+COP,ConocoPhillips,Energy,COP,2025-02-28,2025-02-16,1276096856
+COST,Costco,Consumer Staples,COST,2025-02-28,2025-02-16,1276096856
+CRM,Salesforce,Information Technology,CRM,2025-02-28,2025-02-16,1276096856
+CSCO,Cisco,Information Technology,CSCO,2025-02-28,2025-02-16,1276096856
+CVS,CVS Health,Health Care,CVS,2025-02-28,2025-02-16,1276096856
+CVX,Chevron Corporation,Energy,CVX,2025-02-28,2025-02-16,1276096856
+DE,Deere & Company,Industrials,DE,2025-02-28,2025-02-16,1276096856
+DHR,Danaher Corporation,Health Care,DHR,2025-02-28,2025-02-16,1276096856
+DIS,Walt Disney Company (The),Communication Services,DIS,2025-02-28,2025-02-16,1276096856
+DOW,Dow Inc.,Materials,DOW,2025-02-28,2025-02-16,1276096856
+DUK,Duke Energy,Utilities,DUK,2025-02-28,2025-02-16,1276096856
+EMR,Emerson Electric,Industrials,EMR,2025-02-28,2025-02-16,1276096856
+F,Ford Motor Company,Consumer Discretionary,F,2025-02-28,2025-02-16,1276096856
+FDX,FedEx,Industrials,FDX,2025-02-28,2025-02-16,1276096856
+GD,General Dynamics,Industrials,GD,2025-02-28,2025-02-16,1276096856
+GE,GE Aerospace,Industrials,GE,2025-02-28,2025-02-16,1276096856
+GILD,Gilead Sciences,Health Care,GILD,2025-02-28,2025-02-16,1276096856
+GM,General Motors,Consumer Discretionary,GM,2025-02-28,2025-02-16,1276096856
+GOOG,Alphabet Inc. (Class C),Communication Services,GOOG,2025-02-28,2025-02-16,1276096856
+GOOGL,Alphabet Inc. (Class A),Communication Services,GOOGL,2025-02-28,2025-02-16,1276096856
+GS,Goldman Sachs,Financials,GS,2025-02-28,2025-02-16,1276096856
+HD,Home Depot,Consumer Discretionary,HD,2025-02-28,2025-02-16,1276096856
+HON,Honeywell,Industrials,HON,2025-02-28,2025-02-16,1276096856
+IBM,IBM,Information Technology,IBM,2025-02-28,2025-02-16,1276096856
+INTC,Intel,Information Technology,INTC,2025-02-28,2025-02-16,1276096856
+INTU,Intuit,Information Technology,INTU,2025-02-28,2025-02-16,1276096856
+JNJ,Johnson & Johnson,Health Care,JNJ,2025-02-28,2025-02-16,1276096856
+JPM,JPMorgan Chase,Financials,JPM,2025-02-28,2025-02-16,1276096856
+KHC,Kraft Heinz,Consumer Staples,KHC,2025-02-28,2025-02-16,1276096856
+KO,Coca-Cola Company (The),Consumer Staples,KO,2025-02-28,2025-02-16,1276096856
+LIN,Linde plc,Materials,LIN,2025-02-28,2025-02-16,1276096856
+LLY,Eli Lilly and Company,Health Care,LLY,2025-02-28,2025-02-16,1276096856
+LMT,Lockheed Martin,Industrials,LMT,2025-02-28,2025-02-16,1276096856
+LOW,Lowe's,Consumer Discretionary,LOW,2025-02-28,2025-02-16,1276096856
+MA,Mastercard,Financials,MA,2025-02-28,2025-02-16,1276096856
+MCD,McDonald's,Consumer Discretionary,MCD,2025-02-28,2025-02-16,1276096856
+MDLZ,Mondelēz International,Consumer Staples,MDLZ,2025-02-28,2025-02-16,1276096856
+MDT,Medtronic,Health Care,MDT,2025-02-28,2025-02-16,1276096856
+MET,MetLife,Financials,MET,2025-02-28,2025-02-16,1276096856
+META,Meta Platforms,Communication Services,META,2025-02-28,2025-02-16,1276096856
+MMM,3M,Industrials,MMM,2025-02-28,2025-02-16,1276096856
+MO,Altria,Consumer Staples,MO,2025-02-28,2025-02-16,1276096856
+MRK,Merck & Co.,Health Care,MRK,2025-02-28,2025-02-16,1276096856
+MS,Morgan Stanley,Financials,MS,2025-02-28,2025-02-16,1276096856
+MSFT,Microsoft,Information Technology,MSFT,2025-02-28,2025-02-16,1276096856
+NEE,NextEra Energy,Utilities,NEE,2025-02-28,2025-02-16,1276096856
+NFLX,"Netflix, Inc.",Communication Services,NFLX,2025-02-28,2025-02-16,1276096856
+NKE,"Nike, Inc.",Consumer Discretionary,NKE,2025-02-28,2025-02-16,1276096856
+NVDA,Nvidia,Information Technology,NVDA,2025-02-28,2025-02-16,1276096856
+ORCL,Oracle Corporation,Information Technology,ORCL,2025-02-28,2025-02-16,1276096856
+PEP,PepsiCo,Consumer Staples,PEP,2025-02-28,2025-02-16,1276096856
+PFE,Pfizer,Health Care,PFE,2025-02-28,2025-02-16,1276096856
+PG,Procter & Gamble,Consumer Staples,PG,2025-02-28,2025-02-16,1276096856
+PM,Philip Morris International,Consumer Staples,PM,2025-02-28,2025-02-16,1276096856
+PYPL,PayPal,Financials,PYPL,2025-02-28,2025-02-16,1276096856
+QCOM,Qualcomm,Information Technology,QCOM,2025-02-28,2025-02-16,1276096856
+RTX,RTX Corporation,Industrials,RTX,2025-02-28,2025-02-16,1276096856
+SBUX,Starbucks,Consumer Discretionary,SBUX,2025-02-28,2025-02-16,1276096856
+SCHW,Charles Schwab Corporation,Financials,SCHW,2025-02-28,2025-02-16,1276096856
+SO,Southern Company,Utilities,SO,2025-02-28,2025-02-16,1276096856
+SPG,Simon Property Group,Real Estate,SPG,2025-02-28,2025-02-16,1276096856
+T,AT&T,Communication Services,T,2025-02-28,2025-02-16,1276096856
+TGT,Target Corporation,Consumer Discretionary,TGT,2025-02-28,2025-02-16,1276096856
+TMO,Thermo Fisher Scientific,Health Care,TMO,2025-02-28,2025-02-16,1276096856
+TMUS,T-Mobile US,Communication Services,TMUS,2025-02-28,2025-02-16,1276096856
+TSLA,"Tesla, Inc.",Consumer Discretionary,TSLA,2025-02-28,2025-02-16,1276096856
+TXN,Texas Instruments,Information Technology,TXN,2025-02-28,2025-02-16,1276096856
+UNH,UnitedHealth Group,Health Care,UNH,2025-02-28,2025-02-16,1276096856
+UNP,Union Pacific Corporation,Industrials,UNP,2025-02-28,2025-02-16,1276096856
+UPS,United Parcel Service,Industrials,UPS,2025-02-28,2025-02-16,1276096856
+USB,U.S. Bancorp,Financials,USB,2025-02-28,2025-02-16,1276096856
+V,Visa Inc.,Financials,V,2025-02-28,2025-02-16,1276096856
+VZ,Verizon,Communication Services,VZ,2025-02-28,2025-02-16,1276096856
+WFC,Wells Fargo,Financials,WFC,2025-02-28,2025-02-16,1276096856
+WMT,Walmart,Consumer Staples,WMT,2025-02-28,2025-02-16,1276096856
+XOM,ExxonMobil,Energy,XOM,2025-02-28,2025-02-16,1276096856
+AAPL,Apple Inc.,Information Technology,AAPL,2025-03-31,2025-03-26,1282496683
+ABBV,AbbVie,Health Care,ABBV,2025-03-31,2025-03-26,1282496683
+ABT,Abbott Laboratories,Health Care,ABT,2025-03-31,2025-03-26,1282496683
+ACN,Accenture,Information Technology,ACN,2025-03-31,2025-03-26,1282496683
+ADBE,Adobe Inc.,Information Technology,ADBE,2025-03-31,2025-03-26,1282496683
+AIG,American International Group,Financials,AIG,2025-03-31,2025-03-26,1282496683
+AMD,Advanced Micro Devices,Information Technology,AMD,2025-03-31,2025-03-26,1282496683
+AMGN,Amgen,Health Care,AMGN,2025-03-31,2025-03-26,1282496683
+AMT,American Tower,Real Estate,AMT,2025-03-31,2025-03-26,1282496683
+AMZN,Amazon,Consumer Discretionary,AMZN,2025-03-31,2025-03-26,1282496683
+AVGO,Broadcom,Information Technology,AVGO,2025-03-31,2025-03-26,1282496683
+AXP,American Express,Financials,AXP,2025-03-31,2025-03-26,1282496683
+BA,Boeing,Industrials,BA,2025-03-31,2025-03-26,1282496683
+BAC,Bank of America,Financials,BAC,2025-03-31,2025-03-26,1282496683
+BK,BNY Mellon,Financials,BK,2025-03-31,2025-03-26,1282496683
+BKNG,Booking Holdings,Consumer Discretionary,BKNG,2025-03-31,2025-03-26,1282496683
+BLK,BlackRock,Financials,BLK,2025-03-31,2025-03-26,1282496683
+BMY,Bristol Myers Squibb,Health Care,BMY,2025-03-31,2025-03-26,1282496683
+BRK.B,Berkshire Hathaway (Class B),Financials,BRK-B,2025-03-31,2025-03-26,1282496683
+C,Citigroup,Financials,C,2025-03-31,2025-03-26,1282496683
+CAT,Caterpillar Inc.,Industrials,CAT,2025-03-31,2025-03-26,1282496683
+CHTR,Charter Communications,Communication Services,CHTR,2025-03-31,2025-03-26,1282496683
+CL,Colgate-Palmolive,Consumer Staples,CL,2025-03-31,2025-03-26,1282496683
+CMCSA,Comcast,Communication Services,CMCSA,2025-03-31,2025-03-26,1282496683
+COF,Capital One,Financials,COF,2025-03-31,2025-03-26,1282496683
+COP,ConocoPhillips,Energy,COP,2025-03-31,2025-03-26,1282496683
+COST,Costco,Consumer Staples,COST,2025-03-31,2025-03-26,1282496683
+CRM,Salesforce,Information Technology,CRM,2025-03-31,2025-03-26,1282496683
+CSCO,Cisco,Information Technology,CSCO,2025-03-31,2025-03-26,1282496683
+CVS,CVS Health,Health Care,CVS,2025-03-31,2025-03-26,1282496683
+CVX,Chevron Corporation,Energy,CVX,2025-03-31,2025-03-26,1282496683
+DE,Deere & Company,Industrials,DE,2025-03-31,2025-03-26,1282496683
+DHR,Danaher Corporation,Health Care,DHR,2025-03-31,2025-03-26,1282496683
+DIS,Walt Disney Company (The),Communication Services,DIS,2025-03-31,2025-03-26,1282496683
+DUK,Duke Energy,Utilities,DUK,2025-03-31,2025-03-26,1282496683
+EMR,Emerson Electric,Industrials,EMR,2025-03-31,2025-03-26,1282496683
+FDX,FedEx,Industrials,FDX,2025-03-31,2025-03-26,1282496683
+GD,General Dynamics,Industrials,GD,2025-03-31,2025-03-26,1282496683
+GE,GE Aerospace,Industrials,GE,2025-03-31,2025-03-26,1282496683
+GILD,Gilead Sciences,Health Care,GILD,2025-03-31,2025-03-26,1282496683
+GM,General Motors,Consumer Discretionary,GM,2025-03-31,2025-03-26,1282496683
+GOOG,Alphabet Inc. (Class C),Communication Services,GOOG,2025-03-31,2025-03-26,1282496683
+GOOGL,Alphabet Inc. (Class A),Communication Services,GOOGL,2025-03-31,2025-03-26,1282496683
+GS,Goldman Sachs,Financials,GS,2025-03-31,2025-03-26,1282496683
+HD,Home Depot,Consumer Discretionary,HD,2025-03-31,2025-03-26,1282496683
+HON,Honeywell,Industrials,HON,2025-03-31,2025-03-26,1282496683
+IBM,IBM,Information Technology,IBM,2025-03-31,2025-03-26,1282496683
+INTC,Intel,Information Technology,INTC,2025-03-31,2025-03-26,1282496683
+INTU,Intuit,Information Technology,INTU,2025-03-31,2025-03-26,1282496683
+ISRG,Intuitive Surgical,Health Care,ISRG,2025-03-31,2025-03-26,1282496683
+JNJ,Johnson & Johnson,Health Care,JNJ,2025-03-31,2025-03-26,1282496683
+JPM,JPMorgan Chase,Financials,JPM,2025-03-31,2025-03-26,1282496683
+KO,Coca-Cola Company (The),Consumer Staples,KO,2025-03-31,2025-03-26,1282496683
+LIN,Linde plc,Materials,LIN,2025-03-31,2025-03-26,1282496683
+LLY,Eli Lilly and Company,Health Care,LLY,2025-03-31,2025-03-26,1282496683
+LMT,Lockheed Martin,Industrials,LMT,2025-03-31,2025-03-26,1282496683
+LOW,Lowe's,Consumer Discretionary,LOW,2025-03-31,2025-03-26,1282496683
+MA,Mastercard,Financials,MA,2025-03-31,2025-03-26,1282496683
+MCD,McDonald's,Consumer Discretionary,MCD,2025-03-31,2025-03-26,1282496683
+MDLZ,Mondelēz International,Consumer Staples,MDLZ,2025-03-31,2025-03-26,1282496683
+MDT,Medtronic,Health Care,MDT,2025-03-31,2025-03-26,1282496683
+MET,MetLife,Financials,MET,2025-03-31,2025-03-26,1282496683
+META,Meta Platforms,Communication Services,META,2025-03-31,2025-03-26,1282496683
+MMM,3M,Industrials,MMM,2025-03-31,2025-03-26,1282496683
+MO,Altria,Consumer Staples,MO,2025-03-31,2025-03-26,1282496683
+MRK,Merck & Co.,Health Care,MRK,2025-03-31,2025-03-26,1282496683
+MS,Morgan Stanley,Financials,MS,2025-03-31,2025-03-26,1282496683
+MSFT,Microsoft,Information Technology,MSFT,2025-03-31,2025-03-26,1282496683
+NEE,NextEra Energy,Utilities,NEE,2025-03-31,2025-03-26,1282496683
+NFLX,"Netflix, Inc.",Communication Services,NFLX,2025-03-31,2025-03-26,1282496683
+NKE,"Nike, Inc.",Consumer Discretionary,NKE,2025-03-31,2025-03-26,1282496683
+NOW,ServiceNow,Information Technology,NOW,2025-03-31,2025-03-26,1282496683
+NVDA,Nvidia,Information Technology,NVDA,2025-03-31,2025-03-26,1282496683
+ORCL,Oracle Corporation,Information Technology,ORCL,2025-03-31,2025-03-26,1282496683
+PEP,PepsiCo,Consumer Staples,PEP,2025-03-31,2025-03-26,1282496683
+PFE,Pfizer,Health Care,PFE,2025-03-31,2025-03-26,1282496683
+PG,Procter & Gamble,Consumer Staples,PG,2025-03-31,2025-03-26,1282496683
+PLTR,Palantir Technologies,Information Technology,PLTR,2025-03-31,2025-03-26,1282496683
+PM,Philip Morris International,Consumer Staples,PM,2025-03-31,2025-03-26,1282496683
+PYPL,PayPal,Financials,PYPL,2025-03-31,2025-03-26,1282496683
+QCOM,Qualcomm,Information Technology,QCOM,2025-03-31,2025-03-26,1282496683
+RTX,RTX Corporation,Industrials,RTX,2025-03-31,2025-03-26,1282496683
+SBUX,Starbucks,Consumer Discretionary,SBUX,2025-03-31,2025-03-26,1282496683
+SCHW,Charles Schwab Corporation,Financials,SCHW,2025-03-31,2025-03-26,1282496683
+SO,Southern Company,Utilities,SO,2025-03-31,2025-03-26,1282496683
+SPG,Simon Property Group,Real Estate,SPG,2025-03-31,2025-03-26,1282496683
+T,AT&T,Communication Services,T,2025-03-31,2025-03-26,1282496683
+TGT,Target Corporation,Consumer Discretionary,TGT,2025-03-31,2025-03-26,1282496683
+TMO,Thermo Fisher Scientific,Health Care,TMO,2025-03-31,2025-03-26,1282496683
+TMUS,T-Mobile US,Communication Services,TMUS,2025-03-31,2025-03-26,1282496683
+TSLA,"Tesla, Inc.",Consumer Discretionary,TSLA,2025-03-31,2025-03-26,1282496683
+TXN,Texas Instruments,Information Technology,TXN,2025-03-31,2025-03-26,1282496683
+UNH,UnitedHealth Group,Health Care,UNH,2025-03-31,2025-03-26,1282496683
+UNP,Union Pacific Corporation,Industrials,UNP,2025-03-31,2025-03-26,1282496683
+UPS,United Parcel Service,Industrials,UPS,2025-03-31,2025-03-26,1282496683
+USB,U.S. Bancorp,Financials,USB,2025-03-31,2025-03-26,1282496683
+V,Visa Inc.,Financials,V,2025-03-31,2025-03-26,1282496683
+VZ,Verizon,Communication Services,VZ,2025-03-31,2025-03-26,1282496683
+WFC,Wells Fargo,Financials,WFC,2025-03-31,2025-03-26,1282496683
+WMT,Walmart,Consumer Staples,WMT,2025-03-31,2025-03-26,1282496683
+XOM,ExxonMobil,Energy,XOM,2025-03-31,2025-03-26,1282496683
+AAPL,Apple Inc.,Information Technology,AAPL,2025-04-30,2025-04-09,1284761024
+ABBV,AbbVie,Health Care,ABBV,2025-04-30,2025-04-09,1284761024
+ABT,Abbott Laboratories,Health Care,ABT,2025-04-30,2025-04-09,1284761024
+ACN,Accenture,Information Technology,ACN,2025-04-30,2025-04-09,1284761024
+ADBE,Adobe Inc.,Information Technology,ADBE,2025-04-30,2025-04-09,1284761024
+AIG,American International Group,Financials,AIG,2025-04-30,2025-04-09,1284761024
+AMD,Advanced Micro Devices,Information Technology,AMD,2025-04-30,2025-04-09,1284761024
+AMGN,Amgen,Health Care,AMGN,2025-04-30,2025-04-09,1284761024
+AMT,American Tower,Real Estate,AMT,2025-04-30,2025-04-09,1284761024
+AMZN,Amazon,Consumer Discretionary,AMZN,2025-04-30,2025-04-09,1284761024
+AVGO,Broadcom,Information Technology,AVGO,2025-04-30,2025-04-09,1284761024
+AXP,American Express,Financials,AXP,2025-04-30,2025-04-09,1284761024
+BA,Boeing,Industrials,BA,2025-04-30,2025-04-09,1284761024
+BAC,Bank of America,Financials,BAC,2025-04-30,2025-04-09,1284761024
+BK,BNY Mellon,Financials,BK,2025-04-30,2025-04-09,1284761024
+BKNG,Booking Holdings,Consumer Discretionary,BKNG,2025-04-30,2025-04-09,1284761024
+BLK,BlackRock,Financials,BLK,2025-04-30,2025-04-09,1284761024
+BMY,Bristol Myers Squibb,Health Care,BMY,2025-04-30,2025-04-09,1284761024
+BRK.B,Berkshire Hathaway (Class B),Financials,BRK-B,2025-04-30,2025-04-09,1284761024
+C,Citigroup,Financials,C,2025-04-30,2025-04-09,1284761024
+CAT,Caterpillar Inc.,Industrials,CAT,2025-04-30,2025-04-09,1284761024
+CHTR,Charter Communications,Communication Services,CHTR,2025-04-30,2025-04-09,1284761024
+CL,Colgate-Palmolive,Consumer Staples,CL,2025-04-30,2025-04-09,1284761024
+CMCSA,Comcast,Communication Services,CMCSA,2025-04-30,2025-04-09,1284761024
+COF,Capital One,Financials,COF,2025-04-30,2025-04-09,1284761024
+COP,ConocoPhillips,Energy,COP,2025-04-30,2025-04-09,1284761024
+COST,Costco,Consumer Staples,COST,2025-04-30,2025-04-09,1284761024
+CRM,Salesforce,Information Technology,CRM,2025-04-30,2025-04-09,1284761024
+CSCO,Cisco,Information Technology,CSCO,2025-04-30,2025-04-09,1284761024
+CVS,CVS Health,Health Care,CVS,2025-04-30,2025-04-09,1284761024
+CVX,Chevron Corporation,Energy,CVX,2025-04-30,2025-04-09,1284761024
+DE,Deere & Company,Industrials,DE,2025-04-30,2025-04-09,1284761024
+DHR,Danaher Corporation,Health Care,DHR,2025-04-30,2025-04-09,1284761024
+DIS,Walt Disney Company (The),Communication Services,DIS,2025-04-30,2025-04-09,1284761024
+DUK,Duke Energy,Utilities,DUK,2025-04-30,2025-04-09,1284761024
+EMR,Emerson Electric,Industrials,EMR,2025-04-30,2025-04-09,1284761024
+FDX,FedEx,Industrials,FDX,2025-04-30,2025-04-09,1284761024
+GD,General Dynamics,Industrials,GD,2025-04-30,2025-04-09,1284761024
+GE,GE Aerospace,Industrials,GE,2025-04-30,2025-04-09,1284761024
+GILD,Gilead Sciences,Health Care,GILD,2025-04-30,2025-04-09,1284761024
+GM,General Motors,Consumer Discretionary,GM,2025-04-30,2025-04-09,1284761024
+GOOG,Alphabet Inc. (Class C),Communication Services,GOOG,2025-04-30,2025-04-09,1284761024
+GOOGL,Alphabet Inc. (Class A),Communication Services,GOOGL,2025-04-30,2025-04-09,1284761024
+GS,Goldman Sachs,Financials,GS,2025-04-30,2025-04-09,1284761024
+HD,Home Depot,Consumer Discretionary,HD,2025-04-30,2025-04-09,1284761024
+HON,Honeywell,Industrials,HON,2025-04-30,2025-04-09,1284761024
+IBM,IBM,Information Technology,IBM,2025-04-30,2025-04-09,1284761024
+INTC,Intel,Information Technology,INTC,2025-04-30,2025-04-09,1284761024
+INTU,Intuit,Information Technology,INTU,2025-04-30,2025-04-09,1284761024
+ISRG,Intuitive Surgical,Health Care,ISRG,2025-04-30,2025-04-09,1284761024
+JNJ,Johnson & Johnson,Health Care,JNJ,2025-04-30,2025-04-09,1284761024
+JPM,JPMorgan Chase,Financials,JPM,2025-04-30,2025-04-09,1284761024
+KO,Coca-Cola Company (The),Consumer Staples,KO,2025-04-30,2025-04-09,1284761024
+LIN,Linde plc,Materials,LIN,2025-04-30,2025-04-09,1284761024
+LLY,Eli Lilly and Company,Health Care,LLY,2025-04-30,2025-04-09,1284761024
+LMT,Lockheed Martin,Industrials,LMT,2025-04-30,2025-04-09,1284761024
+LOW,Lowe's,Consumer Discretionary,LOW,2025-04-30,2025-04-09,1284761024
+MA,Mastercard,Financials,MA,2025-04-30,2025-04-09,1284761024
+MCD,McDonald's,Consumer Discretionary,MCD,2025-04-30,2025-04-09,1284761024
+MDLZ,Mondelēz International,Consumer Staples,MDLZ,2025-04-30,2025-04-09,1284761024
+MDT,Medtronic,Health Care,MDT,2025-04-30,2025-04-09,1284761024
+MET,MetLife,Financials,MET,2025-04-30,2025-04-09,1284761024
+META,Meta Platforms,Communication Services,META,2025-04-30,2025-04-09,1284761024
+MMM,3M,Industrials,MMM,2025-04-30,2025-04-09,1284761024
+MO,Altria,Consumer Staples,MO,2025-04-30,2025-04-09,1284761024
+MRK,Merck & Co.,Health Care,MRK,2025-04-30,2025-04-09,1284761024
+MS,Morgan Stanley,Financials,MS,2025-04-30,2025-04-09,1284761024
+MSFT,Microsoft,Information Technology,MSFT,2025-04-30,2025-04-09,1284761024
+NEE,NextEra Energy,Utilities,NEE,2025-04-30,2025-04-09,1284761024
+NFLX,"Netflix, Inc.",Communication Services,NFLX,2025-04-30,2025-04-09,1284761024
+NKE,"Nike, Inc.",Consumer Discretionary,NKE,2025-04-30,2025-04-09,1284761024
+NOW,ServiceNow,Information Technology,NOW,2025-04-30,2025-04-09,1284761024
+NVDA,Nvidia,Information Technology,NVDA,2025-04-30,2025-04-09,1284761024
+ORCL,Oracle Corporation,Information Technology,ORCL,2025-04-30,2025-04-09,1284761024
+PEP,PepsiCo,Consumer Staples,PEP,2025-04-30,2025-04-09,1284761024
+PFE,Pfizer,Health Care,PFE,2025-04-30,2025-04-09,1284761024
+PG,Procter & Gamble,Consumer Staples,PG,2025-04-30,2025-04-09,1284761024
+PLTR,Palantir Technologies,Information Technology,PLTR,2025-04-30,2025-04-09,1284761024
+PM,Philip Morris International,Consumer Staples,PM,2025-04-30,2025-04-09,1284761024
+PYPL,PayPal,Financials,PYPL,2025-04-30,2025-04-09,1284761024
+QCOM,Qualcomm,Information Technology,QCOM,2025-04-30,2025-04-09,1284761024
+RTX,RTX Corporation,Industrials,RTX,2025-04-30,2025-04-09,1284761024
+SBUX,Starbucks,Consumer Discretionary,SBUX,2025-04-30,2025-04-09,1284761024
+SCHW,Charles Schwab Corporation,Financials,SCHW,2025-04-30,2025-04-09,1284761024
+SO,Southern Company,Utilities,SO,2025-04-30,2025-04-09,1284761024
+SPG,Simon Property Group,Real Estate,SPG,2025-04-30,2025-04-09,1284761024
+T,AT&T,Communication Services,T,2025-04-30,2025-04-09,1284761024
+TGT,Target Corporation,Consumer Discretionary,TGT,2025-04-30,2025-04-09,1284761024
+TMO,Thermo Fisher Scientific,Health Care,TMO,2025-04-30,2025-04-09,1284761024
+TMUS,T-Mobile US,Communication Services,TMUS,2025-04-30,2025-04-09,1284761024
+TSLA,"Tesla, Inc.",Consumer Discretionary,TSLA,2025-04-30,2025-04-09,1284761024
+TXN,Texas Instruments,Information Technology,TXN,2025-04-30,2025-04-09,1284761024
+UNH,UnitedHealth Group,Health Care,UNH,2025-04-30,2025-04-09,1284761024
+UNP,Union Pacific Corporation,Industrials,UNP,2025-04-30,2025-04-09,1284761024
+UPS,United Parcel Service,Industrials,UPS,2025-04-30,2025-04-09,1284761024
+USB,U.S. Bancorp,Financials,USB,2025-04-30,2025-04-09,1284761024
+V,Visa Inc.,Financials,V,2025-04-30,2025-04-09,1284761024
+VZ,Verizon,Communication Services,VZ,2025-04-30,2025-04-09,1284761024
+WFC,Wells Fargo,Financials,WFC,2025-04-30,2025-04-09,1284761024
+WMT,Walmart,Consumer Staples,WMT,2025-04-30,2025-04-09,1284761024
+XOM,ExxonMobil,Energy,XOM,2025-04-30,2025-04-09,1284761024
+AAPL,Apple Inc.,Information Technology,AAPL,2025-05-31,2025-04-09,1284761024
+ABBV,AbbVie,Health Care,ABBV,2025-05-31,2025-04-09,1284761024
+ABT,Abbott Laboratories,Health Care,ABT,2025-05-31,2025-04-09,1284761024
+ACN,Accenture,Information Technology,ACN,2025-05-31,2025-04-09,1284761024
+ADBE,Adobe Inc.,Information Technology,ADBE,2025-05-31,2025-04-09,1284761024
+AIG,American International Group,Financials,AIG,2025-05-31,2025-04-09,1284761024
+AMD,Advanced Micro Devices,Information Technology,AMD,2025-05-31,2025-04-09,1284761024
+AMGN,Amgen,Health Care,AMGN,2025-05-31,2025-04-09,1284761024
+AMT,American Tower,Real Estate,AMT,2025-05-31,2025-04-09,1284761024
+AMZN,Amazon,Consumer Discretionary,AMZN,2025-05-31,2025-04-09,1284761024
+AVGO,Broadcom,Information Technology,AVGO,2025-05-31,2025-04-09,1284761024
+AXP,American Express,Financials,AXP,2025-05-31,2025-04-09,1284761024
+BA,Boeing,Industrials,BA,2025-05-31,2025-04-09,1284761024
+BAC,Bank of America,Financials,BAC,2025-05-31,2025-04-09,1284761024
+BK,BNY Mellon,Financials,BK,2025-05-31,2025-04-09,1284761024
+BKNG,Booking Holdings,Consumer Discretionary,BKNG,2025-05-31,2025-04-09,1284761024
+BLK,BlackRock,Financials,BLK,2025-05-31,2025-04-09,1284761024
+BMY,Bristol Myers Squibb,Health Care,BMY,2025-05-31,2025-04-09,1284761024
+BRK.B,Berkshire Hathaway (Class B),Financials,BRK-B,2025-05-31,2025-04-09,1284761024
+C,Citigroup,Financials,C,2025-05-31,2025-04-09,1284761024
+CAT,Caterpillar Inc.,Industrials,CAT,2025-05-31,2025-04-09,1284761024
+CHTR,Charter Communications,Communication Services,CHTR,2025-05-31,2025-04-09,1284761024
+CL,Colgate-Palmolive,Consumer Staples,CL,2025-05-31,2025-04-09,1284761024
+CMCSA,Comcast,Communication Services,CMCSA,2025-05-31,2025-04-09,1284761024
+COF,Capital One,Financials,COF,2025-05-31,2025-04-09,1284761024
+COP,ConocoPhillips,Energy,COP,2025-05-31,2025-04-09,1284761024
+COST,Costco,Consumer Staples,COST,2025-05-31,2025-04-09,1284761024
+CRM,Salesforce,Information Technology,CRM,2025-05-31,2025-04-09,1284761024
+CSCO,Cisco,Information Technology,CSCO,2025-05-31,2025-04-09,1284761024
+CVS,CVS Health,Health Care,CVS,2025-05-31,2025-04-09,1284761024
+CVX,Chevron Corporation,Energy,CVX,2025-05-31,2025-04-09,1284761024
+DE,Deere & Company,Industrials,DE,2025-05-31,2025-04-09,1284761024
+DHR,Danaher Corporation,Health Care,DHR,2025-05-31,2025-04-09,1284761024
+DIS,Walt Disney Company (The),Communication Services,DIS,2025-05-31,2025-04-09,1284761024
+DUK,Duke Energy,Utilities,DUK,2025-05-31,2025-04-09,1284761024
+EMR,Emerson Electric,Industrials,EMR,2025-05-31,2025-04-09,1284761024
+FDX,FedEx,Industrials,FDX,2025-05-31,2025-04-09,1284761024
+GD,General Dynamics,Industrials,GD,2025-05-31,2025-04-09,1284761024
+GE,GE Aerospace,Industrials,GE,2025-05-31,2025-04-09,1284761024
+GILD,Gilead Sciences,Health Care,GILD,2025-05-31,2025-04-09,1284761024
+GM,General Motors,Consumer Discretionary,GM,2025-05-31,2025-04-09,1284761024
+GOOG,Alphabet Inc. (Class C),Communication Services,GOOG,2025-05-31,2025-04-09,1284761024
+GOOGL,Alphabet Inc. (Class A),Communication Services,GOOGL,2025-05-31,2025-04-09,1284761024
+GS,Goldman Sachs,Financials,GS,2025-05-31,2025-04-09,1284761024
+HD,Home Depot,Consumer Discretionary,HD,2025-05-31,2025-04-09,1284761024
+HON,Honeywell,Industrials,HON,2025-05-31,2025-04-09,1284761024
+IBM,IBM,Information Technology,IBM,2025-05-31,2025-04-09,1284761024
+INTC,Intel,Information Technology,INTC,2025-05-31,2025-04-09,1284761024
+INTU,Intuit,Information Technology,INTU,2025-05-31,2025-04-09,1284761024
+ISRG,Intuitive Surgical,Health Care,ISRG,2025-05-31,2025-04-09,1284761024
+JNJ,Johnson & Johnson,Health Care,JNJ,2025-05-31,2025-04-09,1284761024
+JPM,JPMorgan Chase,Financials,JPM,2025-05-31,2025-04-09,1284761024
+KO,Coca-Cola Company (The),Consumer Staples,KO,2025-05-31,2025-04-09,1284761024
+LIN,Linde plc,Materials,LIN,2025-05-31,2025-04-09,1284761024
+LLY,Eli Lilly and Company,Health Care,LLY,2025-05-31,2025-04-09,1284761024
+LMT,Lockheed Martin,Industrials,LMT,2025-05-31,2025-04-09,1284761024
+LOW,Lowe's,Consumer Discretionary,LOW,2025-05-31,2025-04-09,1284761024
+MA,Mastercard,Financials,MA,2025-05-31,2025-04-09,1284761024
+MCD,McDonald's,Consumer Discretionary,MCD,2025-05-31,2025-04-09,1284761024
+MDLZ,Mondelēz International,Consumer Staples,MDLZ,2025-05-31,2025-04-09,1284761024
+MDT,Medtronic,Health Care,MDT,2025-05-31,2025-04-09,1284761024
+MET,MetLife,Financials,MET,2025-05-31,2025-04-09,1284761024
+META,Meta Platforms,Communication Services,META,2025-05-31,2025-04-09,1284761024
+MMM,3M,Industrials,MMM,2025-05-31,2025-04-09,1284761024
+MO,Altria,Consumer Staples,MO,2025-05-31,2025-04-09,1284761024
+MRK,Merck & Co.,Health Care,MRK,2025-05-31,2025-04-09,1284761024
+MS,Morgan Stanley,Financials,MS,2025-05-31,2025-04-09,1284761024
+MSFT,Microsoft,Information Technology,MSFT,2025-05-31,2025-04-09,1284761024
+NEE,NextEra Energy,Utilities,NEE,2025-05-31,2025-04-09,1284761024
+NFLX,"Netflix, Inc.",Communication Services,NFLX,2025-05-31,2025-04-09,1284761024
+NKE,"Nike, Inc.",Consumer Discretionary,NKE,2025-05-31,2025-04-09,1284761024
+NOW,ServiceNow,Information Technology,NOW,2025-05-31,2025-04-09,1284761024
+NVDA,Nvidia,Information Technology,NVDA,2025-05-31,2025-04-09,1284761024
+ORCL,Oracle Corporation,Information Technology,ORCL,2025-05-31,2025-04-09,1284761024
+PEP,PepsiCo,Consumer Staples,PEP,2025-05-31,2025-04-09,1284761024
+PFE,Pfizer,Health Care,PFE,2025-05-31,2025-04-09,1284761024
+PG,Procter & Gamble,Consumer Staples,PG,2025-05-31,2025-04-09,1284761024
+PLTR,Palantir Technologies,Information Technology,PLTR,2025-05-31,2025-04-09,1284761024
+PM,Philip Morris International,Consumer Staples,PM,2025-05-31,2025-04-09,1284761024
+PYPL,PayPal,Financials,PYPL,2025-05-31,2025-04-09,1284761024
+QCOM,Qualcomm,Information Technology,QCOM,2025-05-31,2025-04-09,1284761024
+RTX,RTX Corporation,Industrials,RTX,2025-05-31,2025-04-09,1284761024
+SBUX,Starbucks,Consumer Discretionary,SBUX,2025-05-31,2025-04-09,1284761024
+SCHW,Charles Schwab Corporation,Financials,SCHW,2025-05-31,2025-04-09,1284761024
+SO,Southern Company,Utilities,SO,2025-05-31,2025-04-09,1284761024
+SPG,Simon Property Group,Real Estate,SPG,2025-05-31,2025-04-09,1284761024
+T,AT&T,Communication Services,T,2025-05-31,2025-04-09,1284761024
+TGT,Target Corporation,Consumer Discretionary,TGT,2025-05-31,2025-04-09,1284761024
+TMO,Thermo Fisher Scientific,Health Care,TMO,2025-05-31,2025-04-09,1284761024
+TMUS,T-Mobile US,Communication Services,TMUS,2025-05-31,2025-04-09,1284761024
+TSLA,"Tesla, Inc.",Consumer Discretionary,TSLA,2025-05-31,2025-04-09,1284761024
+TXN,Texas Instruments,Information Technology,TXN,2025-05-31,2025-04-09,1284761024
+UNH,UnitedHealth Group,Health Care,UNH,2025-05-31,2025-04-09,1284761024
+UNP,Union Pacific Corporation,Industrials,UNP,2025-05-31,2025-04-09,1284761024
+UPS,United Parcel Service,Industrials,UPS,2025-05-31,2025-04-09,1284761024
+USB,U.S. Bancorp,Financials,USB,2025-05-31,2025-04-09,1284761024
+V,Visa Inc.,Financials,V,2025-05-31,2025-04-09,1284761024
+VZ,Verizon,Communication Services,VZ,2025-05-31,2025-04-09,1284761024
+WFC,Wells Fargo,Financials,WFC,2025-05-31,2025-04-09,1284761024
+WMT,Walmart,Consumer Staples,WMT,2025-05-31,2025-04-09,1284761024
+XOM,ExxonMobil,Energy,XOM,2025-05-31,2025-04-09,1284761024
+AAPL,Apple Inc.,Information Technology,AAPL,2025-06-30,2025-06-22,1296805043
+ABBV,AbbVie,Health Care,ABBV,2025-06-30,2025-06-22,1296805043
+ABT,Abbott Laboratories,Health Care,ABT,2025-06-30,2025-06-22,1296805043
+ACN,Accenture,Information Technology,ACN,2025-06-30,2025-06-22,1296805043
+ADBE,Adobe Inc.,Information Technology,ADBE,2025-06-30,2025-06-22,1296805043
+AIG,American International Group,Financials,AIG,2025-06-30,2025-06-22,1296805043
+AMD,Advanced Micro Devices,Information Technology,AMD,2025-06-30,2025-06-22,1296805043
+AMGN,Amgen,Health Care,AMGN,2025-06-30,2025-06-22,1296805043
+AMT,American Tower,Real Estate,AMT,2025-06-30,2025-06-22,1296805043
+AMZN,Amazon,Consumer Discretionary,AMZN,2025-06-30,2025-06-22,1296805043
+AVGO,Broadcom,Information Technology,AVGO,2025-06-30,2025-06-22,1296805043
+AXP,American Express,Financials,AXP,2025-06-30,2025-06-22,1296805043
+BA,Boeing,Industrials,BA,2025-06-30,2025-06-22,1296805043
+BAC,Bank of America,Financials,BAC,2025-06-30,2025-06-22,1296805043
+BK,BNY Mellon,Financials,BK,2025-06-30,2025-06-22,1296805043
+BKNG,Booking Holdings,Consumer Discretionary,BKNG,2025-06-30,2025-06-22,1296805043
+BLK,BlackRock,Financials,BLK,2025-06-30,2025-06-22,1296805043
+BMY,Bristol Myers Squibb,Health Care,BMY,2025-06-30,2025-06-22,1296805043
+BRK.B,Berkshire Hathaway (Class B),Financials,BRK-B,2025-06-30,2025-06-22,1296805043
+C,Citigroup,Financials,C,2025-06-30,2025-06-22,1296805043
+CAT,Caterpillar Inc.,Industrials,CAT,2025-06-30,2025-06-22,1296805043
+CHTR,Charter Communications,Communication Services,CHTR,2025-06-30,2025-06-22,1296805043
+CL,Colgate-Palmolive,Consumer Staples,CL,2025-06-30,2025-06-22,1296805043
+CMCSA,Comcast,Communication Services,CMCSA,2025-06-30,2025-06-22,1296805043
+COF,Capital One,Financials,COF,2025-06-30,2025-06-22,1296805043
+COP,ConocoPhillips,Energy,COP,2025-06-30,2025-06-22,1296805043
+COST,Costco,Consumer Staples,COST,2025-06-30,2025-06-22,1296805043
+CRM,Salesforce,Information Technology,CRM,2025-06-30,2025-06-22,1296805043
+CSCO,Cisco,Information Technology,CSCO,2025-06-30,2025-06-22,1296805043
+CVS,CVS Health,Health Care,CVS,2025-06-30,2025-06-22,1296805043
+CVX,Chevron Corporation,Energy,CVX,2025-06-30,2025-06-22,1296805043
+DE,Deere & Company,Industrials,DE,2025-06-30,2025-06-22,1296805043
+DHR,Danaher Corporation,Health Care,DHR,2025-06-30,2025-06-22,1296805043
+DIS,Walt Disney Company (The),Communication Services,DIS,2025-06-30,2025-06-22,1296805043
+DUK,Duke Energy,Utilities,DUK,2025-06-30,2025-06-22,1296805043
+EMR,Emerson Electric,Industrials,EMR,2025-06-30,2025-06-22,1296805043
+FDX,FedEx,Industrials,FDX,2025-06-30,2025-06-22,1296805043
+GD,General Dynamics,Industrials,GD,2025-06-30,2025-06-22,1296805043
+GE,GE Aerospace,Industrials,GE,2025-06-30,2025-06-22,1296805043
+GILD,Gilead Sciences,Health Care,GILD,2025-06-30,2025-06-22,1296805043
+GM,General Motors,Consumer Discretionary,GM,2025-06-30,2025-06-22,1296805043
+GOOG,Alphabet Inc. (Class C),Communication Services,GOOG,2025-06-30,2025-06-22,1296805043
+GOOGL,Alphabet Inc. (Class A),Communication Services,GOOGL,2025-06-30,2025-06-22,1296805043
+GS,Goldman Sachs,Financials,GS,2025-06-30,2025-06-22,1296805043
+HD,Home Depot,Consumer Discretionary,HD,2025-06-30,2025-06-22,1296805043
+HON,Honeywell,Industrials,HON,2025-06-30,2025-06-22,1296805043
+IBM,IBM,Information Technology,IBM,2025-06-30,2025-06-22,1296805043
+INTC,Intel,Information Technology,INTC,2025-06-30,2025-06-22,1296805043
+INTU,Intuit,Information Technology,INTU,2025-06-30,2025-06-22,1296805043
+ISRG,Intuitive Surgical,Health Care,ISRG,2025-06-30,2025-06-22,1296805043
+JNJ,Johnson & Johnson,Health Care,JNJ,2025-06-30,2025-06-22,1296805043
+JPM,JPMorgan Chase,Financials,JPM,2025-06-30,2025-06-22,1296805043
+KO,Coca-Cola Company (The),Consumer Staples,KO,2025-06-30,2025-06-22,1296805043
+LIN,Linde plc,Materials,LIN,2025-06-30,2025-06-22,1296805043
+LLY,Eli Lilly and Company,Health Care,LLY,2025-06-30,2025-06-22,1296805043
+LMT,Lockheed Martin,Industrials,LMT,2025-06-30,2025-06-22,1296805043
+LOW,Lowe's,Consumer Discretionary,LOW,2025-06-30,2025-06-22,1296805043
+MA,Mastercard,Financials,MA,2025-06-30,2025-06-22,1296805043
+MCD,McDonald's,Consumer Discretionary,MCD,2025-06-30,2025-06-22,1296805043
+MDLZ,Mondelēz International,Consumer Staples,MDLZ,2025-06-30,2025-06-22,1296805043
+MDT,Medtronic,Health Care,MDT,2025-06-30,2025-06-22,1296805043
+MET,MetLife,Financials,MET,2025-06-30,2025-06-22,1296805043
+META,Meta Platforms,Communication Services,META,2025-06-30,2025-06-22,1296805043
+MMM,3M,Industrials,MMM,2025-06-30,2025-06-22,1296805043
+MO,Altria,Consumer Staples,MO,2025-06-30,2025-06-22,1296805043
+MRK,Merck & Co.,Health Care,MRK,2025-06-30,2025-06-22,1296805043
+MS,Morgan Stanley,Financials,MS,2025-06-30,2025-06-22,1296805043
+MSFT,Microsoft,Information Technology,MSFT,2025-06-30,2025-06-22,1296805043
+NEE,NextEra Energy,Utilities,NEE,2025-06-30,2025-06-22,1296805043
+NFLX,"Netflix, Inc.",Communication Services,NFLX,2025-06-30,2025-06-22,1296805043
+NKE,"Nike, Inc.",Consumer Discretionary,NKE,2025-06-30,2025-06-22,1296805043
+NOW,ServiceNow,Information Technology,NOW,2025-06-30,2025-06-22,1296805043
+NVDA,Nvidia,Information Technology,NVDA,2025-06-30,2025-06-22,1296805043
+ORCL,Oracle Corporation,Information Technology,ORCL,2025-06-30,2025-06-22,1296805043
+PEP,PepsiCo,Consumer Staples,PEP,2025-06-30,2025-06-22,1296805043
+PFE,Pfizer,Health Care,PFE,2025-06-30,2025-06-22,1296805043
+PG,Procter & Gamble,Consumer Staples,PG,2025-06-30,2025-06-22,1296805043
+PLTR,Palantir Technologies,Information Technology,PLTR,2025-06-30,2025-06-22,1296805043
+PM,Philip Morris International,Consumer Staples,PM,2025-06-30,2025-06-22,1296805043
+PYPL,PayPal,Financials,PYPL,2025-06-30,2025-06-22,1296805043
+QCOM,Qualcomm,Information Technology,QCOM,2025-06-30,2025-06-22,1296805043
+RTX,RTX Corporation,Industrials,RTX,2025-06-30,2025-06-22,1296805043
+SBUX,Starbucks,Consumer Discretionary,SBUX,2025-06-30,2025-06-22,1296805043
+SCHW,Charles Schwab Corporation,Financials,SCHW,2025-06-30,2025-06-22,1296805043
+SO,Southern Company,Utilities,SO,2025-06-30,2025-06-22,1296805043
+SPG,Simon Property Group,Real Estate,SPG,2025-06-30,2025-06-22,1296805043
+T,AT&T,Communication Services,T,2025-06-30,2025-06-22,1296805043
+TGT,Target Corporation,Consumer Discretionary,TGT,2025-06-30,2025-06-22,1296805043
+TMO,Thermo Fisher Scientific,Health Care,TMO,2025-06-30,2025-06-22,1296805043
+TMUS,T-Mobile US,Communication Services,TMUS,2025-06-30,2025-06-22,1296805043
+TSLA,"Tesla, Inc.",Consumer Discretionary,TSLA,2025-06-30,2025-06-22,1296805043
+TXN,Texas Instruments,Information Technology,TXN,2025-06-30,2025-06-22,1296805043
+UNH,UnitedHealth Group,Health Care,UNH,2025-06-30,2025-06-22,1296805043
+UNP,Union Pacific Corporation,Industrials,UNP,2025-06-30,2025-06-22,1296805043
+UPS,United Parcel Service,Industrials,UPS,2025-06-30,2025-06-22,1296805043
+USB,U.S. Bancorp,Financials,USB,2025-06-30,2025-06-22,1296805043
+V,Visa Inc.,Financials,V,2025-06-30,2025-06-22,1296805043
+VZ,Verizon,Communication Services,VZ,2025-06-30,2025-06-22,1296805043
+WFC,Wells Fargo,Financials,WFC,2025-06-30,2025-06-22,1296805043
+WMT,Walmart,Consumer Staples,WMT,2025-06-30,2025-06-22,1296805043
+XOM,ExxonMobil,Energy,XOM,2025-06-30,2025-06-22,1296805043

@@ -1,0 +1,33 @@
+{
+  "SignalDate": "2026-03-31",
+  "Regime": "Inflation Tilt",
+  "Top3Leaders3M": [
+    {
+      "Ticker": "PDBC",
+      "R3M": 0.3071697882886202
+    },
+    {
+      "Ticker": "GLD",
+      "R3M": 0.08574098860906032
+    },
+    {
+      "Ticker": "EEM",
+      "R3M": 0.038018677862581285
+    }
+  ],
+  "Top3Laggards3M": [
+    {
+      "Ticker": "SPY",
+      "R3M": -0.04370584558740376
+    },
+    {
+      "Ticker": "LQD",
+      "R3M": -0.00381073363291895
+    },
+    {
+      "Ticker": "HYG",
+      "R3M": -0.003529306029893653
+    }
+  ],
+  "RiskVsDefenseSpread3M": 0.0028820081215376048
+}

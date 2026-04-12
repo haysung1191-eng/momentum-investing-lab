@@ -1,0 +1,3 @@
+RunId,RunStartedAt,Strategy,AsOfDate,Severity,Category,Metric,Value,Threshold,Message
+20260326T014328Z_kis_pipeline,2026-03-26T01:43:28.496380+00:00,ScoreN70_P1.0_ROE0.6,2026-03-24,INFO,HEALTH,DailyCheckStatus,REVIEW,GO,daily shadow monitoring row
+20260326T014328Z_kis_pipeline,2026-03-26T01:43:28.496380+00:00,ScoreN70_P1.0_ROE0.6,2026-03-24,WARNING,TURNOVER,TurnoverEstimate,0.999999999999998,<0.50,turnover is materially large

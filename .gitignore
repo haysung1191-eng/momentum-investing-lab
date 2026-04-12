@@ -1,0 +1,14 @@
+.env
+.token_cache.json
+.venv/
+.pytest_cache/
+__pycache__/
+.playwright-cli/
+.gcp-build/
+
+*.pyc
+*.pyo
+*.pyd
+
+tmp_*/
+

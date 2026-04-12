@@ -1,0 +1,45 @@
+﻿Symbol,Market,Name,Sector,Source
+069500,ETF,069500,ETF,manual_needed
+379800,ETF,379800,ETF,manual_needed
+360750,ETF,360750,ETF,manual_needed
+0000J0,ETF,0000J0,ETF,manual_needed
+0000Z0,ETF,0000Z0,ETF,manual_needed
+0000D0,ETF,0000D0,ETF,manual_needed
+006400,STOCK,삼성SDI,Materials,manual_override
+402340,STOCK,SK스퀘어,Financials,manual_override
+319400,STOCK,현대무벡스,Industrials,manual_override
+080220,STOCK,제주반도체,Information Technology,manual_override
+024060,STOCK,흥구석유,Energy,manual_override
+038500,STOCK,삼표시멘트,Materials,manual_override
+058610,STOCK,에스피지,Industrials,manual_override
+240810,STOCK,원익IPS,Information Technology,manual_override
+056080,STOCK,유진로봇,Industrials,manual_override
+003230,STOCK,삼양식품,Consumer Staples,manual_override
+049630,STOCK,재영솔루텍,Information Technology,manual_override
+099320,STOCK,쎄트렉아이,Industrials,manual_override
+084670,STOCK,동양고속,Industrials,manual_override
+095610,STOCK,테스,Information Technology,manual_override
+007810,STOCK,코리아써키트,Information Technology,manual_override
+348370,STOCK,엔켐,Materials,manual_override
+008350,STOCK,남선알미늄,Materials,manual_override
+174900,STOCK,앱클론,Health Care,manual_override
+145020,STOCK,휴젤,Health Care,manual_override
+214370,STOCK,케어젠,Health Care,manual_override
+000650,STOCK,천일고속,Industrials,manual_override
+361390,STOCK,제노코,Industrials,manual_override
+327260,STOCK,RF머트리얼즈,Information Technology,manual_override
+083450,STOCK,GST,Information Technology,manual_override
+001200,STOCK,유진투자증권,Financials,manual_override
+041920,STOCK,메디아나,Health Care,manual_override
+003620,STOCK,KG모빌리티,Consumer Discretionary,manual_override
+123690,STOCK,한국화장품,Consumer Staples,manual_override
+138360,STOCK,앤로보틱스,Industrials,manual_override
+217500,STOCK,러셀,Industrials,manual_override
+000490,STOCK,대동,Industrials,manual_override
+036170,STOCK,에이치엠넥스,Information Technology,manual_override
+290740,STOCK,액트로,Information Technology,manual_override
+290690,STOCK,소룩스,Information Technology,manual_override
+272110,STOCK,케이엔제이,Information Technology,manual_override
+000050,STOCK,경방,Consumer Discretionary,manual_override
+053610,STOCK,프로텍,Information Technology,manual_override
+042940,STOCK,상지건설,Real Estate,manual_override

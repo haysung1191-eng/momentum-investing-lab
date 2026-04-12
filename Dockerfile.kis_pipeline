@@ -1,0 +1,38 @@
+FROM python:3.11
+
+WORKDIR /app
+ENV PYTHONUNBUFFERED=1
+
+RUN apt-get update && apt-get install -y --no-install-recommends \
+    build-essential \
+    libxml2-dev \
+    libxslt1-dev \
+    && rm -rf /var/lib/apt/lists/*
+
+COPY requirements.txt .
+RUN pip install --no-cache-dir -r requirements.txt
+
+COPY config.py .
+COPY kis_api.py .
+COPY screener.py .
+COPY run_research_pipeline.py .
+COPY app ./app
+COPY kis_data_backfill.py .
+COPY kis_data_coverage.py .
+COPY kis_backtest_from_prices.py .
+COPY kis_param_grid.py .
+COPY kis_walkforward.py .
+COPY kis_cost_sensitivity.py .
+COPY kis_research_summary.py .
+COPY kis_live_readiness.py .
+COPY kis_shadow_common.py .
+COPY kis_shadow_portfolio.py .
+COPY kis_shadow_rebalance_diff.py .
+COPY kis_shadow_performance.py .
+COPY kis_shadow_health.py .
+COPY kis_shadow_ops_summary.py .
+COPY kis_shadow_exceptions.py .
+
+# Rollback command:
+# CMD ["sh", "-c", "python kis_data_backfill.py --mode ${MODE:-both} --years ${YEARS:-5} --incremental-days ${INCREMENTAL_DAYS:-35} --max-items ${MAX_ITEMS:-500} --out-base ${OUT_BASE:-gs://model-osprey-487403-h2-momentum-data/prices} --sleep-sec ${SLEEP_SEC:-0.05} --historical-stock-universe ${HIST_STOCK_UNIVERSE:-1} && python kis_backtest_from_prices.py --base ${OUT_BASE:-gs://model-osprey-487403-h2-momentum-data/prices} --top-n ${TOP_N:-20} --fee-bps ${FEE_BPS:-8} --min-common-dates ${MIN_COMMON_DATES:-180} --save-prefix ${SAVE_PREFIX:-kis_bt_auto} --regime-filter ${REGIME_FILTER:-1} --stop-loss-pct ${STOP_LOSS_PCT:-0.12} --trend-exit-ma ${TREND_EXIT_MA:-60} --regime-ma-window ${REGIME_MA_WINDOW:-200} --regime-slope-window ${REGIME_SLOPE_WINDOW:-20} --regime-breadth-threshold ${REGIME_BREADTH_THRESHOLD:-0.55} --vol-lookback ${VOL_LOOKBACK:-20} --target-vol-annual ${TARGET_VOL_ANNUAL:-0.20} --max-weight ${MAX_WEIGHT:-0.20} --min-gross-exposure ${MIN_GROSS_EXPOSURE:-0.50}"]
+CMD ["sh", "-c", "OUTPUT_BASE=\"${OUTPUT_BASE:-${SAVE_PREFIX%/kis_bt_auto}}\"; python run_research_pipeline.py --base ${OUT_BASE:-gs://model-osprey-487403-h2-momentum-data/prices} --output-base ${OUTPUT_BASE:-gs://model-osprey-487403-h2-momentum-data/backtests} --workers ${WORKERS:-4} --min-common-dates ${MIN_COMMON_DATES:-180} --train-years ${TRAIN_YEARS:-8} --test-years ${TEST_YEARS:-2} --step-years ${STEP_YEARS:-1} --min-oos-windows ${MIN_OOS_WINDOWS:-3} --roundtrip-costs ${ROUNDTRIP_COSTS:-0.20,0.35,0.50,0.60,0.80,1.00} --backfill-mode ${MODE:-both} --backfill-years ${YEARS:-5} --incremental-days ${INCREMENTAL_DAYS:-35} --max-items ${MAX_ITEMS:-500} --sleep-sec ${SLEEP_SEC:-0.05} --historical-stock-universe ${HIST_STOCK_UNIVERSE:-1} --top-n ${TOP_N:-20} --fee-bps ${FEE_BPS:-8} --regime-filter ${REGIME_FILTER:-1} --stop-loss-pct ${STOP_LOSS_PCT:-0.12} --trend-exit-ma ${TREND_EXIT_MA:-60} --regime-ma-window ${REGIME_MA_WINDOW:-200} --regime-slope-window ${REGIME_SLOPE_WINDOW:-20} --regime-breadth-threshold ${REGIME_BREADTH_THRESHOLD:-0.55} --vol-lookback ${VOL_LOOKBACK:-20} --target-vol-annual ${TARGET_VOL_ANNUAL:-0.20} --max-weight ${MAX_WEIGHT:-0.20} --min-gross-exposure ${MIN_GROSS_EXPOSURE:-0.50} --score-top-k ${SCORE_TOP_K:-50} --score-power ${SCORE_POWER:-1.5} --regime-off-exposure ${REGIME_OFF_EXPOSURE:-0.40} --allow-intraperiod-reentry ${ALLOW_INTRAPERIOD_REENTRY:-1} --reentry-cooldown-days ${REENTRY_COOLDOWN_DAYS:-0}"]

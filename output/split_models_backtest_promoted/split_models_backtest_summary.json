@@ -1,0 +1,17 @@
+{
+  "baseline_variant": "no_sector_filter",
+  "trading_book": {
+    "CAGR": 0.2703609056248073,
+    "MDD": -0.30254961018751503,
+    "Sharpe": 0.9532523298847234,
+    "FinalNAV": 4.20165561336919,
+    "AnnualTurnover": 17.19970505593441,
+    "Months": 61.0
+  },
+  "benchmarks": 4,
+  "walkforward_rows": 4,
+  "ablation_rows": 4,
+  "refinement_rows": 6,
+  "tenbagger_grade_rows": 6,
+  "occurrences": 2452
+}

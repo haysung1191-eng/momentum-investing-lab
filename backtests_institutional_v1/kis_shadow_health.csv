@@ -1,0 +1,2 @@
+RunId,RunStartedAt,Strategy,AsOfDate,SourceFresh,RecommendedStrategyMatch,MissingPriceCount,WeightSum,TurnoverEstimate,MaterialChange,HealthStatus,Recommendation
+20260326T014328Z_kis_pipeline,2026-03-26T01:43:28.496380+00:00,ScoreN70_P1.0_ROE0.6,2026-03-24,1,1,0,0.9999999999999984,0.999999999999998,1,OK,READY_FOR_DAILY_SHADOW_CHECK

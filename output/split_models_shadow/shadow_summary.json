@@ -1,0 +1,15 @@
+{
+  "baseline_variant": "equal_weight_no_mad_min4",
+  "recent_months": 12,
+  "recent_start": "2025-01-31",
+  "recent_end": "2026-02-27",
+  "recent_cagr_proxy": 0.9241962927724006,
+  "recent_avg_turnover": 1.0251322751322751,
+  "recent_loss_months": 5,
+  "current_holdings": 9,
+  "current_top1_weight": 0.1111111111111111,
+  "current_top3_weight": 0.3333333333333333,
+  "health_pass_count": 5,
+  "health_total_checks": 5,
+  "health_verdict": "PASS"
+}

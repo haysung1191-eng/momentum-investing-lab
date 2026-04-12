@@ -1,0 +1,8 @@
+{
+  "risk_basket": ["SPY", "EFA", "EEM", "HYG", "VNQ"],
+  "defense_basket": ["IEF", "TLT"],
+  "duration_strength": ["IEF", "TLT"],
+  "real_assets_strength": ["GLD", "PDBC", "VNQ"],
+  "financial_assets_strength": ["SPY", "IEF", "TLT", "LQD", "HYG"],
+  "equity_region_rotation": ["SPY", "EFA", "EEM"]
+}

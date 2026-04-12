@@ -1,0 +1,19 @@
+{
+  "baseline_variant": "equal_weight_no_mad_min4",
+  "trading_book": {
+    "CAGR": 0.33670920492365486,
+    "MDD": -0.32086999837374874,
+    "Sharpe": 1.3055909048150462,
+    "FinalNAV": 5.7022873325405925,
+    "AnnualTurnover": 15.85480093676815,
+    "Months": 61.0
+  },
+  "benchmarks": 4,
+  "walkforward_rows": 4,
+  "weak_period_start": "2021-04-30",
+  "weak_period_end": "2023-08-31",
+  "ablation_rows": 8,
+  "refinement_rows": 7,
+  "tenbagger_grade_rows": 6,
+  "occurrences": 2452
+}

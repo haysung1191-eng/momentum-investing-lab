@@ -1,0 +1,2 @@
+﻿run_id,symbol,interval,candidate_id,candidate_included,sharpe,cagr,trades,win_rate,max_drawdown,total_return,pass_fail,failure_reason
+20260403T071738Z_single_asset,KRW-BTC,1h,krw_btc_1h_bb20_rsi14_mr_v1,1,-1.5608272890442576,-0.297659965901681,42,0.40476190476190477,-0.2417765175510902,-0.2150447504273334,FAIL,Sharpe <= 0 on first research run; kill rule triggered

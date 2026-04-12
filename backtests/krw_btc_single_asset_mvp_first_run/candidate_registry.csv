@@ -1,0 +1,2 @@
+﻿candidate_id,symbol,interval,strategy_module,candidate_alpha,included
+krw_btc_1h_bb20_rsi14_mr_v1,KRW-BTC,1h,app.single_asset.strategies.krw_btc_bb_rsi_mean_reversion,Hourly oversold snapback after volatility expansion in KRW-BTC.,True

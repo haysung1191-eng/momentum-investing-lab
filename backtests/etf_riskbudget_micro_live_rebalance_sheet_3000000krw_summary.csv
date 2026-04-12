@@ -1,0 +1,2 @@
+TradeDate,AsOfDate,Strategy,OrderMode,PlannedCapitalKRW,PlannedBuyKRW,PlannedSellKRW,TradeCount
+2026-03-30,2026-03-27,Weekly ETF RiskBudget,REBALANCE,3000000.0,0.0,0.0,0

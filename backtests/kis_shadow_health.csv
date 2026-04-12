@@ -1,0 +1,2 @@
+﻿RunId,RunStartedAt,Strategy,AsOfDate,SourceFresh,ReadinessFresh,ReadinessRunId,ReadinessOperationalStatus,RecommendedStrategyMatch,MissingPriceCount,WeightSum,TurnoverEstimate,MaterialChange,HealthStatus,Recommendation
+20260328T120000Z_named_flow,2026-03-28T12:00:00+00:00,Weekly ETF RiskBudget,2026-04-03,1,1,20260328T120000Z_named_flow,fresh,1,0,0.9999999999999998,0.021560219050976,0,OK,READY_FOR_DAILY_SHADOW_CHECK

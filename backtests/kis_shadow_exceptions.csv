@@ -1,0 +1,2 @@
+RunId,RunStartedAt,Strategy,AsOfDate,Severity,Category,Metric,Value,Threshold,Message
+20260325T234856Z_kis_pipeline,2026-03-25T23:48:56.518959+00:00,Weekly Score50 Rotation,2026-03-26,INFO,HEALTH,DailyCheckStatus,REVIEW,GO,daily shadow monitoring row

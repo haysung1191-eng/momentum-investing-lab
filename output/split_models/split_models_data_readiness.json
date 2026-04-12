@@ -1,0 +1,36 @@
+[
+  {
+    "Scope":"KR_STOCK",
+    "ExpectedCount":38,
+    "PriceRoot":"D:\\AI\\모멘텀 투자\\data\\prices_operating_institutional_v1\\stock",
+    "PriceFilesPresent":38,
+    "PriceMissingCount":0,
+    "PriceStaleOver7DCount":0,
+    "PriceLatestMinDate":"2026-04-10",
+    "PriceLatestMaxDate":"2026-04-10",
+    "FlowRoot":"D:\\AI\\모멘텀 투자\\data\\flows_operating_institutional_v1\\stock",
+    "FlowFilesPresent":38,
+    "FlowMissingCount":0,
+    "FlowStaleOver7DCount":0,
+    "FlowLatestMinDate":"2026-04-10",
+    "FlowLatestMaxDate":"2026-04-10",
+    "ExpectedBusinessDate":"2026-04-10"
+  },
+  {
+    "Scope":"KR_ETF",
+    "ExpectedCount":6,
+    "PriceRoot":"D:\\AI\\모멘텀 투자\\data\\prices_operating_institutional_v1\\etf",
+    "PriceFilesPresent":6,
+    "PriceMissingCount":0,
+    "PriceStaleOver7DCount":0,
+    "PriceLatestMinDate":"2026-04-10",
+    "PriceLatestMaxDate":"2026-04-10",
+    "FlowRoot":"",
+    "FlowFilesPresent":0,
+    "FlowMissingCount":0,
+    "FlowStaleOver7DCount":0,
+    "FlowLatestMinDate":"",
+    "FlowLatestMaxDate":"",
+    "ExpectedBusinessDate":"2026-04-10"
+  }
+]

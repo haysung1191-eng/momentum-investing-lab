@@ -1,0 +1,14 @@
+﻿GCS_BUCKET_NAME: model-osprey-487403-h2-momentum-data
+MODE: both
+YEARS: "5"
+INCREMENTAL_DAYS: "35"
+MAX_ITEMS: "60"
+OUT_BASE: gs://model-osprey-487403-h2-momentum-data/prices
+SLEEP_SEC: "0.05"
+TOP_N: "20"
+FEE_BPS: "8"
+MIN_COMMON_DATES: "120"
+SAVE_PREFIX: gs://model-osprey-487403-h2-momentum-data/backtests/kis_bt_auto
+KIS_ENV: PROD
+KIS_APP_KEY: PShCK0MIbyHTCCpzoX6kBPJGStjI2nb1RrxL
+KIS_APP_SECRET: RfF8n/EawqfKIZOoDObse2W0xEJjLZDsY13yzjpwH65qq+Eb3jT9uvsJ87vz5lAI1bf8MUbztKfitcWSZrQyXzbCT7MSrrgzwdJqlK7cukuPEF37SAfilj2MrGxCvfV1d20O7pjY1XNF1K2hD43FCx03etyXYm9s5U/XvT0AWW5TBkkq3Hc=

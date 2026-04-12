@@ -1,0 +1,37 @@
+event_id,ticker,name,link_type,rationale
+EVT001,007810,코리아써키트,direct_beneficiary,Semiconductor PCB and substrate exposure linked to semiconductor investment cycle
+EVT001,053610,프로텍,direct_beneficiary,Semiconductor packaging and equipment exposure
+EVT001,080220,제주반도체,direct_beneficiary,Memory-related semiconductor exposure
+EVT001,083450,GST,direct_beneficiary,Semiconductor equipment utility and process support exposure
+EVT001,095610,테스,direct_beneficiary,Semiconductor equipment exposure
+EVT001,217500,러셀,indirect_beneficiary,Semiconductor equipment and manufacturing support exposure
+EVT001,240810,원익IPS,direct_beneficiary,Core semiconductor equipment exposure
+EVT001,272110,케이엔제이,indirect_beneficiary,Semiconductor process component exposure
+EVT002,007810,코리아써키트,direct_beneficiary,Semiconductor PCB and substrate exposure linked to AI supply chain repricing
+EVT002,053610,프로텍,direct_beneficiary,Semiconductor packaging and equipment exposure
+EVT002,080220,제주반도체,direct_beneficiary,Memory-related semiconductor exposure
+EVT002,083450,GST,direct_beneficiary,Semiconductor equipment utility and process support exposure
+EVT002,095610,테스,direct_beneficiary,Semiconductor equipment exposure
+EVT002,217500,러셀,indirect_beneficiary,Semiconductor equipment and manufacturing support exposure
+EVT002,240810,원익IPS,direct_beneficiary,Core semiconductor equipment exposure
+EVT002,272110,케이엔제이,indirect_beneficiary,Semiconductor process component exposure
+EVT003,006400,삼성SDI,direct_beneficiary,KR battery-cell exposure linked to EV subsidy-driven demand repricing
+EVT003,348370,엔켐,direct_beneficiary,Battery electrolyte materials exposure linked to EV supply-chain demand
+EVT003,003620,KG모빌리티,indirect_beneficiary,Domestic EV assembly exposure linked to improved EV demand expectations
+EVT003,008350,남선알미늄,indirect_beneficiary,Auto lightweight materials exposure linked to EV supply-chain demand
+EVT004,006400,삼성SDI,direct_beneficiary,KR battery-cell exposure linked to tariff-driven non-China supply-chain repricing
+EVT004,348370,엔켐,direct_beneficiary,Battery electrolyte materials exposure linked to non-China battery sourcing demand
+EVT004,003620,KG모빌리티,indirect_beneficiary,Domestic EV assembly exposure linked to supply-chain reallocation expectations
+EVT004,008350,남선알미늄,indirect_beneficiary,Auto lightweight materials exposure linked to EV supply-chain reallocation
+EVT005,024060,흥구석유,direct_beneficiary,Domestic oil-linked exposure directly tied to oil-price shock transmission
+EVT005,008350,남선알미늄,indirect_beneficiary,Industrial metal pricing exposure linked to commodity inflation transmission
+EVT005,038500,삼표시멘트,indirect_beneficiary,Domestic materials pricing exposure linked to inflation-sensitive construction inputs
+EVT006,024060,흥구석유,direct_beneficiary,Domestic oil-linked exposure directly tied to oil-price shock transmission
+EVT006,008350,남선알미늄,indirect_beneficiary,Industrial metal pricing exposure linked to commodity inflation transmission
+EVT006,038500,삼표시멘트,indirect_beneficiary,Domestic materials pricing exposure linked to inflation-sensitive construction inputs
+EVT007,123690,한국화장품,direct_beneficiary,China reopening can directly improve Korea beauty-product demand expectations
+EVT007,145020,휴젤,indirect_beneficiary,China demand normalization can improve Korea aesthetics and medical-beauty demand expectations
+EVT007,003230,삼양식품,indirect_beneficiary,China reopening can improve Korea branded consumer export demand expectations
+EVT008,123690,한국화장품,direct_beneficiary,China outbound travel recovery can directly improve Korea cosmetics demand expectations
+EVT008,145020,휴젤,indirect_beneficiary,China travel normalization can improve Korea aesthetics and medical-beauty demand expectations
+EVT008,003230,삼양식품,indirect_beneficiary,China travel and demand normalization can improve Korea branded consumer demand expectations

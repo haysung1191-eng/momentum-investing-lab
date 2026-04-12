@@ -1,0 +1,17 @@
+{
+  "AsOfDate": "2026-03-31",
+  "ObserverRegime": "Inflation Tilt",
+  "AggressiveAllowed": 1,
+  "MomentumEntryCount": 12,
+  "TenbaggerWatchCount": 91,
+  "TradingBookCount": 6,
+  "TenbaggerBookCount": 8,
+  "TopTradingBookSymbols": "007810,319400,240810,327260,138360",
+  "TopTenbaggerSymbols": "319400,007810,402340,240810,038500",
+  "KRSourceLabel": "KIS_OPERATING_INSTITUTIONAL_V1+OPERATING_FLOW_CACHE",
+  "KRUniversePath": "D:\\AI\\\ubaa8\uba58\ud140 \ud22c\uc790\\backtests\\kis_operating_universe_candidates_institutional_v1.csv",
+  "KRPriceRoot": "D:\\AI\\\ubaa8\uba58\ud140 \ud22c\uc790\\data\\prices_operating_institutional_v1",
+  "KRFlowRoot": "D:\\AI\\\ubaa8\uba58\ud140 \ud22c\uc790\\data\\flows_operating_institutional_v1",
+  "KRStockPriceMissingCount": 0,
+  "KRStockFlowMissingCount": 0
+}

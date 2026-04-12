@@ -1,0 +1,13 @@
+﻿Ticker,Name,Sleeve,Status,Bars,FirstDate,LastDate,LatestMonthEnd,BatchStatus,StopReason
+SPY,SPDR S&P 500 ETF Trust,risk,OK,2829,2015-01-02,2026-04-02,2026-03-31,GO,
+QQQ,Invesco QQQ Trust,risk,OK,2829,2015-01-02,2026-04-02,2026-03-31,GO,
+IWM,iShares Russell 2000 ETF,risk,OK,2829,2015-01-02,2026-04-02,2026-03-31,GO,
+EFA,iShares MSCI EAFE ETF,risk,OK,2829,2015-01-02,2026-04-02,2026-03-31,GO,
+EEM,iShares MSCI Emerging Markets ETF,risk,OK,2829,2015-01-02,2026-04-02,2026-03-31,GO,
+VNQ,Vanguard Real Estate ETF,risk,OK,2829,2015-01-02,2026-04-02,2026-03-31,GO,
+GLD,SPDR Gold Shares,risk,OK,2829,2015-01-02,2026-04-02,2026-03-31,GO,
+PDBC,Invesco Optimum Yield Diversified Commodity Strategy No K-1 ETF,risk,OK,2829,2015-01-02,2026-04-02,2026-03-31,GO,
+HYG,iShares iBoxx $ High Yield Corporate Bond ETF,risk,OK,2829,2015-01-02,2026-04-02,2026-03-31,GO,
+IEF,iShares 7-10 Year Treasury Bond ETF,defensive,OK,2829,2015-01-02,2026-04-02,2026-03-31,GO,
+TLT,iShares 20+ Year Treasury Bond ETF,defensive,OK,2829,2015-01-02,2026-04-02,2026-03-31,GO,
+BIL,SPDR Bloomberg 1-3 Month T-Bill ETF,defensive,OK,2829,2015-01-02,2026-04-02,2026-03-31,GO,

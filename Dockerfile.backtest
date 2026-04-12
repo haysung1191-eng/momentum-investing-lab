@@ -1,0 +1,19 @@
+FROM python:3.11
+
+WORKDIR /app
+ENV PYTHONUNBUFFERED=1
+
+RUN apt-get update && apt-get install -y --no-install-recommends \
+    build-essential \
+    libxml2-dev \
+    libxslt1-dev \
+    && rm -rf /var/lib/apt/lists/*
+
+COPY requirements.txt .
+RUN pip install --no-cache-dir -r requirements.txt
+
+COPY backtest_from_snapshots.py .
+COPY config.py .
+
+CMD ["sh", "-c", "python backtest_from_snapshots.py --bucket ${GCS_BUCKET_NAME} --top-n ${TOP_N:-20} --fee-bps ${FEE_BPS:-8} --save-prefix ${SAVE_PREFIX:-snapshot_backtest} --min-common-days ${MIN_COMMON_DAYS:-20}"]
+

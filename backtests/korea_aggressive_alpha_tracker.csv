@@ -1,0 +1,8 @@
+﻿Priority,Candidate,Track,TargetNetCAGR_0p5pct,MaxWorstMDD,Status,Notes
+1.0,ScoreN30_P2.0_ROE0.4,aggressive_paper,0.12,-0.2,FAIL,"First aggressive retest candidate; best balance of aggression and survivability. | baseline=0.1041, net05=0.0719, worstMDD=-0.1799"
+2.0,ScoreN30_P2.0_ROE0.6,aggressive_paper,0.14,-0.25,FAIL,"Higher upside, higher turnover, likely more fragile. | baseline=0.1066, net05=0.0690, worstMDD=-0.1780"
+3.0,Weekly ForeignFlow v2,research_only,0.12,-0.2,FAIL,"baseline=0.1036, net05=0.0890, strictOOS_median=-0.0168, worstMDD=-0.2661"
+,Weekly QualityProfitability MVP,quality,,,FAIL,"baseline=0.0988, net05=0.0875, strictWF_median=-0.1590, strictWF_worstMDD=-0.2791, coverage=2022-03-31~2026-03-31"
+,Weekly Hybrid QP50 RS50,quality_hybrid,,,FAIL,"sameCoverageFullSample looked good but strictWF_median=-0.0643, strictWF_worstMDD=-0.1465"
+,Weekly ForeignFlow v3,research_only_v3,,,FAIL,"baseline=0.1045, net05=0.0897, strictOOS_median=-0.0168, worstMDD=-0.2661, no material gain vs v2"
+,Weekly Hybrid FV350 RS50,flow_hybrid_v3,,,REVIEW,"net05=0.0858, strictOOS_median=0.0096, worstMDD=-0.1387, still below RegimeState OOS quality"

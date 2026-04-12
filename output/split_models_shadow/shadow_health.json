@@ -1,0 +1,42 @@
+[
+  {
+    "Check":"Current holdings >= 4",
+    "Metric":"current_holdings",
+    "Value":9.0,
+    "Threshold":4.0,
+    "Comparator":">=",
+    "Passed":1
+  },
+  {
+    "Check":"Current top1 weight <= 0.25",
+    "Metric":"current_top1_weight",
+    "Value":0.1111111111,
+    "Threshold":0.25,
+    "Comparator":"<=",
+    "Passed":1
+  },
+  {
+    "Check":"Current top3 weight <= 0.60",
+    "Metric":"current_top3_weight",
+    "Value":0.3333333333,
+    "Threshold":0.6,
+    "Comparator":"<=",
+    "Passed":1
+  },
+  {
+    "Check":"Recent avg turnover <= 1.50",
+    "Metric":"recent_avg_turnover",
+    "Value":1.0251322751,
+    "Threshold":1.5,
+    "Comparator":"<=",
+    "Passed":1
+  },
+  {
+    "Check":"Recent CAGR proxy > 0",
+    "Metric":"recent_cagr_proxy",
+    "Value":0.9241962928,
+    "Threshold":0.0,
+    "Comparator":">",
+    "Passed":1
+  }
+]

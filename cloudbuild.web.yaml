@@ -1,0 +1,5 @@
+﻿steps:
+- name: gcr.io/cloud-builders/docker
+  args: ['build','-f','Dockerfile.web','-t','asia-northeast3-docker.pkg.dev/model-osprey-487403-h2/cloud-run-source-deploy/momentum-dashboard:20260303-223502','.']
+images:
+- 'asia-northeast3-docker.pkg.dev/model-osprey-487403-h2/cloud-run-source-deploy/momentum-dashboard:20260303-223502'
