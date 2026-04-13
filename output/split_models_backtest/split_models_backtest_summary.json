@@ -1,11 +1,11 @@
 {
-  "baseline_variant": "equal_weight_no_mad_min4",
+  "baseline_variant": "rule_breadth_it_risk_off",
   "trading_book": {
-    "CAGR": 0.33670920492365486,
-    "MDD": -0.32086999837374874,
-    "Sharpe": 1.3055909048150462,
-    "FinalNAV": 5.7022873325405925,
-    "AnnualTurnover": 15.85480093676815,
+    "CAGR": 0.3034937954946697,
+    "MDD": -0.26359044126735387,
+    "Sharpe": 1.4054223868682854,
+    "FinalNAV": 4.903387710833091,
+    "AnnualTurnover": 13.879391100702575,
     "Months": 61.0
   },
   "benchmarks": 4,
@@ -13,7 +13,7 @@
   "weak_period_start": "2021-04-30",
   "weak_period_end": "2023-08-31",
   "ablation_rows": 8,
-  "refinement_rows": 7,
+  "refinement_rows": 14,
   "tenbagger_grade_rows": 6,
   "occurrences": 2452
 }

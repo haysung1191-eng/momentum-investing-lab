@@ -4,3 +4,23 @@ Current top1 weight <= 0.25,current_top1_weight,0.1111111111111111,0.25,<=,1,equ
 Current top3 weight <= 0.60,current_top3_weight,0.3333333333333333,0.6,<=,1,equal_weight_no_mad_min4,2025-01-31,2026-02-27,2026-04-12 20:22:29
 Recent avg turnover <= 1.50,recent_avg_turnover,1.0251322751322751,1.5,<=,1,equal_weight_no_mad_min4,2025-01-31,2026-02-27,2026-04-12 20:22:29
 Recent CAGR proxy > 0,recent_cagr_proxy,0.9241962927724006,0.0,>,1,equal_weight_no_mad_min4,2025-01-31,2026-02-27,2026-04-12 20:22:29
+Current holdings >= 4,current_holdings,9.0,4.0,>=,1,rule_breadth_risk_off,2025-01-31,2026-02-27,2026-04-13 11:23:35
+Current top1 weight <= 0.25,current_top1_weight,0.1111111111111111,0.25,<=,1,rule_breadth_risk_off,2025-01-31,2026-02-27,2026-04-13 11:23:35
+Current top3 weight <= 0.60,current_top3_weight,0.3333333333333333,0.6,<=,1,rule_breadth_risk_off,2025-01-31,2026-02-27,2026-04-13 11:23:35
+Recent avg turnover <= 1.50,recent_avg_turnover,0.9834656084656084,1.5,<=,1,rule_breadth_risk_off,2025-01-31,2026-02-27,2026-04-13 11:23:35
+Recent CAGR proxy > 0,recent_cagr_proxy,0.9307446264162458,0.0,>,1,rule_breadth_risk_off,2025-01-31,2026-02-27,2026-04-13 11:23:35
+Current max sector weight <= 0.50,current_max_sector_weight,0.4444444444444444,0.5,<=,1,rule_breadth_risk_off,2025-01-31,2026-02-27,2026-04-13 11:23:35
+Recent min holdings >= 4,recent_min_holdings,4.0,4.0,>=,1,rule_breadth_risk_off,2025-01-31,2026-02-27,2026-04-13 11:23:35
+Recent max top1 weight <= 0.25,recent_max_top1_weight,0.1875,0.25,<=,1,rule_breadth_risk_off,2025-01-31,2026-02-27,2026-04-13 11:23:35
+Recent max top3 weight <= 0.75,recent_max_top3_weight,0.5625,0.75,<=,1,rule_breadth_risk_off,2025-01-31,2026-02-27,2026-04-13 11:23:35
+Recent max sector weight <= 0.70,recent_max_sector_weight,0.6666666666666666,0.7,<=,1,rule_breadth_risk_off,2025-01-31,2026-02-27,2026-04-13 11:23:35
+Current holdings >= 4,current_holdings,9.0,4.0,>=,1,rule_breadth_it_risk_off,2025-01-31,2026-02-27,2026-04-13 14:15:11
+Current top1 weight <= 0.25,current_top1_weight,0.1111111111111111,0.25,<=,1,rule_breadth_it_risk_off,2025-01-31,2026-02-27,2026-04-13 14:15:11
+Current top3 weight <= 0.60,current_top3_weight,0.3333333333333333,0.6,<=,1,rule_breadth_it_risk_off,2025-01-31,2026-02-27,2026-04-13 14:15:11
+Recent avg turnover <= 1.50,recent_avg_turnover,0.9617724867724867,1.5,<=,1,rule_breadth_it_risk_off,2025-01-31,2026-02-27,2026-04-13 14:15:11
+Recent CAGR proxy > 0,recent_cagr_proxy,0.8099418274336649,0.0,>,1,rule_breadth_it_risk_off,2025-01-31,2026-02-27,2026-04-13 14:15:11
+Current max sector weight <= 0.50,current_max_sector_weight,0.4444444444444444,0.5,<=,1,rule_breadth_it_risk_off,2025-01-31,2026-02-27,2026-04-13 14:15:11
+Recent min holdings >= 4,recent_min_holdings,4.0,4.0,>=,1,rule_breadth_it_risk_off,2025-01-31,2026-02-27,2026-04-13 14:15:11
+Recent max top1 weight <= 0.25,recent_max_top1_weight,0.1875,0.25,<=,1,rule_breadth_it_risk_off,2025-01-31,2026-02-27,2026-04-13 14:15:11
+Recent max top3 weight <= 0.75,recent_max_top3_weight,0.5625,0.75,<=,1,rule_breadth_it_risk_off,2025-01-31,2026-02-27,2026-04-13 14:15:11
+Recent max sector weight <= 0.70,recent_max_sector_weight,0.5333333333333333,0.7,<=,1,rule_breadth_it_risk_off,2025-01-31,2026-02-27,2026-04-13 14:15:11

@@ -10,6 +10,7 @@ from split_models.backtest import BacktestConfig, run_backtests
 
 ROOT = Path(__file__).resolve().parent
 OUTPUT_DIR = ROOT / "output" / "split_models_shadow"
+BASELINE_VARIANT = "rule_breadth_it_risk_off"
 
 
 def _recent_slice(df: pd.DataFrame, date_col: str, months: int = 12) -> pd.DataFrame:
@@ -61,12 +62,20 @@ def _health_checks(summary: dict, turnover_monitor: pd.DataFrame) -> pd.DataFram
             "Threshold": 0.0,
             "Comparator": ">",
         },
+        {
+            "Check": "Current max sector weight <= 0.50",
+            "Metric": "current_max_sector_weight",
+            "Value": float(summary["current_max_sector_weight"] or 0.0),
+            "Threshold": 0.50,
+            "Comparator": "<=",
+        },
     ]
 
     if not turnover_monitor.empty and "Holdings" in turnover_monitor.columns:
         min_holdings_recent = float(pd.to_numeric(turnover_monitor["Holdings"], errors="coerce").min())
         max_top1_recent = float(pd.to_numeric(turnover_monitor.get("Top1Weight"), errors="coerce").max())
         max_top3_recent = float(pd.to_numeric(turnover_monitor.get("Top3Weight"), errors="coerce").max())
+        max_sector_recent = float(pd.to_numeric(turnover_monitor.get("MaxSectorWeight"), errors="coerce").max())
         checks.extend(
             [
                 {
@@ -88,6 +97,13 @@ def _health_checks(summary: dict, turnover_monitor: pd.DataFrame) -> pd.DataFram
                     "Metric": "recent_max_top3_weight",
                     "Value": max_top3_recent,
                     "Threshold": 0.75,
+                    "Comparator": "<=",
+                },
+                {
+                    "Check": "Recent max sector weight <= 0.70",
+                    "Metric": "recent_max_sector_weight",
+                    "Value": max_sector_recent,
+                    "Threshold": 0.70,
                     "Comparator": "<=",
                 },
             ]
@@ -122,7 +138,7 @@ def _append_history(path: Path, row_df: pd.DataFrame, key_cols: list[str]) -> No
 
 def main() -> None:
     OUTPUT_DIR.mkdir(parents=True, exist_ok=True)
-    results = run_backtests(output_dir=OUTPUT_DIR, config=BacktestConfig(baseline_variant="equal_weight_no_mad_min4"))
+    results = run_backtests(output_dir=OUTPUT_DIR, config=BacktestConfig(baseline_variant=BASELINE_VARIANT))
 
     nav = results["trading_book_backtest_nav"].copy()
     positions = results["trading_book_backtest_positions"].copy()
@@ -137,7 +153,7 @@ def main() -> None:
         concentration = (
             recent_positions.groupby("SignalDate")
             .agg(
-                Holdings=("Symbol", "count"),
+                PositionCount=("Symbol", "count"),
                 Top1Weight=("TargetWeight", "max"),
                 Top3Weight=("TargetWeight", lambda s: float(pd.Series(s).sort_values(ascending=False).head(3).sum())),
                 AvgMomentumScore=("MomentumScore", "mean"),
@@ -152,12 +168,24 @@ def main() -> None:
         turnover_monitor = turnover_monitor.merge(concentration, on="SignalDate", how="left")
 
     current_book = pd.DataFrame()
+    current_sector = pd.DataFrame()
     if not recent_positions.empty:
         latest_signal = recent_positions["SignalDate"].max()
         current_book = recent_positions[recent_positions["SignalDate"] == latest_signal].copy()
         current_book = current_book.sort_values(["TargetWeight", "MomentumScore"], ascending=[False, False]).reset_index(drop=True)
+        current_sector = (
+            current_book.groupby(["Market", "Sector"], as_index=False)
+            .agg(
+                PositionCount=("Symbol", "count"),
+                WeightSum=("TargetWeight", "sum"),
+                AvgMomentumScore=("MomentumScore", "mean"),
+            )
+            .sort_values(["WeightSum", "AvgMomentumScore"], ascending=[False, False])
+            .reset_index(drop=True)
+        )
 
     monthly_sector = pd.DataFrame()
+    sector_leaders = pd.DataFrame()
     if not recent_positions.empty:
         monthly_sector = (
             recent_positions.groupby(["SignalDate", "Market", "Sector"], as_index=False)
@@ -168,6 +196,61 @@ def main() -> None:
             )
             .sort_values(["SignalDate", "WeightSum"], ascending=[True, False])
         )
+        sector_leaders = (
+            monthly_sector.sort_values(["SignalDate", "WeightSum", "AvgMomentumScore"], ascending=[True, False, False])
+            .groupby("SignalDate", as_index=False)
+            .first()
+            .rename(
+                columns={
+                    "Market": "DominantSectorMarket",
+                    "Sector": "DominantSector",
+                    "PositionCount": "DominantSectorPositionCount",
+                    "WeightSum": "DominantSectorWeight",
+                    "AvgMomentumScore": "DominantSectorAvgMomentumScore",
+                }
+            )
+        )
+        max_sector_by_month = (
+            monthly_sector.groupby("SignalDate", as_index=False)
+            .agg(MaxSectorWeight=("WeightSum", "max"))
+        )
+        turnover_monitor = turnover_monitor.merge(max_sector_by_month, on="SignalDate", how="left")
+
+    loss_months = pd.DataFrame()
+    if not turnover_monitor.empty:
+        loss_months = turnover_monitor[turnover_monitor["LossFlag"] == 1].copy()
+        if not loss_months.empty and not sector_leaders.empty:
+            loss_months = loss_months.merge(sector_leaders, on="SignalDate", how="left")
+        if not loss_months.empty:
+            loss_months["LossRank"] = (
+                pd.to_numeric(loss_months["NetReturn"], errors="coerce")
+                .rank(method="first", ascending=True)
+                .astype(int)
+            )
+            loss_months = loss_months.sort_values(["NetReturn", "SignalDate"], ascending=[True, True]).reset_index(drop=True)
+        expected_loss_cols = [
+            "SignalDate",
+            "NextDate",
+            "GrossReturn",
+            "NetReturn",
+            "Turnover",
+            "NAV",
+            "Holdings",
+            "LossFlag",
+            "PositionCount",
+            "Top1Weight",
+            "Top3Weight",
+            "AvgMomentumScore",
+            "AvgFlowScore",
+            "MaxSectorWeight",
+            "DominantSectorMarket",
+            "DominantSector",
+            "DominantSectorPositionCount",
+            "DominantSectorWeight",
+            "DominantSectorAvgMomentumScore",
+            "LossRank",
+        ]
+        loss_months = loss_months.reindex(columns=expected_loss_cols)
 
     recent_nav.to_csv(OUTPUT_DIR / "shadow_recent_nav.csv", index=False, encoding="utf-8-sig")
     recent_positions.to_csv(OUTPUT_DIR / "shadow_recent_positions.csv", index=False, encoding="utf-8-sig")
@@ -175,10 +258,12 @@ def main() -> None:
     turnover_monitor.to_csv(OUTPUT_DIR / "shadow_turnover_monitor.csv", index=False, encoding="utf-8-sig")
     concentration.to_csv(OUTPUT_DIR / "shadow_concentration_monitor.csv", index=False, encoding="utf-8-sig")
     current_book.to_csv(OUTPUT_DIR / "shadow_current_book.csv", index=False, encoding="utf-8-sig")
+    current_sector.to_csv(OUTPUT_DIR / "shadow_current_sector_mix.csv", index=False, encoding="utf-8-sig")
     monthly_sector.to_csv(OUTPUT_DIR / "shadow_monthly_sector_mix.csv", index=False, encoding="utf-8-sig")
+    loss_months.to_csv(OUTPUT_DIR / "shadow_loss_month_diagnostics.csv", index=False, encoding="utf-8-sig")
 
     summary = {
-        "baseline_variant": "equal_weight_no_mad_min4",
+        "baseline_variant": BASELINE_VARIANT,
         "recent_months": int(len(recent_nav)),
         "recent_start": "" if recent_nav.empty else str(pd.to_datetime(recent_nav["SignalDate"]).min().date()),
         "recent_end": "" if recent_nav.empty else str(pd.to_datetime(recent_nav["NextDate"]).max().date()),
@@ -188,6 +273,8 @@ def main() -> None:
         "current_holdings": int(len(current_book)),
         "current_top1_weight": float(current_book["TargetWeight"].max()) if not current_book.empty else None,
         "current_top3_weight": float(current_book["TargetWeight"].head(3).sum()) if not current_book.empty else None,
+        "current_max_sector_weight": float(current_sector["WeightSum"].max()) if not current_sector.empty else None,
+        "current_dominant_sector": None if current_sector.empty else str(current_sector.iloc[0]["Sector"]),
     }
     if not recent_nav.empty:
         nav_series = pd.to_numeric(recent_nav["NAV"], errors="coerce")

@@ -1,2 +1,2 @@
-﻿baseline_variant,recent_months,recent_start,recent_end,recent_cagr_proxy,recent_avg_turnover,recent_loss_months,current_holdings,current_top1_weight,current_top3_weight,health_pass_count,health_total_checks,health_verdict
-equal_weight_no_mad_min4,12,2025-01-31,2026-02-27,0.9241962927724006,1.0251322751322751,5,9,0.1111111111111111,0.3333333333333333,5,5,PASS
+﻿baseline_variant,recent_months,recent_start,recent_end,recent_cagr_proxy,recent_avg_turnover,recent_loss_months,current_holdings,current_top1_weight,current_top3_weight,current_max_sector_weight,current_dominant_sector,health_pass_count,health_total_checks,health_verdict
+rule_breadth_it_risk_off,12,2025-01-31,2026-02-27,0.8099418274336649,0.9617724867724867,5,9,0.1111111111111111,0.3333333333333333,0.4444444444444444,Industrials,10,10,PASS

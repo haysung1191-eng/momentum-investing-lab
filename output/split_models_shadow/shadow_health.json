@@ -26,7 +26,7 @@
   {
     "Check":"Recent avg turnover <= 1.50",
     "Metric":"recent_avg_turnover",
-    "Value":1.0251322751,
+    "Value":0.9617724868,
     "Threshold":1.5,
     "Comparator":"<=",
     "Passed":1
@@ -34,9 +34,49 @@
   {
     "Check":"Recent CAGR proxy > 0",
     "Metric":"recent_cagr_proxy",
-    "Value":0.9241962928,
+    "Value":0.8099418274,
     "Threshold":0.0,
     "Comparator":">",
+    "Passed":1
+  },
+  {
+    "Check":"Current max sector weight <= 0.50",
+    "Metric":"current_max_sector_weight",
+    "Value":0.4444444444,
+    "Threshold":0.5,
+    "Comparator":"<=",
+    "Passed":1
+  },
+  {
+    "Check":"Recent min holdings >= 4",
+    "Metric":"recent_min_holdings",
+    "Value":4.0,
+    "Threshold":4.0,
+    "Comparator":">=",
+    "Passed":1
+  },
+  {
+    "Check":"Recent max top1 weight <= 0.25",
+    "Metric":"recent_max_top1_weight",
+    "Value":0.1875,
+    "Threshold":0.25,
+    "Comparator":"<=",
+    "Passed":1
+  },
+  {
+    "Check":"Recent max top3 weight <= 0.75",
+    "Metric":"recent_max_top3_weight",
+    "Value":0.5625,
+    "Threshold":0.75,
+    "Comparator":"<=",
+    "Passed":1
+  },
+  {
+    "Check":"Recent max sector weight <= 0.70",
+    "Metric":"recent_max_sector_weight",
+    "Value":0.5333333333,
+    "Threshold":0.7,
+    "Comparator":"<=",
     "Passed":1
   }
 ]

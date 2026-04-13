@@ -48,6 +48,25 @@ class TradingVariant:
     exclude_kr_unknown_stocks: bool = False
     us_flow_score_cap: float | None = None
     min_rel_volume: float | None = None
+    max_r1m: float | None = None
+    soft_max_r1m: float | None = None
+    soft_r1m_penalty: float = 1.0
+    entry_soft_max_r1m: float | None = None
+    entry_soft_r1m_penalty: float = 1.0
+    max_positions_per_sector: int | None = None
+    breadth_risk_off_threshold: int | None = None
+    breadth_risk_off_exposure: float = 1.0
+    sector_risk_off_name: str | None = None
+    sector_risk_off_weight_threshold: float | None = None
+    sector_risk_off_exposure: float = 1.0
+
+
+def _normalize_weight_series(weights: pd.Series) -> pd.Series:
+    out = pd.to_numeric(weights, errors="coerce").fillna(0.0).clip(lower=0.0)
+    total = float(out.sum())
+    if total <= 0:
+        return pd.Series(np.repeat(0.0, len(out)), index=out.index)
+    return out / total
 
 
 def _variant_specs() -> list[TradingVariant]:
@@ -84,6 +103,79 @@ def _variant_specs() -> list[TradingVariant]:
 
 def _variant_map() -> dict[str, TradingVariant]:
     return {variant.name: variant for variant in _variant_specs()}
+
+
+def _baseline_variant_map() -> dict[str, TradingVariant]:
+    variants = {variant.name: variant for variant in _variant_specs()}
+    variants.update(
+        {
+            "rule_trend_chase_cap": TradingVariant(
+                name="rule_trend_chase_cap",
+                use_flow_filter=True,
+                use_sector_filter=True,
+                use_mad_weighting=False,
+                min_holdings=4,
+                max_r1m=0.20,
+            ),
+            "rule_trend_chase_soft": TradingVariant(
+                name="rule_trend_chase_soft",
+                use_flow_filter=True,
+                use_sector_filter=True,
+                use_mad_weighting=False,
+                min_holdings=4,
+                soft_max_r1m=0.20,
+                soft_r1m_penalty=0.5,
+            ),
+            "rule_trend_chase_entry_soft": TradingVariant(
+                name="rule_trend_chase_entry_soft",
+                use_flow_filter=True,
+                use_sector_filter=True,
+                use_mad_weighting=False,
+                min_holdings=4,
+                entry_soft_max_r1m=0.20,
+                entry_soft_r1m_penalty=0.5,
+            ),
+            "rule_sector_cap2": TradingVariant(
+                name="rule_sector_cap2",
+                use_flow_filter=True,
+                use_sector_filter=True,
+                use_mad_weighting=False,
+                min_holdings=4,
+                max_positions_per_sector=2,
+            ),
+            "rule_breadth_risk_off": TradingVariant(
+                name="rule_breadth_risk_off",
+                use_flow_filter=True,
+                use_sector_filter=True,
+                use_mad_weighting=False,
+                min_holdings=4,
+                breadth_risk_off_threshold=4,
+                breadth_risk_off_exposure=0.75,
+            ),
+            "rule_breadth_risk_off_080": TradingVariant(
+                name="rule_breadth_risk_off_080",
+                use_flow_filter=True,
+                use_sector_filter=True,
+                use_mad_weighting=False,
+                min_holdings=4,
+                breadth_risk_off_threshold=4,
+                breadth_risk_off_exposure=0.80,
+            ),
+            "rule_breadth_it_risk_off": TradingVariant(
+                name="rule_breadth_it_risk_off",
+                use_flow_filter=True,
+                use_sector_filter=True,
+                use_mad_weighting=False,
+                min_holdings=4,
+                breadth_risk_off_threshold=4,
+                breadth_risk_off_exposure=0.75,
+                sector_risk_off_name="Information Technology",
+                sector_risk_off_weight_threshold=0.55,
+                sector_risk_off_exposure=0.80,
+            ),
+        }
+    )
+    return variants
 
 
 def _summarize_returns(returns: pd.Series, dates: pd.Series | None = None) -> dict[str, float]:
@@ -510,6 +602,8 @@ def _build_momentum_candidates_for_date(
         df = df[~((df["Market"] == "US") & (df["FlowScore"] > float(variant.us_flow_score_cap)))].copy()
     if variant.min_rel_volume is not None:
         df = df[(df["RelVolume20D60D"].fillna(0.0) >= float(variant.min_rel_volume))].copy()
+    if variant.max_r1m is not None:
+        df = df[(df["R1M"].fillna(0.0) <= float(variant.max_r1m))].copy()
     df["CountryLabel"] = np.where(df["Market"].eq("US"), "US", "Korea")
     df["CountryAligned"] = df["CountryLabel"].isin(countries).astype(int)
     df["SectorAligned"] = [
@@ -536,6 +630,7 @@ def _build_momentum_candidates_for_date(
         survivors = [asset_key for asset_key in prev_hold_keys if asset_key in buffer_keys]
         picked = list(dict.fromkeys(picked + survivors))
     market_counts: dict[str, int] = {}
+    sector_counts: dict[tuple[str, str], int] = {}
     final_picks: list[str] = []
     eligible_by_key = {row.AssetKey: row for row in eligible.itertuples(index=False)}
     for asset_key in picked:
@@ -544,8 +639,12 @@ def _build_momentum_candidates_for_date(
             continue
         if market_counts.get(str(row.Market), 0) >= cfg.trading_book_market_cap:
             continue
+        sector_key = (str(row.Market), str(row.Sector))
+        if variant.max_positions_per_sector is not None and sector_counts.get(sector_key, 0) >= int(variant.max_positions_per_sector):
+            continue
         final_picks.append(asset_key)
         market_counts[str(row.Market)] = market_counts.get(str(row.Market), 0) + 1
+        sector_counts[sector_key] = sector_counts.get(sector_key, 0) + 1
         if len(final_picks) >= cfg.trading_book_size + variant.hold_buffer:
             break
     if len(final_picks) < cfg.trading_book_size:
@@ -554,8 +653,12 @@ def _build_momentum_candidates_for_date(
                 continue
             if market_counts.get(str(row.Market), 0) >= cfg.trading_book_market_cap:
                 continue
+            sector_key = (str(row.Market), str(row.Sector))
+            if variant.max_positions_per_sector is not None and sector_counts.get(sector_key, 0) >= int(variant.max_positions_per_sector):
+                continue
             final_picks.append(row.AssetKey)
             market_counts[str(row.Market)] = market_counts.get(str(row.Market), 0) + 1
+            sector_counts[sector_key] = sector_counts.get(sector_key, 0) + 1
             if len(final_picks) >= cfg.trading_book_size:
                 break
     if variant.min_holdings > 0 and len(final_picks) < variant.min_holdings:
@@ -564,8 +667,12 @@ def _build_momentum_candidates_for_date(
                 continue
             if market_counts.get(str(row.Market), 0) >= cfg.trading_book_market_cap:
                 continue
+            sector_key = (str(row.Market), str(row.Sector))
+            if variant.max_positions_per_sector is not None and sector_counts.get(sector_key, 0) >= int(variant.max_positions_per_sector):
+                continue
             final_picks.append(row.AssetKey)
             market_counts[str(row.Market)] = market_counts.get(str(row.Market), 0) + 1
+            sector_counts[sector_key] = sector_counts.get(sector_key, 0) + 1
             if len(final_picks) >= variant.min_holdings:
                 break
     book = eligible[eligible["AssetKey"].isin(final_picks)].copy()
@@ -579,6 +686,46 @@ def _build_momentum_candidates_for_date(
         book["TargetWeight"] = 1.0 / len(book)
     else:
         book["TargetWeight"] = pd.Series(dtype=float)
+    if (
+        not book.empty
+        and variant.soft_max_r1m is not None
+        and variant.soft_r1m_penalty < 1.0
+        and "R1M" in book.columns
+    ):
+        raw_weights = book["TargetWeight"].copy()
+        penalty_mask = book["R1M"].fillna(0.0) > float(variant.soft_max_r1m)
+        raw_weights.loc[penalty_mask] = raw_weights.loc[penalty_mask] * float(variant.soft_r1m_penalty)
+        book["TargetWeight"] = _normalize_weight_series(raw_weights)
+    if (
+        not book.empty
+        and variant.entry_soft_max_r1m is not None
+        and variant.entry_soft_r1m_penalty < 1.0
+        and "R1M" in book.columns
+    ):
+        raw_weights = book["TargetWeight"].copy()
+        penalty_mask = (~book["AssetKey"].isin(prev_hold_keys)) & (
+            book["R1M"].fillna(0.0) > float(variant.entry_soft_max_r1m)
+        )
+        raw_weights.loc[penalty_mask] = raw_weights.loc[penalty_mask] * float(variant.entry_soft_r1m_penalty)
+        book["TargetWeight"] = _normalize_weight_series(raw_weights)
+    if (
+        not book.empty
+        and variant.breadth_risk_off_threshold is not None
+        and len(book) <= int(variant.breadth_risk_off_threshold)
+        and float(variant.breadth_risk_off_exposure) < 1.0
+    ):
+        book["TargetWeight"] = book["TargetWeight"] * float(variant.breadth_risk_off_exposure)
+    if (
+        not book.empty
+        and variant.sector_risk_off_name is not None
+        and variant.sector_risk_off_weight_threshold is not None
+        and float(variant.sector_risk_off_exposure) < 1.0
+    ):
+        sector_weight = float(
+            book.loc[book["Sector"].astype(str) == str(variant.sector_risk_off_name), "TargetWeight"].sum()
+        )
+        if sector_weight >= float(variant.sector_risk_off_weight_threshold):
+            book["TargetWeight"] = book["TargetWeight"] * float(variant.sector_risk_off_exposure)
     book["SignalDate"] = flow_snapshot["AsOfDate"].iloc[0] if not flow_snapshot.empty else ""
     book["Variant"] = variant.name
     return book
@@ -976,7 +1123,7 @@ def run_backtests(output_dir: Path | None = None, config: BacktestConfig | None 
     price_cache, flow_cache = _build_daily_caches(universe)
     monthly_close = _build_monthly_close_matrix(universe, price_cache)
     signal_dates = _signal_dates(monthly_close, cfg.signal_start)
-    variant_lookup = _variant_map()
+    variant_lookup = _baseline_variant_map()
     baseline_variant = variant_lookup.get(cfg.baseline_variant, variant_lookup["default"])
     baseline_bt = _run_trading_backtest_variant(universe, price_cache, flow_cache, monthly_close, signal_dates, cfg, baseline_variant)
     nav_df = baseline_bt["nav"].drop(columns=["Variant"], errors="ignore")
@@ -1121,6 +1268,70 @@ def run_backtests(output_dir: Path | None = None, config: BacktestConfig | None 
             exclude_kr_unknown_stocks=True,
             us_flow_score_cap=0.30,
         ),
+        TradingVariant(
+            name="rule_trend_chase_cap",
+            use_flow_filter=True,
+            use_sector_filter=True,
+            use_mad_weighting=False,
+            min_holdings=4,
+            max_r1m=0.20,
+        ),
+        TradingVariant(
+            name="rule_trend_chase_soft",
+            use_flow_filter=True,
+            use_sector_filter=True,
+            use_mad_weighting=False,
+            min_holdings=4,
+            soft_max_r1m=0.20,
+            soft_r1m_penalty=0.5,
+        ),
+        TradingVariant(
+            name="rule_trend_chase_entry_soft",
+            use_flow_filter=True,
+            use_sector_filter=True,
+            use_mad_weighting=False,
+            min_holdings=4,
+            entry_soft_max_r1m=0.20,
+            entry_soft_r1m_penalty=0.5,
+        ),
+        TradingVariant(
+            name="rule_sector_cap2",
+            use_flow_filter=True,
+            use_sector_filter=True,
+            use_mad_weighting=False,
+            min_holdings=4,
+            max_positions_per_sector=2,
+        ),
+        TradingVariant(
+            name="rule_breadth_risk_off",
+            use_flow_filter=True,
+            use_sector_filter=True,
+            use_mad_weighting=False,
+            min_holdings=4,
+            breadth_risk_off_threshold=4,
+            breadth_risk_off_exposure=0.75,
+        ),
+        TradingVariant(
+            name="rule_breadth_risk_off_080",
+            use_flow_filter=True,
+            use_sector_filter=True,
+            use_mad_weighting=False,
+            min_holdings=4,
+            breadth_risk_off_threshold=4,
+            breadth_risk_off_exposure=0.80,
+        ),
+        TradingVariant(
+            name="rule_breadth_it_risk_off",
+            use_flow_filter=True,
+            use_sector_filter=True,
+            use_mad_weighting=False,
+            min_holdings=4,
+            breadth_risk_off_threshold=4,
+            breadth_risk_off_exposure=0.75,
+            sector_risk_off_name="Information Technology",
+            sector_risk_off_weight_threshold=0.55,
+            sector_risk_off_exposure=0.80,
+        ),
     ]
     refinement_rows = []
     for variant in refinement_specs:
@@ -1143,6 +1354,17 @@ def run_backtests(output_dir: Path | None = None, config: BacktestConfig | None 
                 "HoldBuffer": int(variant.hold_buffer),
                 "ExcludeKRUnknownStocks": int(variant.exclude_kr_unknown_stocks),
                 "USFlowScoreCap": "" if variant.us_flow_score_cap is None else float(variant.us_flow_score_cap),
+                "MaxR1M": "" if variant.max_r1m is None else float(variant.max_r1m),
+                "SoftMaxR1M": "" if variant.soft_max_r1m is None else float(variant.soft_max_r1m),
+                "SoftR1MPenalty": float(variant.soft_r1m_penalty),
+                "EntrySoftMaxR1M": "" if variant.entry_soft_max_r1m is None else float(variant.entry_soft_max_r1m),
+                "EntrySoftR1MPenalty": float(variant.entry_soft_r1m_penalty),
+                "MaxPositionsPerSector": "" if variant.max_positions_per_sector is None else int(variant.max_positions_per_sector),
+                "BreadthRiskOffThreshold": "" if variant.breadth_risk_off_threshold is None else int(variant.breadth_risk_off_threshold),
+                "BreadthRiskOffExposure": float(variant.breadth_risk_off_exposure),
+                "SectorRiskOffName": "" if variant.sector_risk_off_name is None else str(variant.sector_risk_off_name),
+                "SectorRiskOffWeightThreshold": "" if variant.sector_risk_off_weight_threshold is None else float(variant.sector_risk_off_weight_threshold),
+                "SectorRiskOffExposure": float(variant.sector_risk_off_exposure),
                 "MinRelVolume": "" if variant.min_rel_volume is None else float(variant.min_rel_volume),
             }
         )

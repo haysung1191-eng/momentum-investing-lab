@@ -2,7 +2,10 @@ from __future__ import annotations
 
 from pathlib import Path
 
+import pandas as pd
+
 from split_models.backtest import BacktestConfig, run_backtests
+from split_models.backtest import TradingVariant, _build_momentum_candidates_for_date
 
 
 def test_split_models_backtest_smoke(tmp_path: Path) -> None:
@@ -44,3 +47,410 @@ def test_split_models_backtest_promoted_variant(tmp_path: Path) -> None:
     summary = outputs["trading_book_backtest_summary"].iloc[0]
     assert float(summary["CAGR"]) == float(summary["CAGR"])
     assert (tmp_path / "split_models_backtest_summary.json").exists()
+
+
+def test_build_momentum_candidates_filters_trend_chase_names() -> None:
+    metrics = pd.DataFrame(
+        [
+            {
+                "Market": "US",
+                "AssetType": "STOCK",
+                "Symbol": "FAST",
+                "Name": "Fast Runner",
+                "Sector": "Industrials",
+                "AssetKey": "US:STOCK:FAST",
+                "MedianDailyValue60D": 50_000_000.0,
+                "CurrentPrice": 100.0,
+                "TrendOK": 1,
+                "MomentumScore": 0.30,
+                "FlowScore": 0.20,
+                "RelVolume20D60D": 1.1,
+                "R1M": 0.28,
+            },
+            {
+                "Market": "US",
+                "AssetType": "STOCK",
+                "Symbol": "CALM",
+                "Name": "Calm Compounder",
+                "Sector": "Industrials",
+                "AssetKey": "US:STOCK:CALM",
+                "MedianDailyValue60D": 50_000_000.0,
+                "CurrentPrice": 100.0,
+                "TrendOK": 1,
+                "MomentumScore": 0.20,
+                "FlowScore": 0.15,
+                "RelVolume20D60D": 1.0,
+                "R1M": 0.12,
+            },
+        ]
+    )
+    flow_snapshot = pd.DataFrame(
+        [
+            {"ScopeType": "COUNTRY", "Market": "GLOBAL", "Label": "US", "Rank": 1, "AsOfDate": "2026-03-31"},
+            {"ScopeType": "SECTOR", "Market": "US", "Label": "Industrials", "Rank": 1, "AsOfDate": "2026-03-31"},
+        ]
+    )
+
+    book = _build_momentum_candidates_for_date(
+        metrics,
+        flow_snapshot,
+        BacktestConfig(),
+        variant=TradingVariant(
+            name="rule_trend_chase_cap",
+            use_flow_filter=True,
+            use_sector_filter=True,
+            use_mad_weighting=False,
+            min_holdings=1,
+            max_r1m=0.20,
+        ),
+    )
+
+    assert "CALM" in book["Symbol"].tolist()
+    assert "FAST" not in book["Symbol"].tolist()
+
+
+def test_build_momentum_candidates_soft_penalizes_trend_chase_names() -> None:
+    metrics = pd.DataFrame(
+        [
+            {
+                "Market": "US",
+                "AssetType": "STOCK",
+                "Symbol": "FAST",
+                "Name": "Fast Runner",
+                "Sector": "Industrials",
+                "AssetKey": "US:STOCK:FAST",
+                "MedianDailyValue60D": 50_000_000.0,
+                "CurrentPrice": 100.0,
+                "TrendOK": 1,
+                "MomentumScore": 0.30,
+                "FlowScore": 0.20,
+                "RelVolume20D60D": 1.1,
+                "R1M": 0.28,
+            },
+            {
+                "Market": "US",
+                "AssetType": "STOCK",
+                "Symbol": "CALM",
+                "Name": "Calm Compounder",
+                "Sector": "Industrials",
+                "AssetKey": "US:STOCK:CALM",
+                "MedianDailyValue60D": 50_000_000.0,
+                "CurrentPrice": 100.0,
+                "TrendOK": 1,
+                "MomentumScore": 0.20,
+                "FlowScore": 0.15,
+                "RelVolume20D60D": 1.0,
+                "R1M": 0.12,
+            },
+        ]
+    )
+    flow_snapshot = pd.DataFrame(
+        [
+            {"ScopeType": "COUNTRY", "Market": "GLOBAL", "Label": "US", "Rank": 1, "AsOfDate": "2026-03-31"},
+            {"ScopeType": "SECTOR", "Market": "US", "Label": "Industrials", "Rank": 1, "AsOfDate": "2026-03-31"},
+        ]
+    )
+
+    book = _build_momentum_candidates_for_date(
+        metrics,
+        flow_snapshot,
+        BacktestConfig(),
+        variant=TradingVariant(
+            name="rule_trend_chase_soft",
+            use_flow_filter=True,
+            use_sector_filter=True,
+            use_mad_weighting=False,
+            min_holdings=1,
+            soft_max_r1m=0.20,
+            soft_r1m_penalty=0.5,
+        ),
+    )
+
+    weights = dict(zip(book["Symbol"], book["TargetWeight"], strict=False))
+    assert "CALM" in weights
+    assert "FAST" in weights
+    assert weights["FAST"] < weights["CALM"]
+
+
+def test_build_momentum_candidates_entry_soft_penalizes_only_new_overheated_names() -> None:
+    metrics = pd.DataFrame(
+        [
+            {
+                "Market": "US",
+                "AssetType": "STOCK",
+                "Symbol": "OLDHOT",
+                "Name": "Old Hot Name",
+                "Sector": "Industrials",
+                "AssetKey": "US:STOCK:OLDHOT",
+                "MedianDailyValue60D": 50_000_000.0,
+                "CurrentPrice": 100.0,
+                "TrendOK": 1,
+                "MomentumScore": 0.30,
+                "FlowScore": 0.20,
+                "RelVolume20D60D": 1.1,
+                "R1M": 0.28,
+            },
+            {
+                "Market": "US",
+                "AssetType": "STOCK",
+                "Symbol": "NEWHOT",
+                "Name": "New Hot Name",
+                "Sector": "Industrials",
+                "AssetKey": "US:STOCK:NEWHOT",
+                "MedianDailyValue60D": 50_000_000.0,
+                "CurrentPrice": 100.0,
+                "TrendOK": 1,
+                "MomentumScore": 0.25,
+                "FlowScore": 0.18,
+                "RelVolume20D60D": 1.0,
+                "R1M": 0.26,
+            },
+            {
+                "Market": "US",
+                "AssetType": "STOCK",
+                "Symbol": "CALM",
+                "Name": "Calm Compounder",
+                "Sector": "Industrials",
+                "AssetKey": "US:STOCK:CALM",
+                "MedianDailyValue60D": 50_000_000.0,
+                "CurrentPrice": 100.0,
+                "TrendOK": 1,
+                "MomentumScore": 0.20,
+                "FlowScore": 0.15,
+                "RelVolume20D60D": 1.0,
+                "R1M": 0.12,
+            },
+        ]
+    )
+    flow_snapshot = pd.DataFrame(
+        [
+            {"ScopeType": "COUNTRY", "Market": "GLOBAL", "Label": "US", "Rank": 1, "AsOfDate": "2026-03-31"},
+            {"ScopeType": "SECTOR", "Market": "US", "Label": "Industrials", "Rank": 1, "AsOfDate": "2026-03-31"},
+        ]
+    )
+
+    book = _build_momentum_candidates_for_date(
+        metrics,
+        flow_snapshot,
+        BacktestConfig(),
+        variant=TradingVariant(
+            name="rule_trend_chase_entry_soft",
+            use_flow_filter=True,
+            use_sector_filter=True,
+            use_mad_weighting=False,
+            min_holdings=1,
+            entry_soft_max_r1m=0.20,
+            entry_soft_r1m_penalty=0.5,
+        ),
+        prev_hold_keys={"US:STOCK:OLDHOT"},
+    )
+
+    weights = dict(zip(book["Symbol"], book["TargetWeight"], strict=False))
+    assert weights["NEWHOT"] < weights["OLDHOT"]
+    assert weights["NEWHOT"] < weights["CALM"]
+
+
+def test_build_momentum_candidates_sector_cap_limits_same_sector_count() -> None:
+    metrics = pd.DataFrame(
+        [
+            {
+                "Market": "US",
+                "AssetType": "STOCK",
+                "Symbol": "A1",
+                "Name": "A1",
+                "Sector": "Health Care",
+                "AssetKey": "US:STOCK:A1",
+                "MedianDailyValue60D": 50_000_000.0,
+                "CurrentPrice": 100.0,
+                "TrendOK": 1,
+                "MomentumScore": 0.30,
+                "FlowScore": 0.20,
+                "RelVolume20D60D": 1.1,
+                "R1M": 0.10,
+            },
+            {
+                "Market": "US",
+                "AssetType": "STOCK",
+                "Symbol": "A2",
+                "Name": "A2",
+                "Sector": "Health Care",
+                "AssetKey": "US:STOCK:A2",
+                "MedianDailyValue60D": 50_000_000.0,
+                "CurrentPrice": 100.0,
+                "TrendOK": 1,
+                "MomentumScore": 0.29,
+                "FlowScore": 0.19,
+                "RelVolume20D60D": 1.1,
+                "R1M": 0.09,
+            },
+            {
+                "Market": "US",
+                "AssetType": "STOCK",
+                "Symbol": "A3",
+                "Name": "A3",
+                "Sector": "Health Care",
+                "AssetKey": "US:STOCK:A3",
+                "MedianDailyValue60D": 50_000_000.0,
+                "CurrentPrice": 100.0,
+                "TrendOK": 1,
+                "MomentumScore": 0.28,
+                "FlowScore": 0.18,
+                "RelVolume20D60D": 1.1,
+                "R1M": 0.08,
+            },
+            {
+                "Market": "US",
+                "AssetType": "STOCK",
+                "Symbol": "B1",
+                "Name": "B1",
+                "Sector": "Industrials",
+                "AssetKey": "US:STOCK:B1",
+                "MedianDailyValue60D": 50_000_000.0,
+                "CurrentPrice": 100.0,
+                "TrendOK": 1,
+                "MomentumScore": 0.27,
+                "FlowScore": 0.17,
+                "RelVolume20D60D": 1.1,
+                "R1M": 0.07,
+            },
+        ]
+    )
+    flow_snapshot = pd.DataFrame(
+        [
+            {"ScopeType": "COUNTRY", "Market": "GLOBAL", "Label": "US", "Rank": 1, "AsOfDate": "2026-03-31"},
+            {"ScopeType": "SECTOR", "Market": "US", "Label": "Health Care", "Rank": 1, "AsOfDate": "2026-03-31"},
+            {"ScopeType": "SECTOR", "Market": "US", "Label": "Industrials", "Rank": 2, "AsOfDate": "2026-03-31"},
+        ]
+    )
+
+    book = _build_momentum_candidates_for_date(
+        metrics,
+        flow_snapshot,
+        BacktestConfig(),
+        variant=TradingVariant(
+            name="rule_sector_cap2",
+            use_flow_filter=True,
+            use_sector_filter=True,
+            use_mad_weighting=False,
+            min_holdings=1,
+            max_positions_per_sector=2,
+        ),
+    )
+
+    health_care_count = int((book["Sector"] == "Health Care").sum())
+    assert health_care_count == 2
+    assert "B1" in book["Symbol"].tolist()
+
+
+def test_build_momentum_candidates_breadth_risk_off_scales_total_exposure() -> None:
+    metrics = pd.DataFrame(
+        [
+            {
+                "Market": "US",
+                "AssetType": "STOCK",
+                "Symbol": f"S{i}",
+                "Name": f"S{i}",
+                "Sector": "Industrials" if i < 3 else "Health Care",
+                "AssetKey": f"US:STOCK:S{i}",
+                "MedianDailyValue60D": 50_000_000.0,
+                "CurrentPrice": 100.0,
+                "TrendOK": 1,
+                "MomentumScore": 0.30 - i * 0.01,
+                "FlowScore": 0.20 - i * 0.01,
+                "RelVolume20D60D": 1.1,
+                "R1M": 0.10,
+            }
+            for i in range(4)
+        ]
+    )
+    flow_snapshot = pd.DataFrame(
+        [
+            {"ScopeType": "COUNTRY", "Market": "GLOBAL", "Label": "US", "Rank": 1, "AsOfDate": "2026-03-31"},
+            {"ScopeType": "SECTOR", "Market": "US", "Label": "Industrials", "Rank": 1, "AsOfDate": "2026-03-31"},
+            {"ScopeType": "SECTOR", "Market": "US", "Label": "Health Care", "Rank": 2, "AsOfDate": "2026-03-31"},
+        ]
+    )
+
+    book = _build_momentum_candidates_for_date(
+        metrics,
+        flow_snapshot,
+        BacktestConfig(),
+        variant=TradingVariant(
+            name="rule_breadth_risk_off",
+            use_flow_filter=True,
+            use_sector_filter=True,
+            use_mad_weighting=False,
+            min_holdings=4,
+            breadth_risk_off_threshold=4,
+            breadth_risk_off_exposure=0.75,
+        ),
+    )
+
+    assert round(float(book["TargetWeight"].sum()), 8) == 0.75
+
+
+def test_build_momentum_candidates_it_sector_risk_off_scales_when_it_is_dominant() -> None:
+    metrics = pd.DataFrame(
+        [
+            {
+                "Market": "US",
+                "AssetType": "STOCK",
+                "Symbol": f"IT{i}",
+                "Name": f"IT{i}",
+                "Sector": "Information Technology",
+                "AssetKey": f"US:STOCK:IT{i}",
+                "MedianDailyValue60D": 50_000_000.0,
+                "CurrentPrice": 100.0,
+                "TrendOK": 1,
+                "MomentumScore": 0.30 - i * 0.01,
+                "FlowScore": 0.20 - i * 0.01,
+                "RelVolume20D60D": 1.1,
+                "R1M": 0.10,
+            }
+            for i in range(5)
+        ]
+        + [
+            {
+                "Market": "KR",
+                "AssetType": "ETF",
+                "Symbol": f"ETF{i}",
+                "Name": f"ETF{i}",
+                "Sector": "ETF",
+                "AssetKey": f"KR:ETF:ETF{i}",
+                "MedianDailyValue60D": 50_000_000_000.0,
+                "CurrentPrice": 100.0,
+                "TrendOK": 1,
+                "MomentumScore": 0.20 - i * 0.01,
+                "FlowScore": 0.10 - i * 0.01,
+                "RelVolume20D60D": 1.1,
+                "R1M": 0.05,
+            }
+            for i in range(4)
+        ]
+    )
+    flow_snapshot = pd.DataFrame(
+        [
+            {"ScopeType": "COUNTRY", "Market": "GLOBAL", "Label": "US", "Rank": 1, "AsOfDate": "2026-03-31"},
+            {"ScopeType": "COUNTRY", "Market": "GLOBAL", "Label": "Korea", "Rank": 2, "AsOfDate": "2026-03-31"},
+            {"ScopeType": "SECTOR", "Market": "US", "Label": "Information Technology", "Rank": 1, "AsOfDate": "2026-03-31"},
+            {"ScopeType": "SECTOR", "Market": "KR", "Label": "ETF", "Rank": 1, "AsOfDate": "2026-03-31"},
+        ]
+    )
+
+    book = _build_momentum_candidates_for_date(
+        metrics,
+        flow_snapshot,
+        BacktestConfig(),
+        variant=TradingVariant(
+            name="rule_breadth_it_risk_off",
+            use_flow_filter=True,
+            use_sector_filter=True,
+            use_mad_weighting=False,
+            min_holdings=4,
+            sector_risk_off_name="Information Technology",
+            sector_risk_off_weight_threshold=0.55,
+            sector_risk_off_exposure=0.80,
+        ),
+    )
+
+    assert round(float(book["TargetWeight"].sum()), 8) == 0.8
