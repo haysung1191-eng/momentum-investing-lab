@@ -24,6 +24,7 @@ Reference file:
 3. Confirm `baseline_variant` is `rule_breadth_it_risk_off`
 4. Confirm `health_verdict` is `PASS`
 5. Open `output\split_models_shadow\shadow_current_book.csv` and confirm the book was refreshed
+6. Run `python .\check_split_models_shadow_drift.py` and confirm `drift_verdict=PASS`
 
 ## Main shadow artifacts
 
