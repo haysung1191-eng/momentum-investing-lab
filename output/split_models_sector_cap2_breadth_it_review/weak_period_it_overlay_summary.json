@@ -1,0 +1,16 @@
+{
+  "baseline_variant": "rule_sector_cap2_breadth_risk_off",
+  "candidate_variant": "rule_sector_cap2_breadth_it_risk_off",
+  "weak_period_start": "2021-04-30",
+  "weak_period_end": "2023-08-31",
+  "months_compared": 25,
+  "overlay_triggered_months": 0,
+  "baseline_loss_months": 10,
+  "loss_months_improved": 0,
+  "avg_net_return_delta_all_months": 0.0,
+  "avg_net_return_delta_triggered_months": 0.0,
+  "avg_net_return_delta_loss_months": 0.0,
+  "worst_baseline_month": "2021-11-30",
+  "best_delta_month": "2021-04-30",
+  "worst_delta_month": "2021-04-30"
+}

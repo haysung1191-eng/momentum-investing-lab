@@ -454,3 +454,180 @@ def test_build_momentum_candidates_it_sector_risk_off_scales_when_it_is_dominant
     )
 
     assert round(float(book["TargetWeight"].sum()), 8) == 0.8
+
+
+def test_build_momentum_candidates_sector_cap_and_breadth_risk_off_work_together() -> None:
+    metrics = pd.DataFrame(
+        [
+            {
+                "Market": "US",
+                "AssetType": "STOCK",
+                "Symbol": "HC1",
+                "Name": "HC1",
+                "Sector": "Health Care",
+                "AssetKey": "US:STOCK:HC1",
+                "MedianDailyValue60D": 50_000_000.0,
+                "CurrentPrice": 100.0,
+                "TrendOK": 1,
+                "MomentumScore": 0.30,
+                "FlowScore": 0.20,
+                "RelVolume20D60D": 1.1,
+                "R1M": 0.10,
+            },
+            {
+                "Market": "US",
+                "AssetType": "STOCK",
+                "Symbol": "HC2",
+                "Name": "HC2",
+                "Sector": "Health Care",
+                "AssetKey": "US:STOCK:HC2",
+                "MedianDailyValue60D": 50_000_000.0,
+                "CurrentPrice": 100.0,
+                "TrendOK": 1,
+                "MomentumScore": 0.29,
+                "FlowScore": 0.19,
+                "RelVolume20D60D": 1.1,
+                "R1M": 0.09,
+            },
+            {
+                "Market": "US",
+                "AssetType": "STOCK",
+                "Symbol": "HC3",
+                "Name": "HC3",
+                "Sector": "Health Care",
+                "AssetKey": "US:STOCK:HC3",
+                "MedianDailyValue60D": 50_000_000.0,
+                "CurrentPrice": 100.0,
+                "TrendOK": 1,
+                "MomentumScore": 0.28,
+                "FlowScore": 0.18,
+                "RelVolume20D60D": 1.1,
+                "R1M": 0.08,
+            },
+            {
+                "Market": "US",
+                "AssetType": "STOCK",
+                "Symbol": "IN1",
+                "Name": "IN1",
+                "Sector": "Industrials",
+                "AssetKey": "US:STOCK:IN1",
+                "MedianDailyValue60D": 50_000_000.0,
+                "CurrentPrice": 100.0,
+                "TrendOK": 1,
+                "MomentumScore": 0.27,
+                "FlowScore": 0.17,
+                "RelVolume20D60D": 1.1,
+                "R1M": 0.07,
+            },
+        ]
+    )
+    flow_snapshot = pd.DataFrame(
+        [
+            {"ScopeType": "COUNTRY", "Market": "GLOBAL", "Label": "US", "Rank": 1, "AsOfDate": "2026-03-31"},
+            {"ScopeType": "SECTOR", "Market": "US", "Label": "Health Care", "Rank": 1, "AsOfDate": "2026-03-31"},
+            {"ScopeType": "SECTOR", "Market": "US", "Label": "Industrials", "Rank": 2, "AsOfDate": "2026-03-31"},
+        ]
+    )
+
+    book = _build_momentum_candidates_for_date(
+        metrics,
+        flow_snapshot,
+        BacktestConfig(),
+        variant=TradingVariant(
+            name="rule_sector_cap2_breadth_risk_off",
+            use_flow_filter=True,
+            use_sector_filter=True,
+            use_mad_weighting=False,
+            min_holdings=4,
+            max_positions_per_sector=2,
+            breadth_risk_off_threshold=4,
+            breadth_risk_off_exposure=0.75,
+        ),
+    )
+
+    assert int((book["Sector"] == "Health Care").sum()) == 2
+    assert round(float(book["TargetWeight"].sum()), 8) == 0.75
+
+
+def test_build_momentum_candidates_sector_cap_breadth_and_it_risk_off_work_together() -> None:
+    metrics = pd.DataFrame(
+        [
+            {
+                "Market": "US",
+                "AssetType": "STOCK",
+                "Symbol": f"IT{i}",
+                "Name": f"IT{i}",
+                "Sector": "Information Technology",
+                "AssetKey": f"US:STOCK:IT{i}",
+                "MedianDailyValue60D": 50_000_000.0,
+                "CurrentPrice": 100.0,
+                "TrendOK": 1,
+                "MomentumScore": 0.30 - i * 0.01,
+                "FlowScore": 0.20 - i * 0.01,
+                "RelVolume20D60D": 1.1,
+                "R1M": 0.10,
+            }
+            for i in range(3)
+        ]
+        + [
+            {
+                "Market": "US",
+                "AssetType": "STOCK",
+                "Symbol": "HC1",
+                "Name": "HC1",
+                "Sector": "Health Care",
+                "AssetKey": "US:STOCK:HC1",
+                "MedianDailyValue60D": 50_000_000.0,
+                "CurrentPrice": 100.0,
+                "TrendOK": 1,
+                "MomentumScore": 0.21,
+                "FlowScore": 0.11,
+                "RelVolume20D60D": 1.1,
+                "R1M": 0.07,
+            },
+            {
+                "Market": "US",
+                "AssetType": "STOCK",
+                "Symbol": "HC2",
+                "Name": "HC2",
+                "Sector": "Health Care",
+                "AssetKey": "US:STOCK:HC2",
+                "MedianDailyValue60D": 50_000_000.0,
+                "CurrentPrice": 100.0,
+                "TrendOK": 1,
+                "MomentumScore": 0.20,
+                "FlowScore": 0.10,
+                "RelVolume20D60D": 1.1,
+                "R1M": 0.06,
+            },
+        ]
+    )
+    flow_snapshot = pd.DataFrame(
+        [
+            {"ScopeType": "COUNTRY", "Market": "GLOBAL", "Label": "US", "Rank": 1, "AsOfDate": "2026-03-31"},
+            {"ScopeType": "SECTOR", "Market": "US", "Label": "Information Technology", "Rank": 1, "AsOfDate": "2026-03-31"},
+            {"ScopeType": "SECTOR", "Market": "US", "Label": "Health Care", "Rank": 2, "AsOfDate": "2026-03-31"},
+        ]
+    )
+
+    book = _build_momentum_candidates_for_date(
+        metrics,
+        flow_snapshot,
+        BacktestConfig(),
+        variant=TradingVariant(
+            name="rule_sector_cap2_breadth_it_risk_off",
+            use_flow_filter=True,
+            use_sector_filter=True,
+            use_mad_weighting=False,
+            min_holdings=4,
+            max_positions_per_sector=2,
+            breadth_risk_off_threshold=4,
+            breadth_risk_off_exposure=0.75,
+            sector_risk_off_name="Information Technology",
+            sector_risk_off_weight_threshold=0.55,
+            sector_risk_off_exposure=0.80,
+        ),
+    )
+
+    assert int((book["Sector"] == "Information Technology").sum()) == 2
+    assert round(float(book["TargetWeight"].sum()), 8) == 0.75

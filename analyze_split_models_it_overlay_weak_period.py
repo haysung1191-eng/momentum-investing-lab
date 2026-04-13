@@ -18,11 +18,11 @@ from split_models.backtest import (
 
 
 ROOT = Path(__file__).resolve().parent
-OUTPUT_DIR = ROOT / "output" / "split_models_it_overlay_review"
+DEFAULT_OUTPUT_DIR = ROOT / "output" / "split_models_it_overlay_review"
 WEAK_START = pd.Timestamp("2021-04-30")
 WEAK_END = pd.Timestamp("2023-08-31")
-BASELINE_NAME = "rule_breadth_risk_off"
-CANDIDATE_NAME = "rule_breadth_it_risk_off"
+DEFAULT_BASELINE_NAME = "rule_breadth_risk_off"
+DEFAULT_CANDIDATE_NAME = "rule_breadth_it_risk_off"
 
 
 def _build_backtest_context(cfg: BacktestConfig) -> tuple[pd.DataFrame, dict[str, pd.DataFrame], dict[str, pd.DataFrame], pd.DataFrame, list[pd.Timestamp]]:
@@ -96,12 +96,21 @@ def _weak_period_sector_state(positions: pd.DataFrame, label: str) -> pd.DataFra
 
 
 def main() -> None:
-    OUTPUT_DIR.mkdir(parents=True, exist_ok=True)
+    import argparse
+
+    parser = argparse.ArgumentParser()
+    parser.add_argument("--baseline", default=DEFAULT_BASELINE_NAME)
+    parser.add_argument("--candidate", default=DEFAULT_CANDIDATE_NAME)
+    parser.add_argument("--output-dir", default=str(DEFAULT_OUTPUT_DIR))
+    args = parser.parse_args()
+
+    output_dir = Path(args.output_dir)
+    output_dir.mkdir(parents=True, exist_ok=True)
     cfg = BacktestConfig()
     universe, price_cache, flow_cache, monthly_close, signal_dates = _build_backtest_context(cfg)
 
-    baseline_results = _load_variant_results(cfg, BASELINE_NAME, universe, price_cache, flow_cache, monthly_close, signal_dates)
-    candidate_results = _load_variant_results(cfg, CANDIDATE_NAME, universe, price_cache, flow_cache, monthly_close, signal_dates)
+    baseline_results = _load_variant_results(cfg, args.baseline, universe, price_cache, flow_cache, monthly_close, signal_dates)
+    candidate_results = _load_variant_results(cfg, args.candidate, universe, price_cache, flow_cache, monthly_close, signal_dates)
 
     baseline_nav = _weak_period_nav(baseline_results["nav"], "Baseline")
     candidate_nav = _weak_period_nav(candidate_results["nav"], "Candidate")
@@ -122,13 +131,13 @@ def main() -> None:
         (compare["LossMonthBaseline"] == 1)
         & (pd.to_numeric(compare["Candidate_NetReturn"], errors="coerce") > pd.to_numeric(compare["Baseline_NetReturn"], errors="coerce"))
     ).astype(int)
-    compare.to_csv(OUTPUT_DIR / "weak_period_it_overlay_compare.csv", index=False, encoding="utf-8-sig")
+    compare.to_csv(output_dir / "weak_period_it_overlay_compare.csv", index=False, encoding="utf-8-sig")
 
     triggered = compare[compare["OverlayTriggered"] == 1].copy()
     baseline_losses = compare[compare["LossMonthBaseline"] == 1].copy()
     summary = {
-        "baseline_variant": BASELINE_NAME,
-        "candidate_variant": CANDIDATE_NAME,
+        "baseline_variant": args.baseline,
+        "candidate_variant": args.candidate,
         "weak_period_start": str(WEAK_START.date()),
         "weak_period_end": str(WEAK_END.date()),
         "months_compared": int(len(compare)),
@@ -142,7 +151,7 @@ def main() -> None:
         "best_delta_month": None if compare.empty else str(compare.sort_values("NetReturnDelta", ascending=False).iloc[0]["SignalDate"].date()),
         "worst_delta_month": None if compare.empty else str(compare.sort_values("NetReturnDelta", ascending=True).iloc[0]["SignalDate"].date()),
     }
-    (OUTPUT_DIR / "weak_period_it_overlay_summary.json").write_text(json.dumps(summary, indent=2), encoding="utf-8")
+    (output_dir / "weak_period_it_overlay_summary.json").write_text(json.dumps(summary, indent=2), encoding="utf-8")
 
     print(f"months_compared={summary['months_compared']}")
     print(f"overlay_triggered_months={summary['overlay_triggered_months']}")
