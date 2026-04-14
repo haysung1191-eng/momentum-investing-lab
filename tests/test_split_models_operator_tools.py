@@ -10,6 +10,7 @@ import pandas as pd
 
 import archive_split_models_operator_handoff as archive_tools
 import build_split_models_archive_delta as archive_delta
+import build_split_models_archive_replay_packet as archive_replay_packet
 import build_split_models_archive_status as archive_status
 import build_split_models_archive_stability as archive_stability
 import build_split_models_archive_timeline as archive_timeline
@@ -629,6 +630,74 @@ def test_split_models_archive_status_reads_latest_and_specific_run(tmp_path: Pat
     assert "archive_run_in_timeline=True" in text_output
     assert "archive_run_timeline_rank=2" in text_output
     assert "archive_next_run_id=20260414T120500" in text_output
+
+
+def test_split_models_archive_replay_packet_builds_markdown(tmp_path: Path, monkeypatch) -> None:
+    archive_dir = tmp_path / "archive"
+    latest_dir = archive_dir / "20260414T120500"
+    prior_dir = archive_dir / "20260414T120000"
+    latest_dir.mkdir(parents=True)
+    prior_dir.mkdir(parents=True)
+
+    pd.DataFrame(
+        [
+            {
+                "RunId": "20260414T120000",
+                "BaselineVariant": "rule_breadth_it_us5_cap",
+                "HealthVerdict": "PASS",
+                "DriftVerdict": "PASS",
+                "LiveReadinessVerdict": "GO",
+                "OperatorGateVerdict": "PASS",
+                "CurrentHoldings": 8,
+                "CurrentDominantSector": "Industrials",
+                "TransitionWeightTurnover": 0.11111111111111113,
+                "ArchivePath": str(prior_dir),
+            },
+            {
+                "RunId": "20260414T120500",
+                "BaselineVariant": "rule_breadth_it_us5_cap",
+                "HealthVerdict": "PASS",
+                "DriftVerdict": "PASS",
+                "LiveReadinessVerdict": "GO",
+                "OperatorGateVerdict": "PASS",
+                "CurrentHoldings": 8,
+                "CurrentDominantSector": "Industrials",
+                "TransitionWeightTurnover": 0.11111111111111113,
+                "ArchivePath": str(latest_dir),
+            },
+        ]
+    ).to_csv(archive_dir / "archive_manifest.csv", index=False, encoding="utf-8-sig")
+
+    for run_dir in [prior_dir, latest_dir]:
+        _write_json(run_dir / "shadow_summary.json", {"baseline_variant": "rule_breadth_it_us5_cap", "health_verdict": "PASS", "current_holdings": 8, "current_dominant_sector": "Industrials"})
+        _write_json(run_dir / "shadow_live_readiness.json", {"live_readiness_verdict": "GO"})
+        _write_json(run_dir / "shadow_drift_report.json", {"drift_verdict": "PASS"})
+        _write_json(run_dir / "shadow_live_transition_summary.json", {"weight_turnover": 0.11111111111111113})
+        _write_json(run_dir / "shadow_operator_runtime_status.json", {"operator_gate_verdict": "PASS", "operator_gate_failures": []})
+        _write_json(run_dir / "shadow_rebalance_execution_summary.json", {"actionable_rows": 9})
+        _write_json(run_dir / "archive_consistency_report.json", {"archive_consistency_verdict": "PASS"})
+        _write_json(run_dir / "archive_stability_report.json", {"archive_stability_verdict": "PASS", "window": 5})
+        (run_dir / "shadow_live_transition_packet.md").write_text("# Archived Packet\n", encoding="utf-8")
+
+    _write_json(
+        archive_dir / "archive_timeline_report.json",
+        {
+            "archive_timeline_verdict": "PASS",
+            "window": 8,
+            "latest_run_id": "20260414T120500",
+            "timeline": [{"run_id": "20260414T120500"}, {"run_id": "20260414T120000"}],
+        },
+    )
+
+    monkeypatch.setattr(archive_status, "ARCHIVE_DIR", archive_dir)
+    monkeypatch.setattr(archive_replay_packet, "ARCHIVE_DIR", archive_dir)
+
+    resolved_run_id, packet = archive_replay_packet.build_replay_packet("20260414T120500")
+    assert resolved_run_id == "20260414T120500"
+    assert "archive run id: `20260414T120500`" in packet
+    assert "prior run id: `20260414T120000`" in packet
+    assert "## Archived Operator Packet" in packet
+    assert "# Archived Packet" in packet
 
 
 def test_split_models_archive_timeline_reports_recent_runs(tmp_path: Path, monkeypatch) -> None:
