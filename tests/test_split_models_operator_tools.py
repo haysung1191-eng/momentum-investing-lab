@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import json
+import shutil
 import sys
 from pathlib import Path
 
@@ -265,6 +266,10 @@ def test_split_models_operator_tools_build_outputs(tmp_path: Path, monkeypatch, 
     refreshed_packet = (shadow_dir / "shadow_live_transition_packet.md").read_text(encoding="utf-8")
     assert "archive consistency verdict" in refreshed_packet
     assert "archive stability verdict" in refreshed_packet
+    shutil.copy2(archive_dir / "archive_consistency_report.json", archive_dir / "20260414T120500" / "archive_consistency_report.json")
+    shutil.copy2(archive_dir / "archive_stability_report.json", archive_dir / "20260414T120500" / "archive_stability_report.json")
+    assert (archive_dir / "20260414T120500" / "archive_consistency_report.json").exists()
+    assert (archive_dir / "20260414T120500" / "archive_stability_report.json").exists()
 
 
 def test_split_models_operator_handoff_runner_invokes_steps_in_order(monkeypatch) -> None:
