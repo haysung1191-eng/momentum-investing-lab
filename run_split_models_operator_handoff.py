@@ -12,6 +12,7 @@ import build_split_models_shadow_status as shadow_status
 
 ROOT = Path(__file__).resolve().parent
 RUNTIME_STATUS_PATH = ROOT / "output" / "split_models_shadow" / "shadow_operator_runtime_status.json"
+LIVE_PACKET_PATH = ROOT / "output" / "split_models_shadow" / "shadow_live_transition_packet.md"
 
 
 def _run_step(label: str, args: list[str]) -> None:
@@ -29,9 +30,9 @@ def _write_runtime_status(print_json: bool = False) -> None:
         print(json.dumps(payload, indent=2))
 
 
-def _sync_runtime_status_to_latest_archive() -> None:
+def _sync_files_to_latest_archive(paths: list[Path]) -> None:
     delta_path = ROOT / "output" / "split_models_shadow_archive" / "archive_latest_delta.json"
-    if not delta_path.exists() or not RUNTIME_STATUS_PATH.exists():
+    if not delta_path.exists():
         return
     delta = json.loads(delta_path.read_text(encoding="utf-8"))
     latest_run_id = delta.get("latest_run_id")
@@ -39,7 +40,9 @@ def _sync_runtime_status_to_latest_archive() -> None:
         return
     latest_dir = delta_path.parent / str(latest_run_id)
     latest_dir.mkdir(parents=True, exist_ok=True)
-    shutil.copy2(RUNTIME_STATUS_PATH, latest_dir / RUNTIME_STATUS_PATH.name)
+    for path in paths:
+        if path.exists():
+            shutil.copy2(path, latest_dir / path.name)
 
 
 def _load_runtime_status() -> dict[str, object]:
@@ -48,19 +51,11 @@ def _load_runtime_status() -> dict[str, object]:
 
 def _enforce_operational_gate() -> None:
     payload = _load_runtime_status()
-    failures: list[str] = []
-    if payload.get("live_readiness") != "GO":
-        failures.append(f"live_readiness={payload.get('live_readiness')}")
-    if payload.get("health_verdict") != "PASS":
-        failures.append(f"health_verdict={payload.get('health_verdict')}")
-    if payload.get("drift_verdict") != "PASS":
-        failures.append(f"drift_verdict={payload.get('drift_verdict')}")
-    if payload.get("archive_consistency_verdict") != "PASS":
-        failures.append(f"archive_consistency_verdict={payload.get('archive_consistency_verdict')}")
+    failures = list(payload.get("operator_gate_failures", []))
     if failures:
         joined = ", ".join(failures)
         raise SystemExit(f"operator_gate_failed: {joined}")
-    print("[summary] operator_gate=PASS")
+    print(f"[summary] operator_gate={payload.get('operator_gate_verdict', 'PASS')}")
 
 
 def main() -> None:
@@ -110,11 +105,12 @@ def main() -> None:
     _run_step("archive operator handoff", [python, "archive_split_models_operator_handoff.py"])
     _run_step("build archive delta", [python, "build_split_models_archive_delta.py"])
     _write_runtime_status(print_json=False)
-    _sync_runtime_status_to_latest_archive()
+    _sync_files_to_latest_archive([RUNTIME_STATUS_PATH])
     _run_step("refresh archive delta", [python, "build_split_models_archive_delta.py"])
     _run_step("check archive consistency", [python, "check_split_models_archive_consistency.py"])
     _write_runtime_status(print_json=False)
-    _sync_runtime_status_to_latest_archive()
+    _run_step("refresh live packet after consistency", [python, "build_split_models_live_packet.py"])
+    _sync_files_to_latest_archive([RUNTIME_STATUS_PATH, LIVE_PACKET_PATH])
     _run_step("refresh archive delta after consistency", [python, "build_split_models_archive_delta.py"])
     if args.fail_on_not_go:
         _enforce_operational_gate()

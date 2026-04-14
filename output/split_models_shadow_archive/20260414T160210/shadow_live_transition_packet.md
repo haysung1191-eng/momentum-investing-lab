@@ -6,7 +6,7 @@
 - current holdings: `8`
 - current dominant sector: `Industrials`
 - transition weight turnover: `11.11%`
-- operator gate verdict: `PASS`
+- operator gate verdict: `None`
 
 ## Readiness checks
 - HealthPass: `PASS` (value=PASS, threshold=PASS)

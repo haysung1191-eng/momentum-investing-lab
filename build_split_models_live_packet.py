@@ -43,6 +43,13 @@ def main() -> None:
     lines.append(f"- current holdings: `{summary.get('current_holdings')}`")
     lines.append(f"- current dominant sector: `{summary.get('current_dominant_sector')}`")
     lines.append(f"- transition weight turnover: `{float(transition.get('weight_turnover', 0.0)):.2%}`")
+    runtime_status_path = SHADOW_DIR / "shadow_operator_runtime_status.json"
+    if runtime_status_path.exists():
+        runtime_status = _load_json(runtime_status_path)
+        lines.append(f"- operator gate verdict: `{runtime_status.get('operator_gate_verdict')}`")
+        failures = runtime_status.get("operator_gate_failures", [])
+        if failures:
+            lines.append(f"- operator gate failures: `{'; '.join(str(item) for item in failures)}`")
     lines.append("")
     lines.append("## Readiness checks")
     for check in readiness.get("checks", []):

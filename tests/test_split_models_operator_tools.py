@@ -159,6 +159,7 @@ def test_split_models_operator_tools_build_outputs(tmp_path: Path, monkeypatch, 
     assert "baseline_variant=rule_breadth_it_us5_cap" in output
     assert "live_readiness=GO" in output
     assert "market_US_sell_orders=1" in output
+    assert "operator_gate_verdict=FAIL" in output
 
     shadow_status.main(["--json"])
     json_output = capsys.readouterr().out
@@ -166,6 +167,8 @@ def test_split_models_operator_tools_build_outputs(tmp_path: Path, monkeypatch, 
     assert payload["baseline_variant"] == "rule_breadth_it_us5_cap"
     assert payload["live_readiness"] == "GO"
     assert payload["market_US_sell_orders"] == 1
+    assert payload["operator_gate_verdict"] == "FAIL"
+    assert payload["operator_gate_failures"] == ["archive_consistency_verdict=None"]
     archived_runtime_status = archive_dir / "20260414T120000" / "shadow_operator_runtime_status.json"
     assert archived_runtime_status.exists()
 
@@ -240,6 +243,8 @@ def test_split_models_operator_tools_build_outputs(tmp_path: Path, monkeypatch, 
     assert final_status["archive_holdings_change"] == 1
     assert final_status["archive_dominant_sector_changed"] is True
     assert final_status["archive_consistency_verdict"] == "PASS"
+    assert final_status["operator_gate_verdict"] == "PASS"
+    assert final_status["operator_gate_failures"] == []
 
 
 def test_split_models_operator_handoff_runner_invokes_steps_in_order(monkeypatch) -> None:
@@ -255,7 +260,7 @@ def test_split_models_operator_handoff_runner_invokes_steps_in_order(monkeypatch
     monkeypatch.setattr(handoff_runner.subprocess, "run", _fake_run)
     monkeypatch.setattr(handoff_runner.sys, "executable", "python")
     monkeypatch.setattr(handoff_runner, "_write_runtime_status", lambda print_json=False: runtime_status_calls.append(print_json))
-    monkeypatch.setattr(handoff_runner, "_sync_runtime_status_to_latest_archive", lambda: sync_calls.append(True))
+    monkeypatch.setattr(handoff_runner, "_sync_files_to_latest_archive", lambda paths: sync_calls.append(True))
     monkeypatch.setattr(
         sys,
         "argv",
@@ -281,6 +286,7 @@ def test_split_models_operator_handoff_runner_invokes_steps_in_order(monkeypatch
         ["python", "build_split_models_archive_delta.py"],
         ["python", "build_split_models_archive_delta.py"],
         ["python", "check_split_models_archive_consistency.py"],
+        ["python", "build_split_models_live_packet.py"],
         ["python", "build_split_models_archive_delta.py"],
     ]
     assert runtime_status_calls == [False, False, False]
@@ -355,6 +361,8 @@ def test_split_models_operator_handoff_runner_enforce_operational_gate_raises(tm
     runtime_status_path.write_text(
         json.dumps(
             {
+                "operator_gate_verdict": "FAIL",
+                "operator_gate_failures": ["live_readiness=HOLD"],
                 "live_readiness": "HOLD",
                 "health_verdict": "PASS",
                 "drift_verdict": "PASS",

@@ -26,6 +26,20 @@ def _load_optional_json(path: Path) -> dict:
     return _load_json(path)
 
 
+def derive_operator_gate(payload: dict[str, object]) -> tuple[str, list[str]]:
+    failures: list[str] = []
+    if payload.get("live_readiness") != "GO":
+        failures.append(f"live_readiness={payload.get('live_readiness')}")
+    if payload.get("health_verdict") != "PASS":
+        failures.append(f"health_verdict={payload.get('health_verdict')}")
+    if payload.get("drift_verdict") != "PASS":
+        failures.append(f"drift_verdict={payload.get('drift_verdict')}")
+    if payload.get("archive_consistency_verdict") != "PASS":
+        failures.append(f"archive_consistency_verdict={payload.get('archive_consistency_verdict')}")
+    verdict = "PASS" if not failures else "FAIL"
+    return verdict, failures
+
+
 def build_status_payload() -> dict[str, object]:
     summary = _load_json(SHADOW_DIR / "shadow_summary.json")
     backtest = _load_json(SHADOW_DIR / "split_models_backtest_summary.json")
@@ -62,6 +76,9 @@ def build_status_payload() -> dict[str, object]:
     }
     for _, row in market_summary.iterrows():
         payload[f"market_{row['Market']}_{row['ExecutionSide'].lower()}_orders"] = int(row["OrderCount"])
+    operator_gate_verdict, operator_gate_failures = derive_operator_gate(payload)
+    payload["operator_gate_verdict"] = operator_gate_verdict
+    payload["operator_gate_failures"] = operator_gate_failures
     return payload
 
 
@@ -86,6 +103,9 @@ def main(argv: list[str] | None = None) -> None:
     print(f"sharpe={float(payload['sharpe']):.4f}")
     print(f"transition_turnover={float(payload['transition_turnover']):.6f}")
     print(f"actionable_rows={payload['actionable_rows']}")
+    print(f"operator_gate_verdict={payload['operator_gate_verdict']}")
+    if payload["operator_gate_failures"]:
+        print(f"operator_gate_failures={' | '.join(str(item) for item in payload['operator_gate_failures'])}")
     print(f"archive_comparison_available={payload['archive_comparison_available']}")
     print(f"archive_consistency_verdict={payload['archive_consistency_verdict']}")
     if payload["archive_comparison_available"]:
