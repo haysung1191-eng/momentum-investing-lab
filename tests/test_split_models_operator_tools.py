@@ -137,11 +137,18 @@ def test_split_models_operator_tools_build_outputs(tmp_path: Path, monkeypatch, 
             }
         },
     )
-    shadow_status.main()
+    shadow_status.main([])
     output = capsys.readouterr().out
     assert "baseline_variant=rule_breadth_it_us5_cap" in output
     assert "live_readiness=GO" in output
     assert "market_US_sell_orders=1" in output
+
+    shadow_status.main(["--json"])
+    json_output = capsys.readouterr().out
+    payload = json.loads(json_output)
+    assert payload["baseline_variant"] == "rule_breadth_it_us5_cap"
+    assert payload["live_readiness"] == "GO"
+    assert payload["market_US_sell_orders"] == 1
 
 
 def test_split_models_operator_handoff_runner_invokes_steps_in_order(monkeypatch) -> None:

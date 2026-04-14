@@ -24,13 +24,14 @@ Reference file:
 3. One-click operator path: run `powershell -ExecutionPolicy Bypass -File .\start_split_models_shadow_ops.ps1 -TotalCapital <account_value>`
 4. Open `output\split_models_shadow\shadow_summary.json`
 5. Fast CLI check: run `python .\build_split_models_shadow_status.py`
-6. Confirm `baseline_variant` is `rule_breadth_it_us5_cap`
-7. Confirm `health_verdict` is `PASS`
-8. Confirm `output\split_models_shadow\shadow_drift_report.json` has `drift_verdict=PASS`
-9. Confirm `output\split_models_shadow\shadow_live_readiness.json` has `live_readiness_verdict=GO`
-10. Use `output\split_models_shadow\shadow_live_transition_packet.md` as the single-file operator handoff before any live transition
-11. Confirm `output\split_models_shadow_archive\archive_manifest.csv` received a new row for this handoff run
-12. Optional dashboard only: run `streamlit run .\split_models_shadow_dashboard.py`
+6. Automation-friendly check: run `python .\build_split_models_shadow_status.py --json`
+7. Confirm `baseline_variant` is `rule_breadth_it_us5_cap`
+8. Confirm `health_verdict` is `PASS`
+9. Confirm `output\split_models_shadow\shadow_drift_report.json` has `drift_verdict=PASS`
+10. Confirm `output\split_models_shadow\shadow_live_readiness.json` has `live_readiness_verdict=GO`
+11. Use `output\split_models_shadow\shadow_live_transition_packet.md` as the single-file operator handoff before any live transition
+12. Confirm `output\split_models_shadow_archive\archive_manifest.csv` received a new row for this handoff run
+13. Optional dashboard only: run `streamlit run .\split_models_shadow_dashboard.py`
 
 ## Main shadow artifacts
 
