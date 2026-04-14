@@ -10,10 +10,11 @@ import archive_split_models_operator_handoff as archive_tools
 import build_split_models_live_packet as live_packet
 import build_split_models_live_readiness as live_readiness
 import build_split_models_rebalance_orders as rebalance_orders
+import build_split_models_shadow_status as shadow_status
 import run_split_models_operator_handoff as handoff_runner
 
 
-def test_split_models_operator_tools_build_outputs(tmp_path: Path, monkeypatch) -> None:
+def test_split_models_operator_tools_build_outputs(tmp_path: Path, monkeypatch, capsys) -> None:
     shadow_dir = tmp_path / "shadow"
     archive_dir = tmp_path / "archive"
     shadow_dir.mkdir(parents=True)
@@ -83,6 +84,7 @@ def test_split_models_operator_tools_build_outputs(tmp_path: Path, monkeypatch) 
     monkeypatch.setattr(rebalance_orders, "SHADOW_DIR", shadow_dir)
     monkeypatch.setattr(live_readiness, "SHADOW_DIR", shadow_dir)
     monkeypatch.setattr(live_packet, "SHADOW_DIR", shadow_dir)
+    monkeypatch.setattr(shadow_status, "SHADOW_DIR", shadow_dir)
     monkeypatch.setattr(archive_tools, "SHADOW_DIR", shadow_dir)
     monkeypatch.setattr(archive_tools, "ARCHIVE_DIR", archive_dir)
 
@@ -124,6 +126,22 @@ def test_split_models_operator_tools_build_outputs(tmp_path: Path, monkeypatch) 
     assert manifest.iloc[0]["LiveReadinessVerdict"] == "GO"
     archived_packet = archive_dir / "20260414T120000" / "shadow_live_transition_packet.md"
     assert archived_packet.exists()
+
+    _write_json(
+        shadow_dir / "split_models_backtest_summary.json",
+        {
+            "trading_book": {
+                "CAGR": 0.3343,
+                "MDD": -0.2524,
+                "Sharpe": 1.4482,
+            }
+        },
+    )
+    shadow_status.main()
+    output = capsys.readouterr().out
+    assert "baseline_variant=rule_breadth_it_us5_cap" in output
+    assert "live_readiness=GO" in output
+    assert "market_US_sell_orders=1" in output
 
 
 def test_split_models_operator_handoff_runner_invokes_steps_in_order(monkeypatch) -> None:
