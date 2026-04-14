@@ -261,6 +261,11 @@ def test_split_models_operator_tools_build_outputs(tmp_path: Path, monkeypatch, 
     assert final_status["operator_gate_verdict"] == "PASS"
     assert final_status["operator_gate_failures"] == []
 
+    live_packet.main()
+    refreshed_packet = (shadow_dir / "shadow_live_transition_packet.md").read_text(encoding="utf-8")
+    assert "archive consistency verdict" in refreshed_packet
+    assert "archive stability verdict" in refreshed_packet
+
 
 def test_split_models_operator_handoff_runner_invokes_steps_in_order(monkeypatch) -> None:
     calls: list[list[str]] = []

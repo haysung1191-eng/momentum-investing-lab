@@ -72,7 +72,7 @@ def _load_optional_archive_delta() -> dict:
     return _load_json(str(path))
 
 
-def render_header(summary: dict, readiness: dict, drift: dict) -> None:
+def render_header(summary: dict, readiness: dict, drift: dict, runtime_status: dict) -> None:
     st.title("Split Models Shadow Dashboard")
     st.markdown(
         " | ".join(
@@ -81,13 +81,17 @@ def render_header(summary: dict, readiness: dict, drift: dict) -> None:
                 _badge("Readiness", readiness.get("live_readiness_verdict", "N/A")),
                 _badge("Drift", drift.get("drift_verdict", "N/A")),
                 _badge("Health", summary.get("health_verdict", "N/A")),
+                _badge("Gate", runtime_status.get("operator_gate_verdict", "N/A")),
+                _badge("Consistency", runtime_status.get("archive_consistency_verdict", "N/A")),
+                _badge("Stability", runtime_status.get("archive_stability_verdict", "N/A")),
             ]
         )
     )
     st.caption(
         f"Recent window: {summary.get('recent_start', 'N/A')} to {summary.get('recent_end', 'N/A')} | "
         f"Holdings: {summary.get('current_holdings', 'N/A')} | "
-        f"Dominant sector: {summary.get('current_dominant_sector', 'N/A')}"
+        f"Dominant sector: {summary.get('current_dominant_sector', 'N/A')} | "
+        f"Stability window: {runtime_status.get('archive_stability_window', 'N/A')}"
     )
 
 
@@ -144,7 +148,7 @@ def render_archive(manifest: pd.DataFrame) -> None:
     st.dataframe(display, width="stretch", height=240)
 
 
-def render_archive_delta(delta: dict) -> None:
+def render_archive_delta(delta: dict, runtime_status: dict) -> None:
     st.subheader("Latest Archive Delta")
     if not delta:
         st.info("No archive delta found.")
@@ -177,6 +181,15 @@ def render_archive_delta(delta: dict) -> None:
     st.caption(
         f"Transition turnover change: {float(delta.get('transition_turnover_change', 0.0)):.6f}"
     )
+    st.markdown(
+        " | ".join(
+            [
+                _badge("Current Gate", runtime_status.get("operator_gate_verdict", "N/A")),
+                _badge("Current Consistency", runtime_status.get("archive_consistency_verdict", "N/A")),
+                _badge("Current Stability", runtime_status.get("archive_stability_verdict", "N/A")),
+            ]
+        )
+    )
     st.code(json.dumps(delta, indent=2), language="json")
 
 
@@ -198,6 +211,7 @@ def main() -> None:
     readiness = _load_json(str(SHADOW_DIR / "shadow_live_readiness.json"))
     drift = _load_json(str(SHADOW_DIR / "shadow_drift_report.json"))
     transition = _load_json(str(SHADOW_DIR / "shadow_live_transition_summary.json"))
+    runtime_status = _load_json(str(SHADOW_DIR / "shadow_operator_runtime_status.json"))
     market_summary = _load_csv(str(SHADOW_DIR / "shadow_rebalance_market_summary.csv"))
     orders = _load_csv(str(SHADOW_DIR / "shadow_rebalance_orders.csv"))
     book = _load_csv(str(SHADOW_DIR / "shadow_current_book.csv"))
@@ -206,7 +220,7 @@ def main() -> None:
     archive_delta = _load_optional_archive_delta()
     packet_path = SHADOW_DIR / "shadow_live_transition_packet.md"
 
-    render_header(summary, readiness, drift)
+    render_header(summary, readiness, drift, runtime_status)
     render_metrics(backtest_summary.get("trading_book", {}), summary, readiness, transition)
 
     tab1, tab2, tab3, tab4 = st.tabs(["Readiness", "Orders", "Current Book", "Archive"])
@@ -218,7 +232,7 @@ def main() -> None:
     with tab3:
         render_current_book(book, sector_mix)
     with tab4:
-        render_archive_delta(archive_delta)
+        render_archive_delta(archive_delta, runtime_status)
         render_archive(archive_manifest)
 
 

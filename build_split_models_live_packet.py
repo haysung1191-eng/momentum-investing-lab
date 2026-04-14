@@ -47,6 +47,12 @@ def main() -> None:
     if runtime_status_path.exists():
         runtime_status = _load_json(runtime_status_path)
         lines.append(f"- operator gate verdict: `{runtime_status.get('operator_gate_verdict')}`")
+        lines.append(f"- archive consistency verdict: `{runtime_status.get('archive_consistency_verdict')}`")
+        lines.append(f"- archive stability verdict: `{runtime_status.get('archive_stability_verdict')}`")
+        if runtime_status.get("archive_stability_window") is not None:
+            lines.append(
+                f"- archive stability window: `{runtime_status.get('archive_stability_window')}` runs"
+            )
         failures = runtime_status.get("operator_gate_failures", [])
         if failures:
             lines.append(f"- operator gate failures: `{'; '.join(str(item) for item in failures)}`")

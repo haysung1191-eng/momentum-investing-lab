@@ -7,6 +7,9 @@
 - current dominant sector: `Industrials`
 - transition weight turnover: `11.11%`
 - operator gate verdict: `PASS`
+- archive consistency verdict: `PASS`
+- archive stability verdict: `PASS`
+- archive stability window: `5` runs
 
 ## Readiness checks
 - HealthPass: `PASS` (value=PASS, threshold=PASS)
