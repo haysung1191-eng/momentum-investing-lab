@@ -10,7 +10,7 @@ from split_models.backtest import BacktestConfig, run_backtests
 
 ROOT = Path(__file__).resolve().parent
 OUTPUT_DIR = ROOT / "output" / "split_models_shadow"
-BASELINE_VARIANT = "rule_breadth_it_risk_off"
+BASELINE_VARIANT = "rule_breadth_it_us5_cap"
 
 
 def _recent_slice(df: pd.DataFrame, date_col: str, months: int = 12) -> pd.DataFrame:

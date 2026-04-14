@@ -54,6 +54,7 @@ class TradingVariant:
     entry_soft_max_r1m: float | None = None
     entry_soft_r1m_penalty: float = 1.0
     max_positions_per_sector: int | None = None
+    us_position_cap: int | None = None
     breadth_risk_off_threshold: int | None = None
     breadth_risk_off_exposure: float = 1.0
     sector_risk_off_name: str | None = None
@@ -172,6 +173,30 @@ def _baseline_variant_map() -> dict[str, TradingVariant]:
                 sector_risk_off_name="Information Technology",
                 sector_risk_off_weight_threshold=0.55,
                 sector_risk_off_exposure=0.80,
+            ),
+            "rule_breadth_it_us5_cap": TradingVariant(
+                name="rule_breadth_it_us5_cap",
+                use_flow_filter=True,
+                use_sector_filter=True,
+                use_mad_weighting=False,
+                min_holdings=4,
+                us_position_cap=5,
+                breadth_risk_off_threshold=4,
+                breadth_risk_off_exposure=0.75,
+                sector_risk_off_name="Information Technology",
+                sector_risk_off_weight_threshold=0.55,
+                sector_risk_off_exposure=0.80,
+            ),
+            "rule_breadth_max_sector_risk_off": TradingVariant(
+                name="rule_breadth_max_sector_risk_off",
+                use_flow_filter=True,
+                use_sector_filter=True,
+                use_mad_weighting=False,
+                min_holdings=4,
+                breadth_risk_off_threshold=4,
+                breadth_risk_off_exposure=0.75,
+                sector_risk_off_weight_threshold=0.50,
+                sector_risk_off_exposure=0.85,
             ),
             "rule_sector_cap2_breadth_risk_off": TradingVariant(
                 name="rule_sector_cap2_breadth_risk_off",
@@ -660,7 +685,10 @@ def _build_momentum_candidates_for_date(
         row = eligible_by_key.get(asset_key)
         if row is None:
             continue
-        if market_counts.get(str(row.Market), 0) >= cfg.trading_book_market_cap:
+        market_cap_limit = cfg.trading_book_market_cap
+        if variant.us_position_cap is not None and str(row.Market) == "US":
+            market_cap_limit = min(market_cap_limit, int(variant.us_position_cap))
+        if market_counts.get(str(row.Market), 0) >= market_cap_limit:
             continue
         sector_key = (str(row.Market), str(row.Sector))
         if variant.max_positions_per_sector is not None and sector_counts.get(sector_key, 0) >= int(variant.max_positions_per_sector):
@@ -674,7 +702,10 @@ def _build_momentum_candidates_for_date(
         for row in eligible.itertuples(index=False):
             if row.AssetKey in set(final_picks):
                 continue
-            if market_counts.get(str(row.Market), 0) >= cfg.trading_book_market_cap:
+            market_cap_limit = cfg.trading_book_market_cap
+            if variant.us_position_cap is not None and str(row.Market) == "US":
+                market_cap_limit = min(market_cap_limit, int(variant.us_position_cap))
+            if market_counts.get(str(row.Market), 0) >= market_cap_limit:
                 continue
             sector_key = (str(row.Market), str(row.Sector))
             if variant.max_positions_per_sector is not None and sector_counts.get(sector_key, 0) >= int(variant.max_positions_per_sector):
@@ -688,7 +719,10 @@ def _build_momentum_candidates_for_date(
         for row in broad_eligible.itertuples(index=False):
             if row.AssetKey in set(final_picks):
                 continue
-            if market_counts.get(str(row.Market), 0) >= cfg.trading_book_market_cap:
+            market_cap_limit = cfg.trading_book_market_cap
+            if variant.us_position_cap is not None and str(row.Market) == "US":
+                market_cap_limit = min(market_cap_limit, int(variant.us_position_cap))
+            if market_counts.get(str(row.Market), 0) >= market_cap_limit:
                 continue
             sector_key = (str(row.Market), str(row.Sector))
             if variant.max_positions_per_sector is not None and sector_counts.get(sector_key, 0) >= int(variant.max_positions_per_sector):
@@ -740,13 +774,15 @@ def _build_momentum_candidates_for_date(
         book["TargetWeight"] = book["TargetWeight"] * float(variant.breadth_risk_off_exposure)
     if (
         not book.empty
-        and variant.sector_risk_off_name is not None
         and variant.sector_risk_off_weight_threshold is not None
         and float(variant.sector_risk_off_exposure) < 1.0
     ):
-        sector_weight = float(
-            book.loc[book["Sector"].astype(str) == str(variant.sector_risk_off_name), "TargetWeight"].sum()
-        )
+        if variant.sector_risk_off_name is not None:
+            sector_weight = float(
+                book.loc[book["Sector"].astype(str) == str(variant.sector_risk_off_name), "TargetWeight"].sum()
+            )
+        else:
+            sector_weight = float(book.groupby("Sector")["TargetWeight"].sum().max())
         if sector_weight >= float(variant.sector_risk_off_weight_threshold):
             book["TargetWeight"] = book["TargetWeight"] * float(variant.sector_risk_off_exposure)
     book["SignalDate"] = flow_snapshot["AsOfDate"].iloc[0] if not flow_snapshot.empty else ""
@@ -1356,6 +1392,30 @@ def run_backtests(output_dir: Path | None = None, config: BacktestConfig | None 
             sector_risk_off_exposure=0.80,
         ),
         TradingVariant(
+            name="rule_breadth_it_us5_cap",
+            use_flow_filter=True,
+            use_sector_filter=True,
+            use_mad_weighting=False,
+            min_holdings=4,
+            us_position_cap=5,
+            breadth_risk_off_threshold=4,
+            breadth_risk_off_exposure=0.75,
+            sector_risk_off_name="Information Technology",
+            sector_risk_off_weight_threshold=0.55,
+            sector_risk_off_exposure=0.80,
+        ),
+        TradingVariant(
+            name="rule_breadth_max_sector_risk_off",
+            use_flow_filter=True,
+            use_sector_filter=True,
+            use_mad_weighting=False,
+            min_holdings=4,
+            breadth_risk_off_threshold=4,
+            breadth_risk_off_exposure=0.75,
+            sector_risk_off_weight_threshold=0.50,
+            sector_risk_off_exposure=0.85,
+        ),
+        TradingVariant(
             name="rule_sector_cap2_breadth_risk_off",
             use_flow_filter=True,
             use_sector_filter=True,
@@ -1406,6 +1466,7 @@ def run_backtests(output_dir: Path | None = None, config: BacktestConfig | None 
                 "EntrySoftMaxR1M": "" if variant.entry_soft_max_r1m is None else float(variant.entry_soft_max_r1m),
                 "EntrySoftR1MPenalty": float(variant.entry_soft_r1m_penalty),
                 "MaxPositionsPerSector": "" if variant.max_positions_per_sector is None else int(variant.max_positions_per_sector),
+                "USPositionCap": "" if variant.us_position_cap is None else int(variant.us_position_cap),
                 "BreadthRiskOffThreshold": "" if variant.breadth_risk_off_threshold is None else int(variant.breadth_risk_off_threshold),
                 "BreadthRiskOffExposure": float(variant.breadth_risk_off_exposure),
                 "SectorRiskOffName": "" if variant.sector_risk_off_name is None else str(variant.sector_risk_off_name),

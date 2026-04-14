@@ -631,3 +631,187 @@ def test_build_momentum_candidates_sector_cap_breadth_and_it_risk_off_work_toget
 
     assert int((book["Sector"] == "Information Technology").sum()) == 2
     assert round(float(book["TargetWeight"].sum()), 8) == 0.75
+
+
+def test_build_momentum_candidates_max_sector_risk_off_scales_when_any_sector_dominates() -> None:
+    metrics = pd.DataFrame(
+        [
+            {
+                "Market": "US",
+                "AssetType": "STOCK",
+                "Symbol": f"IT{i}",
+                "Name": f"IT{i}",
+                "Sector": "Information Technology",
+                "AssetKey": f"US:STOCK:IT{i}",
+                "MedianDailyValue60D": 50_000_000.0,
+                "CurrentPrice": 100.0,
+                "TrendOK": 1,
+                "MomentumScore": 0.30 - i * 0.01,
+                "FlowScore": 0.20 - i * 0.01,
+                "RelVolume20D60D": 1.1,
+                "R1M": 0.10,
+            }
+            for i in range(5)
+        ]
+        + [
+            {
+                "Market": "US",
+                "AssetType": "STOCK",
+                "Symbol": "HC1",
+                "Name": "HC1",
+                "Sector": "Health Care",
+                "AssetKey": "US:STOCK:HC1",
+                "MedianDailyValue60D": 50_000_000.0,
+                "CurrentPrice": 100.0,
+                "TrendOK": 1,
+                "MomentumScore": 0.20,
+                "FlowScore": 0.10,
+                "RelVolume20D60D": 1.1,
+                "R1M": 0.05,
+            },
+            {
+                "Market": "US",
+                "AssetType": "STOCK",
+                "Symbol": "HC2",
+                "Name": "HC2",
+                "Sector": "Health Care",
+                "AssetKey": "US:STOCK:HC2",
+                "MedianDailyValue60D": 50_000_000.0,
+                "CurrentPrice": 100.0,
+                "TrendOK": 1,
+                "MomentumScore": 0.19,
+                "FlowScore": 0.09,
+                "RelVolume20D60D": 1.1,
+                "R1M": 0.05,
+            },
+            {
+                "Market": "KR",
+                "AssetType": "ETF",
+                "Symbol": "ETF1",
+                "Name": "ETF1",
+                "Sector": "ETF",
+                "AssetKey": "KR:ETF:ETF1",
+                "MedianDailyValue60D": 50_000_000_000.0,
+                "CurrentPrice": 100.0,
+                "TrendOK": 1,
+                "MomentumScore": 0.18,
+                "FlowScore": 0.08,
+                "RelVolume20D60D": 1.1,
+                "R1M": 0.04,
+            },
+            {
+                "Market": "KR",
+                "AssetType": "ETF",
+                "Symbol": "ETF2",
+                "Name": "ETF2",
+                "Sector": "ETF",
+                "AssetKey": "KR:ETF:ETF2",
+                "MedianDailyValue60D": 50_000_000_000.0,
+                "CurrentPrice": 100.0,
+                "TrendOK": 1,
+                "MomentumScore": 0.17,
+                "FlowScore": 0.07,
+                "RelVolume20D60D": 1.1,
+                "R1M": 0.04,
+            },
+        ]
+    )
+    flow_snapshot = pd.DataFrame(
+        [
+            {"ScopeType": "COUNTRY", "Market": "GLOBAL", "Label": "US", "Rank": 1, "AsOfDate": "2026-03-31"},
+            {"ScopeType": "COUNTRY", "Market": "GLOBAL", "Label": "Korea", "Rank": 2, "AsOfDate": "2026-03-31"},
+            {"ScopeType": "SECTOR", "Market": "US", "Label": "Information Technology", "Rank": 1, "AsOfDate": "2026-03-31"},
+            {"ScopeType": "SECTOR", "Market": "US", "Label": "Health Care", "Rank": 2, "AsOfDate": "2026-03-31"},
+            {"ScopeType": "SECTOR", "Market": "KR", "Label": "ETF", "Rank": 1, "AsOfDate": "2026-03-31"},
+        ]
+    )
+
+    book = _build_momentum_candidates_for_date(
+        metrics,
+        flow_snapshot,
+        BacktestConfig(),
+        variant=TradingVariant(
+            name="rule_breadth_max_sector_risk_off",
+            use_flow_filter=True,
+            use_sector_filter=True,
+            use_mad_weighting=False,
+            min_holdings=4,
+            breadth_risk_off_threshold=4,
+            breadth_risk_off_exposure=0.75,
+            sector_risk_off_weight_threshold=0.50,
+            sector_risk_off_exposure=0.85,
+        ),
+    )
+
+    assert round(float(book["TargetWeight"].sum()), 8) == 0.85
+
+
+def test_build_momentum_candidates_us_position_cap_limits_us_names() -> None:
+    metrics = pd.DataFrame(
+        [
+            {
+                "Market": "US",
+                "AssetType": "STOCK",
+                "Symbol": f"US{i}",
+                "Name": f"US{i}",
+                "Sector": "Information Technology" if i < 3 else "Industrials",
+                "AssetKey": f"US:STOCK:US{i}",
+                "MedianDailyValue60D": 50_000_000.0,
+                "CurrentPrice": 100.0,
+                "TrendOK": 1,
+                "MomentumScore": 0.30 - i * 0.01,
+                "FlowScore": 0.20 - i * 0.01,
+                "RelVolume20D60D": 1.1,
+                "R1M": 0.10,
+            }
+            for i in range(6)
+        ]
+        + [
+            {
+                "Market": "KR",
+                "AssetType": "ETF",
+                "Symbol": f"KR{i}",
+                "Name": f"KR{i}",
+                "Sector": "ETF",
+                "AssetKey": f"KR:ETF:KR{i}",
+                "MedianDailyValue60D": 50_000_000_000.0,
+                "CurrentPrice": 100.0,
+                "TrendOK": 1,
+                "MomentumScore": 0.18 - i * 0.01,
+                "FlowScore": 0.08 - i * 0.01,
+                "RelVolume20D60D": 1.1,
+                "R1M": 0.05,
+            }
+            for i in range(3)
+        ]
+    )
+    flow_snapshot = pd.DataFrame(
+        [
+            {"ScopeType": "COUNTRY", "Market": "GLOBAL", "Label": "US", "Rank": 1, "AsOfDate": "2026-03-31"},
+            {"ScopeType": "COUNTRY", "Market": "GLOBAL", "Label": "Korea", "Rank": 2, "AsOfDate": "2026-03-31"},
+            {"ScopeType": "SECTOR", "Market": "US", "Label": "Information Technology", "Rank": 1, "AsOfDate": "2026-03-31"},
+            {"ScopeType": "SECTOR", "Market": "US", "Label": "Industrials", "Rank": 2, "AsOfDate": "2026-03-31"},
+            {"ScopeType": "SECTOR", "Market": "KR", "Label": "ETF", "Rank": 1, "AsOfDate": "2026-03-31"},
+        ]
+    )
+
+    book = _build_momentum_candidates_for_date(
+        metrics,
+        flow_snapshot,
+        BacktestConfig(),
+        variant=TradingVariant(
+            name="rule_breadth_it_us5_cap",
+            use_flow_filter=True,
+            use_sector_filter=True,
+            use_mad_weighting=False,
+            min_holdings=4,
+            us_position_cap=5,
+            breadth_risk_off_threshold=4,
+            breadth_risk_off_exposure=0.75,
+            sector_risk_off_name="Information Technology",
+            sector_risk_off_weight_threshold=0.55,
+            sector_risk_off_exposure=0.80,
+        ),
+    )
+
+    assert int((book["Market"] == "US").sum()) == 5

@@ -2,7 +2,7 @@ from __future__ import annotations
 
 from split_models.backtest import BacktestConfig, run_backtests
 
-BASELINE_VARIANT = "rule_breadth_it_risk_off"
+BASELINE_VARIANT = "rule_breadth_it_us5_cap"
 
 
 def main() -> None:
