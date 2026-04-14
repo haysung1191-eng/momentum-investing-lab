@@ -27,7 +27,7 @@ Reference file:
 6. Automation-friendly check: run `python .\build_split_models_shadow_status.py --json` to include latest archive delta fields as well
 7. Fail-fast operator gate: run `python .\run_split_models_operator_handoff.py --status-only --fail-on-not-go` to return non-zero if `GO/PASS` is broken
 8. Archive replay check: run `python .\build_split_models_archive_status.py --run-id <archive_run_id>` to inspect one archived handoff in isolation
-9. Archive replay packet: run `python .\build_split_models_archive_replay_packet.py --run-id <archive_run_id>` to get a one-file replay packet with prior/next context
+9. Archive replay packet: run `python .\build_split_models_archive_replay_packet.py --run-id <archive_run_id>` to get a one-file replay packet with prior/next context; full operator handoff now auto-builds this for the latest archive run
 10. Confirm `baseline_variant` is `rule_breadth_it_us5_cap`
 11. Confirm `health_verdict` is `PASS`
 12. Confirm `output\split_models_shadow\shadow_drift_report.json` has `drift_verdict=PASS`
