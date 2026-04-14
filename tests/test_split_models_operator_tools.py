@@ -329,6 +329,7 @@ def test_split_models_operator_handoff_runner_invokes_steps_in_order(monkeypatch
         ["python", "check_split_models_archive_consistency.py"],
         ["python", "build_split_models_archive_stability.py"],
         ["python", "build_split_models_archive_timeline.py"],
+        ["python", "build_split_models_archive_replay_packet.py"],
         ["python", "build_split_models_live_packet.py"],
         ["python", "build_split_models_archive_delta.py"],
     ]
@@ -795,6 +796,7 @@ def test_split_models_dashboard_archive_replay_loaders(tmp_path: Path) -> None:
     run_dir = archive_dir / "20260414T120500"
     run_dir.mkdir(parents=True)
     (run_dir / "shadow_live_transition_packet.md").write_text("# Packet\n", encoding="utf-8")
+    (run_dir / "shadow_archive_replay_packet.md").write_text("# Replay Packet\n", encoding="utf-8")
     (run_dir / "shadow_summary.json").write_text(json.dumps({"health_verdict": "PASS"}), encoding="utf-8")
 
     fake_streamlit = types.SimpleNamespace(
@@ -812,6 +814,7 @@ def test_split_models_dashboard_archive_replay_loaders(tmp_path: Path) -> None:
         original_archive_dir = dashboard.ARCHIVE_DIR
         dashboard.ARCHIVE_DIR = archive_dir
         assert dashboard._load_archive_run_text("20260414T120500", "shadow_live_transition_packet.md") == "# Packet\n"
+        assert dashboard._load_archive_run_text("20260414T120500", "shadow_archive_replay_packet.md") == "# Replay Packet\n"
         assert dashboard._load_archive_run_json("20260414T120500", "shadow_summary.json")["health_verdict"] == "PASS"
         assert dashboard._load_archive_run_json("20260414T120500", "missing.json") == {}
     finally:

@@ -183,7 +183,8 @@ def render_archive_replay(manifest: pd.DataFrame) -> None:
     drift = _load_archive_run_json(selected_run_id, "shadow_drift_report.json")
     runtime_status = _load_archive_run_json(selected_run_id, "shadow_operator_runtime_status.json")
     transition = _load_archive_run_json(selected_run_id, "shadow_live_transition_summary.json")
-    packet = _load_archive_run_text(selected_run_id, "shadow_live_transition_packet.md")
+    replay_packet = _load_archive_run_text(selected_run_id, "shadow_archive_replay_packet.md")
+    packet = replay_packet or _load_archive_run_text(selected_run_id, "shadow_live_transition_packet.md")
     timeline_report = _load_optional_archive_timeline()
     timeline_rows = timeline_report.get("timeline", [])
     timeline_run_ids = [str(row.get("run_id")) for row in timeline_rows]
@@ -232,7 +233,7 @@ def render_archive_replay(manifest: pd.DataFrame) -> None:
     if packet:
         st.code(packet, language="markdown")
     else:
-        st.info("No archived operator packet found for this run.")
+        st.info("No archived replay packet found for this run.")
 
 
 def render_archive_delta(delta: dict, runtime_status: dict) -> None:
