@@ -49,9 +49,14 @@ def main() -> None:
         lines.append(f"- operator gate verdict: `{runtime_status.get('operator_gate_verdict')}`")
         lines.append(f"- archive consistency verdict: `{runtime_status.get('archive_consistency_verdict')}`")
         lines.append(f"- archive stability verdict: `{runtime_status.get('archive_stability_verdict')}`")
+        lines.append(f"- archive timeline verdict: `{runtime_status.get('archive_timeline_verdict')}`")
         if runtime_status.get("archive_stability_window") is not None:
             lines.append(
                 f"- archive stability window: `{runtime_status.get('archive_stability_window')}` runs"
+            )
+        if runtime_status.get("archive_timeline_window") is not None:
+            lines.append(
+                f"- archive timeline window: `{runtime_status.get('archive_timeline_window')}` runs"
             )
         failures = runtime_status.get("operator_gate_failures", [])
         if failures:

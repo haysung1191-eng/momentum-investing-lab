@@ -36,6 +36,8 @@ def derive_operator_gate(payload: dict[str, object]) -> tuple[str, list[str]]:
         failures.append(f"drift_verdict={payload.get('drift_verdict')}")
     if payload.get("archive_consistency_verdict") != "PASS":
         failures.append(f"archive_consistency_verdict={payload.get('archive_consistency_verdict')}")
+    if payload.get("archive_timeline_verdict") != "PASS":
+        failures.append(f"archive_timeline_verdict={payload.get('archive_timeline_verdict')}")
     verdict = "PASS" if not failures else "FAIL"
     return verdict, failures
 

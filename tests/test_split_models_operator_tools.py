@@ -179,7 +179,10 @@ def test_split_models_operator_tools_build_outputs(tmp_path: Path, monkeypatch, 
     assert payload["live_readiness"] == "GO"
     assert payload["market_US_sell_orders"] == 1
     assert payload["operator_gate_verdict"] == "FAIL"
-    assert payload["operator_gate_failures"] == ["archive_consistency_verdict=None"]
+    assert payload["operator_gate_failures"] == [
+        "archive_consistency_verdict=None",
+        "archive_timeline_verdict=None",
+    ]
     archived_runtime_status = archive_dir / "20260414T120000" / "shadow_operator_runtime_status.json"
     assert archived_runtime_status.exists()
 
@@ -277,6 +280,7 @@ def test_split_models_operator_tools_build_outputs(tmp_path: Path, monkeypatch, 
     refreshed_packet = (shadow_dir / "shadow_live_transition_packet.md").read_text(encoding="utf-8")
     assert "archive consistency verdict" in refreshed_packet
     assert "archive stability verdict" in refreshed_packet
+    assert "archive timeline verdict" in refreshed_packet
     shutil.copy2(archive_dir / "archive_consistency_report.json", archive_dir / "20260414T120500" / "archive_consistency_report.json")
     shutil.copy2(archive_dir / "archive_stability_report.json", archive_dir / "20260414T120500" / "archive_stability_report.json")
     assert (archive_dir / "20260414T120500" / "archive_consistency_report.json").exists()
@@ -656,6 +660,43 @@ def test_split_models_archive_timeline_reports_recent_runs(tmp_path: Path, monke
     assert payload["archive_timeline_verdict"] == "PASS"
     assert payload["latest_run_id"] == "20260414T120500"
     assert [row["run_id"] for row in payload["timeline"]] == ["20260414T120500", "20260414T120000"]
+
+
+def test_split_models_operator_gate_fails_when_archive_timeline_fails(tmp_path: Path, monkeypatch) -> None:
+    shadow_dir = tmp_path / "shadow"
+    archive_dir = tmp_path / "archive"
+    shadow_dir.mkdir(parents=True)
+    archive_dir.mkdir(parents=True)
+
+    _write_json(
+        shadow_dir / "shadow_summary.json",
+        {
+            "baseline_variant": "rule_breadth_it_us5_cap",
+            "health_verdict": "PASS",
+            "current_holdings": 8,
+            "current_dominant_sector": "Industrials",
+        },
+    )
+    _write_json(shadow_dir / "split_models_backtest_summary.json", {"trading_book": {"CAGR": 0.33, "MDD": -0.25, "Sharpe": 1.44}})
+    _write_json(shadow_dir / "shadow_drift_report.json", {"drift_verdict": "PASS"})
+    _write_json(shadow_dir / "shadow_live_readiness.json", {"live_readiness_verdict": "GO"})
+    _write_json(shadow_dir / "shadow_live_transition_summary.json", {"weight_turnover": 0.11111111111111113})
+    _write_json(shadow_dir / "shadow_rebalance_execution_summary.json", {"actionable_rows": 9})
+    _write_csv(
+        shadow_dir / "shadow_rebalance_market_summary.csv",
+        [{"Market": "US", "ExecutionSide": "BUY", "OrderCount": 1}],
+    )
+    _write_json(archive_dir / "archive_consistency_report.json", {"archive_consistency_verdict": "PASS"})
+    _write_json(archive_dir / "archive_stability_report.json", {"archive_stability_verdict": "PASS", "window": 5, "latest_run_id": "20260414T120500"})
+    _write_json(archive_dir / "archive_timeline_report.json", {"archive_timeline_verdict": "FAIL", "window": 8, "latest_run_id": "20260414T120500"})
+    _write_json(archive_dir / "archive_latest_delta.json", {"comparison_available": False})
+
+    monkeypatch.setattr(shadow_status, "SHADOW_DIR", shadow_dir)
+    monkeypatch.setattr(shadow_status, "ARCHIVE_DIR", archive_dir)
+
+    payload = shadow_status.build_status_payload()
+    assert payload["operator_gate_verdict"] == "FAIL"
+    assert payload["operator_gate_failures"] == ["archive_timeline_verdict=FAIL"]
 
 
 def test_split_models_dashboard_archive_replay_loaders(tmp_path: Path) -> None:

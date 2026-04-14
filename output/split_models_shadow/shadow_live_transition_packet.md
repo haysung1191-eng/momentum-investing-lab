@@ -9,7 +9,9 @@
 - operator gate verdict: `PASS`
 - archive consistency verdict: `PASS`
 - archive stability verdict: `PASS`
+- archive timeline verdict: `PASS`
 - archive stability window: `5` runs
+- archive timeline window: `8` runs
 
 ## Readiness checks
 - HealthPass: `PASS` (value=PASS, threshold=PASS)
