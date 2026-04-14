@@ -3,6 +3,7 @@ from __future__ import annotations
 import json
 import shutil
 import sys
+import types
 from pathlib import Path
 
 import pandas as pd
@@ -592,6 +593,38 @@ def test_split_models_archive_status_reads_latest_and_specific_run(tmp_path: Pat
     text_output = capsys.readouterr().out
     assert "archive_run_id=20260414T120000" in text_output
     assert "operator_gate_verdict=PASS" in text_output
+
+
+def test_split_models_dashboard_archive_replay_loaders(tmp_path: Path) -> None:
+    archive_dir = tmp_path / "archive"
+    run_dir = archive_dir / "20260414T120500"
+    run_dir.mkdir(parents=True)
+    (run_dir / "shadow_live_transition_packet.md").write_text("# Packet\n", encoding="utf-8")
+    (run_dir / "shadow_summary.json").write_text(json.dumps({"health_verdict": "PASS"}), encoding="utf-8")
+
+    fake_streamlit = types.SimpleNamespace(
+        set_page_config=lambda **kwargs: None,
+        cache_data=lambda ttl=60: (lambda fn: fn),
+    )
+    original_streamlit = sys.modules.get("streamlit")
+    sys.modules["streamlit"] = fake_streamlit
+
+    import split_models_shadow_dashboard as dashboard
+
+    try:
+        assert dashboard._load_archive_run_text("20260414T120500", "shadow_live_transition_packet.md") == ""
+
+        original_archive_dir = dashboard.ARCHIVE_DIR
+        dashboard.ARCHIVE_DIR = archive_dir
+        assert dashboard._load_archive_run_text("20260414T120500", "shadow_live_transition_packet.md") == "# Packet\n"
+        assert dashboard._load_archive_run_json("20260414T120500", "shadow_summary.json")["health_verdict"] == "PASS"
+        assert dashboard._load_archive_run_json("20260414T120500", "missing.json") == {}
+    finally:
+        dashboard.ARCHIVE_DIR = original_archive_dir
+        if original_streamlit is None:
+            sys.modules.pop("streamlit", None)
+        else:
+            sys.modules["streamlit"] = original_streamlit
 
 
 def _write_json(path: Path, payload: dict) -> None:

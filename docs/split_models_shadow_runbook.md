@@ -36,7 +36,7 @@ Reference file:
 15. Optional delta check: open `output\split_models_shadow_archive\archive_latest_delta.json`
 16. Confirm `output\split_models_shadow_archive\archive_consistency_report.json` has `archive_consistency_verdict=PASS`
 17. Confirm `output\split_models_shadow_archive\archive_stability_report.json` has `archive_stability_verdict=PASS`
-18. Optional dashboard only: run `streamlit run .\split_models_shadow_dashboard.py` to see readiness, orders, archive history, and latest archive delta in one screen
+18. Optional dashboard only: run `streamlit run .\split_models_shadow_dashboard.py` to see readiness, orders, archive history, latest archive delta, and a selectable archive replay in one screen
 
 ## Main shadow artifacts
 

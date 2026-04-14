@@ -72,6 +72,20 @@ def _load_optional_archive_delta() -> dict:
     return _load_json(str(path))
 
 
+def _load_archive_run_json(run_id: str, name: str) -> dict:
+    path = ARCHIVE_DIR / run_id / name
+    if not path.exists():
+        return {}
+    return _load_json(str(path))
+
+
+def _load_archive_run_text(run_id: str, name: str) -> str:
+    path = ARCHIVE_DIR / run_id / name
+    if not path.exists():
+        return ""
+    return path.read_text(encoding="utf-8")
+
+
 def render_header(summary: dict, readiness: dict, drift: dict, runtime_status: dict) -> None:
     st.title("Split Models Shadow Dashboard")
     st.markdown(
@@ -146,6 +160,46 @@ def render_archive(manifest: pd.DataFrame) -> None:
     if "RunId" in display.columns:
         display = display.sort_values("RunId", ascending=False)
     st.dataframe(display, width="stretch", height=240)
+
+
+def render_archive_replay(manifest: pd.DataFrame) -> None:
+    st.subheader("Archive Replay")
+    if manifest.empty:
+        st.info("No archived handoff runs yet.")
+        return
+
+    run_ids = manifest.sort_values("RunId", ascending=False)["RunId"].astype(str).tolist()
+    selected_run_id = st.selectbox("Archive run", run_ids, index=0, key="archive_run_select")
+
+    summary = _load_archive_run_json(selected_run_id, "shadow_summary.json")
+    readiness = _load_archive_run_json(selected_run_id, "shadow_live_readiness.json")
+    drift = _load_archive_run_json(selected_run_id, "shadow_drift_report.json")
+    runtime_status = _load_archive_run_json(selected_run_id, "shadow_operator_runtime_status.json")
+    transition = _load_archive_run_json(selected_run_id, "shadow_live_transition_summary.json")
+    packet = _load_archive_run_text(selected_run_id, "shadow_live_transition_packet.md")
+
+    st.markdown(
+        " | ".join(
+            [
+                _badge("Run", selected_run_id),
+                _badge("Readiness", readiness.get("live_readiness_verdict", "N/A")),
+                _badge("Drift", drift.get("drift_verdict", "N/A")),
+                _badge("Health", summary.get("health_verdict", "N/A")),
+                _badge("Gate", runtime_status.get("operator_gate_verdict", "N/A")),
+            ]
+        )
+    )
+
+    cols = st.columns(4)
+    cols[0].metric("Holdings", str(summary.get("current_holdings", "N/A")))
+    cols[1].metric("Dominant Sector", str(summary.get("current_dominant_sector", "N/A")))
+    cols[2].metric("Turnover", _metric_pct(transition.get("weight_turnover")))
+    cols[3].metric("Actionable Rows", str(_load_archive_run_json(selected_run_id, "shadow_rebalance_execution_summary.json").get("actionable_rows", "N/A")))
+
+    if packet:
+        st.code(packet, language="markdown")
+    else:
+        st.info("No archived operator packet found for this run.")
 
 
 def render_archive_delta(delta: dict, runtime_status: dict) -> None:
@@ -234,6 +288,7 @@ def main() -> None:
     with tab4:
         render_archive_delta(archive_delta, runtime_status)
         render_archive(archive_manifest)
+        render_archive_replay(archive_manifest)
 
 
 if __name__ == "__main__":
