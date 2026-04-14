@@ -9,6 +9,7 @@ from pathlib import Path
 import pandas as pd
 
 import archive_split_models_operator_handoff as archive_tools
+import build_split_models_archive_compare as archive_compare
 import build_split_models_archive_delta as archive_delta
 import build_split_models_archive_replay_packet as archive_replay_packet
 import build_split_models_archive_status as archive_status
@@ -699,6 +700,78 @@ def test_split_models_archive_replay_packet_builds_markdown(tmp_path: Path, monk
     assert "prior run id: `20260414T120000`" in packet
     assert "## Archived Operator Packet" in packet
     assert "# Archived Packet" in packet
+
+
+def test_split_models_archive_compare_reports_deltas(tmp_path: Path, monkeypatch, capsys) -> None:
+    archive_dir = tmp_path / "archive"
+    latest_dir = archive_dir / "20260414T120500"
+    prior_dir = archive_dir / "20260414T120000"
+    latest_dir.mkdir(parents=True)
+    prior_dir.mkdir(parents=True)
+
+    manifest = pd.DataFrame(
+        [
+            {
+                "RunId": "20260414T120000",
+                "BaselineVariant": "rule_breadth_it_us5_cap",
+                "HealthVerdict": "PASS",
+                "DriftVerdict": "PASS",
+                "LiveReadinessVerdict": "GO",
+                "OperatorGateVerdict": "PASS",
+                "CurrentHoldings": 8,
+                "CurrentDominantSector": "Industrials",
+                "TransitionWeightTurnover": 0.11111111111111113,
+                "ArchivePath": str(prior_dir),
+            },
+            {
+                "RunId": "20260414T120500",
+                "BaselineVariant": "rule_breadth_it_us5_cap",
+                "HealthVerdict": "PASS",
+                "DriftVerdict": "PASS",
+                "LiveReadinessVerdict": "GO",
+                "OperatorGateVerdict": "PASS",
+                "CurrentHoldings": 9,
+                "CurrentDominantSector": "Health Care",
+                "TransitionWeightTurnover": 0.2222222222222222,
+                "ArchivePath": str(latest_dir),
+            },
+        ]
+    )
+    manifest.to_csv(archive_dir / "archive_manifest.csv", index=False, encoding="utf-8-sig")
+
+    for run_dir, holdings, sector, turnover in [
+        (prior_dir, 8, "Industrials", 0.11111111111111113),
+        (latest_dir, 9, "Health Care", 0.2222222222222222),
+    ]:
+        _write_json(run_dir / "shadow_summary.json", {"baseline_variant": "rule_breadth_it_us5_cap", "health_verdict": "PASS", "current_holdings": holdings, "current_dominant_sector": sector})
+        _write_json(run_dir / "shadow_live_readiness.json", {"live_readiness_verdict": "GO"})
+        _write_json(run_dir / "shadow_drift_report.json", {"drift_verdict": "PASS"})
+        _write_json(run_dir / "shadow_live_transition_summary.json", {"weight_turnover": turnover})
+        _write_json(run_dir / "shadow_operator_runtime_status.json", {"operator_gate_verdict": "PASS", "operator_gate_failures": []})
+        _write_json(run_dir / "shadow_rebalance_execution_summary.json", {"actionable_rows": 9})
+        _write_json(run_dir / "archive_consistency_report.json", {"archive_consistency_verdict": "PASS"})
+        _write_json(run_dir / "archive_stability_report.json", {"archive_stability_verdict": "PASS", "window": 5})
+
+    _write_json(
+        archive_dir / "archive_timeline_report.json",
+        {
+            "archive_timeline_verdict": "PASS",
+            "window": 8,
+            "latest_run_id": "20260414T120500",
+            "timeline": [{"run_id": "20260414T120500"}, {"run_id": "20260414T120000"}],
+        },
+    )
+
+    monkeypatch.setattr(archive_status, "ARCHIVE_DIR", archive_dir)
+    payload = archive_compare.build_archive_compare_payload("20260414T120000", "20260414T120500")
+    assert payload["holdings_change"] == 1
+    assert payload["dominant_sector_changed"] is True
+    assert payload["transition_turnover_change"] > 0
+
+    archive_compare.main(["--base-run-id", "20260414T120000", "--target-run-id", "20260414T120500"])
+    output = capsys.readouterr().out
+    assert "holdings_change=1" in output
+    assert "dominant_sector_changed=True" in output
 
 
 def test_split_models_archive_timeline_reports_recent_runs(tmp_path: Path, monkeypatch) -> None:
