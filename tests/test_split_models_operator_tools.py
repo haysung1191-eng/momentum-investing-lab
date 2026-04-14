@@ -9,6 +9,7 @@ import pandas as pd
 
 import archive_split_models_operator_handoff as archive_tools
 import build_split_models_archive_delta as archive_delta
+import build_split_models_archive_status as archive_status
 import build_split_models_archive_stability as archive_stability
 import build_split_models_live_packet as live_packet
 import build_split_models_live_readiness as live_readiness
@@ -517,6 +518,80 @@ def test_split_models_archive_stability_fails_on_operator_gate_change(tmp_path: 
 
     payload = _read_json(archive_dir / "archive_stability_report.json")
     assert payload["archive_stability_verdict"] == "FAIL"
+
+
+def test_split_models_archive_status_reads_latest_and_specific_run(tmp_path: Path, monkeypatch, capsys) -> None:
+    archive_dir = tmp_path / "archive"
+    latest_dir = archive_dir / "20260414T120500"
+    prior_dir = archive_dir / "20260414T120000"
+    latest_dir.mkdir(parents=True)
+    prior_dir.mkdir(parents=True)
+
+    manifest = pd.DataFrame(
+        [
+            {
+                "RunId": "20260414T120000",
+                "BaselineVariant": "rule_breadth_it_us5_cap",
+                "HealthVerdict": "PASS",
+                "DriftVerdict": "PASS",
+                "LiveReadinessVerdict": "GO",
+                "OperatorGateVerdict": "PASS",
+                "CurrentHoldings": 8,
+                "CurrentDominantSector": "Industrials",
+                "TransitionWeightTurnover": 0.11111111111111113,
+                "ArchivePath": str(prior_dir),
+            },
+            {
+                "RunId": "20260414T120500",
+                "BaselineVariant": "rule_breadth_it_us5_cap",
+                "HealthVerdict": "PASS",
+                "DriftVerdict": "PASS",
+                "LiveReadinessVerdict": "GO",
+                "OperatorGateVerdict": "PASS",
+                "CurrentHoldings": 8,
+                "CurrentDominantSector": "Industrials",
+                "TransitionWeightTurnover": 0.11111111111111113,
+                "ArchivePath": str(latest_dir),
+            },
+        ]
+    )
+    manifest.to_csv(archive_dir / "archive_manifest.csv", index=False, encoding="utf-8-sig")
+
+    for run_dir in [prior_dir, latest_dir]:
+        _write_json(
+            run_dir / "shadow_summary.json",
+            {
+                "baseline_variant": "rule_breadth_it_us5_cap",
+                "health_verdict": "PASS",
+                "current_holdings": 8,
+                "current_dominant_sector": "Industrials",
+            },
+        )
+        _write_json(run_dir / "shadow_live_readiness.json", {"live_readiness_verdict": "GO"})
+        _write_json(run_dir / "shadow_drift_report.json", {"drift_verdict": "PASS"})
+        _write_json(run_dir / "shadow_live_transition_summary.json", {"weight_turnover": 0.11111111111111113})
+        _write_json(
+            run_dir / "shadow_operator_runtime_status.json",
+            {"operator_gate_verdict": "PASS", "operator_gate_failures": []},
+        )
+        _write_json(run_dir / "shadow_rebalance_execution_summary.json", {"actionable_rows": 9})
+        _write_json(run_dir / "archive_consistency_report.json", {"archive_consistency_verdict": "PASS"})
+        _write_json(
+            run_dir / "archive_stability_report.json",
+            {"archive_stability_verdict": "PASS", "window": 5},
+        )
+
+    monkeypatch.setattr(archive_status, "ARCHIVE_DIR", archive_dir)
+
+    archive_status.main(["--json"])
+    latest_payload = json.loads(capsys.readouterr().out)
+    assert latest_payload["archive_run_id"] == "20260414T120500"
+    assert latest_payload["archive_stability_verdict"] == "PASS"
+
+    archive_status.main(["--run-id", "20260414T120000"])
+    text_output = capsys.readouterr().out
+    assert "archive_run_id=20260414T120000" in text_output
+    assert "operator_gate_verdict=PASS" in text_output
 
 
 def _write_json(path: Path, payload: dict) -> None:

@@ -26,16 +26,17 @@ Reference file:
 5. Fast CLI check: run `python .\build_split_models_shadow_status.py`
 6. Automation-friendly check: run `python .\build_split_models_shadow_status.py --json` to include latest archive delta fields as well
 7. Fail-fast operator gate: run `python .\run_split_models_operator_handoff.py --status-only --fail-on-not-go` to return non-zero if `GO/PASS` is broken
-8. Confirm `baseline_variant` is `rule_breadth_it_us5_cap`
-9. Confirm `health_verdict` is `PASS`
-10. Confirm `output\split_models_shadow\shadow_drift_report.json` has `drift_verdict=PASS`
-11. Confirm `output\split_models_shadow\shadow_live_readiness.json` has `live_readiness_verdict=GO`
-12. Use `output\split_models_shadow\shadow_live_transition_packet.md` as the single-file operator handoff before any live transition
-13. Confirm `output\split_models_shadow_archive\archive_manifest.csv` received a new row for this handoff run
-14. Optional delta check: open `output\split_models_shadow_archive\archive_latest_delta.json`
-15. Confirm `output\split_models_shadow_archive\archive_consistency_report.json` has `archive_consistency_verdict=PASS`
-16. Confirm `output\split_models_shadow_archive\archive_stability_report.json` has `archive_stability_verdict=PASS`
-17. Optional dashboard only: run `streamlit run .\split_models_shadow_dashboard.py` to see readiness, orders, archive history, and latest archive delta in one screen
+8. Archive replay check: run `python .\build_split_models_archive_status.py --run-id <archive_run_id>` to inspect one archived handoff in isolation
+9. Confirm `baseline_variant` is `rule_breadth_it_us5_cap`
+10. Confirm `health_verdict` is `PASS`
+11. Confirm `output\split_models_shadow\shadow_drift_report.json` has `drift_verdict=PASS`
+12. Confirm `output\split_models_shadow\shadow_live_readiness.json` has `live_readiness_verdict=GO`
+13. Use `output\split_models_shadow\shadow_live_transition_packet.md` as the single-file operator handoff before any live transition
+14. Confirm `output\split_models_shadow_archive\archive_manifest.csv` received a new row for this handoff run
+15. Optional delta check: open `output\split_models_shadow_archive\archive_latest_delta.json`
+16. Confirm `output\split_models_shadow_archive\archive_consistency_report.json` has `archive_consistency_verdict=PASS`
+17. Confirm `output\split_models_shadow_archive\archive_stability_report.json` has `archive_stability_verdict=PASS`
+18. Optional dashboard only: run `streamlit run .\split_models_shadow_dashboard.py` to see readiness, orders, archive history, and latest archive delta in one screen
 
 ## Main shadow artifacts
 
@@ -55,6 +56,7 @@ Reference file:
 - `output\split_models_shadow_archive\archive_latest_delta.json`
 - `output\split_models_shadow_archive\archive_consistency_report.json`
 - `output\split_models_shadow_archive\archive_stability_report.json`
+- `build_split_models_archive_status.py`
 - `split_models_shadow_dashboard.py`
 - `start_split_models_shadow_ops.ps1`
 - `build_split_models_shadow_status.py`
