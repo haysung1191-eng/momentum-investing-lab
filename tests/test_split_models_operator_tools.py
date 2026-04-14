@@ -11,6 +11,7 @@ import build_split_models_archive_delta as archive_delta
 import build_split_models_live_packet as live_packet
 import build_split_models_live_readiness as live_readiness
 import build_split_models_rebalance_orders as rebalance_orders
+import check_split_models_archive_consistency as archive_consistency
 import build_split_models_shadow_status as shadow_status
 import run_split_models_operator_handoff as handoff_runner
 
@@ -91,6 +92,9 @@ def test_split_models_operator_tools_build_outputs(tmp_path: Path, monkeypatch, 
     monkeypatch.setattr(archive_tools, "ARCHIVE_DIR", archive_dir)
     monkeypatch.setattr(archive_delta, "ARCHIVE_DIR", archive_dir)
     monkeypatch.setattr(archive_delta, "DELTA_PATH", archive_dir / "archive_latest_delta.json")
+    monkeypatch.setattr(archive_consistency, "SHADOW_DIR", shadow_dir)
+    monkeypatch.setattr(archive_consistency, "ARCHIVE_DIR", archive_dir)
+    monkeypatch.setattr(archive_consistency, "REPORT_PATH", archive_dir / "archive_consistency_report.json")
 
     monkeypatch.setattr(sys, "argv", ["build_split_models_rebalance_orders.py", "--total-capital", "100000000"])
     rebalance_orders.main()
@@ -115,6 +119,8 @@ def test_split_models_operator_tools_build_outputs(tmp_path: Path, monkeypatch, 
         {
             "baseline_variant": "rule_breadth_it_us5_cap",
             "live_readiness": "GO",
+            "archive_latest_run_id": "20260414T120000",
+            "archive_prior_run_id": None,
         },
     )
 
@@ -192,16 +198,40 @@ def test_split_models_operator_tools_build_outputs(tmp_path: Path, monkeypatch, 
             "baseline_variant": "rule_breadth_it_us5_cap",
             "live_readiness": "GO",
             "current_holdings": 9,
+            "archive_latest_run_id": "20260414T120500",
+            "archive_prior_run_id": "20260414T120000",
+        },
+    )
+    _write_json(
+        archive_dir / "20260414T120000" / "shadow_operator_runtime_status.json",
+        {
+            "baseline_variant": "rule_breadth_it_us5_cap",
+            "live_readiness": "GO",
+            "archive_latest_run_id": "20260414T120000",
+            "archive_prior_run_id": None,
         },
     )
     monkeypatch.setattr(archive_tools, "datetime", _FakeNextNow)
     archive_tools.main()
+    _write_json(
+        archive_dir / "20260414T120500" / "shadow_operator_runtime_status.json",
+        {
+            "baseline_variant": "rule_breadth_it_us5_cap",
+            "live_readiness": "GO",
+            "current_holdings": 9,
+            "archive_latest_run_id": "20260414T120500",
+            "archive_prior_run_id": "20260414T120000",
+        },
+    )
     archive_delta.main()
+    archive_consistency.main()
     delta_payload = _read_json(archive_dir / "archive_latest_delta.json")
     assert delta_payload["comparison_available"] is True
     assert delta_payload["holdings_change"] == 1
     assert delta_payload["dominant_sector_changed"] is True
     assert delta_payload["latest_runtime_status"]["current_holdings"] == 9
+    consistency_payload = _read_json(archive_dir / "archive_consistency_report.json")
+    assert consistency_payload["archive_consistency_verdict"] == "PASS"
 
     capsys.readouterr()
     shadow_status.main(["--json"])
@@ -209,6 +239,7 @@ def test_split_models_operator_tools_build_outputs(tmp_path: Path, monkeypatch, 
     assert final_status["archive_comparison_available"] is True
     assert final_status["archive_holdings_change"] == 1
     assert final_status["archive_dominant_sector_changed"] is True
+    assert final_status["archive_consistency_verdict"] == "PASS"
 
 
 def test_split_models_operator_handoff_runner_invokes_steps_in_order(monkeypatch) -> None:
@@ -249,9 +280,11 @@ def test_split_models_operator_handoff_runner_invokes_steps_in_order(monkeypatch
         ["python", "archive_split_models_operator_handoff.py"],
         ["python", "build_split_models_archive_delta.py"],
         ["python", "build_split_models_archive_delta.py"],
+        ["python", "check_split_models_archive_consistency.py"],
+        ["python", "build_split_models_archive_delta.py"],
     ]
-    assert runtime_status_calls == [False, False]
-    assert sync_calls == [True]
+    assert runtime_status_calls == [False, False, False]
+    assert sync_calls == [True, True]
 
 
 def test_split_models_operator_handoff_runner_status_only(monkeypatch) -> None:

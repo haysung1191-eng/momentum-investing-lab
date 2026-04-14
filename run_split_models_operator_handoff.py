@@ -88,6 +88,10 @@ def main() -> None:
     _write_runtime_status(print_json=False)
     _sync_runtime_status_to_latest_archive()
     _run_step("refresh archive delta", [python, "build_split_models_archive_delta.py"])
+    _run_step("check archive consistency", [python, "check_split_models_archive_consistency.py"])
+    _write_runtime_status(print_json=False)
+    _sync_runtime_status_to_latest_archive()
+    _run_step("refresh archive delta after consistency", [python, "build_split_models_archive_delta.py"])
 
     print("[summary] operator handoff artifacts refreshed")
     print(f"[summary] output_dir={ROOT / 'output' / 'split_models_shadow'}")

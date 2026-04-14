@@ -35,6 +35,7 @@ def build_status_payload() -> dict[str, object]:
     execution = _load_json(SHADOW_DIR / "shadow_rebalance_execution_summary.json")
     market_summary = _load_csv(SHADOW_DIR / "shadow_rebalance_market_summary.csv")
     archive_delta = _load_optional_json(ARCHIVE_DIR / "archive_latest_delta.json")
+    archive_consistency = _load_optional_json(ARCHIVE_DIR / "archive_consistency_report.json")
 
     trading_book = backtest.get("trading_book", {})
     payload: dict[str, object] = {
@@ -56,6 +57,8 @@ def build_status_payload() -> dict[str, object]:
         "archive_dominant_sector_changed": archive_delta.get("dominant_sector_changed"),
         "archive_live_readiness_changed": archive_delta.get("live_readiness_changed"),
         "archive_transition_turnover_change": archive_delta.get("transition_turnover_change"),
+        "archive_consistency_verdict": archive_consistency.get("archive_consistency_verdict"),
+        "archive_consistency_latest_run_id": archive_consistency.get("latest_run_id"),
     }
     for _, row in market_summary.iterrows():
         payload[f"market_{row['Market']}_{row['ExecutionSide'].lower()}_orders"] = int(row["OrderCount"])
@@ -84,6 +87,7 @@ def main(argv: list[str] | None = None) -> None:
     print(f"transition_turnover={float(payload['transition_turnover']):.6f}")
     print(f"actionable_rows={payload['actionable_rows']}")
     print(f"archive_comparison_available={payload['archive_comparison_available']}")
+    print(f"archive_consistency_verdict={payload['archive_consistency_verdict']}")
     if payload["archive_comparison_available"]:
         print(f"archive_latest_run_id={payload['archive_latest_run_id']}")
         print(f"archive_prior_run_id={payload['archive_prior_run_id']}")
@@ -91,6 +95,8 @@ def main(argv: list[str] | None = None) -> None:
         print(f"archive_dominant_sector_changed={payload['archive_dominant_sector_changed']}")
         print(f"archive_live_readiness_changed={payload['archive_live_readiness_changed']}")
         print(f"archive_transition_turnover_change={payload['archive_transition_turnover_change']}")
+    if payload["archive_consistency_latest_run_id"] is not None:
+        print(f"archive_consistency_latest_run_id={payload['archive_consistency_latest_run_id']}")
 
     for key, value in payload.items():
         if key.startswith("market_"):

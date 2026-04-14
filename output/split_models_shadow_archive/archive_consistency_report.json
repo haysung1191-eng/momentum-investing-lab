@@ -1,0 +1,55 @@
+{
+  "archive_consistency_verdict": "PASS",
+  "latest_run_id": "20260414T155304",
+  "prior_run_id": "20260414T155052",
+  "checks": [
+    {
+      "Check": "ManifestLatestMatchesDelta",
+      "Passed": true
+    },
+    {
+      "Check": "ManifestPriorMatchesDelta",
+      "Passed": true
+    },
+    {
+      "Check": "RuntimeLatestRunMatchesDelta",
+      "Passed": true
+    },
+    {
+      "Check": "RuntimePriorRunMatchesDelta",
+      "Passed": true
+    },
+    {
+      "Check": "ArchivedRuntimeLatestRunMatchesDelta",
+      "Passed": true
+    },
+    {
+      "Check": "ArchivedRuntimePriorRunMatchesDelta",
+      "Passed": true
+    },
+    {
+      "Check": "ArchivedRuntimeEqualsCanonical",
+      "Passed": true
+    },
+    {
+      "Check": "DeltaLatestRuntimeRunMatchesDelta",
+      "Passed": true
+    },
+    {
+      "Check": "DeltaPriorRuntimeRunMatchesDelta",
+      "Passed": true
+    },
+    {
+      "Check": "LatestSummaryMatchesManifestHoldings",
+      "Passed": true
+    },
+    {
+      "Check": "LatestSummaryMatchesManifestSector",
+      "Passed": true
+    },
+    {
+      "Check": "LatestSummaryMatchesRuntimeBaseline",
+      "Passed": true
+    }
+  ]
+}
