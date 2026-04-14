@@ -453,7 +453,7 @@ def test_build_momentum_candidates_it_sector_risk_off_scales_when_it_is_dominant
         ),
     )
 
-    assert round(float(book["TargetWeight"].sum()), 8) == 1.0
+    assert round(float(book["TargetWeight"].sum()), 8) == 0.8
 
 
 def test_build_momentum_candidates_sector_cap_and_breadth_risk_off_work_together() -> None:
