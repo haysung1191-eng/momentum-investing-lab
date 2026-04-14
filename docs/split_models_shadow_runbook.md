@@ -19,17 +19,14 @@ Reference file:
 
 ## Daily shadow check
 
-1. Run `python .\build_split_models_shadow_report.py`
-2. Open `output\split_models_shadow\shadow_summary.json`
-3. Confirm `baseline_variant` is `rule_breadth_it_us5_cap`
-4. Confirm `health_verdict` is `PASS`
-5. Open `output\split_models_shadow\shadow_current_book.csv` and confirm the book was refreshed
-6. Run `python .\check_split_models_shadow_drift.py` and confirm `drift_verdict=PASS`
-7. Run `python .\analyze_split_models_live_transition.py --canonical-shadow` and inspect the transition diff before any live rebalance
-8. Run `python .\build_split_models_rebalance_orders.py` and inspect the order sheet before sending any orders
-9. Open the market summary and execution summary to separate KR and US execution windows before placing orders
-10. Run `python .\build_split_models_live_readiness.py` and require `live_readiness_verdict=GO` before any live transition
-11. Run `python .\build_split_models_live_packet.py` and use the packet as the single-file operator handoff before placing orders
+1. Optional full refresh: run `python .\build_split_models_shadow_report.py`
+2. Preferred operator path: run `python .\run_split_models_operator_handoff.py --total-capital <account_value>`
+3. Open `output\split_models_shadow\shadow_summary.json`
+4. Confirm `baseline_variant` is `rule_breadth_it_us5_cap`
+5. Confirm `health_verdict` is `PASS`
+6. Confirm `output\split_models_shadow\shadow_drift_report.json` has `drift_verdict=PASS`
+7. Confirm `output\split_models_shadow\shadow_live_readiness.json` has `live_readiness_verdict=GO`
+8. Use `output\split_models_shadow\shadow_live_transition_packet.md` as the single-file operator handoff before any live transition
 
 ## Main shadow artifacts
 
