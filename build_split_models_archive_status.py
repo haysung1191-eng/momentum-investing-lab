@@ -38,8 +38,21 @@ def resolve_archive_run_dir(run_id: str | None = None) -> tuple[str, Path]:
     return str(row["RunId"]), Path(str(row["ArchivePath"]))
 
 
+def _resolve_manifest_neighbors(run_id: str) -> tuple[dict[str, object], dict[str, object] | None, dict[str, object] | None]:
+    manifest = _load_csv(ARCHIVE_DIR / "archive_manifest.csv").sort_values("RunId").reset_index(drop=True)
+    matches = manifest[manifest["RunId"].astype(str) == str(run_id)]
+    if matches.empty:
+        raise SystemExit(f"archive_run_not_found: {run_id}")
+    index = int(matches.index[-1])
+    current = manifest.iloc[index].to_dict()
+    prior = manifest.iloc[index - 1].to_dict() if index > 0 else None
+    next_row = manifest.iloc[index + 1].to_dict() if index < len(manifest) - 1 else None
+    return current, prior, next_row
+
+
 def build_archive_status_payload(run_id: str | None = None) -> dict[str, object]:
     resolved_run_id, run_dir = resolve_archive_run_dir(run_id)
+    current_row, prior_row, next_row = _resolve_manifest_neighbors(resolved_run_id)
 
     summary = _load_json(run_dir / "shadow_summary.json")
     readiness = _load_json(run_dir / "shadow_live_readiness.json")
@@ -77,6 +90,20 @@ def build_archive_status_payload(run_id: str | None = None) -> dict[str, object]
         "archive_timeline_latest_run_id": timeline.get("latest_run_id"),
         "archive_run_in_timeline": resolved_run_id in timeline_run_ids,
         "archive_run_timeline_rank": timeline_rank,
+        "archive_prior_run_id": None if prior_row is None else str(prior_row["RunId"]),
+        "archive_next_run_id": None if next_row is None else str(next_row["RunId"]),
+        "holdings_change_vs_prior": None
+        if prior_row is None
+        else int(current_row["CurrentHoldings"]) - int(prior_row["CurrentHoldings"]),
+        "dominant_sector_changed_vs_prior": None
+        if prior_row is None
+        else current_row["CurrentDominantSector"] != prior_row["CurrentDominantSector"],
+        "live_readiness_changed_vs_prior": None
+        if prior_row is None
+        else current_row["LiveReadinessVerdict"] != prior_row["LiveReadinessVerdict"],
+        "operator_gate_changed_vs_prior": None
+        if prior_row is None
+        else current_row.get("OperatorGateVerdict") != prior_row.get("OperatorGateVerdict"),
     }
     return payload
 
@@ -113,6 +140,14 @@ def main(argv: list[str] | None = None) -> None:
     print(f"archive_run_in_timeline={payload['archive_run_in_timeline']}")
     if payload["archive_run_timeline_rank"] is not None:
         print(f"archive_run_timeline_rank={payload['archive_run_timeline_rank']}")
+    if payload["archive_prior_run_id"] is not None:
+        print(f"archive_prior_run_id={payload['archive_prior_run_id']}")
+        print(f"holdings_change_vs_prior={payload['holdings_change_vs_prior']}")
+        print(f"dominant_sector_changed_vs_prior={payload['dominant_sector_changed_vs_prior']}")
+        print(f"live_readiness_changed_vs_prior={payload['live_readiness_changed_vs_prior']}")
+        print(f"operator_gate_changed_vs_prior={payload['operator_gate_changed_vs_prior']}")
+    if payload["archive_next_run_id"] is not None:
+        print(f"archive_next_run_id={payload['archive_next_run_id']}")
     if payload["operator_gate_failures"]:
         print(f"operator_gate_failures={' | '.join(str(item) for item in payload['operator_gate_failures'])}")
 

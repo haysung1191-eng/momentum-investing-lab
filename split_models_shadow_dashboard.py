@@ -189,6 +189,10 @@ def render_archive_replay(manifest: pd.DataFrame) -> None:
     timeline_run_ids = [str(row.get("run_id")) for row in timeline_rows]
     in_timeline = selected_run_id in timeline_run_ids
     timeline_rank = timeline_run_ids.index(selected_run_id) + 1 if in_timeline else None
+    manifest_sorted = manifest.sort_values("RunId").reset_index(drop=True)
+    match_idx = manifest_sorted[manifest_sorted["RunId"].astype(str) == selected_run_id].index[-1]
+    prior_row = manifest_sorted.iloc[match_idx - 1].to_dict() if match_idx > 0 else None
+    next_row = manifest_sorted.iloc[match_idx + 1].to_dict() if match_idx < len(manifest_sorted) - 1 else None
 
     st.markdown(
         " | ".join(
@@ -209,6 +213,15 @@ def render_archive_replay(manifest: pd.DataFrame) -> None:
             f"Selected run in window: {in_timeline} | "
             f"Rank: {timeline_rank if timeline_rank is not None else 'N/A'}"
         )
+    if prior_row is not None:
+        st.caption(
+            f"Prior run: {prior_row['RunId']} | "
+            f"Holdings delta vs prior: {int(summary.get('current_holdings', 0)) - int(prior_row['CurrentHoldings'])} | "
+            f"Sector changed vs prior: {summary.get('current_dominant_sector') != prior_row['CurrentDominantSector']} | "
+            f"Gate changed vs prior: {runtime_status.get('operator_gate_verdict') != prior_row.get('OperatorGateVerdict')}"
+        )
+    if next_row is not None:
+        st.caption(f"Next run: {next_row['RunId']}")
 
     cols = st.columns(4)
     cols[0].metric("Holdings", str(summary.get("current_holdings", "N/A")))

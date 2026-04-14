@@ -617,6 +617,10 @@ def test_split_models_archive_status_reads_latest_and_specific_run(tmp_path: Pat
     assert latest_payload["archive_timeline_verdict"] == "PASS"
     assert latest_payload["archive_run_in_timeline"] is True
     assert latest_payload["archive_run_timeline_rank"] == 1
+    assert latest_payload["archive_prior_run_id"] == "20260414T120000"
+    assert latest_payload["holdings_change_vs_prior"] == 0
+    assert latest_payload["dominant_sector_changed_vs_prior"] is False
+    assert latest_payload["archive_next_run_id"] is None
 
     archive_status.main(["--run-id", "20260414T120000"])
     text_output = capsys.readouterr().out
@@ -624,6 +628,7 @@ def test_split_models_archive_status_reads_latest_and_specific_run(tmp_path: Pat
     assert "operator_gate_verdict=PASS" in text_output
     assert "archive_run_in_timeline=True" in text_output
     assert "archive_run_timeline_rank=2" in text_output
+    assert "archive_next_run_id=20260414T120500" in text_output
 
 
 def test_split_models_archive_timeline_reports_recent_runs(tmp_path: Path, monkeypatch) -> None:
