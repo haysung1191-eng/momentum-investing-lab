@@ -42,6 +42,27 @@ def _sync_runtime_status_to_latest_archive() -> None:
     shutil.copy2(RUNTIME_STATUS_PATH, latest_dir / RUNTIME_STATUS_PATH.name)
 
 
+def _load_runtime_status() -> dict[str, object]:
+    return json.loads(RUNTIME_STATUS_PATH.read_text(encoding="utf-8"))
+
+
+def _enforce_operational_gate() -> None:
+    payload = _load_runtime_status()
+    failures: list[str] = []
+    if payload.get("live_readiness") != "GO":
+        failures.append(f"live_readiness={payload.get('live_readiness')}")
+    if payload.get("health_verdict") != "PASS":
+        failures.append(f"health_verdict={payload.get('health_verdict')}")
+    if payload.get("drift_verdict") != "PASS":
+        failures.append(f"drift_verdict={payload.get('drift_verdict')}")
+    if payload.get("archive_consistency_verdict") != "PASS":
+        failures.append(f"archive_consistency_verdict={payload.get('archive_consistency_verdict')}")
+    if failures:
+        joined = ", ".join(failures)
+        raise SystemExit(f"operator_gate_failed: {joined}")
+    print("[summary] operator_gate=PASS")
+
+
 def main() -> None:
     parser = argparse.ArgumentParser()
     parser.add_argument("--total-capital", type=float, default=None)
@@ -49,6 +70,7 @@ def main() -> None:
     parser.add_argument("--refresh-reference", action="store_true")
     parser.add_argument("--status-only", action="store_true")
     parser.add_argument("--json", action="store_true")
+    parser.add_argument("--fail-on-not-go", action="store_true")
     args = parser.parse_args()
 
     python = sys.executable
@@ -56,6 +78,8 @@ def main() -> None:
     if args.status_only:
         print("[start] show shadow status")
         _write_runtime_status(print_json=args.json)
+        if args.fail_on_not_go:
+            _enforce_operational_gate()
         print("[done] show shadow status")
         return
 
@@ -92,6 +116,8 @@ def main() -> None:
     _write_runtime_status(print_json=False)
     _sync_runtime_status_to_latest_archive()
     _run_step("refresh archive delta after consistency", [python, "build_split_models_archive_delta.py"])
+    if args.fail_on_not_go:
+        _enforce_operational_gate()
 
     print("[summary] operator handoff artifacts refreshed")
     print(f"[summary] output_dir={ROOT / 'output' / 'split_models_shadow'}")

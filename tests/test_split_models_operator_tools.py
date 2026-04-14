@@ -327,6 +327,54 @@ def test_split_models_operator_handoff_runner_status_only_json(monkeypatch) -> N
     assert runtime_status_calls == [True]
 
 
+def test_split_models_operator_handoff_runner_status_only_fail_on_not_go(monkeypatch) -> None:
+    calls: list[list[str]] = []
+    runtime_status_calls: list[bool] = []
+    gate_calls: list[bool] = []
+
+    def _fake_run(args: list[str], cwd: Path, check: bool) -> None:
+        assert cwd == handoff_runner.ROOT
+        assert check is True
+        calls.append(args)
+
+    monkeypatch.setattr(handoff_runner.subprocess, "run", _fake_run)
+    monkeypatch.setattr(handoff_runner.sys, "executable", "python")
+    monkeypatch.setattr(handoff_runner, "_write_runtime_status", lambda print_json=False: runtime_status_calls.append(print_json))
+    monkeypatch.setattr(handoff_runner, "_enforce_operational_gate", lambda: gate_calls.append(True))
+    monkeypatch.setattr(sys, "argv", ["run_split_models_operator_handoff.py", "--status-only", "--fail-on-not-go"])
+
+    handoff_runner.main()
+
+    assert calls == []
+    assert runtime_status_calls == [False]
+    assert gate_calls == [True]
+
+
+def test_split_models_operator_handoff_runner_enforce_operational_gate_raises(tmp_path: Path, monkeypatch) -> None:
+    runtime_status_path = tmp_path / "shadow_operator_runtime_status.json"
+    runtime_status_path.write_text(
+        json.dumps(
+            {
+                "live_readiness": "HOLD",
+                "health_verdict": "PASS",
+                "drift_verdict": "PASS",
+                "archive_consistency_verdict": "PASS",
+            },
+            indent=2,
+        ),
+        encoding="utf-8",
+    )
+    monkeypatch.setattr(handoff_runner, "RUNTIME_STATUS_PATH", runtime_status_path)
+
+    try:
+        handoff_runner._enforce_operational_gate()
+    except SystemExit as exc:
+        assert "operator_gate_failed" in str(exc)
+        assert "live_readiness=HOLD" in str(exc)
+    else:
+        raise AssertionError("Expected SystemExit for non-GO runtime status")
+
+
 def _write_json(path: Path, payload: dict) -> None:
     path.write_text(json.dumps(payload, indent=2), encoding="utf-8")
 

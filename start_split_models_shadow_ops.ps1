@@ -4,6 +4,7 @@ param(
     [switch]$RefreshReference,
     [switch]$StatusOnly,
     [switch]$Json,
+    [switch]$FailOnNotGo,
     [switch]$NoDashboard
 )
 
@@ -26,6 +27,9 @@ if ($StatusOnly) {
 }
 if ($Json) {
     $args += "--json"
+}
+if ($FailOnNotGo) {
+    $args += "--fail-on-not-go"
 }
 
 Write-Host "[ops] running operator handoff" -ForegroundColor Cyan

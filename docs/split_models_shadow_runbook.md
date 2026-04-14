@@ -25,15 +25,16 @@ Reference file:
 4. Open `output\split_models_shadow\shadow_summary.json`
 5. Fast CLI check: run `python .\build_split_models_shadow_status.py`
 6. Automation-friendly check: run `python .\build_split_models_shadow_status.py --json` to include latest archive delta fields as well
-7. Confirm `baseline_variant` is `rule_breadth_it_us5_cap`
-8. Confirm `health_verdict` is `PASS`
-9. Confirm `output\split_models_shadow\shadow_drift_report.json` has `drift_verdict=PASS`
-10. Confirm `output\split_models_shadow\shadow_live_readiness.json` has `live_readiness_verdict=GO`
-11. Use `output\split_models_shadow\shadow_live_transition_packet.md` as the single-file operator handoff before any live transition
-12. Confirm `output\split_models_shadow_archive\archive_manifest.csv` received a new row for this handoff run
-13. Optional delta check: open `output\split_models_shadow_archive\archive_latest_delta.json`
-14. Confirm `output\split_models_shadow_archive\archive_consistency_report.json` has `archive_consistency_verdict=PASS`
-15. Optional dashboard only: run `streamlit run .\split_models_shadow_dashboard.py` to see readiness, orders, archive history, and latest archive delta in one screen
+7. Fail-fast operator gate: run `python .\run_split_models_operator_handoff.py --status-only --fail-on-not-go` to return non-zero if `GO/PASS` is broken
+8. Confirm `baseline_variant` is `rule_breadth_it_us5_cap`
+9. Confirm `health_verdict` is `PASS`
+10. Confirm `output\split_models_shadow\shadow_drift_report.json` has `drift_verdict=PASS`
+11. Confirm `output\split_models_shadow\shadow_live_readiness.json` has `live_readiness_verdict=GO`
+12. Use `output\split_models_shadow\shadow_live_transition_packet.md` as the single-file operator handoff before any live transition
+13. Confirm `output\split_models_shadow_archive\archive_manifest.csv` received a new row for this handoff run
+14. Optional delta check: open `output\split_models_shadow_archive\archive_latest_delta.json`
+15. Confirm `output\split_models_shadow_archive\archive_consistency_report.json` has `archive_consistency_verdict=PASS`
+16. Optional dashboard only: run `streamlit run .\split_models_shadow_dashboard.py` to see readiness, orders, archive history, and latest archive delta in one screen
 
 ## Main shadow artifacts
 
