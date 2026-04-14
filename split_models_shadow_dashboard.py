@@ -65,6 +65,13 @@ def _load_optional_archive_manifest() -> pd.DataFrame:
     return _load_csv(str(path))
 
 
+def _load_optional_archive_delta() -> dict:
+    path = ARCHIVE_DIR / "archive_latest_delta.json"
+    if not path.exists():
+        return {}
+    return _load_json(str(path))
+
+
 def render_header(summary: dict, readiness: dict, drift: dict) -> None:
     st.title("Split Models Shadow Dashboard")
     st.markdown(
@@ -137,6 +144,41 @@ def render_archive(manifest: pd.DataFrame) -> None:
     st.dataframe(display, width="stretch", height=240)
 
 
+def render_archive_delta(delta: dict) -> None:
+    st.subheader("Latest Archive Delta")
+    if not delta:
+        st.info("No archive delta found.")
+        return
+    if not delta.get("comparison_available", False):
+        st.info("Archive delta needs at least two handoff runs.")
+        return
+
+    left, right, third = st.columns(3)
+    left.metric("Latest Run", str(delta.get("latest_run_id", "N/A")))
+    right.metric("Prior Run", str(delta.get("prior_run_id", "N/A")))
+    third.metric("Holdings Change", str(delta.get("holdings_change", "N/A")))
+
+    change_flags = [
+        ("Baseline Changed", bool(delta.get("baseline_variant_changed", False))),
+        ("Readiness Changed", bool(delta.get("live_readiness_changed", False))),
+        ("Health Changed", bool(delta.get("health_changed", False))),
+        ("Drift Changed", bool(delta.get("drift_changed", False))),
+        ("Sector Changed", bool(delta.get("dominant_sector_changed", False))),
+    ]
+    st.markdown(
+        " | ".join(
+            [
+                _badge(label, "YES" if changed else "NO")
+                for label, changed in change_flags
+            ]
+        )
+    )
+    st.caption(
+        f"Transition turnover change: {float(delta.get('transition_turnover_change', 0.0)):.6f}"
+    )
+    st.code(json.dumps(delta, indent=2), language="json")
+
+
 def render_packet(packet_path: Path) -> None:
     st.subheader("Operator Packet")
     if not packet_path.exists():
@@ -160,6 +202,7 @@ def main() -> None:
     book = _load_csv(str(SHADOW_DIR / "shadow_current_book.csv"))
     sector_mix = _load_csv(str(SHADOW_DIR / "shadow_current_sector_mix.csv"))
     archive_manifest = _load_optional_archive_manifest()
+    archive_delta = _load_optional_archive_delta()
     packet_path = SHADOW_DIR / "shadow_live_transition_packet.md"
 
     render_header(summary, readiness, drift)
@@ -174,6 +217,7 @@ def main() -> None:
     with tab3:
         render_current_book(book, sector_mix)
     with tab4:
+        render_archive_delta(archive_delta)
         render_archive(archive_manifest)
 
 

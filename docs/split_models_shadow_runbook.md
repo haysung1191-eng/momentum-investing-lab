@@ -32,7 +32,7 @@ Reference file:
 11. Use `output\split_models_shadow\shadow_live_transition_packet.md` as the single-file operator handoff before any live transition
 12. Confirm `output\split_models_shadow_archive\archive_manifest.csv` received a new row for this handoff run
 13. Optional delta check: open `output\split_models_shadow_archive\archive_latest_delta.json`
-14. Optional dashboard only: run `streamlit run .\split_models_shadow_dashboard.py`
+14. Optional dashboard only: run `streamlit run .\split_models_shadow_dashboard.py` to see readiness, orders, archive history, and latest archive delta in one screen
 
 ## Main shadow artifacts
 
