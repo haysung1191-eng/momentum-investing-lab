@@ -201,6 +201,7 @@ def test_split_models_operator_tools_build_outputs(tmp_path: Path, monkeypatch, 
     assert delta_payload["comparison_available"] is True
     assert delta_payload["holdings_change"] == 1
     assert delta_payload["dominant_sector_changed"] is True
+    assert delta_payload["latest_runtime_status"]["current_holdings"] == 9
 
     capsys.readouterr()
     shadow_status.main(["--json"])
@@ -213,6 +214,7 @@ def test_split_models_operator_tools_build_outputs(tmp_path: Path, monkeypatch, 
 def test_split_models_operator_handoff_runner_invokes_steps_in_order(monkeypatch) -> None:
     calls: list[list[str]] = []
     runtime_status_calls: list[bool] = []
+    sync_calls: list[bool] = []
 
     def _fake_run(args: list[str], cwd: Path, check: bool) -> None:
         assert cwd == handoff_runner.ROOT
@@ -222,6 +224,7 @@ def test_split_models_operator_handoff_runner_invokes_steps_in_order(monkeypatch
     monkeypatch.setattr(handoff_runner.subprocess, "run", _fake_run)
     monkeypatch.setattr(handoff_runner.sys, "executable", "python")
     monkeypatch.setattr(handoff_runner, "_write_runtime_status", lambda print_json=False: runtime_status_calls.append(print_json))
+    monkeypatch.setattr(handoff_runner, "_sync_runtime_status_to_latest_archive", lambda: sync_calls.append(True))
     monkeypatch.setattr(
         sys,
         "argv",
@@ -245,8 +248,10 @@ def test_split_models_operator_handoff_runner_invokes_steps_in_order(monkeypatch
         ["python", "build_split_models_live_packet.py"],
         ["python", "archive_split_models_operator_handoff.py"],
         ["python", "build_split_models_archive_delta.py"],
+        ["python", "build_split_models_archive_delta.py"],
     ]
-    assert runtime_status_calls == [False]
+    assert runtime_status_calls == [False, False]
+    assert sync_calls == [True]
 
 
 def test_split_models_operator_handoff_runner_status_only(monkeypatch) -> None:

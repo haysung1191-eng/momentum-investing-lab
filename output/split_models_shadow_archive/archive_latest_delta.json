@@ -1,6 +1,6 @@
 {
-  "latest_run_id": "20260414T135320",
-  "prior_run_id": "20260414T134912",
+  "latest_run_id": "20260414T145805",
+  "prior_run_id": "20260414T135320",
   "comparison_available": true,
   "baseline_variant_changed": false,
   "live_readiness_changed": false,
@@ -27,6 +27,13 @@
     "sharpe": 1.4481980324244779,
     "transition_turnover": 0.11111111111111113,
     "actionable_rows": 9,
+    "archive_comparison_available": true,
+    "archive_latest_run_id": "20260414T145805",
+    "archive_prior_run_id": "20260414T135320",
+    "archive_holdings_change": 0,
+    "archive_dominant_sector_changed": false,
+    "archive_live_readiness_changed": false,
+    "archive_transition_turnover_change": 0.0,
     "market_KR_buy_orders": 3,
     "market_US_buy_orders": 5,
     "market_US_sell_orders": 1

@@ -2,6 +2,7 @@ from __future__ import annotations
 
 import argparse
 import json
+import shutil
 import subprocess
 import sys
 from pathlib import Path
@@ -26,6 +27,19 @@ def _write_runtime_status(print_json: bool = False) -> None:
     print(f"[summary] runtime_status_path={RUNTIME_STATUS_PATH}")
     if print_json:
         print(json.dumps(payload, indent=2))
+
+
+def _sync_runtime_status_to_latest_archive() -> None:
+    delta_path = ROOT / "output" / "split_models_shadow_archive" / "archive_latest_delta.json"
+    if not delta_path.exists() or not RUNTIME_STATUS_PATH.exists():
+        return
+    delta = json.loads(delta_path.read_text(encoding="utf-8"))
+    latest_run_id = delta.get("latest_run_id")
+    if not latest_run_id:
+        return
+    latest_dir = delta_path.parent / str(latest_run_id)
+    latest_dir.mkdir(parents=True, exist_ok=True)
+    shutil.copy2(RUNTIME_STATUS_PATH, latest_dir / RUNTIME_STATUS_PATH.name)
 
 
 def main() -> None:
@@ -71,6 +85,9 @@ def main() -> None:
     _write_runtime_status(print_json=False)
     _run_step("archive operator handoff", [python, "archive_split_models_operator_handoff.py"])
     _run_step("build archive delta", [python, "build_split_models_archive_delta.py"])
+    _write_runtime_status(print_json=False)
+    _sync_runtime_status_to_latest_archive()
+    _run_step("refresh archive delta", [python, "build_split_models_archive_delta.py"])
 
     print("[summary] operator handoff artifacts refreshed")
     print(f"[summary] output_dir={ROOT / 'output' / 'split_models_shadow'}")
