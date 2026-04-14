@@ -28,6 +28,7 @@ Reference file:
 7. Run `python .\analyze_split_models_live_transition.py --canonical-shadow` and inspect the transition diff before any live rebalance
 8. Run `python .\build_split_models_rebalance_orders.py` and inspect the order sheet before sending any orders
 9. Open the market summary and execution summary to separate KR and US execution windows before placing orders
+10. Run `python .\build_split_models_live_readiness.py` and require `live_readiness_verdict=GO` before any live transition
 
 ## Main shadow artifacts
 
@@ -39,6 +40,7 @@ Reference file:
 - `output\split_models_shadow\shadow_rebalance_orders.csv`
 - `output\split_models_shadow\shadow_rebalance_market_summary.csv`
 - `output\split_models_shadow\shadow_rebalance_execution_summary.json`
+- `output\split_models_shadow\shadow_live_readiness.json`
 - `output\split_models_shadow\shadow_turnover_monitor.csv`
 - `output\split_models_shadow\shadow_monthly_sector_mix.csv`
 
