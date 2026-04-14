@@ -179,6 +179,23 @@ def test_split_models_operator_handoff_runner_invokes_steps_in_order(monkeypatch
     ]
 
 
+def test_split_models_operator_handoff_runner_status_only(monkeypatch) -> None:
+    calls: list[list[str]] = []
+
+    def _fake_run(args: list[str], cwd: Path, check: bool) -> None:
+        assert cwd == handoff_runner.ROOT
+        assert check is True
+        calls.append(args)
+
+    monkeypatch.setattr(handoff_runner.subprocess, "run", _fake_run)
+    monkeypatch.setattr(handoff_runner.sys, "executable", "python")
+    monkeypatch.setattr(sys, "argv", ["run_split_models_operator_handoff.py", "--status-only"])
+
+    handoff_runner.main()
+
+    assert calls == [["python", "build_split_models_shadow_status.py"]]
+
+
 def _write_json(path: Path, payload: dict) -> None:
     path.write_text(json.dumps(payload, indent=2), encoding="utf-8")
 

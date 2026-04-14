@@ -2,6 +2,7 @@ param(
     [double]$TotalCapital = 100000000,
     [switch]$RefreshShadow,
     [switch]$RefreshReference,
+    [switch]$StatusOnly,
     [switch]$NoDashboard
 )
 
@@ -19,11 +20,14 @@ if ($RefreshShadow) {
 if ($RefreshReference) {
     $args += "--refresh-reference"
 }
+if ($StatusOnly) {
+    $args += "--status-only"
+}
 
 Write-Host "[ops] running operator handoff" -ForegroundColor Cyan
 & $python @args
 
-if (-not $NoDashboard) {
+if ((-not $NoDashboard) -and (-not $StatusOnly)) {
     Write-Host "[ops] opening split-model shadow dashboard" -ForegroundColor Cyan
     Start-Process $python -ArgumentList "-m", "streamlit", "run", ".\split_models_shadow_dashboard.py"
 }

@@ -20,9 +20,14 @@ def main() -> None:
     parser.add_argument("--total-capital", type=float, default=None)
     parser.add_argument("--refresh-shadow", action="store_true")
     parser.add_argument("--refresh-reference", action="store_true")
+    parser.add_argument("--status-only", action="store_true")
     args = parser.parse_args()
 
     python = sys.executable
+
+    if args.status_only:
+        _run_step("show shadow status", [python, "build_split_models_shadow_status.py"])
+        return
 
     if args.refresh_shadow:
         _run_step("build shadow report", [python, "build_split_models_shadow_report.py"])
