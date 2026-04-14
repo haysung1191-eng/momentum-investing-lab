@@ -13,6 +13,7 @@ SHADOW_DIR = ROOT / "output" / "split_models_shadow"
 ARCHIVE_DIR = ROOT / "output" / "split_models_shadow_archive"
 
 ARCHIVE_FILES = [
+    "shadow_operator_runtime_status.json",
     "shadow_summary.json",
     "shadow_drift_report.json",
     "shadow_live_transition_summary.json",

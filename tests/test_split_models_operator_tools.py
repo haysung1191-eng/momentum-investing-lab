@@ -106,6 +106,13 @@ def test_split_models_operator_tools_build_outputs(tmp_path: Path, monkeypatch, 
     assert "Split Models Live Transition Packet" in packet
     assert "SELL `GILD`" in packet
     assert "BUY `LMT`" in packet
+    _write_json(
+        shadow_dir / "shadow_operator_runtime_status.json",
+        {
+            "baseline_variant": "rule_breadth_it_us5_cap",
+            "live_readiness": "GO",
+        },
+    )
 
     class _FakeNow:
         @staticmethod
@@ -149,10 +156,13 @@ def test_split_models_operator_tools_build_outputs(tmp_path: Path, monkeypatch, 
     assert payload["baseline_variant"] == "rule_breadth_it_us5_cap"
     assert payload["live_readiness"] == "GO"
     assert payload["market_US_sell_orders"] == 1
+    archived_runtime_status = archive_dir / "20260414T120000" / "shadow_operator_runtime_status.json"
+    assert archived_runtime_status.exists()
 
 
 def test_split_models_operator_handoff_runner_invokes_steps_in_order(monkeypatch) -> None:
     calls: list[list[str]] = []
+    runtime_status_calls: list[bool] = []
 
     def _fake_run(args: list[str], cwd: Path, check: bool) -> None:
         assert cwd == handoff_runner.ROOT
@@ -161,6 +171,7 @@ def test_split_models_operator_handoff_runner_invokes_steps_in_order(monkeypatch
 
     monkeypatch.setattr(handoff_runner.subprocess, "run", _fake_run)
     monkeypatch.setattr(handoff_runner.sys, "executable", "python")
+    monkeypatch.setattr(handoff_runner, "_write_runtime_status", lambda print_json=False: runtime_status_calls.append(print_json))
     monkeypatch.setattr(
         sys,
         "argv",
@@ -184,10 +195,12 @@ def test_split_models_operator_handoff_runner_invokes_steps_in_order(monkeypatch
         ["python", "build_split_models_live_packet.py"],
         ["python", "archive_split_models_operator_handoff.py"],
     ]
+    assert runtime_status_calls == [False]
 
 
 def test_split_models_operator_handoff_runner_status_only(monkeypatch) -> None:
     calls: list[list[str]] = []
+    runtime_status_calls: list[bool] = []
 
     def _fake_run(args: list[str], cwd: Path, check: bool) -> None:
         assert cwd == handoff_runner.ROOT
@@ -196,15 +209,18 @@ def test_split_models_operator_handoff_runner_status_only(monkeypatch) -> None:
 
     monkeypatch.setattr(handoff_runner.subprocess, "run", _fake_run)
     monkeypatch.setattr(handoff_runner.sys, "executable", "python")
+    monkeypatch.setattr(handoff_runner, "_write_runtime_status", lambda print_json=False: runtime_status_calls.append(print_json))
     monkeypatch.setattr(sys, "argv", ["run_split_models_operator_handoff.py", "--status-only"])
 
     handoff_runner.main()
 
-    assert calls == [["python", "build_split_models_shadow_status.py"]]
+    assert calls == []
+    assert runtime_status_calls == [False]
 
 
 def test_split_models_operator_handoff_runner_status_only_json(monkeypatch) -> None:
     calls: list[list[str]] = []
+    runtime_status_calls: list[bool] = []
 
     def _fake_run(args: list[str], cwd: Path, check: bool) -> None:
         assert cwd == handoff_runner.ROOT
@@ -213,11 +229,13 @@ def test_split_models_operator_handoff_runner_status_only_json(monkeypatch) -> N
 
     monkeypatch.setattr(handoff_runner.subprocess, "run", _fake_run)
     monkeypatch.setattr(handoff_runner.sys, "executable", "python")
+    monkeypatch.setattr(handoff_runner, "_write_runtime_status", lambda print_json=False: runtime_status_calls.append(print_json))
     monkeypatch.setattr(sys, "argv", ["run_split_models_operator_handoff.py", "--status-only", "--json"])
 
     handoff_runner.main()
 
-    assert calls == [["python", "build_split_models_shadow_status.py", "--json"]]
+    assert calls == []
+    assert runtime_status_calls == [True]
 
 
 def _write_json(path: Path, payload: dict) -> None:

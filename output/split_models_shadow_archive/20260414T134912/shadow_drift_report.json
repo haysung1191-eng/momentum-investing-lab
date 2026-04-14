@@ -1,0 +1,14 @@
+{
+  "baseline_variant_same": true,
+  "health_verdict_same": true,
+  "current_health_verdict": "PASS",
+  "reference_health_verdict": "PASS",
+  "holding_count_change": 0,
+  "added_symbols": [],
+  "removed_symbols": [],
+  "book_weight_turnover": 0.0,
+  "sector_weight_shift": 0.0,
+  "current_dominant_sector": "Industrials",
+  "reference_dominant_sector": "Industrials",
+  "drift_verdict": "PASS"
+}

@@ -1,0 +1,16 @@
+{
+  "baseline_variant": "rule_breadth_it_us5_cap",
+  "live_readiness": "GO",
+  "health_verdict": "PASS",
+  "drift_verdict": "PASS",
+  "current_holdings": 8,
+  "dominant_sector": "Industrials",
+  "cagr": 0.33433567237915396,
+  "mdd": -0.2524158832009178,
+  "sharpe": 1.4481980324244779,
+  "transition_turnover": 0.11111111111111113,
+  "actionable_rows": 9,
+  "market_KR_buy_orders": 3,
+  "market_US_buy_orders": 5,
+  "market_US_sell_orders": 1
+}

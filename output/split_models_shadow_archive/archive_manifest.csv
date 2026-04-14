@@ -1,3 +1,4 @@
 ﻿RunId,BaselineVariant,HealthVerdict,DriftVerdict,LiveReadinessVerdict,CurrentHoldings,CurrentDominantSector,TransitionWeightTurnover,ArchivePath
 20260414T114525,rule_breadth_it_us5_cap,PASS,PASS,GO,8,Industrials,0.1111111111111111,C:\AI\momentum\output\split_models_shadow_archive\20260414T114525
-20260414T114922,rule_breadth_it_us5_cap,PASS,PASS,GO,8,Industrials,0.11111111111111113,C:\AI\momentum\output\split_models_shadow_archive\20260414T114922
+20260414T114922,rule_breadth_it_us5_cap,PASS,PASS,GO,8,Industrials,0.1111111111111111,C:\AI\momentum\output\split_models_shadow_archive\20260414T114922
+20260414T134912,rule_breadth_it_us5_cap,PASS,PASS,GO,8,Industrials,0.11111111111111113,C:\AI\momentum\output\split_models_shadow_archive\20260414T134912

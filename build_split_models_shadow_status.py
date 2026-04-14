@@ -19,7 +19,7 @@ def _load_csv(path: Path) -> pd.DataFrame:
     return pd.read_csv(path)
 
 
-def _build_status_payload() -> dict[str, object]:
+def build_status_payload() -> dict[str, object]:
     summary = _load_json(SHADOW_DIR / "shadow_summary.json")
     backtest = _load_json(SHADOW_DIR / "split_models_backtest_summary.json")
     drift = _load_json(SHADOW_DIR / "shadow_drift_report.json")
@@ -52,7 +52,7 @@ def main(argv: list[str] | None = None) -> None:
     parser.add_argument("--json", action="store_true")
     args = parser.parse_args(argv)
 
-    payload = _build_status_payload()
+    payload = build_status_payload()
     if args.json:
         print(json.dumps(payload, indent=2))
         return

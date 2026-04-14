@@ -1,18 +1,31 @@
 from __future__ import annotations
 
 import argparse
+import json
 import subprocess
 import sys
 from pathlib import Path
 
+import build_split_models_shadow_status as shadow_status
+
 
 ROOT = Path(__file__).resolve().parent
+RUNTIME_STATUS_PATH = ROOT / "output" / "split_models_shadow" / "shadow_operator_runtime_status.json"
 
 
 def _run_step(label: str, args: list[str]) -> None:
     print(f"[start] {label}")
     subprocess.run(args, cwd=ROOT, check=True)
     print(f"[done] {label}")
+
+
+def _write_runtime_status(print_json: bool = False) -> None:
+    payload = shadow_status.build_status_payload()
+    RUNTIME_STATUS_PATH.parent.mkdir(parents=True, exist_ok=True)
+    RUNTIME_STATUS_PATH.write_text(json.dumps(payload, indent=2), encoding="utf-8")
+    print(f"[summary] runtime_status_path={RUNTIME_STATUS_PATH}")
+    if print_json:
+        print(json.dumps(payload, indent=2))
 
 
 def main() -> None:
@@ -27,10 +40,9 @@ def main() -> None:
     python = sys.executable
 
     if args.status_only:
-        status_args = [python, "build_split_models_shadow_status.py"]
-        if args.json:
-            status_args.append("--json")
-        _run_step("show shadow status", status_args)
+        print("[start] show shadow status")
+        _write_runtime_status(print_json=args.json)
+        print("[done] show shadow status")
         return
 
     if args.refresh_shadow:
@@ -56,6 +68,7 @@ def main() -> None:
 
     _run_step("build live readiness", [python, "build_split_models_live_readiness.py"])
     _run_step("build live packet", [python, "build_split_models_live_packet.py"])
+    _write_runtime_status(print_json=False)
     _run_step("archive operator handoff", [python, "archive_split_models_operator_handoff.py"])
 
     print("[summary] operator handoff artifacts refreshed")

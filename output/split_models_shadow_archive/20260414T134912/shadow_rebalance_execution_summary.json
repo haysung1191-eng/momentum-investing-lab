@@ -1,0 +1,22 @@
+{
+  "total_capital": 100000000.0,
+  "actionable_rows": 9,
+  "sell_count": 1,
+  "buy_count": 8,
+  "markets": [
+    {
+      "market": "KR",
+      "sell_count": 0,
+      "buy_count": 3,
+      "gross_delta_weight_pct": 4.166666666666639,
+      "gross_delta_notional": 4166666.66666664
+    },
+    {
+      "market": "US",
+      "sell_count": 1,
+      "buy_count": 5,
+      "gross_delta_weight_pct": 18.05555555555551,
+      "gross_delta_notional": 18055555.55555551
+    }
+  ]
+}
