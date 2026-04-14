@@ -29,17 +29,18 @@ Reference file:
 8. Archive replay check: run `python .\build_split_models_archive_status.py --run-id <archive_run_id>` to inspect one archived handoff in isolation
 9. Archive replay packet: run `python .\build_split_models_archive_replay_packet.py --run-id <archive_run_id>` to get a one-file replay packet with prior/next context; full operator handoff now auto-builds this for the latest archive run
 10. Archive compare: run `python .\build_split_models_archive_compare.py --base-run-id <older_run> --target-run-id <newer_run>` to compare any two archived handoff runs directly
-11. Confirm `baseline_variant` is `rule_breadth_it_us5_cap`
-12. Confirm `health_verdict` is `PASS`
-13. Confirm `output\split_models_shadow\shadow_drift_report.json` has `drift_verdict=PASS`
-14. Confirm `output\split_models_shadow\shadow_live_readiness.json` has `live_readiness_verdict=GO`
-15. Use `output\split_models_shadow\shadow_live_transition_packet.md` as the single-file operator handoff before any live transition
-16. Confirm `output\split_models_shadow_archive\archive_manifest.csv` received a new row for this handoff run
-17. Optional delta check: open `output\split_models_shadow_archive\archive_latest_delta.json`
-18. Confirm `output\split_models_shadow_archive\archive_consistency_report.json` has `archive_consistency_verdict=PASS`
-19. Confirm `output\split_models_shadow_archive\archive_stability_report.json` has `archive_stability_verdict=PASS`
-20. Optional archive trend check: open `output\split_models_shadow_archive\archive_timeline_report.json` to review the latest trailing handoff timeline
-21. Optional dashboard only: run `streamlit run .\split_models_shadow_dashboard.py` to see readiness, orders, archive history, latest archive delta, trailing archive timeline, and a selectable archive replay in one screen
+11. Archive compare packet: run `python .\build_split_models_archive_compare_packet.py --base-run-id <older_run> --target-run-id <newer_run>` to generate a one-file markdown comparison packet
+12. Confirm `baseline_variant` is `rule_breadth_it_us5_cap`
+13. Confirm `health_verdict` is `PASS`
+14. Confirm `output\split_models_shadow\shadow_drift_report.json` has `drift_verdict=PASS`
+15. Confirm `output\split_models_shadow\shadow_live_readiness.json` has `live_readiness_verdict=GO`
+16. Use `output\split_models_shadow\shadow_live_transition_packet.md` as the single-file operator handoff before any live transition
+17. Confirm `output\split_models_shadow_archive\archive_manifest.csv` received a new row for this handoff run
+18. Optional delta check: open `output\split_models_shadow_archive\archive_latest_delta.json`
+19. Confirm `output\split_models_shadow_archive\archive_consistency_report.json` has `archive_consistency_verdict=PASS`
+20. Confirm `output\split_models_shadow_archive\archive_stability_report.json` has `archive_stability_verdict=PASS`
+21. Optional archive trend check: open `output\split_models_shadow_archive\archive_timeline_report.json` to review the latest trailing handoff timeline
+22. Optional dashboard only: run `streamlit run .\split_models_shadow_dashboard.py` to see readiness, orders, archive history, latest archive delta, trailing archive timeline, and a selectable archive replay in one screen
 
 ## Main shadow artifacts
 
@@ -60,6 +61,7 @@ Reference file:
 - `output\split_models_shadow_archive\archive_consistency_report.json`
 - `output\split_models_shadow_archive\archive_stability_report.json`
 - `output\split_models_shadow_archive\archive_timeline_report.json`
+- `build_split_models_archive_compare_packet.py`
 - `build_split_models_archive_compare.py`
 - `build_split_models_archive_replay_packet.py`
 - `build_split_models_archive_status.py`
