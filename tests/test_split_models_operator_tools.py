@@ -595,6 +595,18 @@ def test_split_models_archive_status_reads_latest_and_specific_run(tmp_path: Pat
             run_dir / "archive_stability_report.json",
             {"archive_stability_verdict": "PASS", "window": 5},
         )
+    _write_json(
+        archive_dir / "archive_timeline_report.json",
+        {
+            "archive_timeline_verdict": "PASS",
+            "window": 8,
+            "latest_run_id": "20260414T120500",
+            "timeline": [
+                {"run_id": "20260414T120500"},
+                {"run_id": "20260414T120000"},
+            ],
+        },
+    )
 
     monkeypatch.setattr(archive_status, "ARCHIVE_DIR", archive_dir)
 
@@ -602,11 +614,16 @@ def test_split_models_archive_status_reads_latest_and_specific_run(tmp_path: Pat
     latest_payload = json.loads(capsys.readouterr().out)
     assert latest_payload["archive_run_id"] == "20260414T120500"
     assert latest_payload["archive_stability_verdict"] == "PASS"
+    assert latest_payload["archive_timeline_verdict"] == "PASS"
+    assert latest_payload["archive_run_in_timeline"] is True
+    assert latest_payload["archive_run_timeline_rank"] == 1
 
     archive_status.main(["--run-id", "20260414T120000"])
     text_output = capsys.readouterr().out
     assert "archive_run_id=20260414T120000" in text_output
     assert "operator_gate_verdict=PASS" in text_output
+    assert "archive_run_in_timeline=True" in text_output
+    assert "archive_run_timeline_rank=2" in text_output
 
 
 def test_split_models_archive_timeline_reports_recent_runs(tmp_path: Path, monkeypatch) -> None:

@@ -184,6 +184,11 @@ def render_archive_replay(manifest: pd.DataFrame) -> None:
     runtime_status = _load_archive_run_json(selected_run_id, "shadow_operator_runtime_status.json")
     transition = _load_archive_run_json(selected_run_id, "shadow_live_transition_summary.json")
     packet = _load_archive_run_text(selected_run_id, "shadow_live_transition_packet.md")
+    timeline_report = _load_optional_archive_timeline()
+    timeline_rows = timeline_report.get("timeline", [])
+    timeline_run_ids = [str(row.get("run_id")) for row in timeline_rows]
+    in_timeline = selected_run_id in timeline_run_ids
+    timeline_rank = timeline_run_ids.index(selected_run_id) + 1 if in_timeline else None
 
     st.markdown(
         " | ".join(
@@ -193,9 +198,17 @@ def render_archive_replay(manifest: pd.DataFrame) -> None:
                 _badge("Drift", drift.get("drift_verdict", "N/A")),
                 _badge("Health", summary.get("health_verdict", "N/A")),
                 _badge("Gate", runtime_status.get("operator_gate_verdict", "N/A")),
+                _badge("Timeline", timeline_report.get("archive_timeline_verdict", "N/A")),
             ]
         )
     )
+    if timeline_report:
+        st.caption(
+            f"Timeline latest run: {timeline_report.get('latest_run_id', 'N/A')} | "
+            f"Window: {timeline_report.get('window', 'N/A')} | "
+            f"Selected run in window: {in_timeline} | "
+            f"Rank: {timeline_rank if timeline_rank is not None else 'N/A'}"
+        )
 
     cols = st.columns(4)
     cols[0].metric("Holdings", str(summary.get("current_holdings", "N/A")))

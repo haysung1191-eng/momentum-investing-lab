@@ -49,6 +49,12 @@ def build_archive_status_payload(run_id: str | None = None) -> dict[str, object]
     execution = _load_optional_json(run_dir / "shadow_rebalance_execution_summary.json")
     consistency = _load_optional_json(run_dir / "archive_consistency_report.json")
     stability = _load_optional_json(run_dir / "archive_stability_report.json")
+    timeline = _load_optional_json(ARCHIVE_DIR / "archive_timeline_report.json")
+    timeline_rows = timeline.get("timeline", [])
+    timeline_run_ids = [str(row.get("run_id")) for row in timeline_rows]
+    timeline_rank = None
+    if resolved_run_id in timeline_run_ids:
+        timeline_rank = timeline_run_ids.index(resolved_run_id) + 1
 
     payload: dict[str, object] = {
         "archive_run_id": resolved_run_id,
@@ -66,6 +72,11 @@ def build_archive_status_payload(run_id: str | None = None) -> dict[str, object]
         "archive_consistency_verdict": consistency.get("archive_consistency_verdict"),
         "archive_stability_verdict": stability.get("archive_stability_verdict"),
         "archive_stability_window": stability.get("window"),
+        "archive_timeline_verdict": timeline.get("archive_timeline_verdict"),
+        "archive_timeline_window": timeline.get("window"),
+        "archive_timeline_latest_run_id": timeline.get("latest_run_id"),
+        "archive_run_in_timeline": resolved_run_id in timeline_run_ids,
+        "archive_run_timeline_rank": timeline_rank,
     }
     return payload
 
@@ -93,8 +104,15 @@ def main(argv: list[str] | None = None) -> None:
     print(f"operator_gate_verdict={payload['operator_gate_verdict']}")
     print(f"archive_consistency_verdict={payload['archive_consistency_verdict']}")
     print(f"archive_stability_verdict={payload['archive_stability_verdict']}")
+    print(f"archive_timeline_verdict={payload['archive_timeline_verdict']}")
     if payload["archive_stability_window"] is not None:
         print(f"archive_stability_window={payload['archive_stability_window']}")
+    if payload["archive_timeline_window"] is not None:
+        print(f"archive_timeline_window={payload['archive_timeline_window']}")
+        print(f"archive_timeline_latest_run_id={payload['archive_timeline_latest_run_id']}")
+    print(f"archive_run_in_timeline={payload['archive_run_in_timeline']}")
+    if payload["archive_run_timeline_rank"] is not None:
+        print(f"archive_run_timeline_rank={payload['archive_run_timeline_rank']}")
     if payload["operator_gate_failures"]:
         print(f"operator_gate_failures={' | '.join(str(item) for item in payload['operator_gate_failures'])}")
 
