@@ -24,7 +24,7 @@ Reference file:
 3. One-click operator path: run `powershell -ExecutionPolicy Bypass -File .\start_split_models_shadow_ops.ps1 -TotalCapital <account_value>`
 4. Open `output\split_models_shadow\shadow_summary.json`
 5. Fast CLI check: run `python .\build_split_models_shadow_status.py`
-6. Automation-friendly check: run `python .\build_split_models_shadow_status.py --json`
+6. Automation-friendly check: run `python .\build_split_models_shadow_status.py --json` to include latest archive delta fields as well
 7. Confirm `baseline_variant` is `rule_breadth_it_us5_cap`
 8. Confirm `health_verdict` is `PASS`
 9. Confirm `output\split_models_shadow\shadow_drift_report.json` has `drift_verdict=PASS`

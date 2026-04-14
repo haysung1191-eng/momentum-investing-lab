@@ -86,6 +86,7 @@ def test_split_models_operator_tools_build_outputs(tmp_path: Path, monkeypatch, 
     monkeypatch.setattr(live_readiness, "SHADOW_DIR", shadow_dir)
     monkeypatch.setattr(live_packet, "SHADOW_DIR", shadow_dir)
     monkeypatch.setattr(shadow_status, "SHADOW_DIR", shadow_dir)
+    monkeypatch.setattr(shadow_status, "ARCHIVE_DIR", archive_dir)
     monkeypatch.setattr(archive_tools, "SHADOW_DIR", shadow_dir)
     monkeypatch.setattr(archive_tools, "ARCHIVE_DIR", archive_dir)
     monkeypatch.setattr(archive_delta, "ARCHIVE_DIR", archive_dir)
@@ -200,6 +201,13 @@ def test_split_models_operator_tools_build_outputs(tmp_path: Path, monkeypatch, 
     assert delta_payload["comparison_available"] is True
     assert delta_payload["holdings_change"] == 1
     assert delta_payload["dominant_sector_changed"] is True
+
+    capsys.readouterr()
+    shadow_status.main(["--json"])
+    final_status = json.loads(capsys.readouterr().out)
+    assert final_status["archive_comparison_available"] is True
+    assert final_status["archive_holdings_change"] == 1
+    assert final_status["archive_dominant_sector_changed"] is True
 
 
 def test_split_models_operator_handoff_runner_invokes_steps_in_order(monkeypatch) -> None:
