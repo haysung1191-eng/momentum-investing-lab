@@ -203,6 +203,23 @@ def test_split_models_operator_handoff_runner_status_only(monkeypatch) -> None:
     assert calls == [["python", "build_split_models_shadow_status.py"]]
 
 
+def test_split_models_operator_handoff_runner_status_only_json(monkeypatch) -> None:
+    calls: list[list[str]] = []
+
+    def _fake_run(args: list[str], cwd: Path, check: bool) -> None:
+        assert cwd == handoff_runner.ROOT
+        assert check is True
+        calls.append(args)
+
+    monkeypatch.setattr(handoff_runner.subprocess, "run", _fake_run)
+    monkeypatch.setattr(handoff_runner.sys, "executable", "python")
+    monkeypatch.setattr(sys, "argv", ["run_split_models_operator_handoff.py", "--status-only", "--json"])
+
+    handoff_runner.main()
+
+    assert calls == [["python", "build_split_models_shadow_status.py", "--json"]]
+
+
 def _write_json(path: Path, payload: dict) -> None:
     path.write_text(json.dumps(payload, indent=2), encoding="utf-8")
 

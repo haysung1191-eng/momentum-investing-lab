@@ -3,6 +3,7 @@ param(
     [switch]$RefreshShadow,
     [switch]$RefreshReference,
     [switch]$StatusOnly,
+    [switch]$Json,
     [switch]$NoDashboard
 )
 
@@ -22,6 +23,9 @@ if ($RefreshReference) {
 }
 if ($StatusOnly) {
     $args += "--status-only"
+}
+if ($Json) {
+    $args += "--json"
 }
 
 Write-Host "[ops] running operator handoff" -ForegroundColor Cyan
