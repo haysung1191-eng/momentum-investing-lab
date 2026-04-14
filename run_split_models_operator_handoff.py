@@ -52,6 +52,8 @@ def _load_runtime_status() -> dict[str, object]:
 def _enforce_operational_gate() -> None:
     payload = _load_runtime_status()
     failures = list(payload.get("operator_gate_failures", []))
+    if payload.get("archive_stability_verdict") != "PASS":
+        failures.append(f"archive_stability_verdict={payload.get('archive_stability_verdict')}")
     if failures:
         joined = ", ".join(failures)
         raise SystemExit(f"operator_gate_failed: {joined}")
@@ -108,6 +110,7 @@ def main() -> None:
     _sync_files_to_latest_archive([RUNTIME_STATUS_PATH])
     _run_step("refresh archive delta", [python, "build_split_models_archive_delta.py"])
     _run_step("check archive consistency", [python, "check_split_models_archive_consistency.py"])
+    _run_step("build archive stability", [python, "build_split_models_archive_stability.py"])
     _write_runtime_status(print_json=False)
     _run_step("refresh live packet after consistency", [python, "build_split_models_live_packet.py"])
     _sync_files_to_latest_archive([RUNTIME_STATUS_PATH, LIVE_PACKET_PATH])

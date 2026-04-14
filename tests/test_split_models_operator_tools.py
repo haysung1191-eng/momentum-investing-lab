@@ -8,6 +8,7 @@ import pandas as pd
 
 import archive_split_models_operator_handoff as archive_tools
 import build_split_models_archive_delta as archive_delta
+import build_split_models_archive_stability as archive_stability
 import build_split_models_live_packet as live_packet
 import build_split_models_live_readiness as live_readiness
 import build_split_models_rebalance_orders as rebalance_orders
@@ -92,6 +93,8 @@ def test_split_models_operator_tools_build_outputs(tmp_path: Path, monkeypatch, 
     monkeypatch.setattr(archive_tools, "ARCHIVE_DIR", archive_dir)
     monkeypatch.setattr(archive_delta, "ARCHIVE_DIR", archive_dir)
     monkeypatch.setattr(archive_delta, "DELTA_PATH", archive_dir / "archive_latest_delta.json")
+    monkeypatch.setattr(archive_stability, "ARCHIVE_DIR", archive_dir)
+    monkeypatch.setattr(archive_stability, "REPORT_PATH", archive_dir / "archive_stability_report.json")
     monkeypatch.setattr(archive_consistency, "SHADOW_DIR", shadow_dir)
     monkeypatch.setattr(archive_consistency, "ARCHIVE_DIR", archive_dir)
     monkeypatch.setattr(archive_consistency, "REPORT_PATH", archive_dir / "archive_consistency_report.json")
@@ -233,6 +236,7 @@ def test_split_models_operator_tools_build_outputs(tmp_path: Path, monkeypatch, 
     )
     archive_delta.main()
     archive_consistency.main()
+    archive_stability.main([])
     delta_payload = _read_json(archive_dir / "archive_latest_delta.json")
     assert delta_payload["comparison_available"] is True
     assert delta_payload["holdings_change"] == 1
@@ -241,6 +245,9 @@ def test_split_models_operator_tools_build_outputs(tmp_path: Path, monkeypatch, 
     assert delta_payload["latest_runtime_status"]["current_holdings"] == 9
     consistency_payload = _read_json(archive_dir / "archive_consistency_report.json")
     assert consistency_payload["archive_consistency_verdict"] == "PASS"
+    stability_payload = _read_json(archive_dir / "archive_stability_report.json")
+    assert stability_payload["archive_stability_verdict"] == "FAIL"
+    assert stability_payload["latest_run_id"] == "20260414T120500"
 
     capsys.readouterr()
     shadow_status.main(["--json"])
@@ -250,6 +257,7 @@ def test_split_models_operator_tools_build_outputs(tmp_path: Path, monkeypatch, 
     assert final_status["archive_dominant_sector_changed"] is True
     assert final_status["archive_operator_gate_changed"] is False
     assert final_status["archive_consistency_verdict"] == "PASS"
+    assert final_status["archive_stability_verdict"] == "FAIL"
     assert final_status["operator_gate_verdict"] == "PASS"
     assert final_status["operator_gate_failures"] == []
 
@@ -293,6 +301,7 @@ def test_split_models_operator_handoff_runner_invokes_steps_in_order(monkeypatch
         ["python", "build_split_models_archive_delta.py"],
         ["python", "build_split_models_archive_delta.py"],
         ["python", "check_split_models_archive_consistency.py"],
+        ["python", "build_split_models_archive_stability.py"],
         ["python", "build_split_models_live_packet.py"],
         ["python", "build_split_models_archive_delta.py"],
     ]
@@ -439,6 +448,65 @@ def test_split_models_archive_backfills_missing_operator_gate(tmp_path: Path, mo
 
     manifest = pd.read_csv(archive_dir / "archive_manifest.csv")
     assert list(manifest["OperatorGateVerdict"]) == ["PASS", "PASS"]
+
+
+def test_split_models_archive_stability_fails_on_operator_gate_change(tmp_path: Path, monkeypatch) -> None:
+    archive_dir = tmp_path / "archive"
+    archive_dir.mkdir(parents=True)
+
+    pd.DataFrame(
+        [
+            {
+                "RunId": "20260414T120000",
+                "BaselineVariant": "rule_breadth_it_us5_cap",
+                "HealthVerdict": "PASS",
+                "DriftVerdict": "PASS",
+                "LiveReadinessVerdict": "GO",
+                "OperatorGateVerdict": "PASS",
+                "CurrentHoldings": 8,
+                "CurrentDominantSector": "Industrials",
+                "TransitionWeightTurnover": 0.11111111111111113,
+                "ArchivePath": str(archive_dir / "20260414T120000"),
+            },
+            {
+                "RunId": "20260414T120500",
+                "BaselineVariant": "rule_breadth_it_us5_cap",
+                "HealthVerdict": "PASS",
+                "DriftVerdict": "PASS",
+                "LiveReadinessVerdict": "GO",
+                "OperatorGateVerdict": "FAIL",
+                "CurrentHoldings": 8,
+                "CurrentDominantSector": "Industrials",
+                "TransitionWeightTurnover": 0.11111111111111113,
+                "ArchivePath": str(archive_dir / "20260414T120500"),
+            },
+        ]
+    ).to_csv(archive_dir / "archive_manifest.csv", index=False, encoding="utf-8-sig")
+    _write_json(
+        archive_dir / "archive_latest_delta.json",
+        {
+            "baseline_variant_changed": False,
+            "live_readiness_changed": False,
+            "operator_gate_changed": True,
+            "health_changed": False,
+            "drift_changed": False,
+            "dominant_sector_changed": False,
+            "transition_turnover_change": 0.0,
+        },
+    )
+    _write_json(
+        archive_dir / "archive_consistency_report.json",
+        {
+            "archive_consistency_verdict": "PASS",
+        },
+    )
+
+    monkeypatch.setattr(archive_stability, "ARCHIVE_DIR", archive_dir)
+    monkeypatch.setattr(archive_stability, "REPORT_PATH", archive_dir / "archive_stability_report.json")
+    archive_stability.main(["--window", "2"])
+
+    payload = _read_json(archive_dir / "archive_stability_report.json")
+    assert payload["archive_stability_verdict"] == "FAIL"
 
 
 def _write_json(path: Path, payload: dict) -> None:

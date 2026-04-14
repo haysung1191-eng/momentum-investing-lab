@@ -50,6 +50,7 @@ def build_status_payload() -> dict[str, object]:
     market_summary = _load_csv(SHADOW_DIR / "shadow_rebalance_market_summary.csv")
     archive_delta = _load_optional_json(ARCHIVE_DIR / "archive_latest_delta.json")
     archive_consistency = _load_optional_json(ARCHIVE_DIR / "archive_consistency_report.json")
+    archive_stability = _load_optional_json(ARCHIVE_DIR / "archive_stability_report.json")
 
     trading_book = backtest.get("trading_book", {})
     payload: dict[str, object] = {
@@ -74,6 +75,9 @@ def build_status_payload() -> dict[str, object]:
         "archive_transition_turnover_change": archive_delta.get("transition_turnover_change"),
         "archive_consistency_verdict": archive_consistency.get("archive_consistency_verdict"),
         "archive_consistency_latest_run_id": archive_consistency.get("latest_run_id"),
+        "archive_stability_verdict": archive_stability.get("archive_stability_verdict"),
+        "archive_stability_window": archive_stability.get("window"),
+        "archive_stability_latest_run_id": archive_stability.get("latest_run_id"),
     }
     for _, row in market_summary.iterrows():
         payload[f"market_{row['Market']}_{row['ExecutionSide'].lower()}_orders"] = int(row["OrderCount"])
@@ -109,6 +113,7 @@ def main(argv: list[str] | None = None) -> None:
         print(f"operator_gate_failures={' | '.join(str(item) for item in payload['operator_gate_failures'])}")
     print(f"archive_comparison_available={payload['archive_comparison_available']}")
     print(f"archive_consistency_verdict={payload['archive_consistency_verdict']}")
+    print(f"archive_stability_verdict={payload['archive_stability_verdict']}")
     if payload["archive_comparison_available"]:
         print(f"archive_latest_run_id={payload['archive_latest_run_id']}")
         print(f"archive_prior_run_id={payload['archive_prior_run_id']}")
@@ -119,6 +124,9 @@ def main(argv: list[str] | None = None) -> None:
         print(f"archive_transition_turnover_change={payload['archive_transition_turnover_change']}")
     if payload["archive_consistency_latest_run_id"] is not None:
         print(f"archive_consistency_latest_run_id={payload['archive_consistency_latest_run_id']}")
+    if payload["archive_stability_latest_run_id"] is not None:
+        print(f"archive_stability_latest_run_id={payload['archive_stability_latest_run_id']}")
+        print(f"archive_stability_window={payload['archive_stability_window']}")
 
     for key, value in payload.items():
         if key.startswith("market_"):

@@ -34,7 +34,8 @@ Reference file:
 13. Confirm `output\split_models_shadow_archive\archive_manifest.csv` received a new row for this handoff run
 14. Optional delta check: open `output\split_models_shadow_archive\archive_latest_delta.json`
 15. Confirm `output\split_models_shadow_archive\archive_consistency_report.json` has `archive_consistency_verdict=PASS`
-16. Optional dashboard only: run `streamlit run .\split_models_shadow_dashboard.py` to see readiness, orders, archive history, and latest archive delta in one screen
+16. Confirm `output\split_models_shadow_archive\archive_stability_report.json` has `archive_stability_verdict=PASS`
+17. Optional dashboard only: run `streamlit run .\split_models_shadow_dashboard.py` to see readiness, orders, archive history, and latest archive delta in one screen
 
 ## Main shadow artifacts
 
@@ -53,6 +54,7 @@ Reference file:
 - `output\split_models_shadow_archive\archive_manifest.csv`
 - `output\split_models_shadow_archive\archive_latest_delta.json`
 - `output\split_models_shadow_archive\archive_consistency_report.json`
+- `output\split_models_shadow_archive\archive_stability_report.json`
 - `split_models_shadow_dashboard.py`
 - `start_split_models_shadow_ops.ps1`
 - `build_split_models_shadow_status.py`

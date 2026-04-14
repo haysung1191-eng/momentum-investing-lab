@@ -1,0 +1,88 @@
+{
+  "archive_stability_verdict": "PASS",
+  "window": 5,
+  "latest_run_id": "20260414T170107",
+  "runs_considered": [
+    "20260414T160210",
+    "20260414T160413",
+    "20260414T164829",
+    "20260414T165115",
+    "20260414T170107"
+  ],
+  "checks": [
+    {
+      "Check": "MinWindowRows",
+      "Passed": true,
+      "Value": 5,
+      "Threshold": ">=5"
+    },
+    {
+      "Check": "AllHealthPass",
+      "Passed": true,
+      "Value": [
+        "PASS",
+        "PASS",
+        "PASS",
+        "PASS",
+        "PASS"
+      ],
+      "Threshold": "all PASS"
+    },
+    {
+      "Check": "AllDriftPass",
+      "Passed": true,
+      "Value": [
+        "PASS",
+        "PASS",
+        "PASS",
+        "PASS",
+        "PASS"
+      ],
+      "Threshold": "all PASS"
+    },
+    {
+      "Check": "AllReadinessGo",
+      "Passed": true,
+      "Value": [
+        "GO",
+        "GO",
+        "GO",
+        "GO",
+        "GO"
+      ],
+      "Threshold": "all GO"
+    },
+    {
+      "Check": "AllOperatorGatePass",
+      "Passed": true,
+      "Value": [
+        "PASS",
+        "PASS",
+        "PASS",
+        "PASS",
+        "PASS"
+      ],
+      "Threshold": "all PASS"
+    },
+    {
+      "Check": "LatestDeltaNoChange",
+      "Passed": true,
+      "Value": {
+        "baseline_variant_changed": false,
+        "live_readiness_changed": false,
+        "operator_gate_changed": false,
+        "health_changed": false,
+        "drift_changed": false,
+        "dominant_sector_changed": false,
+        "transition_turnover_change": 0.0
+      },
+      "Threshold": "all false and turnover_change == 0"
+    },
+    {
+      "Check": "LatestConsistencyPass",
+      "Passed": true,
+      "Value": "PASS",
+      "Threshold": "PASS"
+    }
+  ]
+}
