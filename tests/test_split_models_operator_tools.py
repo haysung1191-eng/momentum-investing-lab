@@ -7,6 +7,7 @@ from pathlib import Path
 import pandas as pd
 
 import archive_split_models_operator_handoff as archive_tools
+import build_split_models_archive_delta as archive_delta
 import build_split_models_live_packet as live_packet
 import build_split_models_live_readiness as live_readiness
 import build_split_models_rebalance_orders as rebalance_orders
@@ -87,6 +88,8 @@ def test_split_models_operator_tools_build_outputs(tmp_path: Path, monkeypatch, 
     monkeypatch.setattr(shadow_status, "SHADOW_DIR", shadow_dir)
     monkeypatch.setattr(archive_tools, "SHADOW_DIR", shadow_dir)
     monkeypatch.setattr(archive_tools, "ARCHIVE_DIR", archive_dir)
+    monkeypatch.setattr(archive_delta, "ARCHIVE_DIR", archive_dir)
+    monkeypatch.setattr(archive_delta, "DELTA_PATH", archive_dir / "archive_latest_delta.json")
 
     monkeypatch.setattr(sys, "argv", ["build_split_models_rebalance_orders.py", "--total-capital", "100000000"])
     rebalance_orders.main()
@@ -159,6 +162,45 @@ def test_split_models_operator_tools_build_outputs(tmp_path: Path, monkeypatch, 
     archived_runtime_status = archive_dir / "20260414T120000" / "shadow_operator_runtime_status.json"
     assert archived_runtime_status.exists()
 
+    class _FakeNextNow:
+        @staticmethod
+        def now() -> "_FakeNextTimestamp":
+            return _FakeNextTimestamp()
+
+    class _FakeNextTimestamp:
+        @staticmethod
+        def strftime(fmt: str) -> str:
+            assert fmt == "%Y%m%dT%H%M%S"
+            return "20260414T120500"
+
+    _write_json(
+        shadow_dir / "shadow_summary.json",
+        {
+            "baseline_variant": "rule_breadth_it_us5_cap",
+            "health_verdict": "PASS",
+            "recent_avg_turnover": 0.97,
+            "current_holdings": 9,
+            "current_top1_weight": 0.125,
+            "current_top3_weight": 0.375,
+            "current_dominant_sector": "Health Care",
+        },
+    )
+    _write_json(
+        shadow_dir / "shadow_operator_runtime_status.json",
+        {
+            "baseline_variant": "rule_breadth_it_us5_cap",
+            "live_readiness": "GO",
+            "current_holdings": 9,
+        },
+    )
+    monkeypatch.setattr(archive_tools, "datetime", _FakeNextNow)
+    archive_tools.main()
+    archive_delta.main()
+    delta_payload = _read_json(archive_dir / "archive_latest_delta.json")
+    assert delta_payload["comparison_available"] is True
+    assert delta_payload["holdings_change"] == 1
+    assert delta_payload["dominant_sector_changed"] is True
+
 
 def test_split_models_operator_handoff_runner_invokes_steps_in_order(monkeypatch) -> None:
     calls: list[list[str]] = []
@@ -194,6 +236,7 @@ def test_split_models_operator_handoff_runner_invokes_steps_in_order(monkeypatch
         ["python", "build_split_models_live_readiness.py"],
         ["python", "build_split_models_live_packet.py"],
         ["python", "archive_split_models_operator_handoff.py"],
+        ["python", "build_split_models_archive_delta.py"],
     ]
     assert runtime_status_calls == [False]
 

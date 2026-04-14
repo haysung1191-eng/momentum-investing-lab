@@ -31,7 +31,8 @@ Reference file:
 10. Confirm `output\split_models_shadow\shadow_live_readiness.json` has `live_readiness_verdict=GO`
 11. Use `output\split_models_shadow\shadow_live_transition_packet.md` as the single-file operator handoff before any live transition
 12. Confirm `output\split_models_shadow_archive\archive_manifest.csv` received a new row for this handoff run
-13. Optional dashboard only: run `streamlit run .\split_models_shadow_dashboard.py`
+13. Optional delta check: open `output\split_models_shadow_archive\archive_latest_delta.json`
+14. Optional dashboard only: run `streamlit run .\split_models_shadow_dashboard.py`
 
 ## Main shadow artifacts
 
@@ -48,6 +49,7 @@ Reference file:
 - `output\split_models_shadow\shadow_turnover_monitor.csv`
 - `output\split_models_shadow\shadow_monthly_sector_mix.csv`
 - `output\split_models_shadow_archive\archive_manifest.csv`
+- `output\split_models_shadow_archive\archive_latest_delta.json`
 - `split_models_shadow_dashboard.py`
 - `start_split_models_shadow_ops.ps1`
 - `build_split_models_shadow_status.py`

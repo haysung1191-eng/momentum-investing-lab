@@ -1,0 +1,60 @@
+{
+  "latest_run_id": "20260414T135320",
+  "prior_run_id": "20260414T134912",
+  "comparison_available": true,
+  "baseline_variant_changed": false,
+  "live_readiness_changed": false,
+  "health_changed": false,
+  "drift_changed": false,
+  "holdings_change": 0,
+  "transition_turnover_change": 0.0,
+  "dominant_sector_changed": false,
+  "latest_live_readiness": "GO",
+  "prior_live_readiness": "GO",
+  "latest_health": "PASS",
+  "prior_health": "PASS",
+  "latest_drift": "PASS",
+  "prior_drift": "PASS",
+  "latest_runtime_status": {
+    "baseline_variant": "rule_breadth_it_us5_cap",
+    "live_readiness": "GO",
+    "health_verdict": "PASS",
+    "drift_verdict": "PASS",
+    "current_holdings": 8,
+    "dominant_sector": "Industrials",
+    "cagr": 0.33433567237915396,
+    "mdd": -0.2524158832009178,
+    "sharpe": 1.4481980324244779,
+    "transition_turnover": 0.11111111111111113,
+    "actionable_rows": 9,
+    "market_KR_buy_orders": 3,
+    "market_US_buy_orders": 5,
+    "market_US_sell_orders": 1
+  },
+  "prior_runtime_status": {
+    "baseline_variant": "rule_breadth_it_us5_cap",
+    "live_readiness": "GO",
+    "health_verdict": "PASS",
+    "drift_verdict": "PASS",
+    "current_holdings": 8,
+    "dominant_sector": "Industrials",
+    "cagr": 0.33433567237915396,
+    "mdd": -0.2524158832009178,
+    "sharpe": 1.4481980324244779,
+    "transition_turnover": 0.11111111111111113,
+    "actionable_rows": 9,
+    "market_KR_buy_orders": 3,
+    "market_US_buy_orders": 5,
+    "market_US_sell_orders": 1
+  },
+  "latest_summary": {
+    "current_holdings": 8,
+    "current_dominant_sector": "Industrials",
+    "recent_avg_turnover": 0.9612103174603175
+  },
+  "prior_summary": {
+    "current_holdings": 8,
+    "current_dominant_sector": "Industrials",
+    "recent_avg_turnover": 0.9612103174603175
+  }
+}

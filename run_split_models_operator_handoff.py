@@ -70,6 +70,7 @@ def main() -> None:
     _run_step("build live packet", [python, "build_split_models_live_packet.py"])
     _write_runtime_status(print_json=False)
     _run_step("archive operator handoff", [python, "archive_split_models_operator_handoff.py"])
+    _run_step("build archive delta", [python, "build_split_models_archive_delta.py"])
 
     print("[summary] operator handoff artifacts refreshed")
     print(f"[summary] output_dir={ROOT / 'output' / 'split_models_shadow'}")
