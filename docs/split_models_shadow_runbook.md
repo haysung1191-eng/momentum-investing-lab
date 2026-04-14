@@ -27,6 +27,7 @@ Reference file:
 6. Confirm `output\split_models_shadow\shadow_drift_report.json` has `drift_verdict=PASS`
 7. Confirm `output\split_models_shadow\shadow_live_readiness.json` has `live_readiness_verdict=GO`
 8. Use `output\split_models_shadow\shadow_live_transition_packet.md` as the single-file operator handoff before any live transition
+9. Confirm `output\split_models_shadow_archive\archive_manifest.csv` received a new row for this handoff run
 
 ## Main shadow artifacts
 
@@ -42,6 +43,7 @@ Reference file:
 - `output\split_models_shadow\shadow_live_transition_packet.md`
 - `output\split_models_shadow\shadow_turnover_monitor.csv`
 - `output\split_models_shadow\shadow_monthly_sector_mix.csv`
+- `output\split_models_shadow_archive\archive_manifest.csv`
 
 ## Escalation triggers
 
