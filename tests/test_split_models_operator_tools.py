@@ -10,6 +10,7 @@ import archive_split_models_operator_handoff as archive_tools
 import build_split_models_live_packet as live_packet
 import build_split_models_live_readiness as live_readiness
 import build_split_models_rebalance_orders as rebalance_orders
+import run_split_models_operator_handoff as handoff_runner
 
 
 def test_split_models_operator_tools_build_outputs(tmp_path: Path, monkeypatch) -> None:
@@ -123,6 +124,41 @@ def test_split_models_operator_tools_build_outputs(tmp_path: Path, monkeypatch) 
     assert manifest.iloc[0]["LiveReadinessVerdict"] == "GO"
     archived_packet = archive_dir / "20260414T120000" / "shadow_live_transition_packet.md"
     assert archived_packet.exists()
+
+
+def test_split_models_operator_handoff_runner_invokes_steps_in_order(monkeypatch) -> None:
+    calls: list[list[str]] = []
+
+    def _fake_run(args: list[str], cwd: Path, check: bool) -> None:
+        assert cwd == handoff_runner.ROOT
+        assert check is True
+        calls.append(args)
+
+    monkeypatch.setattr(handoff_runner.subprocess, "run", _fake_run)
+    monkeypatch.setattr(handoff_runner.sys, "executable", "python")
+    monkeypatch.setattr(
+        sys,
+        "argv",
+        [
+            "run_split_models_operator_handoff.py",
+            "--total-capital",
+            "100000000",
+            "--refresh-shadow",
+            "--refresh-reference",
+        ],
+    )
+
+    handoff_runner.main()
+
+    assert calls == [
+        ["python", "build_split_models_shadow_report.py"],
+        ["python", "analyze_split_models_live_transition.py", "--canonical-shadow"],
+        ["python", "build_split_models_rebalance_orders.py", "--total-capital", "100000000.0"],
+        ["python", "check_split_models_shadow_drift.py", "--refresh-reference"],
+        ["python", "build_split_models_live_readiness.py"],
+        ["python", "build_split_models_live_packet.py"],
+        ["python", "archive_split_models_operator_handoff.py"],
+    ]
 
 
 def _write_json(path: Path, payload: dict) -> None:
