@@ -57,6 +57,8 @@ class TradingVariant:
     us_position_cap: int | None = None
     breadth_risk_off_threshold: int | None = None
     breadth_risk_off_exposure: float = 1.0
+    breadth_risk_on_min_holdings: int | None = None
+    breadth_risk_on_exposure: float = 1.0
     sector_risk_off_name: str | None = None
     sector_risk_off_weight_threshold: float | None = None
     sector_risk_off_exposure: float = 1.0
@@ -231,6 +233,22 @@ def _baseline_variant_map() -> dict[str, TradingVariant]:
                 us_position_cap=5,
                 breadth_risk_off_threshold=4,
                 breadth_risk_off_exposure=0.75,
+                sector_risk_off_name="Information Technology",
+                sector_risk_off_weight_threshold=0.55,
+                sector_risk_off_exposure=0.80,
+            ),
+            "rule_sector_cap2_breadth_it_us5_risk_on": TradingVariant(
+                name="rule_sector_cap2_breadth_it_us5_risk_on",
+                use_flow_filter=True,
+                use_sector_filter=True,
+                use_mad_weighting=False,
+                min_holdings=4,
+                max_positions_per_sector=2,
+                us_position_cap=5,
+                breadth_risk_off_threshold=4,
+                breadth_risk_off_exposure=0.75,
+                breadth_risk_on_min_holdings=7,
+                breadth_risk_on_exposure=1.15,
                 sector_risk_off_name="Information Technology",
                 sector_risk_off_weight_threshold=0.55,
                 sector_risk_off_exposure=0.80,
@@ -786,6 +804,13 @@ def _build_momentum_candidates_for_date(
         and float(variant.breadth_risk_off_exposure) < 1.0
     ):
         book["TargetWeight"] = book["TargetWeight"] * float(variant.breadth_risk_off_exposure)
+    if (
+        not book.empty
+        and variant.breadth_risk_on_min_holdings is not None
+        and len(book) >= int(variant.breadth_risk_on_min_holdings)
+        and float(variant.breadth_risk_on_exposure) > 1.0
+    ):
+        book["TargetWeight"] = book["TargetWeight"] * float(variant.breadth_risk_on_exposure)
     if (
         not book.empty
         and variant.sector_risk_off_weight_threshold is not None
@@ -1462,6 +1487,22 @@ def run_backtests(output_dir: Path | None = None, config: BacktestConfig | None 
             us_position_cap=5,
             breadth_risk_off_threshold=4,
             breadth_risk_off_exposure=0.75,
+            sector_risk_off_name="Information Technology",
+            sector_risk_off_weight_threshold=0.55,
+            sector_risk_off_exposure=0.80,
+        ),
+        TradingVariant(
+            name="rule_sector_cap2_breadth_it_us5_risk_on",
+            use_flow_filter=True,
+            use_sector_filter=True,
+            use_mad_weighting=False,
+            min_holdings=4,
+            max_positions_per_sector=2,
+            us_position_cap=5,
+            breadth_risk_off_threshold=4,
+            breadth_risk_off_exposure=0.75,
+            breadth_risk_on_min_holdings=7,
+            breadth_risk_on_exposure=1.15,
             sector_risk_off_name="Information Technology",
             sector_risk_off_weight_threshold=0.55,
             sector_risk_off_exposure=0.80,
