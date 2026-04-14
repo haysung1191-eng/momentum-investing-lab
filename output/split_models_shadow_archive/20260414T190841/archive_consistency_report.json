@@ -1,7 +1,7 @@
 {
   "archive_consistency_verdict": "PASS",
-  "latest_run_id": "20260414T191107",
-  "prior_run_id": "20260414T190841",
+  "latest_run_id": "20260414T190841",
+  "prior_run_id": "20260414T180315",
   "checks": [
     {
       "Check": "ManifestLatestMatchesDelta",

@@ -15,6 +15,7 @@ RUNTIME_STATUS_PATH = ROOT / "output" / "split_models_shadow" / "shadow_operator
 LIVE_PACKET_PATH = ROOT / "output" / "split_models_shadow" / "shadow_live_transition_packet.md"
 ARCHIVE_CONSISTENCY_PATH = ROOT / "output" / "split_models_shadow_archive" / "archive_consistency_report.json"
 ARCHIVE_STABILITY_PATH = ROOT / "output" / "split_models_shadow_archive" / "archive_stability_report.json"
+ARCHIVE_TIMELINE_PATH = ROOT / "output" / "split_models_shadow_archive" / "archive_timeline_report.json"
 
 
 def _run_step(label: str, args: list[str]) -> None:
@@ -113,10 +114,17 @@ def main() -> None:
     _run_step("refresh archive delta", [python, "build_split_models_archive_delta.py"])
     _run_step("check archive consistency", [python, "check_split_models_archive_consistency.py"])
     _run_step("build archive stability", [python, "build_split_models_archive_stability.py"])
+    _run_step("build archive timeline", [python, "build_split_models_archive_timeline.py"])
     _write_runtime_status(print_json=False)
     _run_step("refresh live packet after consistency", [python, "build_split_models_live_packet.py"])
     _sync_files_to_latest_archive(
-        [RUNTIME_STATUS_PATH, LIVE_PACKET_PATH, ARCHIVE_CONSISTENCY_PATH, ARCHIVE_STABILITY_PATH]
+        [
+            RUNTIME_STATUS_PATH,
+            LIVE_PACKET_PATH,
+            ARCHIVE_CONSISTENCY_PATH,
+            ARCHIVE_STABILITY_PATH,
+            ARCHIVE_TIMELINE_PATH,
+        ]
     )
     _run_step("refresh archive delta after consistency", [python, "build_split_models_archive_delta.py"])
     if args.fail_on_not_go:

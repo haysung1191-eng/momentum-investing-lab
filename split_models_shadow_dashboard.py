@@ -72,6 +72,13 @@ def _load_optional_archive_delta() -> dict:
     return _load_json(str(path))
 
 
+def _load_optional_archive_timeline() -> dict:
+    path = ARCHIVE_DIR / "archive_timeline_report.json"
+    if not path.exists():
+        return {}
+    return _load_json(str(path))
+
+
 def _load_archive_run_json(run_id: str, name: str) -> dict:
     path = ARCHIVE_DIR / run_id / name
     if not path.exists():
@@ -247,6 +254,28 @@ def render_archive_delta(delta: dict, runtime_status: dict) -> None:
     st.code(json.dumps(delta, indent=2), language="json")
 
 
+def render_archive_timeline(timeline_report: dict) -> None:
+    st.subheader("Archive Timeline")
+    if not timeline_report:
+        st.info("No archive timeline found.")
+        return
+
+    st.markdown(
+        " | ".join(
+            [
+                _badge("Timeline", timeline_report.get("archive_timeline_verdict", "N/A")),
+                _badge("Latest Run", str(timeline_report.get("latest_run_id", "N/A"))),
+                _badge("Window", str(timeline_report.get("window", "N/A"))),
+            ]
+        )
+    )
+    timeline = pd.DataFrame(timeline_report.get("timeline", []))
+    if timeline.empty:
+        st.info("Archive timeline needs archived handoff runs.")
+        return
+    st.dataframe(timeline, width="stretch", height=260)
+
+
 def render_packet(packet_path: Path) -> None:
     st.subheader("Operator Packet")
     if not packet_path.exists():
@@ -272,6 +301,7 @@ def main() -> None:
     sector_mix = _load_csv(str(SHADOW_DIR / "shadow_current_sector_mix.csv"))
     archive_manifest = _load_optional_archive_manifest()
     archive_delta = _load_optional_archive_delta()
+    archive_timeline = _load_optional_archive_timeline()
     packet_path = SHADOW_DIR / "shadow_live_transition_packet.md"
 
     render_header(summary, readiness, drift, runtime_status)
@@ -287,6 +317,7 @@ def main() -> None:
         render_current_book(book, sector_mix)
     with tab4:
         render_archive_delta(archive_delta, runtime_status)
+        render_archive_timeline(archive_timeline)
         render_archive(archive_manifest)
         render_archive_replay(archive_manifest)
 

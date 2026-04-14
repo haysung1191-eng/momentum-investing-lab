@@ -1,0 +1,96 @@
+{
+  "archive_timeline_verdict": "PASS",
+  "window": 8,
+  "available_runs": 15,
+  "latest_run_id": "20260414T191107",
+  "timeline": [
+    {
+      "run_id": "20260414T191107",
+      "baseline_variant": "rule_breadth_it_us5_cap",
+      "health_verdict": "PASS",
+      "drift_verdict": "PASS",
+      "live_readiness_verdict": "GO",
+      "operator_gate_verdict": "PASS",
+      "current_holdings": 8,
+      "dominant_sector": "Industrials",
+      "transition_weight_turnover": 0.1111111111111111
+    },
+    {
+      "run_id": "20260414T190841",
+      "baseline_variant": "rule_breadth_it_us5_cap",
+      "health_verdict": "PASS",
+      "drift_verdict": "PASS",
+      "live_readiness_verdict": "GO",
+      "operator_gate_verdict": "PASS",
+      "current_holdings": 8,
+      "dominant_sector": "Industrials",
+      "transition_weight_turnover": 0.1111111111111111
+    },
+    {
+      "run_id": "20260414T180315",
+      "baseline_variant": "rule_breadth_it_us5_cap",
+      "health_verdict": "PASS",
+      "drift_verdict": "PASS",
+      "live_readiness_verdict": "GO",
+      "operator_gate_verdict": "PASS",
+      "current_holdings": 8,
+      "dominant_sector": "Industrials",
+      "transition_weight_turnover": 0.1111111111111111
+    },
+    {
+      "run_id": "20260414T170107",
+      "baseline_variant": "rule_breadth_it_us5_cap",
+      "health_verdict": "PASS",
+      "drift_verdict": "PASS",
+      "live_readiness_verdict": "GO",
+      "operator_gate_verdict": "PASS",
+      "current_holdings": 8,
+      "dominant_sector": "Industrials",
+      "transition_weight_turnover": 0.1111111111111111
+    },
+    {
+      "run_id": "20260414T165115",
+      "baseline_variant": "rule_breadth_it_us5_cap",
+      "health_verdict": "PASS",
+      "drift_verdict": "PASS",
+      "live_readiness_verdict": "GO",
+      "operator_gate_verdict": "PASS",
+      "current_holdings": 8,
+      "dominant_sector": "Industrials",
+      "transition_weight_turnover": 0.1111111111111111
+    },
+    {
+      "run_id": "20260414T164829",
+      "baseline_variant": "rule_breadth_it_us5_cap",
+      "health_verdict": "PASS",
+      "drift_verdict": "PASS",
+      "live_readiness_verdict": "GO",
+      "operator_gate_verdict": "PASS",
+      "current_holdings": 8,
+      "dominant_sector": "Industrials",
+      "transition_weight_turnover": 0.1111111111111111
+    },
+    {
+      "run_id": "20260414T160413",
+      "baseline_variant": "rule_breadth_it_us5_cap",
+      "health_verdict": "PASS",
+      "drift_verdict": "PASS",
+      "live_readiness_verdict": "GO",
+      "operator_gate_verdict": "PASS",
+      "current_holdings": 8,
+      "dominant_sector": "Industrials",
+      "transition_weight_turnover": 0.1111111111111111
+    },
+    {
+      "run_id": "20260414T160210",
+      "baseline_variant": "rule_breadth_it_us5_cap",
+      "health_verdict": "PASS",
+      "drift_verdict": "PASS",
+      "live_readiness_verdict": "GO",
+      "operator_gate_verdict": "PASS",
+      "current_holdings": 8,
+      "dominant_sector": "Industrials",
+      "transition_weight_turnover": 0.1111111111111111
+    }
+  ]
+}

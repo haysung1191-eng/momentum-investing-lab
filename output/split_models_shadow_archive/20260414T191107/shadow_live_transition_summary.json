@@ -1,0 +1,16 @@
+{
+  "baseline_variant": "rule_breadth_it_risk_off",
+  "candidate_variant": "rule_breadth_it_us5_cap",
+  "signal_date": "2026-01-30",
+  "baseline_holdings": 9,
+  "candidate_holdings": 8,
+  "baseline_us_count": 6,
+  "candidate_us_count": 5,
+  "baseline_kr_count": 3,
+  "candidate_kr_count": 3,
+  "buys": 0,
+  "sells": 1,
+  "adds": 8,
+  "trims": 0,
+  "weight_turnover": 0.11111111111111113
+}
