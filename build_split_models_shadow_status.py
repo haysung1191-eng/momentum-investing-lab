@@ -70,6 +70,7 @@ def build_status_payload() -> dict[str, object]:
         "archive_holdings_change": archive_delta.get("holdings_change"),
         "archive_dominant_sector_changed": archive_delta.get("dominant_sector_changed"),
         "archive_live_readiness_changed": archive_delta.get("live_readiness_changed"),
+        "archive_operator_gate_changed": archive_delta.get("operator_gate_changed"),
         "archive_transition_turnover_change": archive_delta.get("transition_turnover_change"),
         "archive_consistency_verdict": archive_consistency.get("archive_consistency_verdict"),
         "archive_consistency_latest_run_id": archive_consistency.get("latest_run_id"),
@@ -114,6 +115,7 @@ def main(argv: list[str] | None = None) -> None:
         print(f"archive_holdings_change={payload['archive_holdings_change']}")
         print(f"archive_dominant_sector_changed={payload['archive_dominant_sector_changed']}")
         print(f"archive_live_readiness_changed={payload['archive_live_readiness_changed']}")
+        print(f"archive_operator_gate_changed={payload['archive_operator_gate_changed']}")
         print(f"archive_transition_turnover_change={payload['archive_transition_turnover_change']}")
     if payload["archive_consistency_latest_run_id"] is not None:
         print(f"archive_consistency_latest_run_id={payload['archive_consistency_latest_run_id']}")

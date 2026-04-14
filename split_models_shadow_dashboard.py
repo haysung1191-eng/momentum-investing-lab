@@ -161,6 +161,7 @@ def render_archive_delta(delta: dict) -> None:
     change_flags = [
         ("Baseline Changed", bool(delta.get("baseline_variant_changed", False))),
         ("Readiness Changed", bool(delta.get("live_readiness_changed", False))),
+        ("Operator Gate Changed", bool(delta.get("operator_gate_changed", False))),
         ("Health Changed", bool(delta.get("health_changed", False))),
         ("Drift Changed", bool(delta.get("drift_changed", False))),
         ("Sector Changed", bool(delta.get("dominant_sector_changed", False))),

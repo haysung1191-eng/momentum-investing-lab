@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import json
+import math
 from pathlib import Path
 
 import pandas as pd
@@ -19,6 +20,15 @@ def _load_optional_json(path: Path) -> dict:
     if not path.exists():
         return {}
     return _load_json(path)
+
+
+def _normalized_operator_gate_verdict(row: dict, runtime_status: dict) -> object:
+    value = row.get("OperatorGateVerdict")
+    if value is None:
+        return runtime_status.get("operator_gate_verdict")
+    if isinstance(value, float) and math.isnan(value):
+        return runtime_status.get("operator_gate_verdict")
+    return value
 
 
 def build_archive_delta() -> dict[str, object]:
@@ -43,6 +53,8 @@ def build_archive_delta() -> dict[str, object]:
     prior_runtime = _load_optional_json(prior_dir / "shadow_operator_runtime_status.json")
     latest_summary = _load_optional_json(latest_dir / "shadow_summary.json")
     prior_summary = _load_optional_json(prior_dir / "shadow_summary.json")
+    latest_operator_gate = _normalized_operator_gate_verdict(latest, latest_runtime)
+    prior_operator_gate = _normalized_operator_gate_verdict(prior, prior_runtime)
 
     payload = {
         "latest_run_id": latest["RunId"],
@@ -50,6 +62,7 @@ def build_archive_delta() -> dict[str, object]:
         "comparison_available": True,
         "baseline_variant_changed": latest["BaselineVariant"] != prior["BaselineVariant"],
         "live_readiness_changed": latest["LiveReadinessVerdict"] != prior["LiveReadinessVerdict"],
+        "operator_gate_changed": latest_operator_gate != prior_operator_gate,
         "health_changed": latest["HealthVerdict"] != prior["HealthVerdict"],
         "drift_changed": latest["DriftVerdict"] != prior["DriftVerdict"],
         "holdings_change": int(latest["CurrentHoldings"]) - int(prior["CurrentHoldings"]),
@@ -57,6 +70,8 @@ def build_archive_delta() -> dict[str, object]:
         "dominant_sector_changed": latest["CurrentDominantSector"] != prior["CurrentDominantSector"],
         "latest_live_readiness": latest["LiveReadinessVerdict"],
         "prior_live_readiness": prior["LiveReadinessVerdict"],
+        "latest_operator_gate": latest_operator_gate,
+        "prior_operator_gate": prior_operator_gate,
         "latest_health": latest["HealthVerdict"],
         "prior_health": prior["HealthVerdict"],
         "latest_drift": latest["DriftVerdict"],

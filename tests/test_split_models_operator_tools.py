@@ -119,6 +119,7 @@ def test_split_models_operator_tools_build_outputs(tmp_path: Path, monkeypatch, 
         {
             "baseline_variant": "rule_breadth_it_us5_cap",
             "live_readiness": "GO",
+            "operator_gate_verdict": "PASS",
             "archive_latest_run_id": "20260414T120000",
             "archive_prior_run_id": None,
         },
@@ -141,6 +142,7 @@ def test_split_models_operator_tools_build_outputs(tmp_path: Path, monkeypatch, 
     manifest = pd.read_csv(archive_dir / "archive_manifest.csv")
     assert manifest.iloc[0]["BaselineVariant"] == "rule_breadth_it_us5_cap"
     assert manifest.iloc[0]["LiveReadinessVerdict"] == "GO"
+    assert manifest.iloc[0]["OperatorGateVerdict"] == "PASS"
     archived_packet = archive_dir / "20260414T120000" / "shadow_live_transition_packet.md"
     assert archived_packet.exists()
 
@@ -201,6 +203,7 @@ def test_split_models_operator_tools_build_outputs(tmp_path: Path, monkeypatch, 
             "baseline_variant": "rule_breadth_it_us5_cap",
             "live_readiness": "GO",
             "current_holdings": 9,
+            "operator_gate_verdict": "PASS",
             "archive_latest_run_id": "20260414T120500",
             "archive_prior_run_id": "20260414T120000",
         },
@@ -210,6 +213,7 @@ def test_split_models_operator_tools_build_outputs(tmp_path: Path, monkeypatch, 
         {
             "baseline_variant": "rule_breadth_it_us5_cap",
             "live_readiness": "GO",
+            "operator_gate_verdict": "PASS",
             "archive_latest_run_id": "20260414T120000",
             "archive_prior_run_id": None,
         },
@@ -222,6 +226,7 @@ def test_split_models_operator_tools_build_outputs(tmp_path: Path, monkeypatch, 
             "baseline_variant": "rule_breadth_it_us5_cap",
             "live_readiness": "GO",
             "current_holdings": 9,
+            "operator_gate_verdict": "PASS",
             "archive_latest_run_id": "20260414T120500",
             "archive_prior_run_id": "20260414T120000",
         },
@@ -232,6 +237,7 @@ def test_split_models_operator_tools_build_outputs(tmp_path: Path, monkeypatch, 
     assert delta_payload["comparison_available"] is True
     assert delta_payload["holdings_change"] == 1
     assert delta_payload["dominant_sector_changed"] is True
+    assert delta_payload["operator_gate_changed"] is False
     assert delta_payload["latest_runtime_status"]["current_holdings"] == 9
     consistency_payload = _read_json(archive_dir / "archive_consistency_report.json")
     assert consistency_payload["archive_consistency_verdict"] == "PASS"
@@ -242,6 +248,7 @@ def test_split_models_operator_tools_build_outputs(tmp_path: Path, monkeypatch, 
     assert final_status["archive_comparison_available"] is True
     assert final_status["archive_holdings_change"] == 1
     assert final_status["archive_dominant_sector_changed"] is True
+    assert final_status["archive_operator_gate_changed"] is False
     assert final_status["archive_consistency_verdict"] == "PASS"
     assert final_status["operator_gate_verdict"] == "PASS"
     assert final_status["operator_gate_failures"] == []
@@ -381,6 +388,57 @@ def test_split_models_operator_handoff_runner_enforce_operational_gate_raises(tm
         assert "live_readiness=HOLD" in str(exc)
     else:
         raise AssertionError("Expected SystemExit for non-GO runtime status")
+
+
+def test_split_models_archive_backfills_missing_operator_gate(tmp_path: Path, monkeypatch) -> None:
+    shadow_dir = tmp_path / "shadow"
+    archive_dir = tmp_path / "archive"
+    prior_dir = archive_dir / "20260414T120000"
+    shadow_dir.mkdir(parents=True)
+    prior_dir.mkdir(parents=True)
+
+    _write_json(shadow_dir / "shadow_summary.json", {"baseline_variant": "rule_breadth_it_us5_cap", "health_verdict": "PASS", "current_holdings": 8, "current_dominant_sector": "Industrials"})
+    _write_json(shadow_dir / "shadow_drift_report.json", {"drift_verdict": "PASS"})
+    _write_json(shadow_dir / "shadow_live_readiness.json", {"live_readiness_verdict": "GO"})
+    _write_json(shadow_dir / "shadow_live_transition_summary.json", {"weight_turnover": 0.11111111111111113})
+    _write_json(shadow_dir / "shadow_operator_runtime_status.json", {"operator_gate_verdict": "PASS"})
+    _write_json(prior_dir / "shadow_operator_runtime_status.json", {"operator_gate_verdict": "PASS"})
+
+    pd.DataFrame(
+        [
+            {
+                "RunId": "20260414T120000",
+                "BaselineVariant": "rule_breadth_it_us5_cap",
+                "HealthVerdict": "PASS",
+                "DriftVerdict": "PASS",
+                "LiveReadinessVerdict": "GO",
+                "CurrentHoldings": 8,
+                "CurrentDominantSector": "Industrials",
+                "TransitionWeightTurnover": 0.11111111111111113,
+                "ArchivePath": str(prior_dir),
+                "OperatorGateVerdict": None,
+            }
+        ]
+    ).to_csv(archive_dir / "archive_manifest.csv", index=False, encoding="utf-8-sig")
+
+    class _FakeNow:
+        @staticmethod
+        def now() -> "_FakeTimestamp":
+            return _FakeTimestamp()
+
+    class _FakeTimestamp:
+        @staticmethod
+        def strftime(fmt: str) -> str:
+            assert fmt == "%Y%m%dT%H%M%S"
+            return "20260414T120500"
+
+    monkeypatch.setattr(archive_tools, "SHADOW_DIR", shadow_dir)
+    monkeypatch.setattr(archive_tools, "ARCHIVE_DIR", archive_dir)
+    monkeypatch.setattr(archive_tools, "datetime", _FakeNow)
+    archive_tools.main()
+
+    manifest = pd.read_csv(archive_dir / "archive_manifest.csv")
+    assert list(manifest["OperatorGateVerdict"]) == ["PASS", "PASS"]
 
 
 def _write_json(path: Path, payload: dict) -> None:

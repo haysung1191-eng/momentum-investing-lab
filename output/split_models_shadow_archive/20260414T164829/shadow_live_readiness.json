@@ -1,0 +1,54 @@
+{
+  "baseline_variant": "rule_breadth_it_us5_cap",
+  "live_readiness_verdict": "GO",
+  "checks_passed": 7,
+  "checks_total": 7,
+  "current_holdings": 8,
+  "current_dominant_sector": "Industrials",
+  "transition_weight_turnover": 0.11111111111111113,
+  "actionable_rows": 9,
+  "checks": [
+    {
+      "Check": "HealthPass",
+      "Passed": true,
+      "Value": "PASS",
+      "Threshold": "PASS"
+    },
+    {
+      "Check": "DriftPass",
+      "Passed": true,
+      "Value": "PASS",
+      "Threshold": "PASS"
+    },
+    {
+      "Check": "MinHoldings",
+      "Passed": true,
+      "Value": 8,
+      "Threshold": ">=4"
+    },
+    {
+      "Check": "Top1Weight",
+      "Passed": true,
+      "Value": 0.125,
+      "Threshold": "<=0.25"
+    },
+    {
+      "Check": "Top3Weight",
+      "Passed": true,
+      "Value": 0.375,
+      "Threshold": "<=0.60"
+    },
+    {
+      "Check": "RecentTurnover",
+      "Passed": true,
+      "Value": 0.9612103174603175,
+      "Threshold": "<=1.50"
+    },
+    {
+      "Check": "TransitionTurnover",
+      "Passed": true,
+      "Value": 0.11111111111111113,
+      "Threshold": "<=0.20"
+    }
+  ]
+}
