@@ -56,7 +56,7 @@ HF stance:
 Implementation:
 
 - Naver Finance headline fallback:
-  - [kis_news_backfill.py](D:\AI\모멘텀 투자\kis_news_backfill.py)
+- [kis_news_backfill.py](/C:/AI/momentum/tools/data_ingestion/kis_news_backfill.py)
 - output base:
   - `data\news_kis_naver`
 - coverage:

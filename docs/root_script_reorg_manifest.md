@@ -20,13 +20,13 @@ Machine-readable inventory:
 - [root_script_inventory.csv](/C:/AI/momentum/output/repo_script_manifest/root_script_inventory.csv)
 - [root_script_inventory_summary.json](/C:/AI/momentum/output/repo_script_manifest/root_script_inventory_summary.json)
 
-Current root Python file count: `69`
+Current root Python file count: `60`
 
 Category counts:
 
 - `research`: `28`
 - `operations`: `6`
-- `data_ingestion`: `9`
+- `data_ingestion`: `0`
 - `core`: `17`
 - `pipelines`: `2`
 - `plotting`: `1`
@@ -37,6 +37,7 @@ Completed so far:
 - all `analyze_split_models_*.py` scripts were moved out of root into `tools/analysis`
 - all split-model `build_*`, `check_*`, and `archive_*` operator scripts were moved out of root into `tools/operations`
 - all split-model `run_*` pipeline scripts were moved out of root into `tools/pipelines`
+- all `*_backfill.py`, `build_*cache.py`, and `refresh_*` ingestion scripts were moved out of root into `tools/data_ingestion`
 
 ## Proposed Target Layout
 
@@ -87,11 +88,10 @@ Why this wave first:
 
 ## Second Move Wave
 
-After split-model tools are stable:
+After split-model and data-ingestion tools are stable:
 
-1. `*_backfill.py`, `build_*cache.py`, `refresh_*` -> `tools/data_ingestion`
-2. `kis_*_eval.py`, `kis_*_compare.py`, `kis_*_report.py`, `us_*`, `backtest_*` -> `tools/research`
-3. `plot_us_momentum_paper_figures.py` -> `tools/plotting`
+1. `kis_*_eval.py`, `kis_*_compare.py`, `kis_*_report.py`, `us_*`, `backtest_*` -> `tools/research`
+2. `plot_us_momentum_paper_figures.py` -> `tools/plotting`
 
 ## Manual Review Bucket
 

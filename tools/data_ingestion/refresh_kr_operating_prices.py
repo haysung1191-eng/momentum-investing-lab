@@ -3,14 +3,20 @@ from __future__ import annotations
 import time
 from datetime import datetime, timedelta
 from pathlib import Path
+import sys
+
+REPO_ROOT = Path(__file__).resolve().parents[2]
+if str(REPO_ROOT) not in sys.path:
+    sys.path.insert(0, str(REPO_ROOT))
+
 
 import pandas as pd
 
 from kis_api import KISApi
-from kis_data_backfill import merge_frames, prices_to_frame
+from tools.data_ingestion.kis_data_backfill import merge_frames, prices_to_frame
 
 
-ROOT = Path(__file__).resolve().parent
+ROOT = REPO_ROOT
 PRICE_ROOT = ROOT / "data" / "prices_operating_institutional_v1"
 SUMMARY_PATH = ROOT / "backtests" / "kis_operating_price_refresh_summary.csv"
 

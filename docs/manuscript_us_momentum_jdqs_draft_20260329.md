@@ -235,7 +235,7 @@ Accordingly, the contribution of the paper is implementation-focused. Its value 
 The current core scripts used in the research build are:
 
 - `us_sp100_membership_wiki.py`
-- `us_stock_sp100_backfill.py`
+- `tools/data_ingestion/us_stock_sp100_backfill.py`
 - `us_stock_mom12_1.py`
 - `us_etf_riskbudget.py`
 - `us_residual_sector_rotation.py`

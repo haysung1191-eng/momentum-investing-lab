@@ -2,11 +2,17 @@ from __future__ import annotations
 
 import shutil
 from pathlib import Path
+import sys
+
+REPO_ROOT = Path(__file__).resolve().parents[2]
+if str(REPO_ROOT) not in sys.path:
+    sys.path.insert(0, str(REPO_ROOT))
+
 
 import pandas as pd
 
 
-ROOT = Path(__file__).resolve().parent
+ROOT = REPO_ROOT
 UNIVERSE_PATH = ROOT / "backtests" / "kis_operating_universe_candidates_institutional_v1.csv"
 SOURCE_ROOT = ROOT / "data" / "flows_naver_8y" / "stock"
 TARGET_ROOT = ROOT / "data" / "flows_operating_institutional_v1" / "stock"
