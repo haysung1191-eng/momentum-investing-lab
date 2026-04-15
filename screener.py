@@ -1,11 +1,9 @@
-﻿from datetime import datetime, timedelta
-from pathlib import Path
-
-import pandas as pd
+﻿from pathlib import Path
 
 import config
 from kis_api import KISApi
 from live_core.kis_screener_metrics import calculate_momentum_metrics
+from live_core.kis_screener_runner import build_screening_frame
 from live_core.kis_screener_universe import (
     get_etf_tickers,
     get_historical_market_tickers,
@@ -63,40 +61,12 @@ class MomentumScreener:
     def run(self, max_items=2500, etf_mode=False):
         if etf_mode:
             tickers = self.get_etf_tickers()
-            mode_label = "ETF"
         else:
             tickers = self.get_market_tickers()
-            mode_label = "개별종목"
-
-        print(f"[{mode_label}] 스캔 대상: {len(tickers)}개")
-
-        today_dt = datetime.today()
-        while today_dt.weekday() >= 5:
-            today_dt -= timedelta(days=1)
-
-        past_dt = today_dt - timedelta(days=400)
-        today_str = today_dt.strftime("%Y%m%d")
-        past_str = past_dt.strftime("%Y%m%d")
-
-        results = []
-        total = min(len(tickers), max_items)
-
-        for idx, (code, name) in enumerate(tickers[:max_items], start=1):
-            log_interval = 20 if etf_mode else 50
-            if idx % log_interval == 0:
-                print(f"진행 상황: {idx}/{total} ({round(idx/total*100, 1)}%)")
-
-            prices = self.api.get_historical_prices(code, past_str, today_str, "D")
-            mom_data = self.calculate_momentum(prices)
-            if mom_data:
-                row = {"Code": code, "Name": name, "Type": mode_label}
-                row.update(mom_data)
-                results.append(row)
-
-        df = pd.DataFrame(results)
-        if not df.empty:
-            sort_col = "avg_momentum" if etf_mode else "MAD_gap_pct"
-            df = df.sort_values(by=sort_col, ascending=False).reset_index(drop=True)
-
-        print(f"[{mode_label}] 스크리닝 완료. 결과 {len(df)}개")
-        return df
+        return build_screening_frame(
+            api=self.api,
+            tickers=tickers,
+            momentum_calculator=self.calculate_momentum,
+            etf_mode=etf_mode,
+            max_items=max_items,
+        )
