@@ -11,7 +11,7 @@ import config
 from kis_flow_data import build_flow_matrices
 from kis_flow_signal import compute_flow_score, compute_flow_score_v3, rank_flow_at
 from kis_quality_data import build_quality_matrices, default_quality_base, rank_quality_at
-from live_core.kis_io import build_close_matrix, build_market_matrices, list_price_files, read_price_file, write_csv_any
+from live_core.kis_io import build_close_matrix, build_market_matrices, list_price_files, read_price_file
 from live_core.kis_regime import compute_regime_state, merge_rank_frames, rotation_signal_from_ranks
 from live_core.kis_weights import (
     cap_weights_to_target,
@@ -19,7 +19,19 @@ from live_core.kis_weights import (
     risk_budget_weights,
     score_weights_from_rank,
 )
-from live_core.kis_metrics import blend_component_metrics, summarize_backtest_metrics
+from live_core.kis_metrics import summarize_backtest_metrics
+from live_core.kis_orchestration import (
+    HYBRID_STRATEGY_COMPONENTS,
+    OPERATIONAL_CANDIDATE_STRATEGY_NAMES,
+    RESEARCH_ONLY_STRATEGY_NAMES,
+    append_hybrid_results,
+    blend_strategy_results,
+    is_hybrid_strategy_name,
+    is_operational_candidate_strategy_name,
+    is_research_only_strategy_name,
+    run_strategy_batch,
+    save_backtest_outputs,
+)
 from live_core.kis_selection import (
     features,
     feature_frame_at,
@@ -33,41 +45,6 @@ try:
 except Exception:  # pragma: no cover
     def tqdm(x, **kwargs):  # type: ignore
         return x
-
-
-HYBRID_STRATEGY_COMPONENTS: Dict[str, Dict[str, float]] = {
-    "Weekly Hybrid RS50 RB50": {
-        "Weekly Score50 RegimeState": 0.50,
-        "Weekly ETF RiskBudget": 0.50,
-    },
-    "Weekly Hybrid Flow50 RS50": {
-        "Weekly ForeignFlow v2": 0.50,
-        "Weekly Score50 RegimeState": 0.50,
-    },
-    "Weekly Hybrid FV350 RS50": {
-        "Weekly ForeignFlow v3": 0.50,
-        "Weekly Score50 RegimeState": 0.50,
-    },
-    "Weekly Hybrid QP50 RS50": {
-        "Weekly QualityProfitability MVP": 0.50,
-        "Weekly Score50 RegimeState": 0.50,
-    },
-}
-
-RESEARCH_ONLY_STRATEGY_NAMES = {
-    "Weekly ForeignFlow v2",
-    "Weekly ForeignFlow v3",
-    "Weekly Hybrid Flow50 RS50",
-    "Weekly Hybrid FV350 RS50",
-    "Weekly QualityProfitability MVP",
-    "Weekly Hybrid QP50 RS50",
-}
-
-OPERATIONAL_CANDIDATE_STRATEGY_NAMES = {
-    "Weekly Score50 RegimeState",
-    "Weekly ETF RiskBudget",
-    "Weekly Hybrid RS50 RB50",
-}
 
 
 @dataclass
@@ -144,48 +121,6 @@ class StrategyConfig:
     etf_universe_min_avg_value: float = 500_000_000.0
     etf_universe_min_median_value: float = 100_000_000.0
     etf_universe_max_zero_days: int = 1
-
-
-def is_hybrid_strategy_name(strategy_name: str) -> bool:
-    return strategy_name in HYBRID_STRATEGY_COMPONENTS
-
-
-def is_research_only_strategy_name(strategy_name: str) -> bool:
-    return str(strategy_name) in RESEARCH_ONLY_STRATEGY_NAMES
-
-
-def is_operational_candidate_strategy_name(strategy_name: str) -> bool:
-    return str(strategy_name) in OPERATIONAL_CANDIDATE_STRATEGY_NAMES
-
-
-def blend_strategy_results(
-    strategy_name: str,
-    component_results: Dict[str, Tuple[pd.DataFrame, Dict[str, float]]],
-) -> Tuple[pd.DataFrame, Dict[str, float]]:
-    spec = HYBRID_STRATEGY_COMPONENTS.get(strategy_name)
-    if spec is None:
-        raise ValueError(f"Unsupported hybrid strategy: {strategy_name}")
-    missing = [name for name in spec.keys() if name not in component_results]
-    if missing:
-        raise ValueError(f"Missing hybrid components for {strategy_name}: {missing}")
-
-    daily_frames: List[pd.Series] = []
-    for component_name in spec.keys():
-        out, _ = component_results[component_name]
-        if out is None or out.empty or "daily_return" not in out.columns:
-            raise ValueError(f"Hybrid component {component_name} has no daily_return series.")
-        daily_frames.append(out["daily_return"].rename(component_name))
-    merged = pd.concat(daily_frames, axis=1, join="inner").fillna(0.0)
-    if merged.empty:
-        raise ValueError(f"Hybrid component overlap is empty for {strategy_name}.")
-
-    out = pd.DataFrame(index=merged.index)
-    out["daily_return"] = 0.0
-    for component_name, weight in spec.items():
-        out["daily_return"] = out["daily_return"] + float(weight) * merged[component_name]
-    out["nav"] = (1.0 + out["daily_return"]).cumprod()
-    metrics = blend_component_metrics(spec, component_results, out)
-    return out, metrics
 
 
 def default_flow_base() -> str:
@@ -660,49 +595,26 @@ def main() -> None:
     use_regime = bool(args.regime_filter)
     strategies = build_default_strategies(args, StrategyConfig, fee_rate=fee, use_regime_filter=use_regime)
 
-    summary = []
-    nav = None
-    strategy_outputs: Dict[str, Tuple[pd.DataFrame, Dict[str, float]]] = {}
     flow_mats = build_flow_matrices(args.flow_base, market="stock", max_files=args.max_files)
     quality_mats = build_quality_matrices(args.quality_base, close_s.index, list(close_s.columns))
-    for s in strategies:
-        print(f"running {s.name}...")
-        out, m = run_one(
+
+    def _run_strategy(strategy: StrategyConfig) -> Tuple[pd.DataFrame, Dict[str, float]]:
+        return run_one(
             close_s,
             close_e,
-            s,
+            strategy,
             min_common_dates=args.min_common_dates,
             traded_value_s=value_s,
             traded_value_e=value_e,
             flow_mats=flow_mats,
             quality_mats=quality_mats,
         )
-        row = {"Strategy": s.name}
-        row.update(m)
-        summary.append(row)
-        strategy_outputs[s.name] = (out, m)
-        if nav is None:
-            nav = pd.DataFrame(index=out.index)
-        nav[s.name] = out["nav"]
 
-    for hybrid_name in HYBRID_STRATEGY_COMPONENTS.keys():
-        if not all(component_name in strategy_outputs for component_name in HYBRID_STRATEGY_COMPONENTS[hybrid_name].keys()):
-            continue
-        print(f"running {hybrid_name}...")
-        out, m = blend_strategy_results(hybrid_name, strategy_outputs)
-        row = {"Strategy": hybrid_name}
-        row.update(m)
-        summary.append(row)
-        nav[hybrid_name] = out["nav"]
-
-    s_df = pd.DataFrame(summary)
+    summary, nav, strategy_outputs = run_strategy_batch(strategies, _run_strategy)
+    summary, nav = append_hybrid_results(summary, nav, strategy_outputs)
+    s_df, sum_path, nav_path = save_backtest_outputs(summary, nav, args.save_prefix)
     print("\n=== KIS Price Backtest ===")
     print(s_df.to_string(index=False))
-
-    sum_path = f"{args.save_prefix}_summary.csv"
-    nav_path = f"{args.save_prefix}_nav.csv"
-    write_csv_any(s_df, sum_path, index=False)
-    write_csv_any(nav, nav_path, index=True)
     print(f"saved {sum_path}")
     print(f"saved {nav_path}")
 
