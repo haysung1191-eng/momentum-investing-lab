@@ -1,13 +1,13 @@
 
 import io
-import os
 from pathlib import Path
 
 import pandas as pd
 import streamlit as st
 
 
-DEFAULT_BACKTESTS_DIR = Path(__file__).resolve().parent / "backtests"
+REPO_ROOT = Path(__file__).resolve().parents[2]
+DEFAULT_BACKTESTS_DIR = REPO_ROOT / "backtests"
 DEFAULT_PATHS = {
     "ops_summary": DEFAULT_BACKTESTS_DIR / "kis_shadow_ops_summary.csv",
     "health": DEFAULT_BACKTESTS_DIR / "kis_shadow_health.csv",

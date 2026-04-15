@@ -20,7 +20,7 @@ Machine-readable inventory:
 - [root_script_inventory.csv](/C:/AI/momentum/output/repo_script_manifest/root_script_inventory.csv)
 - [root_script_inventory_summary.json](/C:/AI/momentum/output/repo_script_manifest/root_script_inventory_summary.json)
 
-Current root Python file count: `36`
+Current root Python file count: `35`
 
 Category counts:
 
@@ -30,7 +30,7 @@ Category counts:
 - `core`: `17`
 - `pipelines`: `2`
 - `dashboards`: `1`
-- `uncategorized`: `5`
+- `uncategorized`: `4`
 
 Completed so far:
 
@@ -41,6 +41,7 @@ Completed so far:
 - all current `kis_*_eval.py`, `kis_*_compare.py`, `kis_*_report.py`, `us_*`, `backtest_*`, and `event_*` research scripts were moved out of root into `tools/research`
 - `plot_us_momentum_paper_figures.py` was moved out of root into `tools/plotting`
 - `split_models_shadow_dashboard.py` was moved out of root into `tools/dashboards`
+- `shadow_dashboard.py` was moved out of root into `tools/dashboards`
 
 ## Proposed Target Layout
 
@@ -67,7 +68,6 @@ These should not move in the first wave because they are likely imported broadly
 - `main.py`
 - `dashboard.py`
 - `screener.py`
-- `shadow_dashboard.py`
 - `kis_api.py`
 - `kis_backtest_from_prices.py`
 - `kis_flow_data.py`
@@ -102,12 +102,11 @@ These currently remain uncategorized and need a human placement decision before 
 - `dashboard.py`
 - `main.py`
 - `screener.py`
-- `shadow_dashboard.py`
 
 Recommended handling:
 
 - keep `config.py` and `main.py` in root for now
-- decide later whether dashboards should live under `app/` or `tools/dashboards`
+- keep `dashboard.py` in root for now because `Dockerfile.web` still uses `streamlit run dashboard.py`
 - keep `screener.py` in root until its dependency graph is inspected
 
 ## Move Rules
@@ -124,6 +123,6 @@ Before any real move:
 
 The next highest-value move is the manual-review/dashboard bucket:
 
-- inspect `dashboard.py` and `shadow_dashboard.py` for `tools/dashboards` readiness
+- inspect `dashboard.py` for eventual `tools/dashboards` readiness only after Docker/Cloud Build entrypoints are decoupled
 - inspect `screener.py` for dependency-heavy root coupling
 - keep `config.py` and `main.py` in root unless a later entrypoint pass proves otherwise

@@ -34,4 +34,3 @@
 "run_research_pipeline.py","pipelines","tools/pipelines"
 "run_single_asset_research.py","pipelines","tools/pipelines"
 "screener.py","uncategorized","review-manually"
-"shadow_dashboard.py","uncategorized","review-manually"
