@@ -59,11 +59,26 @@
 - the symbol-level edge is much more concentrated than the month-level edge: most of the incremental alpha came from a small cluster of US information-technology winners
 - that concentration is acceptable for an aggressive research branch, but it is a clear reason not to treat this as an operational baseline candidate
 
+## Cost sensitivity review
+
+- even at `75 bps` one-way cost, `rule_sector_cap2_breadth_it_us5_top2_risk_on` remains the best aggressive branch in this family
+- `rule_sector_cap2_breadth_it_us5_top2_risk_on`
+  - CAGR at `75 bps`: `35.76%`
+  - Sharpe at `75 bps`: `1.3117`
+- `rule_sector_cap2_breadth_it_us5_risk_on`
+  - CAGR at `75 bps`: `31.82%`
+  - Sharpe at `75 bps`: `1.2554`
+- `rule_breadth_it_us5_cap`
+  - CAGR at `75 bps`: `23.95%`
+  - Sharpe at `75 bps`: `1.1090`
+- cost drag is real, but the ranking survives; this reduces the chance that the top2 branch is only a low-friction backtest artifact
+
 ## Interpretation
 
 - the top-slice risk-on overlay is a genuine new branch, not a cosmetic tweak: full-period CAGR and Sharpe both improved while MDD stayed flat
 - month-level improvement is broad enough to avoid the prior "single-shock-month" failure mode
 - the main caveats are weak-period quality and concentration: average weak-period return still improved slightly, but loss months were still a bit worse on average, and most of the incremental alpha came from a small set of US IT winners
+- the cost-sensitivity check is supportive: the branch still leads this family even under much harsher one-way cost assumptions
 - this remains a high-CAGR research branch, not an operational baseline candidate
 
 ## Verdict

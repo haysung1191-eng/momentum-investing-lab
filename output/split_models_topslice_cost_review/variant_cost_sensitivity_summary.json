@@ -1,0 +1,26 @@
+{
+  "rule_sector_cap2_breadth_it_us5_top2_risk_on": {
+    "start_cost_bps": 10.0,
+    "end_cost_bps": 75.0,
+    "start_cagr": 0.4704827990387175,
+    "end_cagr": 0.357577781155592,
+    "cagr_decay": 0.11290501788312546,
+    "end_sharpe": 1.3117390615349773
+  },
+  "rule_sector_cap2_breadth_it_us5_risk_on": {
+    "start_cost_bps": 10.0,
+    "end_cost_bps": 75.0,
+    "start_cagr": 0.42801622961554275,
+    "end_cagr": 0.31819708135529745,
+    "cagr_decay": 0.1098191482602453,
+    "end_sharpe": 1.2554171558601517
+  },
+  "rule_breadth_it_us5_cap": {
+    "start_cost_bps": 10.0,
+    "end_cost_bps": 75.0,
+    "start_cagr": 0.33433567237915396,
+    "end_cagr": 0.23945503325509154,
+    "cagr_decay": 0.09488063912406242,
+    "end_sharpe": 1.108987570545804
+  }
+}
