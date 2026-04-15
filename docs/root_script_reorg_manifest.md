@@ -102,7 +102,7 @@ Resolved handling:
 
 - keep `config.py` in root as a core runtime settings module because many root and tools modules still import `config` directly
 - keep `main.py` in root as a core runtime entrypoint because `Dockerfile` and `Dockerfile.job` still execute `python main.py`
-- keep `screener.py` in root because `main.py`, `Dockerfile.kis_pipeline`, and `tools/data_ingestion/kis_data_backfill.py` depend on the root import path today
+- keep `screener.py` in root only as a backward-compatible import shim; the implementation now lives in `live_core/kis_screener.py`
 
 ## Move Rules
 
