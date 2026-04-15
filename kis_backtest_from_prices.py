@@ -13,6 +13,12 @@ from kis_flow_signal import compute_flow_score, compute_flow_score_v3, rank_flow
 from kis_quality_data import build_quality_matrices, default_quality_base, rank_quality_at
 from live_core.kis_io import build_close_matrix, build_market_matrices, list_price_files, read_price_file, write_csv_any
 from live_core.kis_regime import compute_regime_state, merge_rank_frames, rotation_signal_from_ranks
+from live_core.kis_weights import (
+    cap_weights_to_target,
+    inverse_vol_weights,
+    risk_budget_weights,
+    score_weights_from_rank,
+)
 from live_core.kis_metrics import blend_component_metrics, summarize_backtest_metrics
 from live_core.kis_selection import (
     features,
@@ -230,152 +236,6 @@ def rebalance_dates(dates: Sequence[pd.Timestamp], rule: str) -> List[pd.Timesta
             d = [idx[-1]]
         return d
     raise ValueError(rule)
-
-
-def _inverse_vol_weights(ret_window: pd.DataFrame, tickers: List[str]) -> Dict[str, float]:
-    if not tickers:
-        return {}
-    if ret_window.empty:
-        w = 1.0 / len(tickers)
-        return {t: w for t in tickers}
-
-    vol = ret_window[tickers].std(ddof=0).replace(0, np.nan)
-    inv = 1.0 / vol
-    inv = inv.replace([np.inf, -np.inf], np.nan).dropna()
-    if inv.empty:
-        w = 1.0 / len(tickers)
-        return {t: w for t in tickers}
-    inv = inv / inv.sum()
-    out = {t: float(inv.get(t, 0.0)) for t in tickers}
-    s = sum(out.values())
-    if s <= 0:
-        w = 1.0 / len(tickers)
-        return {t: w for t in tickers}
-    return {k: v / s for k, v in out.items()}
-
-
-def _cap_weights_to_target(weights: Dict[str, float], max_weight: float, target_gross: float) -> Dict[str, float]:
-    if not weights:
-        return {}
-    if max_weight <= 0:
-        s = sum(weights.values())
-        if s <= 0:
-            return {}
-        return {k: (v / s) * target_gross for k, v in weights.items()}
-
-    n = len(weights)
-    feasible_gross = min(target_gross, n * max_weight)
-    if feasible_gross <= 0:
-        return {}
-
-    raw_sum = sum(weights.values())
-    if raw_sum <= 0:
-        return {}
-    working = {k: v / raw_sum * feasible_gross for k, v in weights.items()}
-    fixed: Dict[str, float] = {}
-
-    while True:
-        over = [k for k, v in working.items() if v > max_weight + 1e-12]
-        if not over:
-            break
-        for k in over:
-            fixed[k] = max_weight
-            working.pop(k, None)
-        rem_target = feasible_gross - sum(fixed.values())
-        if rem_target <= 1e-12 or not working:
-            working = {}
-            break
-        rem_sum = sum(working.values())
-        if rem_sum <= 0:
-            working = {}
-            break
-        scale = rem_target / rem_sum
-        working = {k: v * scale for k, v in working.items()}
-
-    out = {}
-    out.update(fixed)
-    out.update(working)
-    return dict(sorted(out.items()))
-
-
-def _risk_budget_weights(ret_window: pd.DataFrame, tickers: List[str], stg: StrategyConfig) -> Dict[str, float]:
-    if not tickers:
-        return {}
-    if ret_window.empty or len(ret_window) < 10:
-        w = 1.0 / len(tickers)
-        return {t: w for t in tickers}
-    cols = [t for t in tickers if t in ret_window.columns]
-    if not cols:
-        return {}
-    sample = ret_window[cols].dropna(how="all")
-    if len(sample) < 10:
-        w = 1.0 / len(cols)
-        return {t: w for t in cols}
-    vol = sample.std(ddof=0).replace(0.0, np.nan)
-    inv = (1.0 / vol).replace([np.inf, -np.inf], np.nan).dropna()
-    inv = inv / inv.sum() if not inv.empty else pd.Series(dtype=float)
-    cov = sample.cov().fillna(0.0)
-    if cov.empty:
-        w = 1.0 / len(cols)
-        return {t: w for t in cols}
-    alpha = float(np.clip(stg.risk_budget_shrinkage, 0.0, 1.0))
-    diag = np.diag(np.diag(cov.values))
-    shrunk = ((1.0 - alpha) * cov.values) + (alpha * diag)
-    ridge = 1e-6 * np.eye(len(cols))
-    ones = np.ones(len(cols), dtype=float)
-    try:
-        raw = np.linalg.solve(shrunk + ridge, ones)
-    except np.linalg.LinAlgError:
-        if inv.empty:
-            w = 1.0 / len(cols)
-            return {t: w for t in cols}
-        inv = inv / inv.sum()
-        return {str(k): float(v) for k, v in inv.items()}
-    raw = np.clip(raw, 0.0, None)
-    if float(raw.sum()) <= 0.0:
-        w = 1.0 / len(cols)
-        return {t: w for t in cols}
-    raw = raw / raw.sum()
-    weights = pd.Series({str(t): float(w) for t, w in zip(cols, raw)})
-    blend = float(np.clip(stg.risk_budget_iv_blend, 0.0, 1.0))
-    if blend > 0.0 and not inv.empty:
-        inv = inv.reindex(weights.index).fillna(0.0)
-        if float(inv.sum()) > 0.0:
-            inv = inv / inv.sum()
-            weights = ((1.0 - blend) * weights) + (blend * inv)
-            weights = weights.clip(lower=0.0)
-            if float(weights.sum()) > 0.0:
-                weights = weights / weights.sum()
-    return {str(k): float(v) for k, v in weights.items() if float(v) > 0.0}
-
-
-def _mad_multiplier(gap_pct: float, stg: StrategyConfig) -> float:
-    if not np.isfinite(gap_pct):
-        return stg.mad_w2
-    if gap_pct < stg.mad_t1:
-        return stg.mad_w1
-    if gap_pct < stg.mad_t2:
-        return stg.mad_w2
-    if gap_pct < stg.mad_t3:
-        return stg.mad_w3
-    return stg.mad_w4
-
-
-def _score_weights_from_rank(df_rank: pd.DataFrame, stg: StrategyConfig) -> Dict[str, float]:
-    if df_rank is None or df_rank.empty:
-        return {}
-    picked = df_rank.head(max(1, int(stg.score_top_k))).copy()
-    if picked.empty:
-        return {}
-
-    s = picked["buy_score"].clip(lower=0.0).pow(stg.score_power)
-    mad_scale = picked["mad_gap"].apply(lambda x: _mad_multiplier(float(x), stg))
-    raw = (s * mad_scale).replace([np.inf, -np.inf], np.nan).dropna()
-    raw = raw[raw > 0]
-    if raw.empty:
-        return {}
-    raw = raw / raw.sum()
-    return {str(k): float(v) for k, v in raw.items()}
 
 
 def run_one(
@@ -609,7 +469,7 @@ def run_one(
             ret_e = re.loc[:prev_dt].tail(stg.vol_lookback)
             if stg.use_etf_risk_budget:
                 w_s = {}
-                w_e = _risk_budget_weights(re.loc[:prev_dt].tail(max(20, int(stg.risk_budget_lookback))), hold_e, stg)
+                w_e = risk_budget_weights(re.loc[:prev_dt].tail(max(20, int(stg.risk_budget_lookback))), hold_e, stg)
             elif stg.use_foreign_flow_model:
                 if hold_s:
                     equal_w = 1.0 / len(hold_s)
@@ -618,11 +478,11 @@ def run_one(
                     w_s = {}
                 w_e = {}
             elif stg.selection_mode == "score":
-                w_s = _score_weights_from_rank(rank_s_use.loc[rank_s_use.index.intersection(hold_s)], stg)
-                w_e = _score_weights_from_rank(rank_e.loc[rank_e.index.intersection(hold_e)], stg)
+                w_s = score_weights_from_rank(rank_s_use.loc[rank_s_use.index.intersection(hold_s)], stg)
+                w_e = score_weights_from_rank(rank_e.loc[rank_e.index.intersection(hold_e)], stg)
             else:
-                w_s = _inverse_vol_weights(ret_s, hold_s)
-                w_e = _inverse_vol_weights(ret_e, hold_e)
+                w_s = inverse_vol_weights(ret_s, hold_s)
+                w_e = inverse_vol_weights(ret_e, hold_e)
             rotation_signal = 0.0
             stock_sleeve = 0.5
             etf_sleeve = 0.5
@@ -667,7 +527,7 @@ def run_one(
             target_gross = min(target_gross, regime_target_exposure)
 
             # Name-level concentration cap while trying to keep target gross exposure.
-            w_tar = _cap_weights_to_target(w_tar, stg.max_weight, target_gross)
+            w_tar = cap_weights_to_target(w_tar, stg.max_weight, target_gross)
 
             uni = set(w_now) | set(w_tar)
             turn = sum(abs(w_tar.get(k, 0.0) - w_now.get(k, 0.0)) for k in uni)
