@@ -33,4 +33,4 @@
 "news_sidecar_eval.py","research","tools/research"
 "run_research_pipeline.py","pipelines","tools/pipelines"
 "run_single_asset_research.py","pipelines","tools/pipelines"
-"screener.py","uncategorized","review-manually"
+"screener.py","core","keep-root-or-core-module"

@@ -27,10 +27,10 @@ Category counts:
 - `research`: `6`
 - `operations`: `6`
 - `data_ingestion`: `0`
-- `core`: `17`
+- `core`: `18`
 - `pipelines`: `2`
 - `dashboards`: `1`
-- `uncategorized`: `4`
+- `uncategorized`: `3`
 
 Completed so far:
 
@@ -67,8 +67,8 @@ These should not move in the first wave because they are likely imported broadly
 - `config.py`
 - `main.py`
 - `dashboard.py`
-- `screener.py`
 - `kis_api.py`
+- `screener.py`
 - `kis_backtest_from_prices.py`
 - `kis_flow_data.py`
 - `kis_flow_signal.py`
@@ -101,13 +101,12 @@ These currently remain uncategorized and need a human placement decision before 
 - `config.py`
 - `dashboard.py`
 - `main.py`
-- `screener.py`
 
 Recommended handling:
 
 - keep `config.py` and `main.py` in root for now
 - keep `dashboard.py` in root for now because `Dockerfile.web` still uses `streamlit run dashboard.py`
-- keep `screener.py` in root until its dependency graph is inspected
+- keep `screener.py` in root because `main.py`, `Dockerfile.kis_pipeline`, and `tools/data_ingestion/kis_data_backfill.py` depend on the root import path today
 
 ## Move Rules
 
@@ -124,5 +123,5 @@ Before any real move:
 The next highest-value move is the manual-review/dashboard bucket:
 
 - inspect `dashboard.py` for eventual `tools/dashboards` readiness only after Docker/Cloud Build entrypoints are decoupled
-- inspect `screener.py` for dependency-heavy root coupling
+- treat `screener.py` as a root/core module unless a later entrypoint pass rewires `main.py`, `Dockerfile.kis_pipeline`, and `tools/data_ingestion/kis_data_backfill.py`
 - keep `config.py` and `main.py` in root unless a later entrypoint pass proves otherwise
