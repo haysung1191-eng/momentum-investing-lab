@@ -1,5 +1,4 @@
-﻿import time
-from datetime import datetime, timedelta
+﻿from datetime import datetime, timedelta
 from pathlib import Path
 
 import pandas as pd
@@ -8,6 +7,8 @@ import config
 from kis_api import KISApi
 from live_core.kis_screener_metrics import calculate_momentum_metrics
 from live_core.kis_screener_universe import (
+    get_etf_tickers,
+    get_historical_market_tickers,
     get_market_tickers_fdr,
     get_market_tickers_from_latest_results,
     get_market_tickers_pykrx,
@@ -45,51 +46,16 @@ class MomentumScreener:
         )
 
     def get_historical_market_tickers(self, start_yyyymmdd: str, end_yyyymmdd: str, step_days: int = 30):
-        """Build stock universe from historical listing snapshots to reduce survivorship bias."""
-        from pykrx import stock as pykrx_stock
-
-        start_dt = datetime.strptime(start_yyyymmdd, "%Y%m%d")
-        end_dt = datetime.strptime(end_yyyymmdd, "%Y%m%d")
-        if end_dt < start_dt:
-            start_dt, end_dt = end_dt, start_dt
-
-        union = {}
-        dt = start_dt
-        snap_count = 0
-        while dt <= end_dt:
-            d = dt.strftime("%Y%m%d")
-            for market in ["KOSPI", "KOSDAQ"]:
-                try:
-                    codes = pykrx_stock.get_market_ticker_list(d, market=market)
-                except Exception:
-                    codes = []
-                for code in codes:
-                    try:
-                        name = pykrx_stock.get_market_ticker_name(code)
-                    except Exception:
-                        continue
-                    if self._is_valid_name(name):
-                        union[str(code).zfill(6)] = name
-                time.sleep(0.05)
-            snap_count += 1
-            dt += timedelta(days=max(7, step_days))
-
-        if not union:
-            print("historical universe 생성 실패, 현재 유니버스로 대체합니다.")
-            return self.get_market_tickers()
-
-        out = sorted(union.items(), key=lambda x: x[0])
-        print(f"historical universe 스냅샷={snap_count}, 종목수={len(out)}")
-        return out
+        return get_historical_market_tickers(
+            start_yyyymmdd,
+            end_yyyymmdd,
+            step_days=step_days,
+            name_validator=self._is_valid_name,
+            fallback_loader=self.get_market_tickers,
+        )
 
     def get_etf_tickers(self):
-        print("국내 ETF 목록 다운로드 중...")
-        import FinanceDataReader as fdr
-
-        df = fdr.StockListing("ETF/KR")
-        tickers = sorted(list(zip(df["Symbol"], df["Name"])), key=lambda x: str(x[0]))
-        print(f"ETF 총 개수: {len(tickers)}개")
-        return tickers
+        return get_etf_tickers()
 
     def calculate_momentum(self, prices):
         return calculate_momentum_metrics(prices)

@@ -5,6 +5,8 @@ import pandas as pd
 
 from live_core.kis_screener_universe import (
     filter_krx_listing,
+    get_etf_tickers,
+    get_historical_market_tickers,
     get_market_tickers_from_latest_results,
     normalize_latest_results_universe,
     resolve_market_tickers,
@@ -68,3 +70,43 @@ def test_resolve_market_tickers_uses_fallback_order() -> None:
 
     assert tickers == [("005930", "삼성전자")]
     assert calls == ["pykrx", "fdr", "latest"]
+
+
+def test_get_historical_market_tickers_uses_fallback_when_empty(monkeypatch) -> None:
+    class FakePykrxStock:
+        @staticmethod
+        def get_market_ticker_list(_date: str, market: str):
+            return []
+
+    import sys
+
+    monkeypatch.setitem(sys.modules, "pykrx", types.SimpleNamespace(stock=FakePykrxStock))
+    tickers = get_historical_market_tickers(
+        "20260101",
+        "20260131",
+        step_days=30,
+        fallback_loader=lambda: [("005930", "삼성전자")],
+        print_fn=lambda _: None,
+        sleep_sec=0.0,
+        name_validator=lambda _: True,
+    )
+
+    assert tickers == [("005930", "삼성전자")]
+
+
+def test_get_etf_tickers_sorts_symbols(monkeypatch) -> None:
+    class FakeFdr:
+        @staticmethod
+        def StockListing(_market: str):
+            return pd.DataFrame(
+                [
+                    {"Symbol": "357870", "Name": "TIGER CD금리"},
+                    {"Symbol": "069500", "Name": "KODEX 200"},
+                ]
+            )
+
+    import sys
+
+    monkeypatch.setitem(sys.modules, "FinanceDataReader", FakeFdr)
+    tickers = get_etf_tickers(print_fn=lambda _: None)
+    assert tickers == [("069500", "KODEX 200"), ("357870", "TIGER CD금리")]

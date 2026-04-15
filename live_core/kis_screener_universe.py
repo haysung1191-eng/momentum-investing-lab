@@ -152,3 +152,63 @@ def resolve_market_tickers(
 
     print_fn(f"전체 종목 수: {len(tickers)}개")
     return tickers
+
+
+def get_historical_market_tickers(
+    start_yyyymmdd: str,
+    end_yyyymmdd: str,
+    *,
+    step_days: int = 30,
+    sleep_sec: float = 0.05,
+    name_validator: Callable[[str], bool] = is_valid_kr_name,
+    fallback_loader: Callable[[], list[tuple[str, str]]] | None = None,
+    print_fn: Callable[[str], None] = print,
+) -> list[tuple[str, str]]:
+    from pykrx import stock as pykrx_stock
+
+    start_dt = datetime.strptime(start_yyyymmdd, "%Y%m%d")
+    end_dt = datetime.strptime(end_yyyymmdd, "%Y%m%d")
+    if end_dt < start_dt:
+        start_dt, end_dt = end_dt, start_dt
+
+    union: dict[str, str] = {}
+    dt = start_dt
+    snap_count = 0
+    while dt <= end_dt:
+        d = dt.strftime("%Y%m%d")
+        for market in ["KOSPI", "KOSDAQ"]:
+            try:
+                codes = pykrx_stock.get_market_ticker_list(d, market=market)
+            except Exception:
+                codes = []
+            for code in codes:
+                try:
+                    name = pykrx_stock.get_market_ticker_name(code)
+                except Exception:
+                    continue
+                if name_validator(name):
+                    union[str(code).zfill(6)] = name
+            time.sleep(sleep_sec)
+        snap_count += 1
+        dt += timedelta(days=max(7, step_days))
+
+    if not union:
+        print_fn("historical universe 생성 실패, 현재 유니버스로 대체합니다.")
+        return fallback_loader() if fallback_loader is not None else []
+
+    out = sorted(union.items(), key=lambda x: x[0])
+    print_fn(f"historical universe 스냅샷={snap_count}, 종목수={len(out)}")
+    return out
+
+
+def get_etf_tickers(
+    *,
+    print_fn: Callable[[str], None] = print,
+) -> list[tuple[str, str]]:
+    import FinanceDataReader as fdr
+
+    print_fn("국내 ETF 목록 다운로드 중...")
+    df = fdr.StockListing("ETF/KR")
+    tickers = sorted(list(zip(df["Symbol"], df["Name"])), key=lambda x: str(x[0]))
+    print_fn(f"ETF 총 개수: {len(tickers)}개")
+    return tickers
