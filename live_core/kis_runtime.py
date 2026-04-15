@@ -5,7 +5,7 @@ from datetime import datetime
 from typing import Callable
 
 import config
-from screener import MomentumScreener
+from live_core.kis_screening_service import run_default_screening
 
 
 def resolve_etf_mode(env: dict[str, str] | None = None) -> bool:
@@ -49,7 +49,7 @@ def save_screening_results(
 
 def run_screener_cli(
     *,
-    screener_factory: Callable[[], MomentumScreener] = MomentumScreener,
+    screening_runner: Callable[..., object] = run_default_screening,
     env: dict[str, str] | None = None,
     config_module=config,
     now: datetime | None = None,
@@ -61,13 +61,12 @@ def run_screener_cli(
     print("KIS API ETF 모멘텀 스크리너 시작" if etf_mode else "KIS API 모멘텀 스크리너 시작")
 
     try:
-        screener = screener_factory()
+        df = screening_runner(etf_mode=etf_mode, config_module=config_module)
     except Exception as exc:
         print(f"API 초기화 실패: {exc}")
         print(".env 파일의 APP_KEY, APP_SECRET을 확인해 주세요.")
         return None
 
-    df = screener.run(etf_mode=etf_mode)
     if df is None or df.empty:
         print("스크리닝 결과가 없습니다.")
         return None

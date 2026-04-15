@@ -18,10 +18,9 @@ def test_run_screener_cli_saves_to_local_desktop(tmp_path: Path) -> None:
     desktop = tmp_path / "Desktop"
     desktop.mkdir()
 
-    class FakeScreener:
-        def run(self, etf_mode: bool = False):
-            assert etf_mode is True
-            return pd.DataFrame([{"Code": "069500", "Name": "ETF"}])
+    def fake_runner(*, etf_mode: bool = False, config_module=None):
+        assert etf_mode is True
+        return pd.DataFrame([{"Code": "069500", "Name": "ETF"}])
 
     fake_config = types.SimpleNamespace(GCS_BUCKET_NAME=None)
     original_to_excel = pd.DataFrame.to_excel
@@ -32,7 +31,7 @@ def test_run_screener_cli_saves_to_local_desktop(tmp_path: Path) -> None:
     pd.DataFrame.to_excel = fake_to_excel
     try:
         saved_path = kis_runtime.run_screener_cli(
-            screener_factory=FakeScreener,
+            screening_runner=fake_runner,
             env=env,
             config_module=fake_config,
             now=datetime(2026, 4, 16, 9, 30),
