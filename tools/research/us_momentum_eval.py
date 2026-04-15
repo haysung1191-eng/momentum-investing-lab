@@ -2,22 +2,28 @@ import argparse
 import io
 import zipfile
 from pathlib import Path
+import sys
+
+REPO_ROOT = Path(__file__).resolve().parents[2]
+if str(REPO_ROOT) not in sys.path:
+    sys.path.insert(0, str(REPO_ROOT))
+
 
 import numpy as np
 import pandas as pd
 import requests
 import statsmodels.api as sm
 
-from us_etf_riskbudget import run_backtest as run_etf_riskbudget
-from us_stock_mom12_1 import run_backtest as run_stock_mom
-from us_stock_mom12_1 import (
+from tools.research.us_etf_riskbudget import run_backtest as run_etf_riskbudget
+from tools.research.us_stock_mom12_1 import run_backtest as run_stock_mom
+from tools.research.us_stock_mom12_1 import (
     build_membership_lookup,
     compute_rebalance_dates,
     load_price_matrix,
     load_universe,
     membership_sector,
 )
-from us_residual_sector_rotation import run_backtest as run_residual
+from tools.research.us_residual_sector_rotation import run_backtest as run_residual
 
 FF_MOM_URL = "https://mba.tuck.dartmouth.edu/pages/faculty/ken.french/ftp/F-F_Momentum_Factor_daily_CSV.zip"
 

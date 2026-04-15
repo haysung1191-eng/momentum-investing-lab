@@ -234,12 +234,12 @@ Accordingly, the contribution of the paper is implementation-focused. Its value 
 
 The current core scripts used in the research build are:
 
-- `us_sp100_membership_wiki.py`
+- `tools/research/us_sp100_membership_wiki.py`
 - `tools/data_ingestion/us_stock_sp100_backfill.py`
-- `us_stock_mom12_1.py`
-- `us_etf_riskbudget.py`
-- `us_residual_sector_rotation.py`
-- `us_momentum_eval.py`
+- `tools/research/us_stock_mom12_1.py`
+- `tools/research/us_etf_riskbudget.py`
+- `tools/research/us_residual_sector_rotation.py`
+- `tools/research/us_momentum_eval.py`
 - `plot_us_momentum_paper_figures.py`
 
 The current core output files used in this draft are:

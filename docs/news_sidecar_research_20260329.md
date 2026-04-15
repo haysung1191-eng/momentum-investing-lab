@@ -16,7 +16,7 @@ Source:
 Implementation:
 
 - script:
-  - [us_news_hf_sidecar.py](D:\AI\모멘텀 투자\us_news_hf_sidecar.py)
+- [us_news_hf_sidecar.py](/C:/AI/momentum/tools/research/us_news_hf_sidecar.py)
 - output base:
   - `data\news_us_hf`
 - coverage:
