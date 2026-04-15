@@ -1,6 +1,6 @@
 "FileName","Category","ProposedTarget"
 "config.py","uncategorized","review-manually"
-"dashboard.py","uncategorized","review-manually"
+"dashboard.py","core","keep-root-or-core-module"
 "global_flow_observer_first_model_backtest.py","operations","tools/operations"
 "global_flow_observer_first_model_mapping_correction_run.py","operations","tools/operations"
 "global_flow_observer_generate_monthly_memo.py","operations","tools/operations"
