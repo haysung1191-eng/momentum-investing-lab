@@ -4,7 +4,7 @@
 
 - promoted baseline variant: `rule_breadth_it_us5_cap`
 - baseline source: `split_models.backtest.BacktestConfig(baseline_variant="rule_breadth_it_us5_cap")`
-- shadow build entrypoint: `python .\build_split_models_shadow_report.py`
+- shadow build entrypoint: `python .\tools\operations\build_split_models_shadow_report.py`
 - research backtest entrypoint: `python .\run_split_models_backtest.py`
 
 ## Current reference metrics
@@ -19,17 +19,17 @@ Reference file:
 
 ## Daily shadow check
 
-1. Optional full refresh: run `python .\build_split_models_shadow_report.py`
+1. Optional full refresh: run `python .\tools\operations\build_split_models_shadow_report.py`
 2. Preferred operator path: run `python .\run_split_models_operator_handoff.py --total-capital <account_value>`
 3. One-click operator path: run `powershell -ExecutionPolicy Bypass -File .\start_split_models_shadow_ops.ps1 -TotalCapital <account_value>`
 4. Open `output\split_models_shadow\shadow_summary.json`
-5. Fast CLI check: run `python .\build_split_models_shadow_status.py`
-6. Automation-friendly check: run `python .\build_split_models_shadow_status.py --json` to include latest archive delta fields as well
+5. Fast CLI check: run `python .\tools\operations\build_split_models_shadow_status.py`
+6. Automation-friendly check: run `python .\tools\operations\build_split_models_shadow_status.py --json` to include latest archive delta fields as well
 7. Fail-fast operator gate: run `python .\run_split_models_operator_handoff.py --status-only --fail-on-not-go` to return non-zero if `GO/PASS` is broken
-8. Archive replay check: run `python .\build_split_models_archive_status.py --run-id <archive_run_id>` to inspect one archived handoff in isolation
-9. Archive replay packet: run `python .\build_split_models_archive_replay_packet.py --run-id <archive_run_id>` to get a one-file replay packet with prior/next context; full operator handoff now auto-builds this for the latest archive run
-10. Archive compare: run `python .\build_split_models_archive_compare.py --base-run-id <older_run> --target-run-id <newer_run>` to compare any two archived handoff runs directly
-11. Archive compare packet: run `python .\build_split_models_archive_compare_packet.py --base-run-id <older_run> --target-run-id <newer_run>` to generate a one-file markdown comparison packet
+8. Archive replay check: run `python .\tools\operations\build_split_models_archive_status.py --run-id <archive_run_id>` to inspect one archived handoff in isolation
+9. Archive replay packet: run `python .\tools\operations\build_split_models_archive_replay_packet.py --run-id <archive_run_id>` to get a one-file replay packet with prior/next context; full operator handoff now auto-builds this for the latest archive run
+10. Archive compare: run `python .\tools\operations\build_split_models_archive_compare.py --base-run-id <older_run> --target-run-id <newer_run>` to compare any two archived handoff runs directly
+11. Archive compare packet: run `python .\tools\operations\build_split_models_archive_compare_packet.py --base-run-id <older_run> --target-run-id <newer_run>` to generate a one-file markdown comparison packet
 12. Confirm `baseline_variant` is `rule_breadth_it_us5_cap`
 13. Confirm `health_verdict` is `PASS`
 14. Confirm `output\split_models_shadow\shadow_drift_report.json` has `drift_verdict=PASS`
@@ -61,13 +61,13 @@ Reference file:
 - `output\split_models_shadow_archive\archive_consistency_report.json`
 - `output\split_models_shadow_archive\archive_stability_report.json`
 - `output\split_models_shadow_archive\archive_timeline_report.json`
-- `build_split_models_archive_compare_packet.py`
-- `build_split_models_archive_compare.py`
-- `build_split_models_archive_replay_packet.py`
-- `build_split_models_archive_status.py`
+- `tools\operations\build_split_models_archive_compare_packet.py`
+- `tools\operations\build_split_models_archive_compare.py`
+- `tools\operations\build_split_models_archive_replay_packet.py`
+- `tools\operations\build_split_models_archive_status.py`
 - `split_models_shadow_dashboard.py`
 - `start_split_models_shadow_ops.ps1`
-- `build_split_models_shadow_status.py`
+- `tools\operations\build_split_models_shadow_status.py`
 
 ## Escalation triggers
 
@@ -81,4 +81,4 @@ Reference file:
 
 - `equal_weight_no_mad_min4` remains the key comparison baseline for research review.
 - current operational shadow tracking is promoted to `rule_breadth_it_us5_cap` because it reduced US concentration while improving CAGR, MDD, Sharpe, and turnover versus the prior shadow candidate.
-- `build_split_models_rebalance_orders.py --total-capital <account_value>` can be used to attach rough notional targets to the canonical transition diff.
+- `tools\operations\build_split_models_rebalance_orders.py --total-capital <account_value>` can be used to attach rough notional targets to the canonical transition diff.

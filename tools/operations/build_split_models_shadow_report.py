@@ -2,13 +2,18 @@ from __future__ import annotations
 
 import json
 from pathlib import Path
+import sys
+
+REPO_ROOT = Path(__file__).resolve().parents[2]
+if str(REPO_ROOT) not in sys.path:
+    sys.path.insert(0, str(REPO_ROOT))
 
 import pandas as pd
 
 from split_models.backtest import BacktestConfig, run_backtests
 
 
-ROOT = Path(__file__).resolve().parent
+ROOT = REPO_ROOT
 OUTPUT_DIR = ROOT / "output" / "split_models_shadow"
 BASELINE_VARIANT = "rule_breadth_it_us5_cap"
 

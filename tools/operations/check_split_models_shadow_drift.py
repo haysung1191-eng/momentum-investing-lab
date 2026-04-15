@@ -4,11 +4,16 @@ import argparse
 import json
 import shutil
 from pathlib import Path
+import sys
+
+REPO_ROOT = Path(__file__).resolve().parents[2]
+if str(REPO_ROOT) not in sys.path:
+    sys.path.insert(0, str(REPO_ROOT))
 
 import pandas as pd
 
 
-ROOT = Path(__file__).resolve().parent
+ROOT = REPO_ROOT
 CURRENT_DIR = ROOT / "output" / "split_models_shadow"
 REFERENCE_DIR = ROOT / "output" / "split_models_shadow_reference"
 

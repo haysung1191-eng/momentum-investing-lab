@@ -8,19 +8,19 @@ from pathlib import Path
 
 import pandas as pd
 
-import archive_split_models_operator_handoff as archive_tools
-import build_split_models_archive_compare as archive_compare
-import build_split_models_archive_compare_packet as archive_compare_packet
-import build_split_models_archive_delta as archive_delta
-import build_split_models_archive_replay_packet as archive_replay_packet
-import build_split_models_archive_status as archive_status
-import build_split_models_archive_stability as archive_stability
-import build_split_models_archive_timeline as archive_timeline
-import build_split_models_live_packet as live_packet
-import build_split_models_live_readiness as live_readiness
-import build_split_models_rebalance_orders as rebalance_orders
-import check_split_models_archive_consistency as archive_consistency
-import build_split_models_shadow_status as shadow_status
+from tools.operations import archive_split_models_operator_handoff as archive_tools
+from tools.operations import build_split_models_archive_compare as archive_compare
+from tools.operations import build_split_models_archive_compare_packet as archive_compare_packet
+from tools.operations import build_split_models_archive_delta as archive_delta
+from tools.operations import build_split_models_archive_replay_packet as archive_replay_packet
+from tools.operations import build_split_models_archive_status as archive_status
+from tools.operations import build_split_models_archive_stability as archive_stability
+from tools.operations import build_split_models_archive_timeline as archive_timeline
+from tools.operations import build_split_models_live_packet as live_packet
+from tools.operations import build_split_models_live_readiness as live_readiness
+from tools.operations import build_split_models_rebalance_orders as rebalance_orders
+from tools.operations import check_split_models_archive_consistency as archive_consistency
+from tools.operations import build_split_models_shadow_status as shadow_status
 import run_split_models_operator_handoff as handoff_runner
 
 
@@ -319,21 +319,21 @@ def test_split_models_operator_handoff_runner_invokes_steps_in_order(monkeypatch
     handoff_runner.main()
 
     assert calls == [
-        ["python", "build_split_models_shadow_report.py"],
+        ["python", "tools/operations/build_split_models_shadow_report.py"],
         ["python", "tools/analysis/analyze_split_models_live_transition.py", "--canonical-shadow"],
-        ["python", "build_split_models_rebalance_orders.py", "--total-capital", "100000000.0"],
-        ["python", "check_split_models_shadow_drift.py", "--refresh-reference"],
-        ["python", "build_split_models_live_readiness.py"],
-        ["python", "build_split_models_live_packet.py"],
-        ["python", "archive_split_models_operator_handoff.py"],
-        ["python", "build_split_models_archive_delta.py"],
-        ["python", "build_split_models_archive_delta.py"],
-        ["python", "check_split_models_archive_consistency.py"],
-        ["python", "build_split_models_archive_stability.py"],
-        ["python", "build_split_models_archive_timeline.py"],
-        ["python", "build_split_models_archive_replay_packet.py"],
-        ["python", "build_split_models_live_packet.py"],
-        ["python", "build_split_models_archive_delta.py"],
+        ["python", "tools/operations/build_split_models_rebalance_orders.py", "--total-capital", "100000000.0"],
+        ["python", "tools/operations/check_split_models_shadow_drift.py", "--refresh-reference"],
+        ["python", "tools/operations/build_split_models_live_readiness.py"],
+        ["python", "tools/operations/build_split_models_live_packet.py"],
+        ["python", "tools/operations/archive_split_models_operator_handoff.py"],
+        ["python", "tools/operations/build_split_models_archive_delta.py"],
+        ["python", "tools/operations/build_split_models_archive_delta.py"],
+        ["python", "tools/operations/check_split_models_archive_consistency.py"],
+        ["python", "tools/operations/build_split_models_archive_stability.py"],
+        ["python", "tools/operations/build_split_models_archive_timeline.py"],
+        ["python", "tools/operations/build_split_models_archive_replay_packet.py"],
+        ["python", "tools/operations/build_split_models_live_packet.py"],
+        ["python", "tools/operations/build_split_models_archive_delta.py"],
     ]
     assert runtime_status_calls == [False, False, False]
     assert sync_calls == [True, True]

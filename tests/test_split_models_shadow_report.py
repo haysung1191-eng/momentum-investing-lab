@@ -3,7 +3,7 @@ from __future__ import annotations
 import pandas as pd
 from pathlib import Path
 
-import build_split_models_shadow_report as shadow
+from tools.operations import build_split_models_shadow_report as shadow
 
 
 def test_split_models_shadow_report_outputs(tmp_path: Path, monkeypatch) -> None:

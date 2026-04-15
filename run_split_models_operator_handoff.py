@@ -7,7 +7,7 @@ import subprocess
 import sys
 from pathlib import Path
 
-import build_split_models_shadow_status as shadow_status
+from tools.operations import build_split_models_shadow_status as shadow_status
 
 
 ROOT = Path(__file__).resolve().parent
@@ -85,14 +85,14 @@ def main() -> None:
         return
 
     if args.refresh_shadow:
-        _run_step("build shadow report", [python, "build_split_models_shadow_report.py"])
+        _run_step("build shadow report", [python, "tools/operations/build_split_models_shadow_report.py"])
 
     _run_step(
         "build canonical transition",
         [python, "tools/analysis/analyze_split_models_live_transition.py", "--canonical-shadow"],
     )
 
-    rebalance_args = [python, "build_split_models_rebalance_orders.py"]
+    rebalance_args = [python, "tools/operations/build_split_models_rebalance_orders.py"]
     if args.total_capital is not None:
         rebalance_args.extend(["--total-capital", str(args.total_capital)])
     _run_step("build rebalance orders", rebalance_args)
@@ -100,25 +100,25 @@ def main() -> None:
     if args.refresh_reference:
         _run_step(
             "refresh shadow drift reference",
-            [python, "check_split_models_shadow_drift.py", "--refresh-reference"],
+            [python, "tools/operations/check_split_models_shadow_drift.py", "--refresh-reference"],
         )
     else:
-        _run_step("check shadow drift", [python, "check_split_models_shadow_drift.py"])
+        _run_step("check shadow drift", [python, "tools/operations/check_split_models_shadow_drift.py"])
 
-    _run_step("build live readiness", [python, "build_split_models_live_readiness.py"])
-    _run_step("build live packet", [python, "build_split_models_live_packet.py"])
+    _run_step("build live readiness", [python, "tools/operations/build_split_models_live_readiness.py"])
+    _run_step("build live packet", [python, "tools/operations/build_split_models_live_packet.py"])
     _write_runtime_status(print_json=False)
-    _run_step("archive operator handoff", [python, "archive_split_models_operator_handoff.py"])
-    _run_step("build archive delta", [python, "build_split_models_archive_delta.py"])
+    _run_step("archive operator handoff", [python, "tools/operations/archive_split_models_operator_handoff.py"])
+    _run_step("build archive delta", [python, "tools/operations/build_split_models_archive_delta.py"])
     _write_runtime_status(print_json=False)
     _sync_files_to_latest_archive([RUNTIME_STATUS_PATH])
-    _run_step("refresh archive delta", [python, "build_split_models_archive_delta.py"])
-    _run_step("check archive consistency", [python, "check_split_models_archive_consistency.py"])
-    _run_step("build archive stability", [python, "build_split_models_archive_stability.py"])
-    _run_step("build archive timeline", [python, "build_split_models_archive_timeline.py"])
-    _run_step("build latest archive replay packet", [python, "build_split_models_archive_replay_packet.py"])
+    _run_step("refresh archive delta", [python, "tools/operations/build_split_models_archive_delta.py"])
+    _run_step("check archive consistency", [python, "tools/operations/check_split_models_archive_consistency.py"])
+    _run_step("build archive stability", [python, "tools/operations/build_split_models_archive_stability.py"])
+    _run_step("build archive timeline", [python, "tools/operations/build_split_models_archive_timeline.py"])
+    _run_step("build latest archive replay packet", [python, "tools/operations/build_split_models_archive_replay_packet.py"])
     _write_runtime_status(print_json=False)
-    _run_step("refresh live packet after consistency", [python, "build_split_models_live_packet.py"])
+    _run_step("refresh live packet after consistency", [python, "tools/operations/build_split_models_live_packet.py"])
     _sync_files_to_latest_archive(
         [
             RUNTIME_STATUS_PATH,
@@ -128,7 +128,7 @@ def main() -> None:
             ARCHIVE_TIMELINE_PATH,
         ]
     )
-    _run_step("refresh archive delta after consistency", [python, "build_split_models_archive_delta.py"])
+    _run_step("refresh archive delta after consistency", [python, "tools/operations/build_split_models_archive_delta.py"])
     if args.fail_on_not_go:
         _enforce_operational_gate()
 

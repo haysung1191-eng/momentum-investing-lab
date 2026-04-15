@@ -2,12 +2,17 @@ from __future__ import annotations
 
 import argparse
 from pathlib import Path
+import sys
 
-import build_split_models_archive_compare as archive_compare
-import build_split_models_archive_replay_packet as archive_replay_packet
+REPO_ROOT = Path(__file__).resolve().parents[2]
+if str(REPO_ROOT) not in sys.path:
+    sys.path.insert(0, str(REPO_ROOT))
+
+from tools.operations import build_split_models_archive_compare as archive_compare
+from tools.operations import build_split_models_archive_replay_packet as archive_replay_packet
 
 
-ROOT = Path(__file__).resolve().parent
+ROOT = REPO_ROOT
 ARCHIVE_DIR = ROOT / "output" / "split_models_shadow_archive"
 
 

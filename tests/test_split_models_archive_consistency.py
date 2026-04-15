@@ -5,7 +5,7 @@ from pathlib import Path
 
 import pandas as pd
 
-import check_split_models_archive_consistency as archive_consistency
+from tools.operations import check_split_models_archive_consistency as archive_consistency
 
 
 def test_split_models_archive_consistency_passes_for_aligned_files(tmp_path: Path, monkeypatch, capsys) -> None:
