@@ -8,11 +8,7 @@ from live_core.kis_screener_universe import (
     get_current_stock_universe,
     get_etf_tickers,
     get_historical_market_tickers,
-    get_market_tickers_fdr,
-    get_market_tickers_from_latest_results,
-    get_market_tickers_pykrx,
     is_valid_kr_name,
-    resolve_market_tickers,
 )
 
 
@@ -23,18 +19,6 @@ class MomentumScreener:
     @staticmethod
     def _is_valid_name(name: str) -> bool:
         return is_valid_kr_name(name)
-
-    def _get_market_tickers_pykrx(self):
-        return get_market_tickers_pykrx(name_validator=self._is_valid_name)
-
-    def _get_market_tickers_fdr(self):
-        return get_market_tickers_fdr(name_validator=self._is_valid_name)
-
-    def _get_market_tickers_from_latest_results(self):
-        return get_market_tickers_from_latest_results(
-            config_module=config,
-            repo_root=Path(__file__).resolve().parent,
-        )
 
     def get_market_tickers(self):
         return get_current_stock_universe(
