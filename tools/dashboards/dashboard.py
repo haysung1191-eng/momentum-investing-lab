@@ -1,12 +1,15 @@
 ﻿import glob
 import os
 from datetime import datetime
+from pathlib import Path
 
 import pandas as pd
 import plotly.express as px
 import streamlit as st
 
 import config
+
+REPO_ROOT = Path(__file__).resolve().parents[2]
 
 st.set_page_config(
     page_title="Momentum Screener Dashboard",
@@ -59,7 +62,7 @@ def load_latest_data(mode="STOCK"):
     bucket_name = config.GCS_BUCKET_NAME
 
     def load_local():
-        data_dir = os.path.dirname(os.path.abspath(__file__))
+        data_dir = str(REPO_ROOT)
         files = glob.glob(os.path.join(data_dir, f"{prefix}*.xlsx"))
         if not files:
             return None, None
@@ -99,7 +102,7 @@ def load_backtest_data():
         summary_uri = f"gs://{bucket_name}/backtests/kis_bt_auto_summary.csv"
         nav_uri = f"gs://{bucket_name}/backtests/kis_bt_auto_nav.csv"
     else:
-        base_dir = os.path.dirname(os.path.abspath(__file__))
+        base_dir = str(REPO_ROOT)
         summary_uri = os.path.join(base_dir, "kis_bt_auto_summary.csv")
         nav_uri = os.path.join(base_dir, "kis_bt_auto_nav.csv")
 
@@ -120,7 +123,7 @@ def load_shadow_data():
     def resolve_path(filename: str) -> str:
         if bucket_name:
             return f"gs://{bucket_name}/backtests/{filename}"
-        base_dir = os.path.dirname(os.path.abspath(__file__))
+        base_dir = str(REPO_ROOT)
         return os.path.join(base_dir, "backtests", filename)
 
     files = {

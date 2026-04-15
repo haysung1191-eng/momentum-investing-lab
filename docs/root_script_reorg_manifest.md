@@ -20,14 +20,14 @@ Machine-readable inventory:
 - [root_script_inventory.csv](/C:/AI/momentum/output/repo_script_manifest/root_script_inventory.csv)
 - [root_script_inventory_summary.json](/C:/AI/momentum/output/repo_script_manifest/root_script_inventory_summary.json)
 
-Current root Python file count: `35`
+Current root Python file count: `34`
 
 Category counts:
 
 - `research`: `6`
 - `operations`: `6`
 - `data_ingestion`: `0`
-- `core`: `19`
+- `core`: `20`
 - `pipelines`: `2`
 - `dashboards`: `0`
 - `uncategorized`: `0`
@@ -42,6 +42,7 @@ Completed so far:
 - `plot_us_momentum_paper_figures.py` was moved out of root into `tools/plotting`
 - `split_models_shadow_dashboard.py` was moved out of root into `tools/dashboards`
 - `shadow_dashboard.py` was moved out of root into `tools/dashboards`
+- `dashboard.py` was moved out of root into `tools/dashboards` after decoupling the Docker web entrypoint
 
 ## Proposed Target Layout
 
@@ -66,7 +67,6 @@ These should not move in the first wave because they are likely imported broadly
 
 - `config.py`
 - `main.py`
-- `dashboard.py`
 - `kis_api.py`
 - `screener.py`
 - `kis_backtest_from_prices.py`
@@ -102,7 +102,6 @@ Resolved handling:
 
 - keep `config.py` in root as a core runtime settings module because many root and tools modules still import `config` directly
 - keep `main.py` in root as a core runtime entrypoint because `Dockerfile` and `Dockerfile.job` still execute `python main.py`
-- keep `dashboard.py` in root as a core web entrypoint because `Dockerfile.web` and `cloudbuild.web.yaml` still build and launch it directly
 - keep `screener.py` in root because `main.py`, `Dockerfile.kis_pipeline`, and `tools/data_ingestion/kis_data_backfill.py` depend on the root import path today
 
 ## Move Rules
@@ -119,6 +118,5 @@ Before any real move:
 
 The next highest-value move is a root/core decoupling pass rather than more category moves:
 
-- decouple `dashboard.py` from `Dockerfile.web` / `cloudbuild.web.yaml` if a later web entrypoint split is desired
 - decouple `main.py` and `screener.py` from Docker/runtime entrypoints if a later `app/` or `tools/` migration is desired
 - decouple broad `import config` usage if a later settings-module relocation is desired
