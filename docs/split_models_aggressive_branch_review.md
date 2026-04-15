@@ -103,6 +103,20 @@
 - leave-one-out checks are less alarming: excluding any one of `PLTR`, `NVDA`, or `MU` still leaves a meaningful residual edge of roughly `+0.220%p` to `+0.241%p` with `15` positive vs `8` negative months
 - interpretation: the branch still has a small residual edge beyond the top winners, but the practical alpha is overwhelmingly tied to a narrow US tech winner cluster
 
+## Basket-decay review
+
+- cumulative winner-basket exclusions show the edge decays fast once the top US tech cluster is stripped out
+- excluding only the top symbol `PLTR` still leaves average monthly residual delta of `+0.220%p`
+- excluding the top two symbols `PLTR/NVDA` leaves `+0.113%p`
+- excluding the top three symbols `PLTR/NVDA/MU` leaves only `+0.016%p`
+- excluding the top four symbols `PLTR/NVDA/MU/LRCX` flips the residual edge slightly negative at `-0.028%p`
+- residual month balance also collapses with basket size:
+  - top1 excluded: `15` positive vs `8` negative months
+  - top2 excluded: `13` positive vs `10` negative months
+  - top3 excluded: `12` positive vs `11` negative months
+  - top4 excluded: `11` positive vs `12` negative months
+- interpretation: the branch is not a single-name illusion, but it is meaningfully dependent on a compact winner basket rather than a broad-based residual edge
+
 ## Interpretation
 
 - the top-slice risk-on overlay is a genuine new branch, not a cosmetic tweak: full-period CAGR and Sharpe both improved while MDD stayed flat
@@ -112,6 +126,7 @@
 - the walk-forward check is also supportive: the branch kept a positive CAGR edge in every non-tied rolling window versus the prior aggressive branch
 - the regime check is supportive: most of the edge appears in up markets, but the average delta stays positive even in down-market buckets
 - the residual-edge check is cautionary: most of the incremental alpha disappears once the top three winner symbols are stripped out, even though no single winner alone explains the whole edge
+- the basket-decay check is more explicit: the residual alpha degrades quickly from top1 to top4 exclusions, which confirms that this branch should be treated as a concentrated aggressive research branch rather than a generally transferable overlay
 - this remains a high-CAGR research branch, not an operational baseline candidate
 
 ## Verdict
