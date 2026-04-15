@@ -17,6 +17,7 @@ def run_default_screening(
     config_module=config,
     repo_root: Path | None = None,
     api_factory: Callable[[], KISApi] = KISApi,
+    momentum_calculator: Callable[[list[dict]], dict | None] = calculate_momentum_metrics,
 ):
     repo_root = repo_root or Path(__file__).resolve().parents[1]
     api = api_factory()
@@ -32,7 +33,7 @@ def run_default_screening(
     return build_screening_frame(
         api=api,
         tickers=tickers,
-        momentum_calculator=calculate_momentum_metrics,
+        momentum_calculator=momentum_calculator,
         etf_mode=etf_mode,
         max_items=max_items,
     )

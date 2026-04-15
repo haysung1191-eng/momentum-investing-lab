@@ -3,7 +3,7 @@
 import config
 from kis_api import KISApi
 from live_core.kis_screener_metrics import calculate_momentum_metrics
-from live_core.kis_screener_runner import build_screening_frame
+from live_core.kis_screening_service import run_default_screening
 from live_core.kis_screener_universe import (
     get_current_stock_universe,
     get_etf_tickers,
@@ -59,14 +59,11 @@ class MomentumScreener:
         return calculate_momentum_metrics(prices)
 
     def run(self, max_items=2500, etf_mode=False):
-        if etf_mode:
-            tickers = self.get_etf_tickers()
-        else:
-            tickers = self.get_market_tickers()
-        return build_screening_frame(
-            api=self.api,
-            tickers=tickers,
-            momentum_calculator=self.calculate_momentum,
+        return run_default_screening(
             etf_mode=etf_mode,
             max_items=max_items,
+            config_module=config,
+            repo_root=Path(__file__).resolve().parent,
+            api_factory=lambda: self.api,
+            momentum_calculator=self.calculate_momentum,
         )
