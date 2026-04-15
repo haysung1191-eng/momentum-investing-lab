@@ -5,6 +5,7 @@ from kis_api import KISApi
 from live_core.kis_screener_metrics import calculate_momentum_metrics
 from live_core.kis_screener_runner import build_screening_frame
 from live_core.kis_screener_universe import (
+    get_current_stock_universe,
     get_etf_tickers,
     get_historical_market_tickers,
     get_market_tickers_fdr,
@@ -36,11 +37,10 @@ class MomentumScreener:
         )
 
     def get_market_tickers(self):
-        print("국내 시장 전체 티커 다운로드 중...")
-        return resolve_market_tickers(
-            pykrx_loader=self._get_market_tickers_pykrx,
-            fdr_loader=self._get_market_tickers_fdr,
-            latest_loader=self._get_market_tickers_from_latest_results,
+        return get_current_stock_universe(
+            config_module=config,
+            repo_root=Path(__file__).resolve().parent,
+            name_validator=self._is_valid_name,
         )
 
     def get_historical_market_tickers(self, start_yyyymmdd: str, end_yyyymmdd: str, step_days: int = 30):

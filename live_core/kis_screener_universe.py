@@ -154,6 +154,26 @@ def resolve_market_tickers(
     return tickers
 
 
+def get_current_stock_universe(
+    *,
+    config_module,
+    repo_root: Path,
+    name_validator: Callable[[str], bool] = is_valid_kr_name,
+    print_fn: Callable[[str], None] = print,
+) -> list[tuple[str, str]]:
+    print_fn("국내 시장 전체 티커 다운로드 중...")
+    return resolve_market_tickers(
+        pykrx_loader=lambda: get_market_tickers_pykrx(name_validator=name_validator),
+        fdr_loader=lambda: get_market_tickers_fdr(name_validator=name_validator),
+        latest_loader=lambda: get_market_tickers_from_latest_results(
+            config_module=config_module,
+            repo_root=repo_root,
+            print_fn=print_fn,
+        ),
+        print_fn=print_fn,
+    )
+
+
 def get_historical_market_tickers(
     start_yyyymmdd: str,
     end_yyyymmdd: str,

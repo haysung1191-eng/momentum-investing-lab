@@ -5,6 +5,7 @@ import pandas as pd
 
 from live_core.kis_screener_universe import (
     filter_krx_listing,
+    get_current_stock_universe,
     get_etf_tickers,
     get_historical_market_tickers,
     get_market_tickers_from_latest_results,
@@ -65,6 +66,32 @@ def test_resolve_market_tickers_uses_fallback_order() -> None:
         pykrx_loader=lambda: calls.append("pykrx") or [],
         fdr_loader=lambda: calls.append("fdr") or [],
         latest_loader=lambda: calls.append("latest") or [("005930", "삼성전자")],
+        print_fn=lambda _: None,
+    )
+
+    assert tickers == [("005930", "삼성전자")]
+    assert calls == ["pykrx", "fdr", "latest"]
+
+
+def test_get_current_stock_universe_uses_shared_resolution(monkeypatch, tmp_path: Path) -> None:
+    calls: list[str] = []
+
+    monkeypatch.setattr(
+        "live_core.kis_screener_universe.get_market_tickers_pykrx",
+        lambda **kwargs: calls.append("pykrx") or [],
+    )
+    monkeypatch.setattr(
+        "live_core.kis_screener_universe.get_market_tickers_fdr",
+        lambda **kwargs: calls.append("fdr") or [],
+    )
+    monkeypatch.setattr(
+        "live_core.kis_screener_universe.get_market_tickers_from_latest_results",
+        lambda **kwargs: calls.append("latest") or [("005930", "삼성전자")],
+    )
+
+    tickers = get_current_stock_universe(
+        config_module=types.SimpleNamespace(GCS_BUCKET_NAME=None),
+        repo_root=tmp_path,
         print_fn=lambda _: None,
     )
 

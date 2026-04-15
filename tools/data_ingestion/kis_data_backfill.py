@@ -19,7 +19,11 @@ from google.cloud import storage
 
 import config
 from kis_api import KISApi
-from screener import MomentumScreener
+from live_core.kis_screener_universe import (
+    get_current_stock_universe,
+    get_etf_tickers,
+    get_historical_market_tickers,
+)
 
 
 def today_yyyymmdd() -> str:
@@ -46,20 +50,33 @@ def get_universe(
     start_date: str,
     end_date: str,
 ) -> List[Tuple[str, str, str]]:
-    s = MomentumScreener()
     items: List[Tuple[str, str, str]] = []
 
     if mode in {"stock", "both"}:
         if historical_stock_universe:
-            stock_tickers = s.get_historical_market_tickers(start_date, end_date, step_days=30)
+            stock_tickers = get_historical_market_tickers(
+                start_date,
+                end_date,
+                step_days=30,
+                fallback_loader=lambda: get_current_stock_universe(
+                    config_module=config,
+                    repo_root=REPO_ROOT,
+                ),
+            )
         else:
-            stock_tickers = sorted(s.get_market_tickers(), key=lambda x: str(x[0]))
+            stock_tickers = sorted(
+                get_current_stock_universe(
+                    config_module=config,
+                    repo_root=REPO_ROOT,
+                ),
+                key=lambda x: str(x[0]),
+            )
         use = stable_sample(stock_tickers, max_items)
         for code, name in use:
             items.append((code, name, "stock"))
 
     if mode in {"etf", "both"}:
-        etf_tickers = sorted(s.get_etf_tickers(), key=lambda x: str(x[0]))
+        etf_tickers = sorted(get_etf_tickers(), key=lambda x: str(x[0]))
         use = stable_sample(etf_tickers, max_items)
         for code, name in use:
             items.append((code, name, "etf"))
