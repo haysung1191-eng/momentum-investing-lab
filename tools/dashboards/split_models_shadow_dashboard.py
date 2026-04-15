@@ -7,9 +7,9 @@ import pandas as pd
 import streamlit as st
 
 
-ROOT = Path(__file__).resolve().parent
-SHADOW_DIR = ROOT / "output" / "split_models_shadow"
-ARCHIVE_DIR = ROOT / "output" / "split_models_shadow_archive"
+REPO_ROOT = Path(__file__).resolve().parents[2]
+SHADOW_DIR = REPO_ROOT / "output" / "split_models_shadow"
+ARCHIVE_DIR = REPO_ROOT / "output" / "split_models_shadow_archive"
 
 
 st.set_page_config(

@@ -37,7 +37,7 @@ Write-Host "[ops] running operator handoff" -ForegroundColor Cyan
 
 if ((-not $NoDashboard) -and (-not $StatusOnly)) {
     Write-Host "[ops] opening split-model shadow dashboard" -ForegroundColor Cyan
-    Start-Process $python -ArgumentList "-m", "streamlit", "run", ".\split_models_shadow_dashboard.py"
+  Start-Process $python -ArgumentList "-m", "streamlit", "run", ".\tools\dashboards\split_models_shadow_dashboard.py"
 }
 
 Write-Host "[ops] done" -ForegroundColor Green

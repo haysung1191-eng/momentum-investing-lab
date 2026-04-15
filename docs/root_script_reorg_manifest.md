@@ -20,7 +20,7 @@ Machine-readable inventory:
 - [root_script_inventory.csv](/C:/AI/momentum/output/repo_script_manifest/root_script_inventory.csv)
 - [root_script_inventory_summary.json](/C:/AI/momentum/output/repo_script_manifest/root_script_inventory_summary.json)
 
-Current root Python file count: `37`
+Current root Python file count: `36`
 
 Category counts:
 
@@ -29,7 +29,8 @@ Category counts:
 - `data_ingestion`: `0`
 - `core`: `17`
 - `pipelines`: `2`
-- `uncategorized`: `6`
+- `dashboards`: `1`
+- `uncategorized`: `5`
 
 Completed so far:
 
@@ -39,6 +40,7 @@ Completed so far:
 - all `*_backfill.py`, `build_*cache.py`, and `refresh_*` ingestion scripts were moved out of root into `tools/data_ingestion`
 - all current `kis_*_eval.py`, `kis_*_compare.py`, `kis_*_report.py`, `us_*`, `backtest_*`, and `event_*` research scripts were moved out of root into `tools/research`
 - `plot_us_momentum_paper_figures.py` was moved out of root into `tools/plotting`
+- `split_models_shadow_dashboard.py` was moved out of root into `tools/dashboards`
 
 ## Proposed Target Layout
 
@@ -66,7 +68,6 @@ These should not move in the first wave because they are likely imported broadly
 - `dashboard.py`
 - `screener.py`
 - `shadow_dashboard.py`
-- `split_models_shadow_dashboard.py`
 - `kis_api.py`
 - `kis_backtest_from_prices.py`
 - `kis_flow_data.py`
@@ -102,7 +103,6 @@ These currently remain uncategorized and need a human placement decision before 
 - `main.py`
 - `screener.py`
 - `shadow_dashboard.py`
-- `split_models_shadow_dashboard.py`
 
 Recommended handling:
 
@@ -124,6 +124,6 @@ Before any real move:
 
 The next highest-value move is the manual-review/dashboard bucket:
 
-- inspect `dashboard.py`, `shadow_dashboard.py`, and `split_models_shadow_dashboard.py` for `tools/dashboards` readiness
+- inspect `dashboard.py` and `shadow_dashboard.py` for `tools/dashboards` readiness
 - inspect `screener.py` for dependency-heavy root coupling
 - keep `config.py` and `main.py` in root unless a later entrypoint pass proves otherwise

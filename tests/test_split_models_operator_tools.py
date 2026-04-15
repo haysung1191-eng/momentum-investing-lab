@@ -954,7 +954,7 @@ def test_split_models_dashboard_archive_replay_loaders(tmp_path: Path) -> None:
     original_streamlit = sys.modules.get("streamlit")
     sys.modules["streamlit"] = fake_streamlit
 
-    import split_models_shadow_dashboard as dashboard
+    import tools.dashboards.split_models_shadow_dashboard as dashboard
 
     try:
         assert dashboard._load_archive_run_text("20260414T120500", "shadow_live_transition_packet.md") == ""

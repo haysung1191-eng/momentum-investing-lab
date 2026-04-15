@@ -40,7 +40,7 @@ Reference file:
 19. Confirm `output\split_models_shadow_archive\archive_consistency_report.json` has `archive_consistency_verdict=PASS`
 20. Confirm `output\split_models_shadow_archive\archive_stability_report.json` has `archive_stability_verdict=PASS`
 21. Optional archive trend check: open `output\split_models_shadow_archive\archive_timeline_report.json` to review the latest trailing handoff timeline
-22. Optional dashboard only: run `streamlit run .\split_models_shadow_dashboard.py` to see readiness, orders, archive history, latest archive delta, trailing archive timeline, and a selectable archive replay in one screen
+22. Optional dashboard only: run `streamlit run .\tools\dashboards\split_models_shadow_dashboard.py` to see readiness, orders, archive history, latest archive delta, trailing archive timeline, and a selectable archive replay in one screen
 
 ## Main shadow artifacts
 
@@ -65,7 +65,7 @@ Reference file:
 - `tools\operations\build_split_models_archive_compare.py`
 - `tools\operations\build_split_models_archive_replay_packet.py`
 - `tools\operations\build_split_models_archive_status.py`
-- `split_models_shadow_dashboard.py`
+- `tools/dashboards/split_models_shadow_dashboard.py`
 - `start_split_models_shadow_ops.ps1`
 - `tools\operations\build_split_models_shadow_status.py`
 
