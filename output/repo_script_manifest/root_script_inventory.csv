@@ -1,4 +1,4 @@
-﻿"FileName","Category","ProposedTarget"
+"FileName","Category","ProposedTarget"
 "config.py","uncategorized","review-manually"
 "dashboard.py","uncategorized","review-manually"
 "global_flow_observer_first_model_backtest.py","operations","tools/operations"
@@ -31,7 +31,6 @@
 "main.py","uncategorized","review-manually"
 "news_sidecar_data.py","research","tools/research"
 "news_sidecar_eval.py","research","tools/research"
-"plot_us_momentum_paper_figures.py","plotting","tools/plotting"
 "run_research_pipeline.py","pipelines","tools/pipelines"
 "run_single_asset_research.py","pipelines","tools/pipelines"
 "screener.py","uncategorized","review-manually"

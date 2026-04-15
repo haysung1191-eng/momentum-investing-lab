@@ -240,7 +240,7 @@ The current core scripts used in the research build are:
 - `tools/research/us_etf_riskbudget.py`
 - `tools/research/us_residual_sector_rotation.py`
 - `tools/research/us_momentum_eval.py`
-- `plot_us_momentum_paper_figures.py`
+- `tools/plotting/plot_us_momentum_paper_figures.py`
 
 The current core output files used in this draft are:
 

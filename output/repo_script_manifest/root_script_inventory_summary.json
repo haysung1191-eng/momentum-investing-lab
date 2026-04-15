@@ -1,11 +1,10 @@
-﻿{
-    "generated_at":  "2026-04-16T00:18:42",
-    "total_root_python_files":  38,
+{
+    "generated_at":  "2026-04-16T00:24:39",
+    "total_root_python_files":  37,
     "categories":  {
                        "core":  17,
                        "operations":  6,
                        "pipelines":  2,
-                       "plotting":  1,
                        "research":  6,
                        "uncategorized":  6
                    }

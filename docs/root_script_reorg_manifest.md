@@ -20,7 +20,7 @@ Machine-readable inventory:
 - [root_script_inventory.csv](/C:/AI/momentum/output/repo_script_manifest/root_script_inventory.csv)
 - [root_script_inventory_summary.json](/C:/AI/momentum/output/repo_script_manifest/root_script_inventory_summary.json)
 
-Current root Python file count: `38`
+Current root Python file count: `37`
 
 Category counts:
 
@@ -29,7 +29,6 @@ Category counts:
 - `data_ingestion`: `0`
 - `core`: `17`
 - `pipelines`: `2`
-- `plotting`: `1`
 - `uncategorized`: `6`
 
 Completed so far:
@@ -39,6 +38,7 @@ Completed so far:
 - all split-model `run_*` pipeline scripts were moved out of root into `tools/pipelines`
 - all `*_backfill.py`, `build_*cache.py`, and `refresh_*` ingestion scripts were moved out of root into `tools/data_ingestion`
 - all current `kis_*_eval.py`, `kis_*_compare.py`, `kis_*_report.py`, `us_*`, `backtest_*`, and `event_*` research scripts were moved out of root into `tools/research`
+- `plot_us_momentum_paper_figures.py` was moved out of root into `tools/plotting`
 
 ## Proposed Target Layout
 
@@ -89,9 +89,9 @@ Why this wave first:
 
 ## Second Move Wave
 
-After split-model, data-ingestion, and research tools are stable:
+After split-model, data-ingestion, and research tools stabilized:
 
-1. `plot_us_momentum_paper_figures.py` -> `tools/plotting`
+1. `plot_us_momentum_paper_figures.py` -> `tools/plotting` (completed)
 
 ## Manual Review Bucket
 
@@ -122,4 +122,8 @@ Before any real move:
 
 ## Next Step
 
-The next highest-value move is a focused first-wave relocation plan for split-model scripts only, because that group is already internally coherent and has the clearest naming boundary.
+The next highest-value move is the manual-review/dashboard bucket:
+
+- inspect `dashboard.py`, `shadow_dashboard.py`, and `split_models_shadow_dashboard.py` for `tools/dashboards` readiness
+- inspect `screener.py` for dependency-heavy root coupling
+- keep `config.py` and `main.py` in root unless a later entrypoint pass proves otherwise
