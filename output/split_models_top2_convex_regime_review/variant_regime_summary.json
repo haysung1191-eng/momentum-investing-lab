@@ -1,0 +1,9 @@
+{
+  "baseline_variant": "rule_sector_cap2_breadth_it_us5_top2_risk_on",
+  "candidate_variant": "rule_sector_cap2_breadth_it_us5_top2_convex_risk_on",
+  "months_compared": 61,
+  "spy_up_avg_delta": 0.0017738199490580024,
+  "spy_down_avg_delta": 0.0022269553289947872,
+  "kospi_up_avg_delta": 0.0033610518352730286,
+  "kospi_down_avg_delta": 0.0003192734614689705
+}

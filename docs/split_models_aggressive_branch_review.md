@@ -102,6 +102,21 @@
 - even the weak window `2021-04-30 -> 2023-08-31` still showed a positive CAGR delta of `+1.09%p`
 - interpretation: the convex branch does not rely on a single recent burst; its edge survives across rolling windows and is still present in the weaker regime slice
 
+## Convex top-slice regime review
+
+- the convex branch is still pro-cyclical, but its average edge does not disappear in down-market buckets
+- versus `rule_sector_cap2_breadth_it_us5_top2_risk_on`:
+  - `SPY UP` average monthly delta: `+0.177%p`
+  - `SPY DOWN` average monthly delta: `+0.223%p`
+  - `KOSPI UP` average monthly delta: `+0.336%p`
+  - `KOSPI DOWN` average monthly delta: `+0.032%p`
+- joint regime view:
+  - `SPY UP / KOSPI UP`: `+0.277%p`
+  - `SPY DOWN / KOSPI DOWN`: `+0.083%p`
+  - `SPY DOWN / KOSPI UP`: `+0.747%p`
+  - `SPY UP / KOSPI DOWN`: `-0.023%p`
+- interpretation: the edge is strongest in broadly favorable tapes, but it is not just an up-market artifact; only the `SPY UP / KOSPI DOWN` mixed bucket is mildly negative on average
+
 ## Prior top-slice walk-forward review
 
 - 24-month / 12-month-step walk-forward windows compared: `4`
@@ -178,6 +193,7 @@
 - weak-period quality also improved slightly instead of getting worse: average weak-period delta stayed positive and loss-month average delta turned positive
 - the cost-sensitivity check is supportive: even under `75 bps` one-way cost, the convex branch still leads both `top2_risk_on` and plain `risk_on`
 - the walk-forward check is also supportive: convex stayed ahead of `top2_risk_on` in every non-tied rolling window and even kept a positive edge in the weak 2021-2023 slice
+- the regime check is supportive: convex retains a positive average edge in both `SPY UP` and `SPY DOWN` buckets, with only one mixed joint-regime slice slightly negative
 - the main remaining caution is stronger concentration: the new convex branch improves performance, but basket-decay checks show that much of that incremental gain is even more dependent on the `NVDA/PLTR/MU` winner cluster than the prior strongest branch
 - this remains a high-CAGR research branch, not an operational baseline candidate
 
