@@ -3,6 +3,7 @@ from __future__ import annotations
 import json
 import math
 from pathlib import Path
+from typing import Callable
 
 import pandas as pd
 
@@ -131,6 +132,55 @@ def _spy_sma10(signal_date: pd.Timestamp, monthly_close: pd.DataFrame) -> dict[s
     return {SPY_KEY: 1.0} if close > sma10 else {}
 
 
+def _build_xs_momentum_target_fn(
+    universe: pd.DataFrame,
+    monthly_close: pd.DataFrame,
+    *,
+    top_n: int,
+    lookback_months: int = 12,
+    skip_recent_months: int = 1,
+    market: str | None = None,
+    asset_type: str | None = None,
+) -> Callable[[pd.Timestamp, pd.DataFrame], dict[str, float]]:
+    allowed = universe.copy()
+    if market is not None:
+        allowed = allowed[allowed["Market"].astype(str).eq(market)].copy()
+    if asset_type is not None:
+        allowed = allowed[allowed["AssetType"].astype(str).eq(asset_type)].copy()
+    allowed_keys = [k for k in allowed["AssetKey"].astype(str).tolist() if k in monthly_close.columns]
+
+    def _target(signal_date: pd.Timestamp, monthly_close: pd.DataFrame) -> dict[str, float]:
+        if signal_date not in monthly_close.index or not allowed_keys:
+            return {}
+        idx = monthly_close.index.get_loc(signal_date)
+        if idx < lookback_months + skip_recent_months or idx - skip_recent_months < 0:
+            return {}
+        end_idx = idx - skip_recent_months
+        start_idx = end_idx - lookback_months
+        if start_idx < 0:
+            return {}
+        start_row = monthly_close.iloc[start_idx]
+        end_row = monthly_close.iloc[end_idx]
+        scores: list[tuple[str, float]] = []
+        for asset_key in allowed_keys:
+            start_price = pd.to_numeric(start_row.get(asset_key), errors="coerce")
+            end_price = pd.to_numeric(end_row.get(asset_key), errors="coerce")
+            current_price = pd.to_numeric(monthly_close.loc[signal_date, asset_key], errors="coerce")
+            if pd.isna(start_price) or pd.isna(end_price) or pd.isna(current_price) or float(start_price) <= 0:
+                continue
+            score = float(end_price / start_price - 1.0)
+            scores.append((asset_key, score))
+        if not scores:
+            return {}
+        winners = [asset_key for asset_key, _ in sorted(scores, key=lambda x: (x[1], x[0]), reverse=True)[:top_n]]
+        if not winners:
+            return {}
+        weight = 1.0 / float(len(winners))
+        return {asset_key: weight for asset_key in winners}
+
+    return _target
+
+
 def _summarize_nav(nav: pd.DataFrame) -> dict[str, float | int | None]:
     rets = pd.to_numeric(nav["NetReturn"], errors="coerce").fillna(0.0)
     summary = _summarize_returns(rets, nav["NextDate"])
@@ -175,6 +225,22 @@ def main() -> None:
         "benchmark_kospi200_buy_hold": _kospi_buy_hold,
         "benchmark_spy_kospi_equal_weight": _eq_50_50,
         "benchmark_spy_sma10": _spy_sma10,
+        "benchmark_xs_mom_12_1_top5_eq": _build_xs_momentum_target_fn(
+            universe,
+            monthly_close,
+            top_n=5,
+            lookback_months=12,
+            skip_recent_months=1,
+        ),
+        "benchmark_xs_mom_12_1_us_stock_top5_eq": _build_xs_momentum_target_fn(
+            universe,
+            monthly_close,
+            top_n=5,
+            lookback_months=12,
+            skip_recent_months=1,
+            market="US",
+            asset_type="STOCK",
+        ),
     }
     for name, fn in benchmark_fns.items():
         strategies[name] = _simulate_strategy(signal_dates, monthly_close, fn, cfg.one_way_cost_bps)
