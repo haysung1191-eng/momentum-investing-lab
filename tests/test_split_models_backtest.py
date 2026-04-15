@@ -1002,3 +1002,76 @@ def test_build_momentum_candidates_breadth_risk_on_scales_when_book_is_broad() -
 
     assert len(book) == 7
     assert round(float(book["TargetWeight"].sum()), 8) == 1.15
+
+
+def test_build_momentum_candidates_top_slice_risk_on_overweights_top_two() -> None:
+    metrics = pd.DataFrame(
+        [
+            {
+                "Market": "US",
+                "AssetType": "STOCK",
+                "Symbol": f"US{i}",
+                "Name": f"US{i}",
+                "Sector": "Information Technology" if i < 2 else ("Industrials" if i < 4 else "Health Care"),
+                "AssetKey": f"US:STOCK:US{i}",
+                "MedianDailyValue60D": 50_000_000.0,
+                "CurrentPrice": 100.0,
+                "TrendOK": 1,
+                "MomentumScore": 0.35 - i * 0.02,
+                "FlowScore": 0.25 - i * 0.01,
+                "RelVolume20D60D": 1.1,
+                "R1M": 0.10,
+            }
+            for i in range(5)
+        ]
+        + [
+            {
+                "Market": "KR",
+                "AssetType": "ETF",
+                "Symbol": f"KR{i}",
+                "Name": f"KR{i}",
+                "Sector": "ETF",
+                "AssetKey": f"KR:ETF:KR{i}",
+                "MedianDailyValue60D": 50_000_000_000.0,
+                "CurrentPrice": 100.0,
+                "TrendOK": 1,
+                "MomentumScore": 0.18 - i * 0.01,
+                "FlowScore": 0.08 - i * 0.01,
+                "RelVolume20D60D": 1.1,
+                "R1M": 0.05,
+            }
+            for i in range(3)
+        ]
+    )
+    flow_snapshot = pd.DataFrame(
+        [
+            {"ScopeType": "COUNTRY", "Market": "GLOBAL", "Label": "US", "Rank": 1, "AsOfDate": "2026-03-31"},
+            {"ScopeType": "COUNTRY", "Market": "GLOBAL", "Label": "Korea", "Rank": 2, "AsOfDate": "2026-03-31"},
+            {"ScopeType": "SECTOR", "Market": "US", "Label": "Information Technology", "Rank": 1, "AsOfDate": "2026-03-31"},
+            {"ScopeType": "SECTOR", "Market": "US", "Label": "Industrials", "Rank": 2, "AsOfDate": "2026-03-31"},
+            {"ScopeType": "SECTOR", "Market": "US", "Label": "Health Care", "Rank": 3, "AsOfDate": "2026-03-31"},
+            {"ScopeType": "SECTOR", "Market": "KR", "Label": "ETF", "Rank": 1, "AsOfDate": "2026-03-31"},
+        ]
+    )
+
+    book = _build_momentum_candidates_for_date(
+        metrics,
+        flow_snapshot,
+        BacktestConfig(),
+        variant=TradingVariant(
+            name="rule_sector_cap2_breadth_it_us5_top2_risk_on",
+            use_flow_filter=True,
+            use_sector_filter=True,
+            use_mad_weighting=False,
+            min_holdings=4,
+            breadth_risk_on_min_holdings=7,
+            breadth_risk_on_exposure=1.0,
+            breadth_top_slice_count=2,
+            breadth_top_slice_bonus_exposure=0.15,
+        ),
+    )
+
+    weights = dict(zip(book["Symbol"], book["TargetWeight"], strict=False))
+    assert round(float(book["TargetWeight"].sum()), 8) == 1.15
+    assert weights["US0"] == weights["US1"]
+    assert weights["US0"] > weights["US2"]
