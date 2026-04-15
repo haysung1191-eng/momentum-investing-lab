@@ -7,12 +7,12 @@ from typing import Any, Dict, List, Sequence, Tuple
 import numpy as np
 import pandas as pd
 
-import config
 from kis_flow_data import build_flow_matrices
 from kis_flow_signal import compute_flow_score, compute_flow_score_v3, rank_flow_at
-from kis_quality_data import build_quality_matrices, default_quality_base, rank_quality_at
+from kis_quality_data import build_quality_matrices, rank_quality_at
 from live_core.kis_io import build_close_matrix, build_market_matrices, list_price_files, read_price_file
 from live_core.kis_regime import compute_regime_state, merge_rank_frames, rotation_signal_from_ranks
+from live_core.kis_settings import build_arg_parser, settings_from_args
 from live_core.kis_weights import (
     cap_weights_to_target,
     inverse_vol_weights,
@@ -121,10 +121,6 @@ class StrategyConfig:
     etf_universe_min_avg_value: float = 500_000_000.0
     etf_universe_min_median_value: float = 100_000_000.0
     etf_universe_max_zero_days: int = 1
-
-
-def default_flow_base() -> str:
-    return f"gs://{config.GCS_BUCKET_NAME}/flows_naver_8y" if config.GCS_BUCKET_NAME else "data/flows_naver_8y"
 
 
 def compute_point_in_time_universe(close: pd.DataFrame, traded_value: pd.DataFrame, market: str, stg: StrategyConfig) -> pd.DataFrame:
@@ -530,80 +526,31 @@ def run_one(
 
 
 def main() -> None:
-    p = argparse.ArgumentParser(description="Run momentum backtests from KIS daily OHLCV close-price csv.gz data.")
-    p.add_argument("--base", type=str, default=(f"gs://{config.GCS_BUCKET_NAME}/prices" if config.GCS_BUCKET_NAME else "data/prices"))
-    p.add_argument("--top-n", type=int, default=20)
-    p.add_argument("--fee-bps", type=float, default=8.0)
-    p.add_argument("--max-files", type=int, default=0, help="0 means all")
-    p.add_argument("--save-prefix", type=str, default="kis_backtest")
-    p.add_argument("--min-common-dates", type=int, default=180)
-    p.add_argument("--regime-filter", type=int, default=1, help="1 enables market MA200 risk-on filter")
-    p.add_argument("--stop-loss-pct", type=float, default=0.12, help="Per-position stop loss, e.g. 0.10")
-    p.add_argument("--trend-exit-ma", type=int, default=60, help="Exit when price falls below MA window; 0 disables")
-    p.add_argument("--regime-ma-window", type=int, default=200)
-    p.add_argument("--regime-slope-window", type=int, default=20)
-    p.add_argument("--regime-breadth-threshold", type=float, default=0.55, help="Risk-on breadth threshold in [0,1]")
-    p.add_argument("--vol-lookback", type=int, default=20)
-    p.add_argument("--target-vol-annual", type=float, default=0.20, help="Annualized target volatility; <=0 disables")
-    p.add_argument("--max-weight", type=float, default=0.20, help="Per-name cap; <=0 disables")
-    p.add_argument("--min-gross-exposure", type=float, default=0.50, help="Minimum invested exposure in risk-on, [0,1]")
-    p.add_argument("--score-top-k", type=int, default=50, help="Top-K universe size for score-weight mode")
-    p.add_argument("--score-power", type=float, default=1.5, help="Power transform for score-weight mode")
-    p.add_argument("--regime-off-exposure", type=float, default=0.40, help="Target gross exposure in risk-off regime")
-    p.add_argument("--allow-intraperiod-reentry", type=int, default=1, help="1 allows same-day re-entry after stop/trend exits")
-    p.add_argument("--reentry-cooldown-days", type=int, default=0, help="Trading-day cooldown after stop/trend exits")
-    p.add_argument("--range-slope-threshold", type=float, default=0.015)
-    p.add_argument("--range-dist-threshold", type=float, default=0.03)
-    p.add_argument("--range-breakout-persistence-threshold", type=float, default=0.35)
-    p.add_argument("--range-breadth-tolerance", type=float, default=0.15)
-    p.add_argument("--osc-lookback", type=int, default=20)
-    p.add_argument("--osc-z-entry", type=float, default=-1.5)
-    p.add_argument("--osc-z-exit", type=float, default=-0.25)
-    p.add_argument("--osc-z-stop", type=float, default=-2.5)
-    p.add_argument("--osc-band-sigma", type=float, default=1.5)
-    p.add_argument("--osc-band-break-sigma", type=float, default=2.0)
-    p.add_argument("--osc-reentry-cooldown-days", type=int, default=5)
-    p.add_argument("--rotation-top-k", type=int, default=5)
-    p.add_argument("--rotation-tilt-strength", type=float, default=0.20)
-    p.add_argument("--rotation-min-sleeve-weight", type=float, default=0.25)
-    p.add_argument("--risk-budget-lookback", type=int, default=120)
-    p.add_argument("--risk-budget-shrinkage", type=float, default=0.35)
-    p.add_argument("--risk-budget-iv-blend", type=float, default=0.50)
-    p.add_argument("--flow-base", type=str, default=default_flow_base())
-    p.add_argument("--quality-base", type=str, default=default_quality_base())
-    p.add_argument("--quality-hold-buffer", type=int, default=10)
-    p.add_argument("--quality-trend-ma", type=int, default=60)
-    p.add_argument("--use-point-in-time-universe", type=int, default=1)
-    p.add_argument("--stock-universe-min-bars", type=int, default=750)
-    p.add_argument("--stock-universe-min-price", type=float, default=1000.0)
-    p.add_argument("--stock-universe-min-avg-value", type=float, default=5_000_000_000.0)
-    p.add_argument("--stock-universe-min-median-value", type=float, default=2_000_000_000.0)
-    p.add_argument("--stock-universe-max-zero-days", type=int, default=1)
-    p.add_argument("--etf-universe-min-bars", type=int, default=180)
-    p.add_argument("--etf-universe-min-avg-value", type=float, default=500_000_000.0)
-    p.add_argument("--etf-universe-min-median-value", type=float, default=100_000_000.0)
-    p.add_argument("--etf-universe-max-zero-days", type=int, default=1)
-    args = p.parse_args()
+    args = build_arg_parser().parse_args()
+    settings = settings_from_args(args)
 
     print("loading stock close matrix...")
-    close_s, value_s = build_market_matrices(args.base, "stock", args.max_files)
+    close_s, value_s = build_market_matrices(settings.base, "stock", settings.max_files)
     print("loading etf close matrix...")
-    close_e, value_e = build_market_matrices(args.base, "etf", args.max_files)
+    close_e, value_e = build_market_matrices(settings.base, "etf", settings.max_files)
     print(f"stock_tickers={close_s.shape[1]}, etf_tickers={close_e.shape[1]}")
 
-    fee = args.fee_bps / 10000.0
-    use_regime = bool(args.regime_filter)
-    strategies = build_default_strategies(args, StrategyConfig, fee_rate=fee, use_regime_filter=use_regime)
+    strategies = build_default_strategies(
+        settings,
+        StrategyConfig,
+        fee_rate=settings.fee_rate,
+        use_regime_filter=settings.use_regime_filter_bool,
+    )
 
-    flow_mats = build_flow_matrices(args.flow_base, market="stock", max_files=args.max_files)
-    quality_mats = build_quality_matrices(args.quality_base, close_s.index, list(close_s.columns))
+    flow_mats = build_flow_matrices(settings.flow_base, market="stock", max_files=settings.max_files)
+    quality_mats = build_quality_matrices(settings.quality_base, close_s.index, list(close_s.columns))
 
     def _run_strategy(strategy: StrategyConfig) -> Tuple[pd.DataFrame, Dict[str, float]]:
         return run_one(
             close_s,
             close_e,
             strategy,
-            min_common_dates=args.min_common_dates,
+            min_common_dates=settings.min_common_dates,
             traded_value_s=value_s,
             traded_value_e=value_e,
             flow_mats=flow_mats,
@@ -612,7 +559,7 @@ def main() -> None:
 
     summary, nav, strategy_outputs = run_strategy_batch(strategies, _run_strategy)
     summary, nav = append_hybrid_results(summary, nav, strategy_outputs)
-    s_df, sum_path, nav_path = save_backtest_outputs(summary, nav, args.save_prefix)
+    s_df, sum_path, nav_path = save_backtest_outputs(summary, nav, settings.save_prefix)
     print("\n=== KIS Price Backtest ===")
     print(s_df.to_string(index=False))
     print(f"saved {sum_path}")
