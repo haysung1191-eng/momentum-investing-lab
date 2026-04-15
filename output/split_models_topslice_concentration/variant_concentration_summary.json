@@ -1,0 +1,16 @@
+{
+  "baseline_variant": "rule_sector_cap2_breadth_it_us5_risk_on",
+  "candidate_variant": "rule_sector_cap2_breadth_it_us5_top2_risk_on",
+  "months_compared": 61,
+  "positive_months": 16,
+  "negative_months": 7,
+  "avg_monthly_delta": 0.0033789841729807047,
+  "top_1_positive_month_share": 0.24830741705753817,
+  "top_3_positive_month_share": 0.4606401735156757,
+  "top_1_positive_symbol_share": 0.27510971277636037,
+  "top_3_positive_symbol_share": 0.749109662096852,
+  "best_month": "2025-11-28",
+  "best_month_delta": 0.05754187955565149,
+  "top_symbol": "PLTR",
+  "top_symbol_delta": 0.07207742879644152
+}
