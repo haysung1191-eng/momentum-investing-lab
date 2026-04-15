@@ -1,0 +1,7 @@
+{
+  "baseline_variant": "rule_sector_cap2_breadth_it_us5_risk_on",
+  "candidate_variant": "rule_sector_cap2_breadth_it_us5_top2_risk_on",
+  "symbols_analyzed": 5,
+  "best_residual_symbol": "0000J0",
+  "worst_residual_symbol": "PLTR"
+}

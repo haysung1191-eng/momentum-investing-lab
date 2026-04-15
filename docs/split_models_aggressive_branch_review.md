@@ -100,6 +100,7 @@
 - average residual monthly delta after excluding them: `+0.016%p`
 - residual positive months: `12`
 - residual negative months: `11`
+- leave-one-out checks are less alarming: excluding any one of `PLTR`, `NVDA`, or `MU` still leaves a meaningful residual edge of roughly `+0.220%p` to `+0.241%p` with `15` positive vs `8` negative months
 - interpretation: the branch still has a small residual edge beyond the top winners, but the practical alpha is overwhelmingly tied to a narrow US tech winner cluster
 
 ## Interpretation
@@ -110,7 +111,7 @@
 - the cost-sensitivity check is supportive: the branch still leads this family even under much harsher one-way cost assumptions
 - the walk-forward check is also supportive: the branch kept a positive CAGR edge in every non-tied rolling window versus the prior aggressive branch
 - the regime check is supportive: most of the edge appears in up markets, but the average delta stays positive even in down-market buckets
-- the residual-edge check is cautionary: most of the incremental alpha disappears once the top three winner symbols are stripped out
+- the residual-edge check is cautionary: most of the incremental alpha disappears once the top three winner symbols are stripped out, even though no single winner alone explains the whole edge
 - this remains a high-CAGR research branch, not an operational baseline candidate
 
 ## Verdict
