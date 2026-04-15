@@ -1,0 +1,16 @@
+{
+  "baseline_variant": "rule_sector_cap2_breadth_it_us5_top2_risk_on",
+  "candidate_variant": "rule_sector_cap2_breadth_it_us5_top2_convex_risk_on",
+  "weak_period_start": "2021-04-30",
+  "weak_period_end": "2023-08-31",
+  "months_compared": 25,
+  "overlay_triggered_months": 0,
+  "baseline_loss_months": 11,
+  "loss_months_improved": 1,
+  "avg_net_return_delta_all_months": 0.0014235483876497274,
+  "avg_net_return_delta_triggered_months": 0.0,
+  "avg_net_return_delta_loss_months": 0.0009970362516269974,
+  "worst_baseline_month": "2021-11-30",
+  "best_delta_month": "2023-04-28",
+  "worst_delta_month": "2023-05-31"
+}

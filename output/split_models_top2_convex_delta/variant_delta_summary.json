@@ -1,0 +1,12 @@
+{
+  "baseline_variant": "rule_sector_cap2_breadth_it_us5_top2_risk_on",
+  "candidate_variant": "rule_sector_cap2_breadth_it_us5_top2_convex_risk_on",
+  "months_compared": 61,
+  "avg_net_return_delta": 0.0019149604772350337,
+  "positive_months": 14,
+  "negative_months": 9,
+  "best_delta_month": "2024-11-29",
+  "best_delta_value": 0.033133787716966887,
+  "worst_delta_month": "2023-05-31",
+  "worst_delta_value": -0.013193924304462784
+}
