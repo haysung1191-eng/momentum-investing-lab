@@ -1,0 +1,32 @@
+{
+  "rule_sector_cap2_breadth_it_us5_top2_risk_on": {
+    "windows": 4,
+    "best_cagr": 0.7378643787081587,
+    "worst_cagr": 0.16228835107160755,
+    "avg_cagr": 0.40886256751842465,
+    "avg_sharpe": 1.4257586507297004
+  },
+  "rule_sector_cap2_breadth_it_us5_risk_on": {
+    "windows": 4,
+    "best_cagr": 0.6341452595116379,
+    "worst_cagr": 0.15005738671413682,
+    "avg_cagr": 0.36685806031295404,
+    "avg_sharpe": 1.4007372713922528
+  },
+  "rule_breadth_it_us5_cap": {
+    "windows": 4,
+    "best_cagr": 0.4854064591004337,
+    "worst_cagr": 0.08800465390048662,
+    "avg_cagr": 0.2696854217504748,
+    "avg_sharpe": 1.2557310246140694
+  },
+  "lead_vs_reference": {
+    "lead_variant": "rule_sector_cap2_breadth_it_us5_top2_risk_on",
+    "reference_variant": "rule_sector_cap2_breadth_it_us5_risk_on",
+    "windows_compared": 4,
+    "positive_cagr_windows": 3,
+    "negative_cagr_windows": 0,
+    "avg_cagr_delta": 0.04200450720547061,
+    "avg_sharpe_delta": 0.025021379337447525
+  }
+}

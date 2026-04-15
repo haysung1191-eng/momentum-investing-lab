@@ -73,12 +73,22 @@
   - Sharpe at `75 bps`: `1.1090`
 - cost drag is real, but the ranking survives; this reduces the chance that the top2 branch is only a low-friction backtest artifact
 
+## Walk-forward review
+
+- 24-month / 12-month-step walk-forward windows compared: `4`
+- `rule_sector_cap2_breadth_it_us5_top2_risk_on` beat `rule_sector_cap2_breadth_it_us5_risk_on` on CAGR in `3` windows and lost in `0`
+- average walk-forward CAGR delta vs `rule_sector_cap2_breadth_it_us5_risk_on`: `+4.20%p`
+- average walk-forward Sharpe delta: `+0.0250`
+- strongest relative window: `2023-08-31 -> 2026-01-30`, CAGR delta `+10.37%p`
+- even the weak window `2021-04-30 -> 2023-08-31` still showed a positive CAGR delta of `+1.22%p`
+
 ## Interpretation
 
 - the top-slice risk-on overlay is a genuine new branch, not a cosmetic tweak: full-period CAGR and Sharpe both improved while MDD stayed flat
 - month-level improvement is broad enough to avoid the prior "single-shock-month" failure mode
 - the main caveats are weak-period quality and concentration: average weak-period return still improved slightly, but loss months were still a bit worse on average, and most of the incremental alpha came from a small set of US IT winners
 - the cost-sensitivity check is supportive: the branch still leads this family even under much harsher one-way cost assumptions
+- the walk-forward check is also supportive: the branch kept a positive CAGR edge in every non-tied rolling window versus the prior aggressive branch
 - this remains a high-CAGR research branch, not an operational baseline candidate
 
 ## Verdict
