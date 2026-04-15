@@ -78,6 +78,20 @@
   - Sharpe at `75 bps`: `1.1090`
 - cost drag is real, but the ranking survives; this reduces the chance that the top2 branch is only a low-friction backtest artifact
 
+## Convex top-slice cost sensitivity review
+
+- even at `75 bps` one-way cost, `rule_sector_cap2_breadth_it_us5_top2_convex_risk_on` remains the strongest aggressive branch in this family
+- `rule_sector_cap2_breadth_it_us5_top2_convex_risk_on`
+  - CAGR at `75 bps`: `38.26%`
+  - Sharpe at `75 bps`: `1.3626`
+- `rule_sector_cap2_breadth_it_us5_top2_risk_on`
+  - CAGR at `75 bps`: `35.76%`
+  - Sharpe at `75 bps`: `1.3117`
+- `rule_sector_cap2_breadth_it_us5_risk_on`
+  - CAGR at `75 bps`: `31.82%`
+  - Sharpe at `75 bps`: `1.2554`
+- cost drag still exists, but the convex branch keeps its ranking edge even under harsher execution assumptions
+
 ## Prior top-slice walk-forward review
 
 - 24-month / 12-month-step walk-forward windows compared: `4`
@@ -152,6 +166,7 @@
 - the new convex top-slice overlay is a genuine structural improvement over the prior strongest branch: CAGR and Sharpe both improved again while MDD stayed flat and turnover fell slightly
 - month-level improvement is still broad enough to stay out of the narrow-period reject bucket: `14` positive months versus `9` negative months with average monthly delta `+0.191%p`
 - weak-period quality also improved slightly instead of getting worse: average weak-period delta stayed positive and loss-month average delta turned positive
+- the cost-sensitivity check is supportive: even under `75 bps` one-way cost, the convex branch still leads both `top2_risk_on` and plain `risk_on`
 - the main remaining caution is stronger concentration: the new convex branch improves performance, but basket-decay checks show that much of that incremental gain is even more dependent on the `NVDA/PLTR/MU` winner cluster than the prior strongest branch
 - this remains a high-CAGR research branch, not an operational baseline candidate
 
