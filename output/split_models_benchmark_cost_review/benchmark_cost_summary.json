@@ -1,0 +1,30 @@
+{
+  "baseline_vs_us_stock_xs_mom": {
+    "model": "rule_breadth_it_us5_cap",
+    "benchmark": "benchmark_xs_mom_12_1_us_stock_top5_eq",
+    "latest_cost_bps": 75.0,
+    "latest_model_cagr": 0.23945503325509154,
+    "latest_benchmark_cagr": 0.268019633345449,
+    "latest_cagr_delta": -0.02856460009035744,
+    "latest_model_sharpe": 1.108987570545804,
+    "latest_benchmark_sharpe": 0.9762210447598046,
+    "latest_sharpe_delta": 0.13276652578599946,
+    "latest_mdd_delta": -0.029485137061937783,
+    "positive_cagr_cost_points": 1,
+    "negative_cagr_cost_points": 4
+  },
+  "aggressive_vs_full_xs_mom": {
+    "model": "rule_sector_cap2_breadth_it_us5_top2_convex_risk_on",
+    "benchmark": "benchmark_xs_mom_12_1_top5_eq",
+    "latest_cost_bps": 75.0,
+    "latest_model_cagr": 0.3825806173293289,
+    "latest_benchmark_cagr": 0.38968060440684904,
+    "latest_cagr_delta": -0.007099987077520131,
+    "latest_model_sharpe": 1.3625774971227045,
+    "latest_benchmark_sharpe": 0.7050550011238552,
+    "latest_sharpe_delta": 0.6575224959988493,
+    "latest_mdd_delta": 0.012278491896230093,
+    "positive_cagr_cost_points": 3,
+    "negative_cagr_cost_points": 2
+  }
+}
