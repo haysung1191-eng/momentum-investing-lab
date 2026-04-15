@@ -1,0 +1,6 @@
+{
+  "splits_tested": 5,
+  "best_split_for_aggressive_cagr": "full_universe",
+  "worst_split_for_aggressive_cagr": "kr_only",
+  "aggressive_positive_cagr_splits": 4
+}
