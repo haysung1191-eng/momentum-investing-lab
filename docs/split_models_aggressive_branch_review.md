@@ -82,6 +82,16 @@
 - strongest relative window: `2023-08-31 -> 2026-01-30`, CAGR delta `+10.37%p`
 - even the weak window `2021-04-30 -> 2023-08-31` still showed a positive CAGR delta of `+1.22%p`
 
+## Regime review
+
+- the top2 branch performs best in favorable regimes, but it still keeps a positive average delta in adverse regimes
+- versus `rule_sector_cap2_breadth_it_us5_risk_on`:
+  - `SPY UP` average monthly delta: `+0.454%p`
+  - `SPY DOWN` average monthly delta: `+0.082%p`
+  - `KOSPI UP` average monthly delta: `+0.518%p`
+  - `KOSPI DOWN` average monthly delta: `+0.139%p`
+- interpretation: the branch is pro-cyclical, but not purely regime-fragile; its edge compresses in weak markets rather than fully flipping negative on average
+
 ## Interpretation
 
 - the top-slice risk-on overlay is a genuine new branch, not a cosmetic tweak: full-period CAGR and Sharpe both improved while MDD stayed flat
@@ -89,6 +99,7 @@
 - the main caveats are weak-period quality and concentration: average weak-period return still improved slightly, but loss months were still a bit worse on average, and most of the incremental alpha came from a small set of US IT winners
 - the cost-sensitivity check is supportive: the branch still leads this family even under much harsher one-way cost assumptions
 - the walk-forward check is also supportive: the branch kept a positive CAGR edge in every non-tied rolling window versus the prior aggressive branch
+- the regime check is supportive: most of the edge appears in up markets, but the average delta stays positive even in down-market buckets
 - this remains a high-CAGR research branch, not an operational baseline candidate
 
 ## Verdict
