@@ -92,6 +92,16 @@
   - Sharpe at `75 bps`: `1.2554`
 - cost drag still exists, but the convex branch keeps its ranking edge even under harsher execution assumptions
 
+## Convex top-slice walk-forward review
+
+- 24-month / 12-month-step walk-forward windows compared: `4`
+- `rule_sector_cap2_breadth_it_us5_top2_convex_risk_on` beat `rule_sector_cap2_breadth_it_us5_top2_risk_on` on CAGR in `3` windows and lost in `0`
+- average walk-forward CAGR delta vs `rule_sector_cap2_breadth_it_us5_top2_risk_on`: `+2.22%p`
+- average walk-forward Sharpe delta: `+0.0458`
+- strongest relative window: `2023-08-31 -> 2026-01-30`, CAGR delta `+4.60%p`
+- even the weak window `2021-04-30 -> 2023-08-31` still showed a positive CAGR delta of `+1.09%p`
+- interpretation: the convex branch does not rely on a single recent burst; its edge survives across rolling windows and is still present in the weaker regime slice
+
 ## Prior top-slice walk-forward review
 
 - 24-month / 12-month-step walk-forward windows compared: `4`
@@ -167,6 +177,7 @@
 - month-level improvement is still broad enough to stay out of the narrow-period reject bucket: `14` positive months versus `9` negative months with average monthly delta `+0.191%p`
 - weak-period quality also improved slightly instead of getting worse: average weak-period delta stayed positive and loss-month average delta turned positive
 - the cost-sensitivity check is supportive: even under `75 bps` one-way cost, the convex branch still leads both `top2_risk_on` and plain `risk_on`
+- the walk-forward check is also supportive: convex stayed ahead of `top2_risk_on` in every non-tied rolling window and even kept a positive edge in the weak 2021-2023 slice
 - the main remaining caution is stronger concentration: the new convex branch improves performance, but basket-decay checks show that much of that incremental gain is even more dependent on the `NVDA/PLTR/MU` winner cluster than the prior strongest branch
 - this remains a high-CAGR research branch, not an operational baseline candidate
 
