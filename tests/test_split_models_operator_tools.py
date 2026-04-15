@@ -21,7 +21,7 @@ from tools.operations import build_split_models_live_readiness as live_readiness
 from tools.operations import build_split_models_rebalance_orders as rebalance_orders
 from tools.operations import check_split_models_archive_consistency as archive_consistency
 from tools.operations import build_split_models_shadow_status as shadow_status
-import run_split_models_operator_handoff as handoff_runner
+from tools.pipelines import run_split_models_operator_handoff as handoff_runner
 
 
 def test_split_models_operator_tools_build_outputs(tmp_path: Path, monkeypatch, capsys) -> None:
@@ -308,7 +308,7 @@ def test_split_models_operator_handoff_runner_invokes_steps_in_order(monkeypatch
         sys,
         "argv",
         [
-            "run_split_models_operator_handoff.py",
+            "tools/pipelines/run_split_models_operator_handoff.py",
             "--total-capital",
             "100000000",
             "--refresh-shadow",
@@ -351,7 +351,7 @@ def test_split_models_operator_handoff_runner_status_only(monkeypatch) -> None:
     monkeypatch.setattr(handoff_runner.subprocess, "run", _fake_run)
     monkeypatch.setattr(handoff_runner.sys, "executable", "python")
     monkeypatch.setattr(handoff_runner, "_write_runtime_status", lambda print_json=False: runtime_status_calls.append(print_json))
-    monkeypatch.setattr(sys, "argv", ["run_split_models_operator_handoff.py", "--status-only"])
+    monkeypatch.setattr(sys, "argv", ["tools/pipelines/run_split_models_operator_handoff.py", "--status-only"])
 
     handoff_runner.main()
 
@@ -371,7 +371,7 @@ def test_split_models_operator_handoff_runner_status_only_json(monkeypatch) -> N
     monkeypatch.setattr(handoff_runner.subprocess, "run", _fake_run)
     monkeypatch.setattr(handoff_runner.sys, "executable", "python")
     monkeypatch.setattr(handoff_runner, "_write_runtime_status", lambda print_json=False: runtime_status_calls.append(print_json))
-    monkeypatch.setattr(sys, "argv", ["run_split_models_operator_handoff.py", "--status-only", "--json"])
+    monkeypatch.setattr(sys, "argv", ["tools/pipelines/run_split_models_operator_handoff.py", "--status-only", "--json"])
 
     handoff_runner.main()
 
@@ -393,7 +393,7 @@ def test_split_models_operator_handoff_runner_status_only_fail_on_not_go(monkeyp
     monkeypatch.setattr(handoff_runner.sys, "executable", "python")
     monkeypatch.setattr(handoff_runner, "_write_runtime_status", lambda print_json=False: runtime_status_calls.append(print_json))
     monkeypatch.setattr(handoff_runner, "_enforce_operational_gate", lambda: gate_calls.append(True))
-    monkeypatch.setattr(sys, "argv", ["run_split_models_operator_handoff.py", "--status-only", "--fail-on-not-go"])
+    monkeypatch.setattr(sys, "argv", ["tools/pipelines/run_split_models_operator_handoff.py", "--status-only", "--fail-on-not-go"])
 
     handoff_runner.main()
 

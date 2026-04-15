@@ -7,10 +7,14 @@ import subprocess
 import sys
 from pathlib import Path
 
+REPO_ROOT = Path(__file__).resolve().parents[2]
+if str(REPO_ROOT) not in sys.path:
+    sys.path.insert(0, str(REPO_ROOT))
+
 from tools.operations import build_split_models_shadow_status as shadow_status
 
 
-ROOT = Path(__file__).resolve().parent
+ROOT = REPO_ROOT
 RUNTIME_STATUS_PATH = ROOT / "output" / "split_models_shadow" / "shadow_operator_runtime_status.json"
 LIVE_PACKET_PATH = ROOT / "output" / "split_models_shadow" / "shadow_live_transition_packet.md"
 ARCHIVE_CONSISTENCY_PATH = ROOT / "output" / "split_models_shadow_archive" / "archive_consistency_report.json"

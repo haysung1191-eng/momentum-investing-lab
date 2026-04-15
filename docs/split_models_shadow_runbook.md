@@ -5,7 +5,7 @@
 - promoted baseline variant: `rule_breadth_it_us5_cap`
 - baseline source: `split_models.backtest.BacktestConfig(baseline_variant="rule_breadth_it_us5_cap")`
 - shadow build entrypoint: `python .\tools\operations\build_split_models_shadow_report.py`
-- research backtest entrypoint: `python .\run_split_models_backtest.py`
+- research backtest entrypoint: `python .\tools\pipelines\run_split_models_backtest.py`
 
 ## Current reference metrics
 
@@ -20,12 +20,12 @@ Reference file:
 ## Daily shadow check
 
 1. Optional full refresh: run `python .\tools\operations\build_split_models_shadow_report.py`
-2. Preferred operator path: run `python .\run_split_models_operator_handoff.py --total-capital <account_value>`
+2. Preferred operator path: run `python .\tools\pipelines\run_split_models_operator_handoff.py --total-capital <account_value>`
 3. One-click operator path: run `powershell -ExecutionPolicy Bypass -File .\start_split_models_shadow_ops.ps1 -TotalCapital <account_value>`
 4. Open `output\split_models_shadow\shadow_summary.json`
 5. Fast CLI check: run `python .\tools\operations\build_split_models_shadow_status.py`
 6. Automation-friendly check: run `python .\tools\operations\build_split_models_shadow_status.py --json` to include latest archive delta fields as well
-7. Fail-fast operator gate: run `python .\run_split_models_operator_handoff.py --status-only --fail-on-not-go` to return non-zero if `GO/PASS` is broken
+7. Fail-fast operator gate: run `python .\tools\pipelines\run_split_models_operator_handoff.py --status-only --fail-on-not-go` to return non-zero if `GO/PASS` is broken
 8. Archive replay check: run `python .\tools\operations\build_split_models_archive_status.py --run-id <archive_run_id>` to inspect one archived handoff in isolation
 9. Archive replay packet: run `python .\tools\operations\build_split_models_archive_replay_packet.py --run-id <archive_run_id>` to get a one-file replay packet with prior/next context; full operator handoff now auto-builds this for the latest archive run
 10. Archive compare: run `python .\tools\operations\build_split_models_archive_compare.py --base-run-id <older_run> --target-run-id <newer_run>` to compare any two archived handoff runs directly

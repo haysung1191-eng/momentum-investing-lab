@@ -15,7 +15,7 @@ Set-Location $root
 
 $python = (Get-Command python -ErrorAction Stop).Source
 
-$args = @("run_split_models_operator_handoff.py", "--total-capital", $TotalCapital.ToString())
+$args = @("tools/pipelines/run_split_models_operator_handoff.py", "--total-capital", $TotalCapital.ToString())
 if ($RefreshShadow) {
     $args += "--refresh-shadow"
 }
