@@ -89,7 +89,7 @@ def main() -> None:
 
     _run_step(
         "build canonical transition",
-        [python, "analyze_split_models_live_transition.py", "--canonical-shadow"],
+        [python, "tools/analysis/analyze_split_models_live_transition.py", "--canonical-shadow"],
     )
 
     rebalance_args = [python, "build_split_models_rebalance_orders.py"]

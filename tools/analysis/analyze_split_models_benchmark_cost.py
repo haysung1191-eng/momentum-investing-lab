@@ -1,21 +1,29 @@
-from __future__ import annotations
+﻿from __future__ import annotations
 
 import json
 from pathlib import Path
+import sys
 
 import pandas as pd
 
-from analyze_split_models_external_benchmarks import (
+REPO_ROOT = Path(__file__).resolve().parents[2]
+if str(REPO_ROOT) not in sys.path:
+    sys.path.insert(0, str(REPO_ROOT))
+
+
+from tools.analysis.analyze_split_models_external_benchmarks import (
     _build_context,
     _build_xs_momentum_target_fn,
     _run_model_variant,
     _simulate_strategy,
 )
-from split_models.backtest import BacktestConfig, _walkforward_summary
+from split_models.backtest import BacktestConfig, _cost_sensitivity
 
 
-ROOT = Path(__file__).resolve().parent
-OUTPUT_DIR = ROOT / "output" / "split_models_benchmark_walkforward_review"
+
+ROOT = REPO_ROOT
+OUTPUT_DIR = ROOT / "output" / "split_models_benchmark_cost_review"
+COST_BPS = [10.0, 20.0, 30.0, 50.0, 75.0]
 PAIR_CONFIGS = [
     {
         "label": "baseline_vs_us_stock_xs_mom",
@@ -46,9 +54,9 @@ def main() -> None:
     summary: dict[str, dict[str, float | int | str]] = {}
 
     for pair in PAIR_CONFIGS:
+        label = str(pair["label"])
         model_name = str(pair["model"])
         benchmark_name = str(pair["benchmark"])
-        label = str(pair["label"])
 
         model_nav = _run_model_variant(
             cfg,
@@ -70,19 +78,15 @@ def main() -> None:
         )
         benchmark_nav = _simulate_strategy(signal_dates, monthly_close, benchmark_fn, cfg.one_way_cost_bps)
 
-        model_walk = _walkforward_summary(model_nav, window_months=24, step_months=12).rename(
+        model_cost = _cost_sensitivity(model_nav, COST_BPS).rename(
             columns={"CAGR": "ModelCAGR", "Sharpe": "ModelSharpe", "MDD": "ModelMDD"}
         )
-        benchmark_walk = _walkforward_summary(benchmark_nav, window_months=24, step_months=12).rename(
+        benchmark_cost = _cost_sensitivity(benchmark_nav, COST_BPS).rename(
             columns={"CAGR": "BenchmarkCAGR", "Sharpe": "BenchmarkSharpe", "MDD": "BenchmarkMDD"}
         )
-        for df in (model_walk, benchmark_walk):
-            df["WindowStart"] = pd.to_datetime(df["WindowStart"], errors="coerce").dt.strftime("%Y-%m-%d")
-            df["WindowEnd"] = pd.to_datetime(df["WindowEnd"], errors="coerce").dt.strftime("%Y-%m-%d")
-
-        merged = model_walk.merge(
-            benchmark_walk[["WindowStart", "WindowEnd", "BenchmarkCAGR", "BenchmarkSharpe", "BenchmarkMDD"]],
-            on=["WindowStart", "WindowEnd"],
+        merged = model_cost.merge(
+            benchmark_cost[["OneWayCostBps", "BenchmarkCAGR", "BenchmarkSharpe", "BenchmarkMDD"]],
+            on=["OneWayCostBps"],
             how="inner",
         )
         merged.insert(0, "Label", label)
@@ -98,39 +102,31 @@ def main() -> None:
             merged["BenchmarkMDD"], errors="coerce"
         )
         compare_rows.append(merged)
+        merged.to_csv(OUTPUT_DIR / f"{label}_cost_compare.csv", index=False, encoding="utf-8-sig")
 
-        merged.to_csv(OUTPUT_DIR / f"{label}_walkforward_compare.csv", index=False, encoding="utf-8-sig")
-
+        latest = merged.sort_values("OneWayCostBps").iloc[-1]
         summary[label] = {
             "model": model_name,
             "benchmark": benchmark_name,
-            "windows_compared": int(len(merged)),
-            "positive_cagr_windows": int((pd.to_numeric(merged["CAGRDelta"], errors="coerce") > 0).sum()),
-            "negative_cagr_windows": int((pd.to_numeric(merged["CAGRDelta"], errors="coerce") < 0).sum()),
-            "avg_cagr_delta": float(pd.to_numeric(merged["CAGRDelta"], errors="coerce").mean()),
-            "avg_sharpe_delta": float(pd.to_numeric(merged["SharpeDelta"], errors="coerce").mean()),
-            "avg_mdd_delta": float(pd.to_numeric(merged["MDDDelta"], errors="coerce").mean()),
-            "best_cagr_delta_window": None
-            if merged.empty
-            else str(
-                merged.loc[pd.to_numeric(merged["CAGRDelta"], errors="coerce").idxmax(), "WindowStart"]
-            )
-            + " -> "
-            + str(merged.loc[pd.to_numeric(merged["CAGRDelta"], errors="coerce").idxmax(), "WindowEnd"]),
-            "worst_cagr_delta_window": None
-            if merged.empty
-            else str(
-                merged.loc[pd.to_numeric(merged["CAGRDelta"], errors="coerce").idxmin(), "WindowStart"]
-            )
-            + " -> "
-            + str(merged.loc[pd.to_numeric(merged["CAGRDelta"], errors="coerce").idxmin(), "WindowEnd"]),
+            "latest_cost_bps": float(latest["OneWayCostBps"]),
+            "latest_model_cagr": float(latest["ModelCAGR"]),
+            "latest_benchmark_cagr": float(latest["BenchmarkCAGR"]),
+            "latest_cagr_delta": float(latest["CAGRDelta"]),
+            "latest_model_sharpe": float(latest["ModelSharpe"]),
+            "latest_benchmark_sharpe": float(latest["BenchmarkSharpe"]),
+            "latest_sharpe_delta": float(latest["SharpeDelta"]),
+            "latest_mdd_delta": float(latest["MDDDelta"]),
+            "positive_cagr_cost_points": int((pd.to_numeric(merged["CAGRDelta"], errors="coerce") > 0).sum()),
+            "negative_cagr_cost_points": int((pd.to_numeric(merged["CAGRDelta"], errors="coerce") < 0).sum()),
         }
 
     compare_df = pd.concat(compare_rows, ignore_index=True)
-    compare_df.to_csv(OUTPUT_DIR / "benchmark_walkforward_compare.csv", index=False, encoding="utf-8-sig")
-    (OUTPUT_DIR / "benchmark_walkforward_summary.json").write_text(json.dumps(summary, indent=2), encoding="utf-8")
+    compare_df.to_csv(OUTPUT_DIR / "benchmark_cost_compare.csv", index=False, encoding="utf-8-sig")
+    (OUTPUT_DIR / "benchmark_cost_summary.json").write_text(json.dumps(summary, indent=2), encoding="utf-8")
     print(json.dumps(summary, indent=2))
 
 
 if __name__ == "__main__":
     main()
+
+

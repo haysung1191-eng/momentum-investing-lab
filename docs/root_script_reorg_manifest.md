@@ -20,11 +20,10 @@ Machine-readable inventory:
 - [root_script_inventory.csv](/C:/AI/momentum/output/repo_script_manifest/root_script_inventory.csv)
 - [root_script_inventory_summary.json](/C:/AI/momentum/output/repo_script_manifest/root_script_inventory_summary.json)
 
-Current root Python file count: `103`
+Current root Python file count: `88`
 
 Category counts:
 
-- `analysis`: `15`
 - `research`: `28`
 - `operations`: `21`
 - `data_ingestion`: `9`
@@ -32,6 +31,10 @@ Category counts:
 - `pipelines`: `6`
 - `plotting`: `1`
 - `uncategorized`: `6`
+
+Completed so far:
+
+- all `analyze_split_models_*.py` scripts were moved out of root into `tools/analysis`
 
 ## Proposed Target Layout
 
@@ -72,9 +75,8 @@ These should not move in the first wave because they are likely imported broadly
 
 The safest first relocation wave is scripts that are root-level CLIs and have low import risk:
 
-1. `analyze_split_models_*.py` -> `tools/analysis`
-2. `build_split_models_*.py`, `check_split_models_*.py`, `archive_split_models_operator_handoff.py` -> `tools/operations`
-3. `run_split_models_*.py` -> `tools/pipelines`
+1. `build_split_models_*.py`, `check_split_models_*.py`, `archive_split_models_operator_handoff.py` -> `tools/operations`
+2. `run_split_models_*.py` -> `tools/pipelines`
 
 Why this wave first:
 

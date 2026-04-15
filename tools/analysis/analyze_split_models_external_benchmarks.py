@@ -1,11 +1,17 @@
-from __future__ import annotations
+﻿from __future__ import annotations
 
 import json
 import math
 from pathlib import Path
+import sys
 from typing import Callable
 
 import pandas as pd
+
+REPO_ROOT = Path(__file__).resolve().parents[2]
+if str(REPO_ROOT) not in sys.path:
+    sys.path.insert(0, str(REPO_ROOT))
+
 
 from split_models.backtest import (
     BacktestConfig,
@@ -21,7 +27,8 @@ from split_models.backtest import (
 )
 
 
-ROOT = Path(__file__).resolve().parent
+
+ROOT = REPO_ROOT
 OUTPUT_DIR = ROOT / "output" / "split_models_external_benchmark_review"
 MODEL_VARIANTS = [
     "rule_breadth_it_us5_cap",
@@ -302,3 +309,5 @@ def main() -> None:
 
 if __name__ == "__main__":
     main()
+
+

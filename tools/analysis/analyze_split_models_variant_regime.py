@@ -1,11 +1,17 @@
-from __future__ import annotations
+﻿from __future__ import annotations
 
 import argparse
 import json
 from pathlib import Path
+import sys
 
 import numpy as np
 import pandas as pd
+
+REPO_ROOT = Path(__file__).resolve().parents[2]
+if str(REPO_ROOT) not in sys.path:
+    sys.path.insert(0, str(REPO_ROOT))
+
 
 from split_models.backtest import (
     BacktestConfig,
@@ -20,7 +26,8 @@ from split_models.backtest import (
 )
 
 
-ROOT = Path(__file__).resolve().parent
+
+ROOT = REPO_ROOT
 
 
 def _build_context(
@@ -145,3 +152,5 @@ def main() -> None:
 
 if __name__ == "__main__":
     main()
+
+

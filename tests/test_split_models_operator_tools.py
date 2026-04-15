@@ -320,7 +320,7 @@ def test_split_models_operator_handoff_runner_invokes_steps_in_order(monkeypatch
 
     assert calls == [
         ["python", "build_split_models_shadow_report.py"],
-        ["python", "analyze_split_models_live_transition.py", "--canonical-shadow"],
+        ["python", "tools/analysis/analyze_split_models_live_transition.py", "--canonical-shadow"],
         ["python", "build_split_models_rebalance_orders.py", "--total-capital", "100000000.0"],
         ["python", "check_split_models_shadow_drift.py", "--refresh-reference"],
         ["python", "build_split_models_live_readiness.py"],
