@@ -122,12 +122,37 @@
   - top4 excluded: `11` positive vs `12` negative months
 - interpretation: the branch is not a single-name illusion, but it is meaningfully dependent on a compact winner basket rather than a broad-based residual edge
 
+## Convex top-slice concentration review
+
+- versus `rule_sector_cap2_breadth_it_us5_top2_risk_on`, the new convex branch still avoids the single-shock-month failure mode but remains meaningfully concentrated
+- months compared: `61`
+- positive months: `14`
+- negative months: `9`
+- top 1 positive month share of total positive delta: `19.86%`
+- top 3 positive month share: `54.96%`
+- top 1 positive symbol share: `29.66%`
+- top 3 positive symbol share: `68.17%`
+- top symbols driving the edge: `NVDA`, `PLTR`, `MU`
+- interpretation: month concentration is acceptable, but the incremental alpha still comes disproportionately from a narrow US winner cluster
+
+## Convex top-slice basket-decay review
+
+- cumulative winner-basket exclusions show the convex branch depends even more heavily on the top two winners than the prior strongest branch
+- excluding only the top symbol `NVDA` still leaves average monthly residual delta of `+0.081%p`
+- excluding the top two symbols `NVDA/PLTR` flips the residual edge slightly negative at `-0.015%p`
+- excluding the top three symbols `NVDA/PLTR/MU` pushes residual delta further negative to `-0.062%p`
+- residual month balance also degrades quickly:
+  - top1 excluded: `11` positive vs `12` negative months
+  - top2 excluded: `11` positive vs `12` negative months
+  - top3 excluded: `9` positive vs `14` negative months
+- interpretation: the new branch is stronger on headline performance, but it is also more explicitly dependent on a compact top-winner basket than the prior strongest branch
+
 ## Interpretation
 
 - the new convex top-slice overlay is a genuine structural improvement over the prior strongest branch: CAGR and Sharpe both improved again while MDD stayed flat and turnover fell slightly
 - month-level improvement is still broad enough to stay out of the narrow-period reject bucket: `14` positive months versus `9` negative months with average monthly delta `+0.191%p`
 - weak-period quality also improved slightly instead of getting worse: average weak-period delta stayed positive and loss-month average delta turned positive
-- the main remaining caution is inherited concentration: the prior strongest branch already proved that most of the incremental alpha came from a compact US tech winner basket, so this convex branch should still be treated as an aggressive research branch rather than an operational baseline candidate
+- the main remaining caution is stronger concentration: the new convex branch improves performance, but basket-decay checks show that much of that incremental gain is even more dependent on the `NVDA/PLTR/MU` winner cluster than the prior strongest branch
 - this remains a high-CAGR research branch, not an operational baseline candidate
 
 ## Verdict
