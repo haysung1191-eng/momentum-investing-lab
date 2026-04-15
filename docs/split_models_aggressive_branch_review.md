@@ -186,6 +186,20 @@
   - top3 excluded: `9` positive vs `14` negative months
 - interpretation: the new branch is stronger on headline performance, but it is also more explicitly dependent on a compact top-winner basket than the prior strongest branch
 
+## Convex top-slice residual-edge review
+
+- removing the three biggest winner-driven contributors `NVDA`, `PLTR`, and `MU` flips the residual edge negative
+- total average monthly delta vs `rule_sector_cap2_breadth_it_us5_top2_risk_on`: `+0.191%p`
+- average monthly delta attributable to `NVDA/PLTR/MU`: `+0.254%p`
+- average residual monthly delta after excluding them: `-0.062%p`
+- residual positive months: `9`
+- residual negative months: `14`
+- leave-one-out checks are still less alarming than the basket exclusion:
+  - excluding `NVDA` leaves `+0.081%p`
+  - excluding `PLTR` leaves `+0.095%p`
+  - excluding `MU` leaves `+0.144%p`
+- interpretation: the convex branch is not a single-name illusion, but its incremental alpha is overwhelmingly tied to a narrow `NVDA/PLTR/MU` winner cluster
+
 ## Interpretation
 
 - the new convex top-slice overlay is a genuine structural improvement over the prior strongest branch: CAGR and Sharpe both improved again while MDD stayed flat and turnover fell slightly
@@ -194,7 +208,7 @@
 - the cost-sensitivity check is supportive: even under `75 bps` one-way cost, the convex branch still leads both `top2_risk_on` and plain `risk_on`
 - the walk-forward check is also supportive: convex stayed ahead of `top2_risk_on` in every non-tied rolling window and even kept a positive edge in the weak 2021-2023 slice
 - the regime check is supportive: convex retains a positive average edge in both `SPY UP` and `SPY DOWN` buckets, with only one mixed joint-regime slice slightly negative
-- the main remaining caution is stronger concentration: the new convex branch improves performance, but basket-decay checks show that much of that incremental gain is even more dependent on the `NVDA/PLTR/MU` winner cluster than the prior strongest branch
+- the main remaining caution is stronger concentration: basket-decay and residual-edge checks both show that much of the incremental gain is even more dependent on the `NVDA/PLTR/MU` winner cluster than the prior strongest branch
 - this remains a high-CAGR research branch, not an operational baseline candidate
 
 ## Verdict
