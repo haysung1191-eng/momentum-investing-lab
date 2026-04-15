@@ -92,6 +92,16 @@
   - `KOSPI DOWN` average monthly delta: `+0.139%p`
 - interpretation: the branch is pro-cyclical, but not purely regime-fragile; its edge compresses in weak markets rather than fully flipping negative on average
 
+## Residual-edge review
+
+- removing the three biggest winner-driven contributors `PLTR`, `NVDA`, and `MU` leaves only a small residual edge
+- total average monthly delta vs `rule_sector_cap2_breadth_it_us5_risk_on`: `+0.338%p`
+- average monthly delta attributable to `PLTR/NVDA/MU`: `+0.322%p`
+- average residual monthly delta after excluding them: `+0.016%p`
+- residual positive months: `12`
+- residual negative months: `11`
+- interpretation: the branch still has a small residual edge beyond the top winners, but the practical alpha is overwhelmingly tied to a narrow US tech winner cluster
+
 ## Interpretation
 
 - the top-slice risk-on overlay is a genuine new branch, not a cosmetic tweak: full-period CAGR and Sharpe both improved while MDD stayed flat
@@ -100,6 +110,7 @@
 - the cost-sensitivity check is supportive: the branch still leads this family even under much harsher one-way cost assumptions
 - the walk-forward check is also supportive: the branch kept a positive CAGR edge in every non-tied rolling window versus the prior aggressive branch
 - the regime check is supportive: most of the edge appears in up markets, but the average delta stays positive even in down-market buckets
+- the residual-edge check is cautionary: most of the incremental alpha disappears once the top three winner symbols are stripped out
 - this remains a high-CAGR research branch, not an operational baseline candidate
 
 ## Verdict

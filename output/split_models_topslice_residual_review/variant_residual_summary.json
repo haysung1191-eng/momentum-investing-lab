@@ -1,0 +1,17 @@
+{
+  "baseline_variant": "rule_sector_cap2_breadth_it_us5_risk_on",
+  "candidate_variant": "rule_sector_cap2_breadth_it_us5_top2_risk_on",
+  "excluded_symbols": [
+    "MU",
+    "NVDA",
+    "PLTR"
+  ],
+  "months_compared": 61,
+  "avg_total_delta": 0.0033789841729807047,
+  "avg_excluded_delta": 0.0032174286590536936,
+  "avg_residual_delta": 0.00016155551392701118,
+  "positive_residual_months": 12,
+  "negative_residual_months": 11,
+  "best_residual_month": "2025-11-28",
+  "worst_residual_month": "2024-10-31"
+}
