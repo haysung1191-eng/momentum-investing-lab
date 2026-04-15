@@ -30,7 +30,7 @@ Category counts:
 - `core`: `19`
 - `pipelines`: `2`
 - `dashboards`: `0`
-- `uncategorized`: `2`
+- `uncategorized`: `0`
 
 Completed so far:
 
@@ -96,14 +96,12 @@ After split-model, data-ingestion, and research tools stabilized:
 
 ## Manual Review Bucket
 
-These currently remain uncategorized and need a human placement decision before moving:
+The original manual-review bucket is now closed for the currently inventoried root files.
 
-- `config.py`
-- `main.py`
+Resolved handling:
 
-Recommended handling:
-
-- keep `config.py` and `main.py` in root for now
+- keep `config.py` in root as a core runtime settings module because many root and tools modules still import `config` directly
+- keep `main.py` in root as a core runtime entrypoint because `Dockerfile` and `Dockerfile.job` still execute `python main.py`
 - keep `dashboard.py` in root as a core web entrypoint because `Dockerfile.web` and `cloudbuild.web.yaml` still build and launch it directly
 - keep `screener.py` in root because `main.py`, `Dockerfile.kis_pipeline`, and `tools/data_ingestion/kis_data_backfill.py` depend on the root import path today
 
@@ -119,8 +117,8 @@ Before any real move:
 
 ## Next Step
 
-The next highest-value move is the remaining manual-review bucket:
+The next highest-value move is a root/core decoupling pass rather than more category moves:
 
-- treat `dashboard.py` as a root/core module until Docker/Cloud Build web entrypoints are decoupled from `streamlit run dashboard.py`
-- treat `screener.py` as a root/core module unless a later entrypoint pass rewires `main.py`, `Dockerfile.kis_pipeline`, and `tools/data_ingestion/kis_data_backfill.py`
-- keep `config.py` and `main.py` in root unless a later entrypoint pass proves otherwise
+- decouple `dashboard.py` from `Dockerfile.web` / `cloudbuild.web.yaml` if a later web entrypoint split is desired
+- decouple `main.py` and `screener.py` from Docker/runtime entrypoints if a later `app/` or `tools/` migration is desired
+- decouple broad `import config` usage if a later settings-module relocation is desired
