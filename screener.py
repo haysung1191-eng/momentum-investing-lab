@@ -1,11 +1,19 @@
 ﻿import time
 from datetime import datetime, timedelta
+from pathlib import Path
 
 import pandas as pd
 
 import config
 from kis_api import KISApi
 from live_core.kis_screener_metrics import calculate_momentum_metrics
+from live_core.kis_screener_universe import (
+    get_market_tickers_fdr,
+    get_market_tickers_from_latest_results,
+    get_market_tickers_pykrx,
+    is_valid_kr_name,
+    resolve_market_tickers,
+)
 
 
 class MomentumScreener:
@@ -14,122 +22,27 @@ class MomentumScreener:
 
     @staticmethod
     def _is_valid_name(name: str) -> bool:
-        exclude_keywords = ["스팩", "리츠", "ETF", "ETN"]
-        return not any(kw in name for kw in exclude_keywords)
+        return is_valid_kr_name(name)
 
     def _get_market_tickers_pykrx(self):
-        from pykrx import stock as pykrx_stock
-
-        tickers = []
-        base_dt = datetime.today()
-        for offset in range(10):
-            target_dt = base_dt - timedelta(days=offset)
-            target_str = target_dt.strftime("%Y%m%d")
-            candidate = []
-
-            for market in ["KOSPI", "KOSDAQ"]:
-                codes = pykrx_stock.get_market_ticker_list(target_str, market=market)
-                for code in codes:
-                    name = pykrx_stock.get_market_ticker_name(code)
-                    if self._is_valid_name(name):
-                        candidate.append((code, name))
-                time.sleep(0.3)
-
-            if candidate:
-                print(f"티커 기준일(pykrx): {target_str}")
-                tickers = candidate
-                break
-
-        return tickers
+        return get_market_tickers_pykrx(name_validator=self._is_valid_name)
 
     def _get_market_tickers_fdr(self):
-        import FinanceDataReader as fdr
-
-        df = fdr.StockListing("KRX")
-        if df is None or df.empty:
-            return []
-
-        market_col = "Market" if "Market" in df.columns else None
-        if market_col:
-            df = df[df[market_col].isin(["KOSPI", "KOSDAQ"])]
-
-        df = df[df["Symbol"].astype(str).str.fullmatch(r"\d{6}")]
-
-        result = []
-        for _, row in df.iterrows():
-            code = str(row["Symbol"])
-            name = str(row["Name"])
-            if self._is_valid_name(name):
-                result.append((code, name))
-
-        return result
+        return get_market_tickers_fdr(name_validator=self._is_valid_name)
 
     def _get_market_tickers_from_latest_results(self):
-        """Fallback: use code/name universe from latest momentum_results file."""
-        latest_df = None
-
-        if config.GCS_BUCKET_NAME:
-            try:
-                from google.cloud import storage
-
-                storage_client = storage.Client()
-                bucket = storage_client.bucket(config.GCS_BUCKET_NAME)
-                blobs = list(bucket.list_blobs(prefix="momentum_results_"))
-                if blobs:
-                    latest_blob = max(blobs, key=lambda b: b.updated)
-                    uri = f"gs://{config.GCS_BUCKET_NAME}/{latest_blob.name}"
-                    latest_df = pd.read_excel(uri)
-                    print(f"fallback 기준 파일(GCS): {latest_blob.name}")
-            except Exception as e:
-                print(f"fallback GCS 로드 실패: {e}")
-
-        if latest_df is None:
-            try:
-                import glob
-                import os
-
-                files = glob.glob(os.path.join(os.path.dirname(__file__), "momentum_results_*.xlsx"))
-                if files:
-                    latest_file = max(files, key=os.path.getmtime)
-                    latest_df = pd.read_excel(latest_file)
-                    print(f"fallback 기준 파일(local): {latest_file}")
-            except Exception as e:
-                print(f"fallback local 로드 실패: {e}")
-
-        if latest_df is None or latest_df.empty:
-            return []
-
-        required = {"Code", "Name"}
-        if not required.issubset(set(latest_df.columns)):
-            return []
-
-        latest_df = latest_df[["Code", "Name"]].dropna().drop_duplicates()
-        latest_df["Code"] = latest_df["Code"].astype(str).str.zfill(6)
-        latest_df = latest_df.sort_values("Code").reset_index(drop=True)
-        return list(latest_df.itertuples(index=False, name=None))
+        return get_market_tickers_from_latest_results(
+            config_module=config,
+            repo_root=Path(__file__).resolve().parent,
+        )
 
     def get_market_tickers(self):
         print("국내 시장 전체 티커 다운로드 중...")
-
-        tickers = []
-        try:
-            tickers = self._get_market_tickers_pykrx()
-        except Exception as e:
-            print(f"pykrx 조회 실패: {e}")
-
-        if not tickers:
-            print("pykrx 결과가 비어 FDR(KRX)로 대체 조회합니다.")
-            try:
-                tickers = self._get_market_tickers_fdr()
-            except Exception as e:
-                print(f"FDR 조회 실패: {e}")
-
-        if not tickers:
-            print("FDR도 실패하여 최신 결과 파일 기준으로 티커를 복구합니다.")
-            tickers = self._get_market_tickers_from_latest_results()
-
-        print(f"전체 종목 수: {len(tickers)}개")
-        return tickers
+        return resolve_market_tickers(
+            pykrx_loader=self._get_market_tickers_pykrx,
+            fdr_loader=self._get_market_tickers_fdr,
+            latest_loader=self._get_market_tickers_from_latest_results,
+        )
 
     def get_historical_market_tickers(self, start_yyyymmdd: str, end_yyyymmdd: str, step_days: int = 30):
         """Build stock universe from historical listing snapshots to reduce survivorship bias."""
