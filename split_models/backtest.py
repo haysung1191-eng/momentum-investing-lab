@@ -63,6 +63,7 @@ class TradingVariant:
     breadth_top_slice_bonus_exposure: float = 0.0
     breadth_bottom_slice_count: int | None = None
     breadth_bottom_slice_penalty: float = 1.0
+    breadth_bottom_slice_penalty_floor: float | None = None
     sector_risk_off_name: str | None = None
     sector_risk_off_weight_threshold: float | None = None
     sector_risk_off_exposure: float = 1.0
@@ -291,6 +292,27 @@ def _baseline_variant_map() -> dict[str, TradingVariant]:
                 breadth_top_slice_bonus_exposure=0.15,
                 breadth_bottom_slice_count=3,
                 breadth_bottom_slice_penalty=0.60,
+                sector_risk_off_name="Information Technology",
+                sector_risk_off_weight_threshold=0.55,
+                sector_risk_off_exposure=0.80,
+            ),
+            "rule_sector_cap2_breadth_it_us5_top2_convex_ranked_tail_risk_on": TradingVariant(
+                name="rule_sector_cap2_breadth_it_us5_top2_convex_ranked_tail_risk_on",
+                use_flow_filter=True,
+                use_sector_filter=True,
+                use_mad_weighting=False,
+                min_holdings=4,
+                max_positions_per_sector=2,
+                us_position_cap=5,
+                breadth_risk_off_threshold=4,
+                breadth_risk_off_exposure=0.75,
+                breadth_risk_on_min_holdings=7,
+                breadth_risk_on_exposure=1.0,
+                breadth_top_slice_count=2,
+                breadth_top_slice_bonus_exposure=0.15,
+                breadth_bottom_slice_count=3,
+                breadth_bottom_slice_penalty=0.60,
+                breadth_bottom_slice_penalty_floor=0.40,
                 sector_risk_off_name="Information Technology",
                 sector_risk_off_weight_threshold=0.55,
                 sector_risk_off_exposure=0.80,
@@ -884,9 +906,26 @@ def _build_momentum_candidates_for_date(
                 bottom_count = min(int(variant.breadth_bottom_slice_count), len(candidate_bottom))
                 bottom_index = candidate_bottom.tail(bottom_count).index
                 bottom_before = book.loc[bottom_index, "TargetWeight"].copy()
-                book.loc[bottom_index, "TargetWeight"] = (
-                    book.loc[bottom_index, "TargetWeight"] * float(variant.breadth_bottom_slice_penalty)
-                )
+                if (
+                    variant.breadth_bottom_slice_penalty_floor is not None
+                    and float(variant.breadth_bottom_slice_penalty_floor) < float(variant.breadth_bottom_slice_penalty)
+                    and bottom_count > 1
+                ):
+                    penalty_series = pd.Series(
+                        np.linspace(
+                            float(variant.breadth_bottom_slice_penalty),
+                            float(variant.breadth_bottom_slice_penalty_floor),
+                            bottom_count,
+                        ),
+                        index=bottom_index,
+                    )
+                    book.loc[bottom_index, "TargetWeight"] = (
+                        book.loc[bottom_index, "TargetWeight"] * penalty_series
+                    )
+                else:
+                    book.loc[bottom_index, "TargetWeight"] = (
+                        book.loc[bottom_index, "TargetWeight"] * float(variant.breadth_bottom_slice_penalty)
+                    )
                 released_weight = float(bottom_before.sum() - book.loc[bottom_index, "TargetWeight"].sum())
                 if released_weight > 0:
                     book.loc[top_index, "TargetWeight"] = (

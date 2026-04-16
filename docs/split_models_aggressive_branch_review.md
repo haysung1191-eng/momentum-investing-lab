@@ -3,8 +3,8 @@
 ## Scope
 
 - branch family: sector-constrained aggressive research variants
-- retired comparison branches: `rule_sector_cap2_breadth_risk_off`, `rule_sector_cap2_breadth_it_risk_off`, `rule_sector_cap2_breadth_it_us5_cap`, `rule_sector_cap2_breadth_it_us5_top2_risk_on`
-- surviving branch: `rule_sector_cap2_breadth_it_us5_top2_convex_risk_on`
+- retired comparison branches: `rule_sector_cap2_breadth_risk_off`, `rule_sector_cap2_breadth_it_risk_off`, `rule_sector_cap2_breadth_it_us5_cap`, `rule_sector_cap2_breadth_it_us5_top2_risk_on`, `rule_sector_cap2_breadth_it_us5_top2_convex_risk_on`
+- surviving branch: `rule_sector_cap2_breadth_it_us5_top2_convex_ranked_tail_risk_on`
 
 ## Full-period comparison
 
@@ -28,6 +28,70 @@
   - MDD: `-29.27%`
   - Sharpe: `1.6612`
   - Annual turnover: `14.88`
+- `rule_sector_cap2_breadth_it_us5_top2_convex_ranked_tail_risk_on`
+  - CAGR: `51.27%`
+  - MDD: `-29.27%`
+  - Sharpe: `1.6691`
+  - Annual turnover: `14.96`
+
+## Ranked-tail sensitivity review
+
+- tail-penalty floor sweep is monotonic rather than brittle
+- `floor=0.50`
+  - CAGR: `50.46%`
+  - Sharpe: `1.6654`
+  - Annual turnover: `14.92`
+- `floor=0.45`
+  - CAGR: `50.87%`
+  - Sharpe: `1.6673`
+  - Annual turnover: `14.94`
+- `floor=0.40`
+  - CAGR: `51.27%`
+  - Sharpe: `1.6691`
+  - Annual turnover: `14.96`
+- interpretation: pushing more penalty onto the weakest tail names improves the branch smoothly instead of exposing an unstable local optimum
+
+## Ranked-tail walk-forward review
+
+- 24-month / 12-month-step walk-forward windows compared: `4`
+- `rule_sector_cap2_breadth_it_us5_top2_convex_ranked_tail_risk_on` beat `rule_sector_cap2_breadth_it_us5_top2_convex_risk_on` on CAGR in `3` windows and lost in `0`
+- average walk-forward CAGR delta vs `rule_sector_cap2_breadth_it_us5_top2_convex_risk_on`: `+1.61%p`
+- average walk-forward Sharpe delta: `+0.0050`
+- latest window `2023-08-31 -> 2026-01-30` still improved CAGR by `+3.52%p`, though Sharpe slipped `-0.0119`
+- interpretation: the ranked-tail branch is not a single-period artifact, but the latest window still shows the usual trade-off between stronger CAGR and slightly noisier return quality
+
+## Ranked-tail cost sensitivity review
+
+- even at `75 bps` one-way cost, `rule_sector_cap2_breadth_it_us5_top2_convex_ranked_tail_risk_on` remains ahead of `rule_sector_cap2_breadth_it_us5_top2_convex_risk_on`
+- `rule_sector_cap2_breadth_it_us5_top2_convex_ranked_tail_risk_on`
+  - CAGR at `75 bps`: `39.71%`
+  - Sharpe at `75 bps`: `1.3758`
+- `rule_sector_cap2_breadth_it_us5_top2_convex_risk_on`
+  - CAGR at `75 bps`: `38.26%`
+  - Sharpe at `75 bps`: `1.3626`
+- interpretation: the new edge survives harsher execution assumptions and is not just a low-friction backtest artifact
+
+## Ranked-tail concentration review
+
+- versus `rule_sector_cap2_breadth_it_us5_top2_convex_risk_on`:
+  - positive months: `15`
+  - negative months: `5`
+  - average monthly delta: `+0.128%p`
+  - top 1 positive month share: `23.06%`
+  - top 3 positive month share: `45.13%`
+  - top 1 positive symbol share: `27.14%`
+  - top 3 positive symbol share: `73.35%`
+  - top symbol driving the edge: `PLTR`
+- interpretation: the new branch still draws on a compact winner basket, but it is not a single-month artifact and its incremental symbol concentration is not obviously worse than the prior convex branch
+
+## Ranked-tail regime review
+
+- the ranked-tail branch keeps a positive average delta in every regime bucket versus `rule_sector_cap2_breadth_it_us5_top2_convex_risk_on`
+- `SPY UP` average monthly delta: `+0.166%p`
+- `SPY DOWN` average monthly delta: `+0.042%p`
+- `KOSPI UP` average monthly delta: `+0.203%p`
+- `KOSPI DOWN` average monthly delta: `+0.045%p`
+- interpretation: this remains a pro-cyclical branch, but its edge does not disappear in down buckets
 
 ## Delta review
 
@@ -210,9 +274,12 @@
 - the regime check is supportive: convex retains a positive average edge in both `SPY UP` and `SPY DOWN` buckets, with only one mixed joint-regime slice slightly negative
 - the main remaining caution is stronger concentration: basket-decay and residual-edge checks both show that much of the incremental gain is even more dependent on the `NVDA/PLTR/MU` winner cluster than the prior strongest branch
 - this remains a high-CAGR research branch, not an operational baseline candidate
+- the new ranked-tail branch improves the convex source logic without changing the winner-harvesting target itself: it takes more weight from the weakest tail names, keeps the same top-two winners, and improves both CAGR and Sharpe while leaving MDD flat
+- sensitivity, walk-forward, cost, and regime checks are all supportive enough to treat it as a genuine improvement over the prior convex branch, even though concentration remains a live caution
 
 ## Verdict
 
 - retire `rule_sector_cap2_breadth_risk_off`, `rule_sector_cap2_breadth_it_risk_off`, `rule_sector_cap2_breadth_it_us5_cap`, and `rule_sector_cap2_breadth_it_us5_top2_risk_on` from active aggressive research focus
-- keep `rule_sector_cap2_breadth_it_us5_top2_convex_risk_on` as the single aggressive strong branch
+- retire `rule_sector_cap2_breadth_it_us5_top2_convex_risk_on` from active aggressive research focus
+- keep `rule_sector_cap2_breadth_it_us5_top2_convex_ranked_tail_risk_on` as the single aggressive strong branch
 - keep operational baseline separate as `rule_breadth_it_us5_cap`

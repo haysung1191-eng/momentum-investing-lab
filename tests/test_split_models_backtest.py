@@ -1173,3 +1173,103 @@ def test_build_momentum_candidates_convex_top_slice_penalizes_tail() -> None:
     assert convex_weights["US0"] > top2_weights["US0"]
     assert convex_weights["US1"] > top2_weights["US1"]
     assert convex_weights["KR0"] < top2_weights["KR0"]
+
+
+def test_build_momentum_candidates_convex_tail_can_penalize_worst_more() -> None:
+    metrics = pd.DataFrame(
+        [
+            {
+                "Market": "US",
+                "AssetType": "STOCK",
+                "Symbol": f"US{i}",
+                "Name": f"US{i}",
+                "Sector": "Information Technology" if i < 2 else ("Industrials" if i < 4 else "Health Care"),
+                "AssetKey": f"US:STOCK:US{i}",
+                "MedianDailyValue60D": 50_000_000.0,
+                "CurrentPrice": 100.0,
+                "TrendOK": 1,
+                "MomentumScore": 0.35 - i * 0.02,
+                "FlowScore": 0.25 - i * 0.01,
+                "RelVolume20D60D": 1.1,
+                "R1M": 0.10,
+            }
+            for i in range(5)
+        ]
+        + [
+            {
+                "Market": "KR",
+                "AssetType": "ETF",
+                "Symbol": f"KR{i}",
+                "Name": f"KR{i}",
+                "Sector": "ETF",
+                "AssetKey": f"KR:ETF:KR{i}",
+                "MedianDailyValue60D": 50_000_000_000.0,
+                "CurrentPrice": 100.0,
+                "TrendOK": 1,
+                "MomentumScore": 0.18 - i * 0.01,
+                "FlowScore": 0.08 - i * 0.01,
+                "RelVolume20D60D": 1.1,
+                "R1M": 0.05,
+            }
+            for i in range(3)
+        ]
+    )
+    flow_snapshot = pd.DataFrame(
+        [
+            {"ScopeType": "COUNTRY", "Market": "GLOBAL", "Label": "US", "Rank": 1, "AsOfDate": "2026-03-31"},
+            {"ScopeType": "COUNTRY", "Market": "GLOBAL", "Label": "Korea", "Rank": 2, "AsOfDate": "2026-03-31"},
+            {"ScopeType": "SECTOR", "Market": "US", "Label": "Information Technology", "Rank": 1, "AsOfDate": "2026-03-31"},
+            {"ScopeType": "SECTOR", "Market": "US", "Label": "Industrials", "Rank": 2, "AsOfDate": "2026-03-31"},
+            {"ScopeType": "SECTOR", "Market": "US", "Label": "Health Care", "Rank": 3, "AsOfDate": "2026-03-31"},
+            {"ScopeType": "SECTOR", "Market": "KR", "Label": "ETF", "Rank": 1, "AsOfDate": "2026-03-31"},
+        ]
+    )
+
+    flat_tail_book = _build_momentum_candidates_for_date(
+        metrics,
+        flow_snapshot,
+        BacktestConfig(),
+        variant=TradingVariant(
+            name="top2_convex_flat_tail",
+            use_flow_filter=True,
+            use_sector_filter=True,
+            use_mad_weighting=False,
+            min_holdings=4,
+            max_positions_per_sector=2,
+            us_position_cap=5,
+            breadth_risk_on_min_holdings=7,
+            breadth_risk_on_exposure=1.0,
+            breadth_top_slice_count=2,
+            breadth_top_slice_bonus_exposure=0.15,
+            breadth_bottom_slice_count=3,
+            breadth_bottom_slice_penalty=0.60,
+        ),
+    )
+    ranked_tail_book = _build_momentum_candidates_for_date(
+        metrics,
+        flow_snapshot,
+        BacktestConfig(),
+        variant=TradingVariant(
+            name="top2_convex_ranked_tail",
+            use_flow_filter=True,
+            use_sector_filter=True,
+            use_mad_weighting=False,
+            min_holdings=4,
+            max_positions_per_sector=2,
+            us_position_cap=5,
+            breadth_risk_on_min_holdings=7,
+            breadth_risk_on_exposure=1.0,
+            breadth_top_slice_count=2,
+            breadth_top_slice_bonus_exposure=0.15,
+            breadth_bottom_slice_count=3,
+            breadth_bottom_slice_penalty=0.60,
+            breadth_bottom_slice_penalty_floor=0.45,
+        ),
+    )
+
+    flat_tail_weights = dict(zip(flat_tail_book["Symbol"], flat_tail_book["TargetWeight"], strict=False))
+    ranked_tail_weights = dict(zip(ranked_tail_book["Symbol"], ranked_tail_book["TargetWeight"], strict=False))
+
+    assert round(float(ranked_tail_book["TargetWeight"].sum()), 8) == 1.15
+    assert ranked_tail_weights["KR1"] < flat_tail_weights["KR1"]
+    assert ranked_tail_weights["US0"] > flat_tail_weights["US0"]
