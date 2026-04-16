@@ -511,6 +511,7 @@
 - the `count=5 / floor=0.40` step improves that trade-off: it still concentrates in the same winner basket, but the incremental gain no longer turns residual edge clearly negative after removing `PLTR/NVDA/MU`, which makes it a stronger compromise between source efficiency and fragility than `count4 / floor35`
 - the `count=5 / penalty=0.55 / floor=0.35` step improves the same source logic one level further: it keeps the broader tail source, relaxes the top-end tail cut slightly, improves CAGR and Sharpe again, and preserves a small positive residual edge after excluding `PLTR/NVDA/MU`
 - the `count=5 / penalty=0.50 / floor=0.30` step improves headline strength one level further again: it relaxes the source cut slightly more, improves CAGR / Sharpe / walk-forward / cost together, but does not materially reduce winner-basket fragility relative to `count5 / pen55 / floor35`
+- the `count=7 / penalty=0.40 / floor=0.20` step pushes the same source logic one level deeper again: it broadens the ranked-tail source materially, improves headline CAGR and benchmark-relative robustness again, and keeps residual edge positive without changing the mixed-universe interpretation
 
 ## Verdict
 
@@ -520,5 +521,6 @@
 - retire `rule_sector_cap2_breadth_it_us5_top2_convex_ranked_tail_count4_floor35_risk_on` from active aggressive research focus
 - retire `rule_sector_cap2_breadth_it_us5_top2_convex_ranked_tail_count5_floor40_risk_on` from active aggressive research focus
 - retire `rule_sector_cap2_breadth_it_us5_top2_convex_ranked_tail_count5_pen55_floor35_risk_on` from active aggressive research focus
-- keep `rule_sector_cap2_breadth_it_us5_top2_convex_ranked_tail_count5_pen50_floor30_risk_on` as the single aggressive strong branch
+- retire `rule_sector_cap2_breadth_it_us5_top2_convex_ranked_tail_count5_pen50_floor30_risk_on` from active aggressive research focus
+- keep `rule_sector_cap2_breadth_it_us5_top2_convex_ranked_tail_count7_pen40_floor20_risk_on` as the single aggressive strong branch
 - keep operational baseline separate as `rule_breadth_it_us5_cap`
