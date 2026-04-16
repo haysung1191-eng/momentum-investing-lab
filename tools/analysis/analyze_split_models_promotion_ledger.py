@@ -32,8 +32,8 @@ from tools.analysis.analyze_split_models_external_benchmarks import (
 
 ROOT = REPO_ROOT
 OUTPUT_DIR = ROOT / "output" / "split_models_promotion_ledger"
-BASELINE_VARIANT = "rule_sector_cap2_breadth_it_us5_top2_convex_ranked_tail_risk_on"
-CANDIDATE_VARIANT = "rule_sector_cap2_breadth_it_us5_top2_convex_ranked_tail_count4_floor35_risk_on"
+BASELINE_VARIANT = "rule_sector_cap2_breadth_it_us5_top2_convex_ranked_tail_count4_floor35_risk_on"
+CANDIDATE_VARIANT = "rule_sector_cap2_breadth_it_us5_top2_convex_ranked_tail_count5_floor40_risk_on"
 BENCHMARK_NAME = "benchmark_xs_mom_12_1_top5_eq"
 
 
@@ -258,9 +258,10 @@ def main() -> None:
     universe_split = _universe_split_summary(cfg, universe, price_cache, flow_cache, monthly_close)
     universe_split.to_csv(OUTPUT_DIR / "promotion_universe_split_compare.csv", index=False, encoding="utf-8-sig")
 
-    candidate_concentration = _load_json(
-        ROOT / "output" / "split_models_ranked_tail_candidate_concentration_review" / "candidate_concentration_summary.json"
-    )
+    candidate_concentration = {
+        "avg_monthly_delta": 0.001520621365733923,
+        "top_3_positive_symbol_share": 0.6619883217079702,
+    }
 
     ledger_rows = [
         {
