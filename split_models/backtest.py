@@ -359,6 +359,27 @@ def _baseline_variant_map() -> dict[str, TradingVariant]:
                 sector_risk_off_weight_threshold=0.55,
                 sector_risk_off_exposure=0.80,
             ),
+            "rule_sector_cap2_breadth_it_us5_top2_convex_ranked_tail_count5_pen55_floor35_risk_on": TradingVariant(
+                name="rule_sector_cap2_breadth_it_us5_top2_convex_ranked_tail_count5_pen55_floor35_risk_on",
+                use_flow_filter=True,
+                use_sector_filter=True,
+                use_mad_weighting=False,
+                min_holdings=4,
+                max_positions_per_sector=2,
+                us_position_cap=5,
+                breadth_risk_off_threshold=4,
+                breadth_risk_off_exposure=0.75,
+                breadth_risk_on_min_holdings=7,
+                breadth_risk_on_exposure=1.0,
+                breadth_top_slice_count=2,
+                breadth_top_slice_bonus_exposure=0.15,
+                breadth_bottom_slice_count=5,
+                breadth_bottom_slice_penalty=0.55,
+                breadth_bottom_slice_penalty_floor=0.35,
+                sector_risk_off_name="Information Technology",
+                sector_risk_off_weight_threshold=0.55,
+                sector_risk_off_exposure=0.80,
+            ),
         }
     )
     return variants
