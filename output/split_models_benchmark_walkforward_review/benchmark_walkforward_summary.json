@@ -12,14 +12,14 @@
     "worst_cagr_delta_window": "2022-07-29 -> 2024-11-29"
   },
   "aggressive_vs_full_xs_mom": {
-    "model": "rule_sector_cap2_breadth_it_us5_top2_convex_ranked_tail_count5_pen50_floor30_risk_on",
+    "model": "rule_sector_cap2_breadth_it_us5_top2_convex_ranked_tail_count7_pen40_floor20_risk_on",
     "benchmark": "benchmark_xs_mom_12_1_top5_eq",
     "windows_compared": 4,
     "positive_cagr_windows": 3,
     "negative_cagr_windows": 1,
-    "avg_cagr_delta": 0.10526005811286732,
-    "avg_sharpe_delta": 0.8053898540659209,
-    "avg_mdd_delta": 0.1021825860414956,
+    "avg_cagr_delta": 0.13125924024090307,
+    "avg_sharpe_delta": 0.8064580943959447,
+    "avg_mdd_delta": 0.09992661202047656,
     "best_cagr_delta_window": "2022-07-29 -> 2024-11-29",
     "worst_cagr_delta_window": "2023-08-31 -> 2026-01-30"
   }
