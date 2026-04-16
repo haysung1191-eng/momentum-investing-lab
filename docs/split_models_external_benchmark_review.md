@@ -159,6 +159,28 @@
 - positive CAGR cost points: `5`
 - negative CAGR cost points: `0`
 
+## Benchmark Start-Date Shift Review
+
+### Aggressive strongest vs `12-1 full-universe top5 momentum`
+
+- start shifts tested: `5`
+- positive CAGR shifts: `3`
+- negative CAGR shifts: `2`
+- positive Sharpe shifts: `5`
+- negative Sharpe shifts: `0`
+- average start-shift CAGR delta: `-1.91%p`
+- average start-shift Sharpe delta: `+0.9159`
+- tested start dates:
+  - `2020-01-31`: CAGR delta `+2.18%p`, Sharpe delta `+0.8732`
+  - `2020-08-31`: CAGR delta `+6.32%p`, Sharpe delta `+0.9320`
+  - `2021-04-30`: CAGR delta `+1.38%p`, Sharpe delta `+0.8648`
+  - `2021-11-30`: CAGR delta `-9.98%p`, Sharpe delta `+0.7506`
+  - `2022-07-29`: CAGR delta `-9.46%p`, Sharpe delta `+1.1590`
+- interpretation:
+  - benchmark-relative Sharpe superiority is stable even when the start date moves forward
+  - benchmark-relative CAGR superiority is **not** stable in the shorter late-start windows
+  - this makes the branch easier to defend as a quality-strong aggressive model than as a uniformly dominant CAGR winner versus hard top-5 momentum
+
 ## Interpretation
 
 - both current live baseline and current strongest aggressive branch still beat passive and simple timing benchmarks on both CAGR and Sharpe over the same `61`-month window
@@ -168,6 +190,7 @@
 - the aggressive strongest branch also beats the simpler US-stock-only top-5 momentum benchmark on CAGR, Sharpe, and average monthly delta
 - benchmark-relative walk-forward also improved: the new strongest branch keeps `3` positive CAGR windows and lifts average walk-forward CAGR delta to `+3.38%p`
 - benchmark-relative cost robustness also improved: at `75 bps` one-way cost the new strongest branch still beats full-universe top5 momentum on CAGR and Sharpe, with no negative CAGR cost points across the tested grid
+- benchmark-relative start-date-shift is more nuanced: early and mid starts still favor the branch on CAGR, but later starts flip the CAGR comparison while Sharpe remains decisively positive
 - this benchmark chapter is now materially stronger: the surviving models are no longer only beating passive baselines, they are also competing against simple literature-like momentum rules
 
 ## Verdict
