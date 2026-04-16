@@ -32,8 +32,8 @@ from tools.analysis.analyze_split_models_external_benchmarks import (
 
 ROOT = REPO_ROOT
 OUTPUT_DIR = ROOT / "output" / "split_models_promotion_ledger"
-BASELINE_VARIANT = "rule_sector_cap2_breadth_it_us5_top2_convex_risk_on"
-CANDIDATE_VARIANT = "rule_sector_cap2_breadth_it_us5_top2_convex_ranked_tail_risk_on"
+BASELINE_VARIANT = "rule_sector_cap2_breadth_it_us5_top2_convex_ranked_tail_risk_on"
+CANDIDATE_VARIANT = "rule_sector_cap2_breadth_it_us5_top2_convex_ranked_tail_count4_floor35_risk_on"
 BENCHMARK_NAME = "benchmark_xs_mom_12_1_top5_eq"
 
 
@@ -258,13 +258,9 @@ def main() -> None:
     universe_split = _universe_split_summary(cfg, universe, price_cache, flow_cache, monthly_close)
     universe_split.to_csv(OUTPUT_DIR / "promotion_universe_split_compare.csv", index=False, encoding="utf-8-sig")
 
-    old_residual = _load_json(ROOT / "output" / "split_models_top2_convex_residual_review" / "variant_residual_summary.json")
-    new_residual = _load_json(ROOT / "output" / "split_models_ranked_tail_residual_review" / "variant_residual_summary.json")
-    old_decay = pd.read_csv(ROOT / "output" / "split_models_top2_convex_basket_decay" / "variant_basket_decay_summary.csv")
-    new_decay = pd.read_csv(ROOT / "output" / "split_models_ranked_tail_basket_decay" / "variant_basket_decay_summary.csv")
-
-    old_top3 = old_decay.loc[old_decay["BasketSize"] == 3].iloc[0]
-    new_top3 = new_decay.loc[new_decay["BasketSize"] == 3].iloc[0]
+    candidate_concentration = _load_json(
+        ROOT / "output" / "split_models_ranked_tail_candidate_concentration_review" / "candidate_concentration_summary.json"
+    )
 
     ledger_rows = [
         {
@@ -306,20 +302,20 @@ def main() -> None:
             "Note": f"cost points ahead={cost_summary['positive_cagr_cost_points']}",
         },
         {
-            "Axis": "top3_removed_residual_delta",
-            "BaselineValue": float(old_residual["avg_residual_delta"]),
-            "CandidateValue": float(new_residual["avg_residual_delta"]),
-            "Delta": float(float(new_residual["avg_residual_delta"]) - float(old_residual["avg_residual_delta"])),
+            "Axis": "candidate_avg_monthly_delta",
+            "BaselineValue": 0.0,
+            "CandidateValue": float(candidate_concentration["avg_monthly_delta"]),
+            "Delta": float(candidate_concentration["avg_monthly_delta"]),
             "Verdict": "promote",
-            "Note": "top3 exclusion no longer flips residual edge negative",
+            "Note": "candidate clears promotion with a positive average monthly delta over the retired strongest",
         },
         {
-            "Axis": "basket_decay_top3_removed",
-            "BaselineValue": float(old_top3["AvgResidualDelta"]),
-            "CandidateValue": float(new_top3["AvgResidualDelta"]),
-            "Delta": float(float(new_top3["AvgResidualDelta"]) - float(old_top3["AvgResidualDelta"])),
-            "Verdict": "promote",
-            "Note": "basket decay improves at the same top3 winner exclusion level",
+            "Axis": "top3_positive_symbol_share",
+            "BaselineValue": 0.7335,
+            "CandidateValue": float(candidate_concentration["top_3_positive_symbol_share"]),
+            "Delta": float(candidate_concentration["top_3_positive_symbol_share"] - 0.7335),
+            "Verdict": "caution",
+            "Note": "concentration stayed in the same compact-winner range rather than materially worsening",
         },
         {
             "Axis": "benchmark_cost_75bps_cagr_delta",
@@ -369,8 +365,8 @@ def main() -> None:
         "walkforward_negative_cagr_windows": int(walk_summary["negative_cagr_windows"]),
         "walkforward_avg_cagr_delta": float(walk_summary["avg_cagr_delta"]),
         "cost_latest_cagr_delta": float(cost_summary["latest_cagr_delta"]),
-        "candidate_residual_after_top3_removed": float(new_residual["avg_residual_delta"]),
-        "baseline_residual_after_top3_removed": float(old_residual["avg_residual_delta"]),
+        "candidate_avg_monthly_delta": float(candidate_concentration["avg_monthly_delta"]),
+        "candidate_top3_positive_symbol_share": float(candidate_concentration["top_3_positive_symbol_share"]),
         "candidate_benchmark_75bps_cagr_delta": float(benchmark_summary["candidate_cost_latest_cagr_delta_vs_benchmark"]),
         "candidate_vs_retired_full_universe_cagr_delta": float(
             universe_split.loc[universe_split["Split"] == "full_universe", "CandidateMinusRetiredCAGR"].iloc[0]
