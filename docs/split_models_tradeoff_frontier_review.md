@@ -7,6 +7,7 @@
   - `rule_sector_cap2_breadth_it_us5_top2_convex_ranked_tail_count6_pen35_floor20_bonus18_pow05_risk_on`
 - challenger set:
   - `hybrid_top2_plus_third00125`
+  - `bonus_schedule_first55_second45`
   - `top2_split_49_51`
   - `alt_family_top3_flat_bonus18`
 
@@ -32,6 +33,14 @@
   - walk-forward: `2` positive CAGR windows, `2` negative
   - `75 bps` CAGR delta vs strongest: `-0.04%p`
   - top 3 positive symbol share: `39.00%`
+- `bonus_schedule_first55_second45`
+  - CAGR: `63.58%`
+  - MDD: `-29.33%`
+  - Sharpe: `1.6902`
+  - Annual turnover: `15.34`
+  - walk-forward: `2` positive CAGR windows, `2` negative
+  - `75 bps` CAGR delta vs strongest: `+0.37%p`
+  - top 3 positive symbol share: `57.68%`
 - `top2_split_49_51`
   - CAGR: `62.84%`
   - MDD: `-29.25%`
@@ -51,14 +60,18 @@
 
 ## Interpretation
 
-- the current strongest is still the clear `stronger` point on the frontier
-  - best CAGR in the reviewed set
-  - no challenger cleared the full-period plus walk-forward plus cost promotion stack
+- the current strongest is still the clear `promotion-grade stronger` point on the frontier
+  - it is no longer the best raw-CAGR point once the `55/45` bonus near-miss is included
+  - but it is still the strongest candidate that clears the broader promotion-defense stack
 - `hybrid_top2_plus_third00125` is the best `broader` near-miss
   - Sharpe is still slightly better than the strongest
   - drawdown is effectively tied to slightly better than the strongest
   - concentration is much lower than the strongest
   - CAGR loss is now only `0.04%p`, but the walk-forward result still degrades to `2-2`
+- `bonus_schedule_first55_second45` is the best `stronger-like` near-miss
+  - full-period CAGR, Sharpe, and `75 bps` cost all improve versus the strongest
+  - but walk-forward still stays `2-2`
+  - drawdown also gets slightly worse, so it does not clear the promotion stack
 - `top2_split_49_51` is weaker than the hybrid challenger
   - it reduces concentration versus the strongest
   - but it does not preserve CAGR or walk-forward quality as well as the hybrid branch
@@ -70,5 +83,6 @@
 
 - keep `rule_sector_cap2_breadth_it_us5_top2_convex_ranked_tail_count6_pen35_floor20_bonus18_pow05_risk_on` as the single aggressive strong branch
 - treat `hybrid_top2_plus_third00125` as the current best `broader-but-weaker` challenger
+- treat `bonus_schedule_first55_second45` as the current best `stronger-like but not promotion-grade` challenger
 - treat `top2_split_49_51` as an inferior micro-adjustment candidate
 - treat `alt_family_top3_flat_bonus18` as a useful boundary check rather than a live promotion candidate

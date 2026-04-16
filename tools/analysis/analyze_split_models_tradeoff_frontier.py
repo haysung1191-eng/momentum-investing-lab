@@ -125,6 +125,27 @@ def _patch_top2_split(first_share: float, second_share: float) -> Callable[[pd.D
     return patch
 
 
+def _patch_bonus_schedule(first_share: float, second_share: float, bonus_total: float = 0.18) -> Callable[[pd.DataFrame], pd.DataFrame]:
+    def patch(book: pd.DataFrame) -> pd.DataFrame:
+        if book.empty or len(book) < 2:
+            return book
+        out = book.copy()
+        original_total = float(pd.to_numeric(out["TargetWeight"], errors="coerce").fillna(0.0).sum())
+        ranked = out.sort_values(["MomentumScore", "FlowScore", "Symbol"], ascending=[False, False, True])
+        top_index = ranked.head(2).index.tolist()
+        equal_piece = float(bonus_total) / 2.0
+        for idx in top_index:
+            out.loc[idx, "TargetWeight"] = float(out.loc[idx, "TargetWeight"]) - equal_piece
+        out.loc[top_index[0], "TargetWeight"] = float(out.loc[top_index[0], "TargetWeight"]) + float(bonus_total) * float(first_share)
+        out.loc[top_index[1], "TargetWeight"] = float(out.loc[top_index[1], "TargetWeight"]) + float(bonus_total) * float(second_share)
+        new_total = float(pd.to_numeric(out["TargetWeight"], errors="coerce").fillna(0.0).sum())
+        if new_total > 0:
+            out["TargetWeight"] = pd.to_numeric(out["TargetWeight"], errors="coerce").fillna(0.0) * (original_total / new_total)
+        return out
+
+    return patch
+
+
 def _summarize_candidate(
     name: str,
     result: dict[str, pd.DataFrame],
@@ -258,6 +279,7 @@ def main() -> None:
     candidates: list[tuple[TradingVariant, Callable[[pd.DataFrame], pd.DataFrame] | None]] = [
         (strongest, None),
         (replace(strongest, name="hybrid_top2_plus_third00125"), _patch_hybrid_top2_plus_third(0.00125)),
+        (replace(strongest, name="bonus_schedule_first55_second45"), _patch_bonus_schedule(0.55, 0.45)),
         (replace(strongest, name="top2_split_49_51"), _patch_top2_split(0.49, 0.51)),
         (
             replace(

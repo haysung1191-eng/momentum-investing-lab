@@ -51,8 +51,19 @@
 - strongest `75 bps` CAGR delta vs benchmark: `+11.49%p`
 - strongest start-date shift record: `5` positive CAGR windows, `0` negative
 
+## Bonus Near-Miss
+
+- variant: `bonus_schedule_first55_second45`
+- CAGR: `63.58%`
+- MDD: `-29.33%`
+- Sharpe: `1.6902`
+- `75 bps` cost CAGR delta vs strongest: `+0.37%p`
+- walk-forward: `2` positive CAGR windows, `2` negative
+- verdict: `headline-strong but still below promotion grade because walk-forward stays mixed and drawdown is slightly worse`
+
 ## Nightly verdict
 
 - keep the current strongest as the mainline aggressive branch
 - do not promote the broader challenger yet
+- do not promote the bonus near-miss yet either
 - if more overnight work is run, prefer broader-challenger exploration over disturbing the strongest baseline again

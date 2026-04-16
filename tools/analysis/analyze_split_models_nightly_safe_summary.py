@@ -49,6 +49,15 @@ SUMMARY = {
         "promote_broader_challenger": False,
         "reason": "strongest remains the stronger branch; broader challenger is close but still weaker on CAGR and promotion robustness",
     },
+    "bonus_near_miss": {
+        "variant": "bonus_schedule_first55_second45",
+        "cagr": "63.58%",
+        "mdd": "-29.33%",
+        "sharpe": "1.6902",
+        "cost_75bps_cagr_delta_vs_strongest": "+0.37%p",
+        "walkforward": "2 positive / 2 negative",
+        "verdict": "headline-strong but still below promotion grade because walk-forward stays mixed and drawdown is slightly worse",
+    },
 }
 
 
@@ -59,6 +68,7 @@ def _build_markdown(summary: dict) -> str:
     broader_metrics = summary["broader_challenger_metrics"]
     broader_delta = summary["broader_challenger_delta_vs_strongest"]
     benchmark = summary["benchmark_check"]
+    bonus_near_miss = summary["bonus_near_miss"]
 
     return "\n".join(
         [
@@ -100,6 +110,16 @@ def _build_markdown(summary: dict) -> str:
             f"- benchmark: `{benchmark['benchmark']}`",
             f"- strongest `75 bps` CAGR delta vs benchmark: `{benchmark['strongest_cost_75bps_cagr_delta']}`",
             f"- strongest start-date shift record: `{benchmark['start_shift_cagr_record']}`",
+            "",
+            "## Bonus Near-Miss",
+            "",
+            f"- variant: `{bonus_near_miss['variant']}`",
+            f"- CAGR: `{bonus_near_miss['cagr']}`",
+            f"- MDD: `{bonus_near_miss['mdd']}`",
+            f"- Sharpe: `{bonus_near_miss['sharpe']}`",
+            f"- `75 bps` cost CAGR delta vs strongest: `{bonus_near_miss['cost_75bps_cagr_delta_vs_strongest']}`",
+            f"- walk-forward: `{bonus_near_miss['walkforward']}`",
+            f"- verdict: `{bonus_near_miss['verdict']}`",
             "",
             "## Nightly verdict",
             "",

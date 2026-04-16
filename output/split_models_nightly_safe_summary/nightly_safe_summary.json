@@ -33,5 +33,14 @@
     "keep_strongest": true,
     "promote_broader_challenger": false,
     "reason": "strongest remains the stronger branch; broader challenger is close but still weaker on CAGR and promotion robustness"
+  },
+  "bonus_near_miss": {
+    "variant": "bonus_schedule_first55_second45",
+    "cagr": "63.58%",
+    "mdd": "-29.33%",
+    "sharpe": "1.6902",
+    "cost_75bps_cagr_delta_vs_strongest": "+0.37%p",
+    "walkforward": "2 positive / 2 negative",
+    "verdict": "headline-strong but still below promotion grade because walk-forward stays mixed and drawdown is slightly worse"
   }
 }
