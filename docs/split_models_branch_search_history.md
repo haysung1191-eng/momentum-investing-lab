@@ -80,9 +80,14 @@
    - improved the convex source by penalizing the weakest tail names more than the rest of the tail
    - promoted over `top2_convex_risk_on`
 
+9. `rule_sector_cap2_breadth_it_us5_top2_convex_ranked_tail_count4_floor35_risk_on`
+   - deepened the ranked-tail source one level further
+   - widened the bottom slice to `count=4` and lowered the penalty floor to `0.35`
+   - promoted over `top2_convex_ranked_tail_risk_on`
+
 ### Aggressive branch verdict
 
-- surviving aggressive strong branch: `rule_sector_cap2_breadth_it_us5_top2_convex_ranked_tail_risk_on`
+- surviving aggressive strong branch: `rule_sector_cap2_breadth_it_us5_top2_convex_ranked_tail_count4_floor35_risk_on`
 - retired aggressive branches:
   - `rule_sector_cap2`
   - `rule_sector_cap2_breadth_risk_off`
@@ -91,6 +96,7 @@
   - `rule_sector_cap2_breadth_it_us5_risk_on`
   - `rule_sector_cap2_breadth_it_us5_top2_risk_on`
   - `rule_sector_cap2_breadth_it_us5_top2_convex_risk_on`
+  - `rule_sector_cap2_breadth_it_us5_top2_convex_ranked_tail_risk_on`
 
 ## Killed exploratory branches
 
