@@ -102,9 +102,17 @@ BRANCH_ROWS = [
         "Branch": "rule_sector_cap2_breadth_it_us5_top2_convex_risk_on",
         "Track": "aggressive",
         "Stage": "mainline",
+        "Outcome": "retired",
+        "OutcomeReason": "superseded_by_ranked_tail_source_improvement",
+        "StructuralType": "top2_convex_risk_on",
+    },
+    {
+        "Branch": "rule_sector_cap2_breadth_it_us5_top2_convex_ranked_tail_risk_on",
+        "Track": "aggressive",
+        "Stage": "mainline",
         "Outcome": "survivor",
         "OutcomeReason": "current_aggressive_strong_branch",
-        "StructuralType": "top2_convex_risk_on",
+        "StructuralType": "top2_convex_ranked_tail_risk_on",
     },
     {
         "Branch": "rule_sector_cap2_us5_cap",
