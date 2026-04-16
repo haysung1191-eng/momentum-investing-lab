@@ -4,7 +4,7 @@
 
 - branch family: sector-constrained aggressive research variants
 - retired comparison branches: `rule_sector_cap2_breadth_risk_off`, `rule_sector_cap2_breadth_it_risk_off`, `rule_sector_cap2_breadth_it_us5_cap`, `rule_sector_cap2_breadth_it_us5_top2_risk_on`, `rule_sector_cap2_breadth_it_us5_top2_convex_risk_on`, `rule_sector_cap2_breadth_it_us5_top2_convex_ranked_tail_risk_on`
-- surviving branch: `rule_sector_cap2_breadth_it_us5_top2_convex_ranked_tail_count4_floor35_risk_on`
+- surviving branch: `rule_sector_cap2_breadth_it_us5_top2_convex_ranked_tail_count5_floor40_risk_on`
 
 ## Full-period comparison
 
@@ -38,6 +38,11 @@
   - MDD: `-29.27%`
   - Sharpe: `1.6829`
   - Annual turnover: `15.02`
+- `rule_sector_cap2_breadth_it_us5_top2_convex_ranked_tail_count5_floor40_risk_on`
+  - CAGR: `55.85%`
+  - MDD: `-29.27%`
+  - Sharpe: `1.6855`
+  - Annual turnover: `15.03`
 
 ## Ranked-tail sensitivity review
 
@@ -126,6 +131,41 @@
   - top4 excluded: `7` positive vs `15` negative months
   - top5 excluded: `7` positive vs `15` negative months
 - interpretation: the new strongest still looks better on full-period and robustness axes, but the marginal improvement itself is more basket-dependent than the prior ranked-tail promotion; the count4/floor35 step improved source efficiency more than it broadened the edge
+
+## Ranked-tail count5/floor40 candidate review
+
+- versus `rule_sector_cap2_breadth_it_us5_top2_convex_ranked_tail_count4_floor35_risk_on`
+  - full-period CAGR delta: `+1.94%p`
+  - full-period Sharpe delta: `+0.0026`
+  - walk-forward positive CAGR windows: `3`
+  - walk-forward negative CAGR windows: `0`
+  - average walk-forward CAGR delta: `+1.75%p`
+  - average walk-forward Sharpe delta: `-0.0043`
+  - `75 bps` cost CAGR delta: `+1.79%p`
+  - `75 bps` cost Sharpe delta: `+0.0101`
+  - regime deltas:
+    - `SPY UP`: `+0.200%p`
+    - `SPY DOWN`: `+0.045%p`
+    - `KOSPI UP`: `+0.226%p`
+    - `KOSPI DOWN`: `+0.070%p`
+  - concentration:
+    - positive months `15`
+    - negative months `8`
+    - top 1 positive month share `26.13%`
+    - top 3 positive month share `56.08%`
+    - top 1 positive symbol share `27.38%`
+    - top 3 positive symbol share `66.20%`
+    - top symbol `NVDA`
+  - residual-edge:
+    - average monthly delta `+0.152%p`
+    - `PLTR/NVDA/MU` excluded residual delta `+0.003%p`
+    - residual positive months `11`
+    - residual negative months `12`
+  - basket-decay:
+    - exclude `PLTR`: residual `+0.124%p`
+    - exclude `PLTR/NVDA`: residual `+0.050%p`
+    - exclude `PLTR/NVDA/MU`: residual `+0.003%p`
+- interpretation: widening the ranked-tail source to `count=5 / floor=0.40` improves CAGR again, keeps cost and regime support, and materially softens basket fragility versus the count4/floor35 strongest, even though the walk-forward Sharpe advantage is not cleaner than the headline CAGR improvement
 
 ## Ranked-tail walk-forward review
 
@@ -399,11 +439,13 @@
 - residual-edge and basket-decay checks are supportive enough to treat this as a real robustness improvement rather than just a more aggressive way to harvest the same top basket: the edge still concentrates in `PLTR/NVDA/MU`, but it no longer turns negative immediately after removing them
 - the next ranked-tail step, `count=4 / floor=0.35`, improves the same source logic one level further: it deepens the tail cut without changing the winner target, and it cleared the same promotion gates on full-period, walk-forward, cost, regime, and concentration
 - the new strongest does come with one sharper caution: residual-edge and basket-decay rechecks show that the **incremental** gain from the `count=4 / floor=0.35` step is more tightly tied to `PLTR/NVDA/MU` than the previous ranked-tail promotion was, so this should still be framed as a stronger but not broader mixed-universe aggressive branch
+- the `count=5 / floor=0.40` step improves that trade-off: it still concentrates in the same winner basket, but the incremental gain no longer turns residual edge clearly negative after removing `PLTR/NVDA/MU`, which makes it a stronger compromise between source efficiency and fragility than `count4 / floor35`
 
 ## Verdict
 
 - retire `rule_sector_cap2_breadth_risk_off`, `rule_sector_cap2_breadth_it_risk_off`, `rule_sector_cap2_breadth_it_us5_cap`, and `rule_sector_cap2_breadth_it_us5_top2_risk_on` from active aggressive research focus
 - retire `rule_sector_cap2_breadth_it_us5_top2_convex_risk_on` from active aggressive research focus
 - retire `rule_sector_cap2_breadth_it_us5_top2_convex_ranked_tail_risk_on` from active aggressive research focus
-- keep `rule_sector_cap2_breadth_it_us5_top2_convex_ranked_tail_count4_floor35_risk_on` as the single aggressive strong branch
+- retire `rule_sector_cap2_breadth_it_us5_top2_convex_ranked_tail_count4_floor35_risk_on` from active aggressive research focus
+- keep `rule_sector_cap2_breadth_it_us5_top2_convex_ranked_tail_count5_floor40_risk_on` as the single aggressive strong branch
 - keep operational baseline separate as `rule_breadth_it_us5_cap`
