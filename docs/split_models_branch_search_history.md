@@ -95,9 +95,14 @@
    - lowered the floor to `0.35` so the weakest tail names still absorb the deepest cut
    - promoted over `top2_convex_ranked_tail_count5_floor40_risk_on`
 
+12. `rule_sector_cap2_breadth_it_us5_top2_convex_ranked_tail_count5_pen50_floor30_risk_on`
+   - kept the broader `count=5` source again but softened the tail penalty one step further to `0.50`
+   - lowered the floor to `0.30` so the weakest tail names still absorb the deepest cut
+   - promoted over `top2_convex_ranked_tail_count5_pen55_floor35_risk_on`
+
 ### Aggressive branch verdict
 
-- surviving aggressive strong branch: `rule_sector_cap2_breadth_it_us5_top2_convex_ranked_tail_count5_pen55_floor35_risk_on`
+- surviving aggressive strong branch: `rule_sector_cap2_breadth_it_us5_top2_convex_ranked_tail_count5_pen50_floor30_risk_on`
 - retired aggressive branches:
   - `rule_sector_cap2`
   - `rule_sector_cap2_breadth_risk_off`
@@ -109,6 +114,7 @@
   - `rule_sector_cap2_breadth_it_us5_top2_convex_ranked_tail_risk_on`
   - `rule_sector_cap2_breadth_it_us5_top2_convex_ranked_tail_count4_floor35_risk_on`
   - `rule_sector_cap2_breadth_it_us5_top2_convex_ranked_tail_count5_floor40_risk_on`
+  - `rule_sector_cap2_breadth_it_us5_top2_convex_ranked_tail_count5_pen55_floor35_risk_on`
 
 ## Killed exploratory branches
 
