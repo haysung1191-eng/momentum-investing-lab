@@ -35,7 +35,7 @@ PAIR_CONFIGS = [
     },
     {
         "label": "aggressive_vs_full_xs_mom",
-        "model": "rule_sector_cap2_breadth_it_us5_top2_convex_ranked_tail_count7_pen40_floor20_bonus18_risk_on",
+        "model": "rule_sector_cap2_breadth_it_us5_top2_convex_ranked_tail_count7_pen40_floor20_bonus18_pow05_risk_on",
         "benchmark": "benchmark_xs_mom_12_1_top5_eq",
         "benchmark_top_n": 5,
         "benchmark_market": None,
