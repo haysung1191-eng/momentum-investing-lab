@@ -4,7 +4,7 @@
   "asset_class": "stocks_etfs",
   "operational_baseline": "rule_breadth_it_us5_cap",
   "aggressive_strongest": "rule_sector_cap2_breadth_it_us5_top2_convex_ranked_tail_count6_pen35_floor20_bonus18_pow05_risk_on",
-  "broader_challenger": "hybrid_top2_plus_third0025",
+  "broader_challenger": "hybrid_top2_plus_third00125",
   "strongest_metrics": {
     "cagr": "63.16%",
     "mdd": "-29.27%",
@@ -12,16 +12,16 @@
     "annual_turnover": "15.32"
   },
   "broader_challenger_metrics": {
-    "cagr": "63.08%",
-    "mdd": "-29.26%",
-    "sharpe": "1.6898",
-    "annual_turnover": "15.33"
+    "cagr": "63.12%",
+    "mdd": "-29.27%",
+    "sharpe": "1.6895",
+    "annual_turnover": "15.32"
   },
   "broader_challenger_delta_vs_strongest": {
-    "cagr_delta": "-0.08%p",
-    "mdd_delta": "+0.01%p",
-    "sharpe_delta": "+0.0006",
-    "cost_75bps_cagr_delta": "-0.08%p",
+    "cagr_delta": "-0.04%p",
+    "mdd_delta": "+0.00%p",
+    "sharpe_delta": "+0.0003",
+    "cost_75bps_cagr_delta": "-0.04%p",
     "walkforward": "2 positive / 2 negative"
   },
   "benchmark_check": {

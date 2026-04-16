@@ -14,7 +14,7 @@
 - asset class: `stocks_etfs`
 - operational baseline: `rule_breadth_it_us5_cap`
 - aggressive strongest: `rule_sector_cap2_breadth_it_us5_top2_convex_ranked_tail_count6_pen35_floor20_bonus18_pow05_risk_on`
-- broader challenger: `hybrid_top2_plus_third0025`
+- broader challenger: `hybrid_top2_plus_third00125`
 
 ## Strongest snapshot
 
@@ -25,21 +25,21 @@
 
 ## Broader challenger snapshot
 
-- variant: `hybrid_top2_plus_third0025`
-- CAGR: `63.08%`
-- MDD: `-29.26%`
-- Sharpe: `1.6898`
-- Annual turnover: `15.33`
+- variant: `hybrid_top2_plus_third00125`
+- CAGR: `63.12%`
+- MDD: `-29.27%`
+- Sharpe: `1.6895`
+- Annual turnover: `15.32`
 
 ## Why strongest still stays
 
 - broader challenger still gives up headline strength:
-  - CAGR delta vs strongest: `-0.08%p`
-  - `75 bps` cost CAGR delta: `-0.08%p`
+  - CAGR delta vs strongest: `-0.04%p`
+  - `75 bps` cost CAGR delta: `-0.04%p`
   - walk-forward: `2` positive CAGR windows, `2` negative
 - broader challenger is still interesting:
-  - Sharpe delta vs strongest: `+0.0006`
-  - MDD delta vs strongest: `+0.01%p`
+  - Sharpe delta vs strongest: `+0.0003`
+  - MDD delta vs strongest: `+0.00%p`
   - concentration is meaningfully lower than the strongest
 - interpretation:
   - strongest is still the `stronger` branch

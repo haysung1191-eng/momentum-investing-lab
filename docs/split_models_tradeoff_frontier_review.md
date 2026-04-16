@@ -6,7 +6,7 @@
 - current strongest:
   - `rule_sector_cap2_breadth_it_us5_top2_convex_ranked_tail_count6_pen35_floor20_bonus18_pow05_risk_on`
 - challenger set:
-  - `hybrid_top2_plus_third0025`
+  - `hybrid_top2_plus_third00125`
   - `top2_split_49_51`
   - `alt_family_top3_flat_bonus18`
 
@@ -24,13 +24,13 @@
   - MDD: `-29.27%`
   - Sharpe: `1.6892`
   - Annual turnover: `15.32`
-- `hybrid_top2_plus_third0025`
-  - CAGR: `63.08%`
-  - MDD: `-29.26%`
-  - Sharpe: `1.6898`
-  - Annual turnover: `15.33`
+- `hybrid_top2_plus_third00125`
+  - CAGR: `63.12%`
+  - MDD: `-29.27%`
+  - Sharpe: `1.6895`
+  - Annual turnover: `15.32`
   - walk-forward: `2` positive CAGR windows, `2` negative
-  - `75 bps` CAGR delta vs strongest: `-0.08%p`
+  - `75 bps` CAGR delta vs strongest: `-0.04%p`
   - top 3 positive symbol share: `39.00%`
 - `top2_split_49_51`
   - CAGR: `62.84%`
@@ -54,11 +54,11 @@
 - the current strongest is still the clear `stronger` point on the frontier
   - best CAGR in the reviewed set
   - no challenger cleared the full-period plus walk-forward plus cost promotion stack
-- `hybrid_top2_plus_third0025` is the best `broader` near-miss
+- `hybrid_top2_plus_third00125` is the best `broader` near-miss
   - Sharpe is still slightly better than the strongest
-  - drawdown is still slightly better than the strongest
+  - drawdown is effectively tied to slightly better than the strongest
   - concentration is much lower than the strongest
-  - CAGR loss is now only `0.08%p`, but the walk-forward result still degrades to `2-2`
+  - CAGR loss is now only `0.04%p`, but the walk-forward result still degrades to `2-2`
 - `top2_split_49_51` is weaker than the hybrid challenger
   - it reduces concentration versus the strongest
   - but it does not preserve CAGR or walk-forward quality as well as the hybrid branch
@@ -69,6 +69,6 @@
 ## Verdict
 
 - keep `rule_sector_cap2_breadth_it_us5_top2_convex_ranked_tail_count6_pen35_floor20_bonus18_pow05_risk_on` as the single aggressive strong branch
-- treat `hybrid_top2_plus_third0025` as the current best `broader-but-weaker` challenger
+- treat `hybrid_top2_plus_third00125` as the current best `broader-but-weaker` challenger
 - treat `top2_split_49_51` as an inferior micro-adjustment candidate
 - treat `alt_family_top3_flat_bonus18` as a useful boundary check rather than a live promotion candidate

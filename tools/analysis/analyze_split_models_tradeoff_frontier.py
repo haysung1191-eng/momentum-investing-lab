@@ -257,7 +257,7 @@ def main() -> None:
 
     candidates: list[tuple[TradingVariant, Callable[[pd.DataFrame], pd.DataFrame] | None]] = [
         (strongest, None),
-        (replace(strongest, name="hybrid_top2_plus_third0025"), _patch_hybrid_top2_plus_third(0.0025)),
+        (replace(strongest, name="hybrid_top2_plus_third00125"), _patch_hybrid_top2_plus_third(0.00125)),
         (replace(strongest, name="top2_split_49_51"), _patch_top2_split(0.49, 0.51)),
         (
             replace(
