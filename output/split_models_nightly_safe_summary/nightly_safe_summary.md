@@ -6,7 +6,7 @@
 - asset class: `stocks_etfs`
 - operational baseline: `rule_breadth_it_us5_cap`
 - aggressive strongest: `rule_sector_cap2_breadth_it_us5_top2_convex_ranked_tail_count6_pen35_floor20_bonus18_pow05_risk_on`
-- broader challenger: `hybrid_top2_plus_third005`
+- broader challenger: `hybrid_top2_plus_third0025`
 
 ## Strongest snapshot
 
@@ -17,18 +17,18 @@
 
 ## Broader challenger snapshot
 
-- variant: `hybrid_top2_plus_third005`
-- CAGR: `63.00%`
-- MDD: `-29.25%`
-- Sharpe: `1.6903`
+- variant: `hybrid_top2_plus_third0025`
+- CAGR: `63.08%`
+- MDD: `-29.26%`
+- Sharpe: `1.6898`
 - Annual turnover: `15.33`
 
 ## Why strongest still stays
 
-- CAGR delta vs strongest: `-0.16%p`
-- MDD delta vs strongest: `+0.02%p`
-- Sharpe delta vs strongest: `+0.0011`
-- `75 bps` cost CAGR delta: `-0.16%p`
+- CAGR delta vs strongest: `-0.08%p`
+- MDD delta vs strongest: `+0.01%p`
+- Sharpe delta vs strongest: `+0.0006`
+- `75 bps` cost CAGR delta: `-0.08%p`
 - walk-forward: `2 positive / 2 negative`
 
 ## Benchmark guardrail
