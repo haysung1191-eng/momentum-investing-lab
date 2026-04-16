@@ -5,7 +5,7 @@
 - compare the current operational baseline and strongest aggressive research branch against simple external equity/ETF benchmarks
 - model variants:
   - `rule_breadth_it_us5_cap`
-  - `rule_sector_cap2_breadth_it_us5_top2_convex_ranked_tail_count4_floor35_risk_on`
+  - `rule_sector_cap2_breadth_it_us5_top2_convex_ranked_tail_count5_floor40_risk_on`
 - benchmark set:
   - `benchmark_spy_buy_hold`
   - `benchmark_kospi200_buy_hold`
@@ -52,10 +52,10 @@
   - CAGR: `33.43%`
   - MDD: `-25.24%`
   - Sharpe: `1.4482`
-- `rule_sector_cap2_breadth_it_us5_top2_convex_ranked_tail_count4_floor35_risk_on`
-  - CAGR: `53.91%`
+- `rule_sector_cap2_breadth_it_us5_top2_convex_ranked_tail_count5_floor40_risk_on`
+  - CAGR: `55.85%`
   - MDD: `-29.27%`
-  - Sharpe: `1.6829`
+  - Sharpe: `1.6855`
 
 ## Relative comparison
 
@@ -86,30 +86,30 @@
   - positive months: `30`
   - negative months: `31`
 
-### Aggressive strongest branch: `rule_sector_cap2_breadth_it_us5_top2_convex_ranked_tail_count4_floor35_risk_on`
+### Aggressive strongest branch: `rule_sector_cap2_breadth_it_us5_top2_convex_ranked_tail_count5_floor40_risk_on`
 
 - versus `benchmark_spy_buy_hold`
-  - average monthly delta: `+3.24%p`
+  - average monthly delta: `+3.40%p`
   - positive months: `36`
   - negative months: `25`
 - versus `benchmark_kospi200_buy_hold`
-  - average monthly delta: `+2.49%p`
-  - positive months: `35`
-  - negative months: `26`
+  - average monthly delta: `+2.64%p`
+  - positive months: `34`
+  - negative months: `27`
 - versus `benchmark_spy_kospi_equal_weight`
-  - average monthly delta: `+2.87%p`
+  - average monthly delta: `+3.02%p`
   - positive months: `37`
   - negative months: `24`
 - versus `benchmark_spy_sma10`
-  - average monthly delta: `+3.68%p`
-  - positive months: `37`
-  - negative months: `24`
+  - average monthly delta: `+3.83%p`
+  - positive months: `38`
+  - negative months: `23`
 - versus `benchmark_xs_mom_12_1_top5_eq`
-  - average monthly delta: `-1.36%p`
+  - average monthly delta: `-1.21%p`
   - positive months: `34`
   - negative months: `27`
 - versus `benchmark_xs_mom_12_1_us_stock_top5_eq`
-  - average monthly delta: `+1.45%p`
+  - average monthly delta: `+1.60%p`
   - positive months: `33`
   - negative months: `28`
 
@@ -129,9 +129,9 @@
 - windows compared: `4`
 - positive CAGR windows: `3`
 - negative CAGR windows: `1`
-- average walk-forward CAGR delta: `+6.21%p`
-- average walk-forward Sharpe delta: `+0.8075`
-- average walk-forward MDD delta: `+10.46%p`
+- average walk-forward CAGR delta: `+7.96%p`
+- average walk-forward Sharpe delta: `+0.8031`
+- average walk-forward MDD delta: `+10.43%p`
 - best relative window: `2022-07-29 -> 2024-11-29`
 - worst relative window: `2023-08-31 -> 2026-01-30`
 
@@ -150,12 +150,12 @@
 ### Aggressive strongest vs `12-1 full-universe top5 momentum`
 
 - at `75 bps` one-way cost:
-  - strongest CAGR: `42.11%`
+  - strongest CAGR: `43.90%`
   - benchmark CAGR: `38.97%`
-  - CAGR delta: `+3.14%p`
-  - strongest Sharpe: `1.3981`
+  - CAGR delta: `+4.93%p`
+  - strongest Sharpe: `1.4082`
   - benchmark Sharpe: `0.7051`
-  - Sharpe delta: `+0.6930`
+  - Sharpe delta: `+0.7031`
 - positive CAGR cost points: `5`
 - negative CAGR cost points: `0`
 
@@ -168,14 +168,14 @@
 - negative CAGR shifts: `2`
 - positive Sharpe shifts: `5`
 - negative Sharpe shifts: `0`
-- average start-shift CAGR delta: `+1.71%p`
-- average start-shift Sharpe delta: `+0.9307`
+- average start-shift CAGR delta: `+4.38%p`
+- average start-shift Sharpe delta: `+0.9322`
 - tested start dates:
-  - `2020-01-31`: CAGR delta `+4.82%p`, Sharpe delta `+0.8871`
-  - `2020-08-31`: CAGR delta `+9.27%p`, Sharpe delta `+0.9454`
-  - `2021-04-30`: CAGR delta `+4.73%p`, Sharpe delta `+0.8816`
-  - `2021-11-30`: CAGR delta `-5.99%p`, Sharpe delta `+0.7751`
-  - `2022-07-29`: CAGR delta `-4.28%p`, Sharpe delta `+1.1646`
+  - `2020-01-31`: CAGR delta `+6.76%p`, Sharpe delta `+0.8896`
+  - `2020-08-31`: CAGR delta `+11.28%p`, Sharpe delta `+0.9502`
+  - `2021-04-30`: CAGR delta `+6.16%p`, Sharpe delta `+0.8830`
+  - `2021-11-30`: CAGR delta `-1.50%p`, Sharpe delta `+0.7743`
+  - `2022-07-29`: CAGR delta `-0.79%p`, Sharpe delta `+1.1639`
 - interpretation:
   - benchmark-relative Sharpe superiority is stable even when the start date moves forward
   - benchmark-relative CAGR superiority is still **not** perfectly stable in the shorter late-start windows
@@ -186,15 +186,15 @@
 - both current live baseline and current strongest aggressive branch still beat passive and simple timing benchmarks on both CAGR and Sharpe over the same `61`-month window
 - the added `12-1` cross-sectional momentum benchmarks are the first genuinely hard external comparators
 - `rule_breadth_it_us5_cap` does **not** beat the simple full-universe top-5 momentum benchmark on CAGR, but it does beat it meaningfully on Sharpe (`1.4482` vs `0.7958`) and on drawdown (`-25.24%` vs `-32.83%`)
-- `rule_sector_cap2_breadth_it_us5_top2_convex_ranked_tail_count4_floor35_risk_on` beats the simple full-universe top-5 momentum benchmark on CAGR (`53.91%` vs `49.10%`) and Sharpe (`1.6829` vs `0.7958`) while also keeping drawdown tighter (`-29.27%` vs `-32.83%`)
+- `rule_sector_cap2_breadth_it_us5_top2_convex_ranked_tail_count5_floor40_risk_on` beats the simple full-universe top-5 momentum benchmark on CAGR (`55.85%` vs `49.10%`) and Sharpe (`1.6855` vs `0.7958`) while also keeping drawdown tighter (`-29.27%` vs `-32.83%`)
 - the aggressive strongest branch also beats the simpler US-stock-only top-5 momentum benchmark on CAGR, Sharpe, and average monthly delta
-- benchmark-relative walk-forward also improved again: the new strongest branch keeps `3` positive CAGR windows and lifts average walk-forward CAGR delta to `+6.21%p`
-- benchmark-relative cost robustness also improved again: at `75 bps` one-way cost the new strongest branch beats full-universe top5 momentum by `+3.14%p` CAGR and `+0.6930` Sharpe
-- benchmark-relative start-date-shift is still nuanced, but clearly better than before: late starts can still flip the CAGR comparison, yet the average start-shift CAGR delta is now positive while Sharpe remains decisively positive in every tested shift
+- benchmark-relative walk-forward also improved again: the new strongest branch keeps `3` positive CAGR windows and lifts average walk-forward CAGR delta to `+7.96%p`
+- benchmark-relative cost robustness also improved again: at `75 bps` one-way cost the new strongest branch beats full-universe top5 momentum by `+4.93%p` CAGR and `+0.7031` Sharpe
+- benchmark-relative start-date-shift is still nuanced, but clearly better again: late starts can still compress the CAGR edge, yet the average start-shift CAGR delta widened to `+4.38%p` while Sharpe remains decisively positive in every tested shift
 - this benchmark chapter is now materially stronger: the surviving models are no longer only beating passive baselines, they are also competing against simple literature-like momentum rules
 
 ## Verdict
 
 - keep `rule_breadth_it_us5_cap` as the operational baseline
-- keep `rule_sector_cap2_breadth_it_us5_top2_convex_ranked_tail_count4_floor35_risk_on` as the strongest aggressive research branch
+- keep `rule_sector_cap2_breadth_it_us5_top2_convex_ranked_tail_count5_floor40_risk_on` as the strongest aggressive research branch
 - treat benchmark superiority as supportive evidence, not final proof: the next research step should make the benchmark chapter more statistically defensible, not merely broader

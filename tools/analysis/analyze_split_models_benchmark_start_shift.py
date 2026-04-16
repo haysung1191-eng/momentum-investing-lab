@@ -22,7 +22,7 @@ from tools.analysis.analyze_split_models_external_benchmarks import (
 
 ROOT = REPO_ROOT
 OUTPUT_DIR = ROOT / "output" / "split_models_benchmark_start_shift_review"
-MODEL_VARIANT = "rule_sector_cap2_breadth_it_us5_top2_convex_ranked_tail_count4_floor35_risk_on"
+MODEL_VARIANT = "rule_sector_cap2_breadth_it_us5_top2_convex_ranked_tail_count5_floor40_risk_on"
 BENCHMARK_NAME = "benchmark_xs_mom_12_1_top5_eq"
 SHIFT_STEP_MONTHS = 6
 MAX_SHIFTS = 5
