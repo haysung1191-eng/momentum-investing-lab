@@ -71,6 +71,24 @@
   - Sharpe at `75 bps`: `1.3626`
 - interpretation: the new edge survives harsher execution assumptions and is not just a low-friction backtest artifact
 
+## Ranked-tail start-date shift review
+
+- shifting the backtest start date forward in `6`-month steps still leaves the ranked-tail branch ahead on CAGR every time
+- start shifts tested: `5`
+- positive CAGR shifts: `5`
+- negative CAGR shifts: `0`
+- positive Sharpe shifts: `4`
+- negative Sharpe shifts: `1`
+- average start-shift CAGR delta vs `rule_sector_cap2_breadth_it_us5_top2_convex_risk_on`: `+2.21%p`
+- average start-shift Sharpe delta: `+0.0074`
+- tested start dates:
+  - `2020-01-31`: CAGR delta `+1.62%p`, Sharpe delta `+0.0079`
+  - `2020-08-31`: CAGR delta `+1.81%p`, Sharpe delta `+0.0071`
+  - `2021-04-30`: CAGR delta `+2.05%p`, Sharpe delta `+0.0089`
+  - `2021-11-30`: CAGR delta `+2.43%p`, Sharpe delta `+0.0140`
+  - `2022-07-29`: CAGR delta `+3.15%p`, Sharpe delta `-0.0007`
+- interpretation: the ranked-tail promotion is not tied to a single early sample start; the edge survives later-entry tests and generally strengthens as the sample moves forward, though the latest truncated window shows a tiny Sharpe giveback
+
 ## Ranked-tail concentration review
 
 - versus `rule_sector_cap2_breadth_it_us5_top2_convex_risk_on`:

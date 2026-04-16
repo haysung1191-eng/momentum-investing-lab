@@ -1,0 +1,13 @@
+{
+  "baseline_variant": "rule_sector_cap2_breadth_it_us5_top2_convex_risk_on",
+  "candidate_variant": "rule_sector_cap2_breadth_it_us5_top2_convex_ranked_tail_risk_on",
+  "shifts_tested": 5,
+  "positive_cagr_shifts": 5,
+  "negative_cagr_shifts": 0,
+  "positive_sharpe_shifts": 4,
+  "negative_sharpe_shifts": 1,
+  "avg_cagr_delta": 0.022091661197810586,
+  "avg_sharpe_delta": 0.007434887138058644,
+  "best_shift_start": "2022-07-29",
+  "worst_shift_start": "2020-01-31"
+}
