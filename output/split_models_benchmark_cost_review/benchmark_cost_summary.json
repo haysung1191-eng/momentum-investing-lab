@@ -14,17 +14,17 @@
     "negative_cagr_cost_points": 4
   },
   "aggressive_vs_full_xs_mom": {
-    "model": "rule_sector_cap2_breadth_it_us5_top2_convex_risk_on",
+    "model": "rule_sector_cap2_breadth_it_us5_top2_convex_ranked_tail_risk_on",
     "benchmark": "benchmark_xs_mom_12_1_top5_eq",
     "latest_cost_bps": 75.0,
-    "latest_model_cagr": 0.3825806173293289,
+    "latest_model_cagr": 0.39710176140156483,
     "latest_benchmark_cagr": 0.38968060440684904,
-    "latest_cagr_delta": -0.007099987077520131,
-    "latest_model_sharpe": 1.3625774971227045,
+    "latest_cagr_delta": 0.007421156994715794,
+    "latest_model_sharpe": 1.375845759871924,
     "latest_benchmark_sharpe": 0.7050550011238552,
-    "latest_sharpe_delta": 0.6575224959988493,
+    "latest_sharpe_delta": 0.6707907587480688,
     "latest_mdd_delta": 0.012278491896230093,
-    "positive_cagr_cost_points": 3,
-    "negative_cagr_cost_points": 2
+    "positive_cagr_cost_points": 5,
+    "negative_cagr_cost_points": 0
   }
 }

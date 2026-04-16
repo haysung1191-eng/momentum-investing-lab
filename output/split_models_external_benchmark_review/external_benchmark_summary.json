@@ -2,6 +2,6 @@
   "period_start": "2020-01-31",
   "period_end": "2026-02-27",
   "months": 61,
-  "best_strategy_by_cagr": "rule_sector_cap2_breadth_it_us5_top2_convex_risk_on",
-  "best_strategy_by_sharpe": "rule_sector_cap2_breadth_it_us5_top2_convex_risk_on"
+  "best_strategy_by_cagr": "rule_sector_cap2_breadth_it_us5_top2_convex_ranked_tail_risk_on",
+  "best_strategy_by_sharpe": "rule_sector_cap2_breadth_it_us5_top2_convex_ranked_tail_risk_on"
 }
