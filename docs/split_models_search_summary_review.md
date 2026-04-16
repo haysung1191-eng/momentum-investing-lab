@@ -50,7 +50,7 @@
 
 - the aggressive search was not a tiny or trivial branch tree
 - most aggressive branches did **not** survive:
-  - only `1` of `34` documented aggressive branches remains active
+  - only `1` of `35` documented aggressive branches remains active
   - `20` were explicitly killed
 - this helps the project in one way:
   - the final aggressive branch was not selected from a cosmetic or unfiltered search where every small tweak was preserved
