@@ -1,0 +1,18 @@
+{
+  "base_variant": "rule_sector_cap2_breadth_it_us5_top2_convex_ranked_tail_count7_pen40_floor20_bonus18_pow05_risk_on",
+  "combos_tested": 32,
+  "best_count": 6,
+  "best_penalty": 0.35,
+  "best_floor": 0.2,
+  "best_bonus": 0.18,
+  "best_power": 0.5,
+  "best_cagr": 0.6315699672750634,
+  "best_sharpe": 1.6892405803253625,
+  "current_cagr": 0.626922798196353,
+  "current_sharpe": 1.689757073836905,
+  "near_best_1pp_cagr_count": 14,
+  "near_best_1pp_cagr_and_0_005_sharpe_count": 14,
+  "current_rank_by_cagr": 8,
+  "cagr_range": 0.021600342604755296,
+  "sharpe_range": 0.022118133317865718
+}
