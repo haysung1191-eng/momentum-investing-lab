@@ -4,7 +4,7 @@
 
 - branch family: sector-constrained aggressive research variants
 - retired comparison branches: `rule_sector_cap2_breadth_risk_off`, `rule_sector_cap2_breadth_it_risk_off`, `rule_sector_cap2_breadth_it_us5_cap`, `rule_sector_cap2_breadth_it_us5_top2_risk_on`, `rule_sector_cap2_breadth_it_us5_top2_convex_risk_on`, `rule_sector_cap2_breadth_it_us5_top2_convex_ranked_tail_risk_on`
-- surviving branch: `rule_sector_cap2_breadth_it_us5_top2_convex_ranked_tail_count7_pen40_floor20_bonus18_pow05_risk_on`
+- surviving branch: `rule_sector_cap2_breadth_it_us5_top2_convex_ranked_tail_count6_pen35_floor20_bonus18_pow05_risk_on`
 
 ## Full-period comparison
 
@@ -68,6 +68,11 @@
   - MDD: `-29.27%`
   - Sharpe: `1.6898`
   - Annual turnover: `15.31`
+- `rule_sector_cap2_breadth_it_us5_top2_convex_ranked_tail_count6_pen35_floor20_bonus18_pow05_risk_on`
+  - CAGR: `63.16%`
+  - MDD: `-29.27%`
+  - Sharpe: `1.6892`
+  - Annual turnover: `15.32`
 
 ## Ranked-tail sensitivity review
 
@@ -522,6 +527,7 @@
 - the `count=5 / penalty=0.55 / floor=0.35` step improves the same source logic one level further: it keeps the broader tail source, relaxes the top-end tail cut slightly, improves CAGR and Sharpe again, and preserves a small positive residual edge after excluding `PLTR/NVDA/MU`
 - the `count=5 / penalty=0.50 / floor=0.30` step improves headline strength one level further again: it relaxes the source cut slightly more, improves CAGR / Sharpe / walk-forward / cost together, but does not materially reduce winner-basket fragility relative to `count5 / pen55 / floor35`
 - the `count=7 / penalty=0.40 / floor=0.20` step pushes the same source logic one level deeper again: it broadens the ranked-tail source materially, improves headline CAGR and benchmark-relative robustness again, and keeps residual edge positive without changing the mixed-universe interpretation
+- the `count=6 / penalty=0.35 / floor=0.20 / bonus=0.18 / power=0.50` plateau local best cleared full-period, walk-forward, and cost head-to-head against the prior curved strongest, while keeping residual edge after excluding `PLTR/NVDA/MU` slightly positive rather than negative
 
 ## Verdict
 
@@ -534,8 +540,9 @@
 - retire `rule_sector_cap2_breadth_it_us5_top2_convex_ranked_tail_count5_pen50_floor30_risk_on` from active aggressive research focus
 - retire `rule_sector_cap2_breadth_it_us5_top2_convex_ranked_tail_count7_pen40_floor20_risk_on` from active aggressive research focus
 - retire `rule_sector_cap2_breadth_it_us5_top2_convex_ranked_tail_count7_pen40_floor20_bonus18_risk_on` from active aggressive research focus
-- keep `rule_sector_cap2_breadth_it_us5_top2_convex_ranked_tail_count7_pen40_floor20_bonus18_pow05_risk_on` as the single aggressive strong branch
+- retire `rule_sector_cap2_breadth_it_us5_top2_convex_ranked_tail_count7_pen40_floor20_bonus18_pow05_risk_on` from active aggressive research focus
+- keep `rule_sector_cap2_breadth_it_us5_top2_convex_ranked_tail_count6_pen35_floor20_bonus18_pow05_risk_on` as the single aggressive strong branch
 - current best interpretation:
-  - stronger than the prior `bonus18` strongest on full-period, walk-forward, cost, and hard benchmark defense
+  - stronger than the prior `bonus18_pow05` strongest on full-period, walk-forward, and cost CAGR
   - still best understood as a mixed-universe aggressive construction rule rather than a broad stock-only model
 - keep operational baseline separate as `rule_breadth_it_us5_cap`
