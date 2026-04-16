@@ -4,7 +4,7 @@
 
 - branch family: sector-constrained aggressive research variants
 - retired comparison branches: `rule_sector_cap2_breadth_risk_off`, `rule_sector_cap2_breadth_it_risk_off`, `rule_sector_cap2_breadth_it_us5_cap`, `rule_sector_cap2_breadth_it_us5_top2_risk_on`, `rule_sector_cap2_breadth_it_us5_top2_convex_risk_on`, `rule_sector_cap2_breadth_it_us5_top2_convex_ranked_tail_risk_on`
-- surviving branch: `rule_sector_cap2_breadth_it_us5_top2_convex_ranked_tail_count5_pen50_floor30_risk_on`
+- surviving branch: `rule_sector_cap2_breadth_it_us5_top2_convex_ranked_tail_count7_pen40_floor20_risk_on`
 
 ## Full-period comparison
 
@@ -53,6 +53,11 @@
   - MDD: `-29.27%`
   - Sharpe: `1.6888`
   - Annual turnover: `15.11`
+- `rule_sector_cap2_breadth_it_us5_top2_convex_ranked_tail_count7_pen40_floor20_risk_on`
+  - CAGR: `60.85%`
+  - MDD: `-29.27%`
+  - Sharpe: `1.6896`
+  - Annual turnover: `15.18`
 
 ## Ranked-tail sensitivity review
 
