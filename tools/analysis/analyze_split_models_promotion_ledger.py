@@ -32,8 +32,8 @@ from tools.analysis.analyze_split_models_external_benchmarks import (
 
 ROOT = REPO_ROOT
 OUTPUT_DIR = ROOT / "output" / "split_models_promotion_ledger"
-BASELINE_VARIANT = "rule_sector_cap2_breadth_it_us5_top2_convex_ranked_tail_count7_pen40_floor20_risk_on"
-CANDIDATE_VARIANT = "rule_sector_cap2_breadth_it_us5_top2_convex_ranked_tail_count7_pen40_floor20_bonus18_risk_on"
+BASELINE_VARIANT = "rule_sector_cap2_breadth_it_us5_top2_convex_ranked_tail_count7_pen40_floor20_bonus18_risk_on"
+CANDIDATE_VARIANT = "rule_sector_cap2_breadth_it_us5_top2_convex_ranked_tail_count7_pen40_floor20_bonus18_pow05_risk_on"
 BENCHMARK_NAME = "benchmark_xs_mom_12_1_top5_eq"
 
 
@@ -259,8 +259,8 @@ def main() -> None:
     universe_split.to_csv(OUTPUT_DIR / "promotion_universe_split_compare.csv", index=False, encoding="utf-8-sig")
 
     candidate_concentration = {
-        "avg_monthly_delta": 0.0009749892100812044,
-        "top_3_positive_symbol_share": 0.7408021635970187,
+        "avg_monthly_delta": 0.00041474232096736435,
+        "top_3_positive_symbol_share": 0.7307004248166477,
     }
 
     ledger_rows = [
@@ -312,9 +312,9 @@ def main() -> None:
         },
         {
             "Axis": "top3_positive_symbol_share",
-            "BaselineValue": 0.7408021635970182,
+            "BaselineValue": 0.7408021635970187,
             "CandidateValue": float(candidate_concentration["top_3_positive_symbol_share"]),
-            "Delta": float(candidate_concentration["top_3_positive_symbol_share"] - 0.7408021635970182),
+            "Delta": float(candidate_concentration["top_3_positive_symbol_share"] - 0.7408021635970187),
             "Verdict": "caution",
             "Note": "concentration remains elevated and does not broaden the edge versus the retired strongest",
         },
