@@ -5,6 +5,7 @@ from pathlib import Path
 import pandas as pd
 
 from split_models.backtest import BacktestConfig, run_backtests
+from split_models.backtest import _baseline_variant_map
 from split_models.backtest import TradingVariant, _build_momentum_candidates_for_date
 
 
@@ -47,6 +48,14 @@ def test_split_models_backtest_promoted_variant(tmp_path: Path) -> None:
     summary = outputs["trading_book_backtest_summary"].iloc[0]
     assert float(summary["CAGR"]) == float(summary["CAGR"])
     assert (tmp_path / "split_models_backtest_summary.json").exists()
+
+
+def test_baseline_variant_map_includes_ranked_tail_count4_floor35() -> None:
+    variant = _baseline_variant_map()["rule_sector_cap2_breadth_it_us5_top2_convex_ranked_tail_count4_floor35_risk_on"]
+
+    assert variant.breadth_bottom_slice_count == 4
+    assert variant.breadth_bottom_slice_penalty == 0.60
+    assert variant.breadth_bottom_slice_penalty_floor == 0.35
 
 
 def test_build_momentum_candidates_filters_trend_chase_names() -> None:

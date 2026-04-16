@@ -1,0 +1,16 @@
+{
+  "baseline_variant": "rule_sector_cap2_breadth_it_us5_top2_convex_ranked_tail_risk_on",
+  "candidate_variant": "rule_sector_cap2_breadth_it_us5_top2_convex_ranked_tail_count4_floor35",
+  "full_period_cagr_delta": 0.026405707564960856,
+  "full_period_sharpe_delta": 0.01380887816305143,
+  "walkforward_positive_cagr_windows": 3,
+  "walkforward_negative_cagr_windows": 0,
+  "walkforward_avg_cagr_delta": 0.028236739193800153,
+  "walkforward_avg_sharpe_delta": 0.008676690448235186,
+  "cost_latest_cagr_delta": 0.024007007642793843,
+  "cost_latest_sharpe_delta": 0.022235604087142313,
+  "spy_up_avg_delta": 0.0026886456132812547,
+  "spy_down_avg_delta": 0.0006582777925808151,
+  "kospi_up_avg_delta": 0.0030383383749507165,
+  "kospi_down_avg_delta": 0.0009725367523594921
+}

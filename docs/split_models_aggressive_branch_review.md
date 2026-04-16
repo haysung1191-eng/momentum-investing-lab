@@ -3,8 +3,8 @@
 ## Scope
 
 - branch family: sector-constrained aggressive research variants
-- retired comparison branches: `rule_sector_cap2_breadth_risk_off`, `rule_sector_cap2_breadth_it_risk_off`, `rule_sector_cap2_breadth_it_us5_cap`, `rule_sector_cap2_breadth_it_us5_top2_risk_on`, `rule_sector_cap2_breadth_it_us5_top2_convex_risk_on`
-- surviving branch: `rule_sector_cap2_breadth_it_us5_top2_convex_ranked_tail_risk_on`
+- retired comparison branches: `rule_sector_cap2_breadth_risk_off`, `rule_sector_cap2_breadth_it_risk_off`, `rule_sector_cap2_breadth_it_us5_cap`, `rule_sector_cap2_breadth_it_us5_top2_risk_on`, `rule_sector_cap2_breadth_it_us5_top2_convex_risk_on`, `rule_sector_cap2_breadth_it_us5_top2_convex_ranked_tail_risk_on`
+- surviving branch: `rule_sector_cap2_breadth_it_us5_top2_convex_ranked_tail_count4_floor35_risk_on`
 
 ## Full-period comparison
 
@@ -33,6 +33,11 @@
   - MDD: `-29.27%`
   - Sharpe: `1.6691`
   - Annual turnover: `14.96`
+- `rule_sector_cap2_breadth_it_us5_top2_convex_ranked_tail_count4_floor35_risk_on`
+  - CAGR: `53.91%`
+  - MDD: `-29.27%`
+  - Sharpe: `1.6829`
+  - Annual turnover: `15.02`
 
 ## Ranked-tail sensitivity review
 
@@ -50,6 +55,51 @@
   - Sharpe: `1.6691`
   - Annual turnover: `14.96`
 - interpretation: pushing more penalty onto the weakest tail names improves the branch smoothly instead of exposing an unstable local optimum
+
+## Ranked-tail surface review
+
+- local parameter-surface sweep around the ranked-tail branch still improved rather than collapsing
+- tested axes:
+  - `breadth_bottom_slice_count`: `3`, `4`
+  - `breadth_bottom_slice_penalty`: `0.60`, `0.65`
+  - `breadth_bottom_slice_penalty_floor`: `0.35`, `0.40`, `0.45`
+- combos tested: `12`
+- best surface point:
+  - bottom slice count `4`
+  - bottom slice penalty `0.60`
+  - bottom slice floor `0.35`
+  - CAGR `53.91%`
+  - Sharpe `1.6829`
+- near-best combos within `1.00%p` CAGR of the best: `4`
+- CAGR range across the local surface: `3.43%p`
+- Sharpe range across the local surface: `0.0175`
+- interpretation: the ranked-tail family still looks like a usable plateau rather than a one-cell spike, and the best local point moves to a deeper tail cut rather than reverting toward the old strongest
+
+## Ranked-tail count4/floor35 candidate review
+
+- versus `rule_sector_cap2_breadth_it_us5_top2_convex_ranked_tail_risk_on`
+  - full-period CAGR delta: `+2.64%p`
+  - full-period Sharpe delta: `+0.0138`
+  - walk-forward positive CAGR windows: `3`
+  - walk-forward negative CAGR windows: `0`
+  - average walk-forward CAGR delta: `+2.82%p`
+  - average walk-forward Sharpe delta: `+0.0087`
+  - `75 bps` cost CAGR delta: `+2.40%p`
+  - `75 bps` cost Sharpe delta: `+0.0222`
+  - regime deltas:
+    - `SPY UP`: `+0.269%p`
+    - `SPY DOWN`: `+0.066%p`
+    - `KOSPI UP`: `+0.304%p`
+    - `KOSPI DOWN`: `+0.097%p`
+  - concentration:
+    - positive months `13`
+    - negative months `9`
+    - top 1 positive month share `16.36%`
+    - top 3 positive month share `37.60%`
+    - top 1 positive symbol share `27.25%`
+    - top 3 positive symbol share `73.65%`
+    - top symbol `PLTR`
+- interpretation: deepening the ranked-tail source to `count=4 / floor=0.35` improved full-period, walk-forward, cost, and regime behavior together, while concentration stayed in the same compact-winner range rather than blowing out materially
 
 ## Ranked-tail walk-forward review
 
@@ -321,10 +371,12 @@
 - the new ranked-tail branch improves the convex source logic without changing the winner-harvesting target itself: it takes more weight from the weakest tail names, keeps the same top-two winners, and improves both CAGR and Sharpe while leaving MDD flat
 - sensitivity, walk-forward, cost, and regime checks are all supportive enough to treat it as a genuine improvement over the prior convex branch, even though concentration remains a live caution
 - residual-edge and basket-decay checks are supportive enough to treat this as a real robustness improvement rather than just a more aggressive way to harvest the same top basket: the edge still concentrates in `PLTR/NVDA/MU`, but it no longer turns negative immediately after removing them
+- the next ranked-tail step, `count=4 / floor=0.35`, improves the same source logic one level further: it deepens the tail cut without changing the winner target, and it cleared the same promotion gates on full-period, walk-forward, cost, regime, and concentration
 
 ## Verdict
 
 - retire `rule_sector_cap2_breadth_risk_off`, `rule_sector_cap2_breadth_it_risk_off`, `rule_sector_cap2_breadth_it_us5_cap`, and `rule_sector_cap2_breadth_it_us5_top2_risk_on` from active aggressive research focus
 - retire `rule_sector_cap2_breadth_it_us5_top2_convex_risk_on` from active aggressive research focus
-- keep `rule_sector_cap2_breadth_it_us5_top2_convex_ranked_tail_risk_on` as the single aggressive strong branch
+- retire `rule_sector_cap2_breadth_it_us5_top2_convex_ranked_tail_risk_on` from active aggressive research focus
+- keep `rule_sector_cap2_breadth_it_us5_top2_convex_ranked_tail_count4_floor35_risk_on` as the single aggressive strong branch
 - keep operational baseline separate as `rule_breadth_it_us5_cap`

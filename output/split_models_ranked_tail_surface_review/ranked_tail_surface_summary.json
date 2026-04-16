@@ -1,0 +1,14 @@
+{
+  "base_variant": "rule_sector_cap2_breadth_it_us5_top2_convex_ranked_tail_risk_on",
+  "combos_tested": 12,
+  "best_bottom_slice_count": 4,
+  "best_bottom_slice_penalty": 0.6,
+  "best_bottom_slice_penalty_floor": 0.35,
+  "best_cagr": 0.5391428030467884,
+  "best_sharpe": 1.6828884517099338,
+  "near_best_combo_count": 4,
+  "avg_cagr_across_surface": 0.5211459321921438,
+  "avg_sharpe_across_surface": 1.6741914859095297,
+  "cagr_range": 0.03433421517538249,
+  "sharpe_range": 0.017513820845001637
+}

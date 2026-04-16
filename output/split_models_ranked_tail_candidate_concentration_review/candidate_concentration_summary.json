@@ -1,0 +1,13 @@
+{
+  "baseline_variant": "rule_sector_cap2_breadth_it_us5_top2_convex_ranked_tail_risk_on",
+  "candidate_variant": "rule_sector_cap2_breadth_it_us5_top2_convex_ranked_tail_count4_floor35",
+  "months_compared": 61,
+  "positive_months": 13,
+  "negative_months": 9,
+  "avg_monthly_delta": 0.002056235964210626,
+  "top_1_positive_month_share": 0.16363278773968568,
+  "top_3_positive_month_share": 0.37602264857408824,
+  "top_1_positive_symbol_share": 0.27254998960670596,
+  "top_3_positive_symbol_share": 0.7365498386711676,
+  "top_symbol": "PLTR"
+}
