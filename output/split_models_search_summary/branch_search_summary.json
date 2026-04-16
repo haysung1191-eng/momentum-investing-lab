@@ -1,12 +1,12 @@
 {
-  "total_branches_documented": 33,
+  "total_branches_documented": 34,
   "survivors": 2,
-  "retired_mainline": 11,
+  "retired_mainline": 12,
   "killed": 20,
   "exploratory_branches": 17,
   "cosmetic_branches": 3,
-  "aggressive_total": 29,
+  "aggressive_total": 30,
   "operational_total": 4,
-  "aggressive_survivor_rate": 0.034482758620689655,
+  "aggressive_survivor_rate": 0.03333333333333333,
   "operational_survivor_rate": 0.25
 }
