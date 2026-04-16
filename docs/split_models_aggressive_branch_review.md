@@ -4,7 +4,7 @@
 
 - branch family: sector-constrained aggressive research variants
 - retired comparison branches: `rule_sector_cap2_breadth_risk_off`, `rule_sector_cap2_breadth_it_risk_off`, `rule_sector_cap2_breadth_it_us5_cap`, `rule_sector_cap2_breadth_it_us5_top2_risk_on`, `rule_sector_cap2_breadth_it_us5_top2_convex_risk_on`, `rule_sector_cap2_breadth_it_us5_top2_convex_ranked_tail_risk_on`
-- surviving branch: `rule_sector_cap2_breadth_it_us5_top2_convex_ranked_tail_count5_pen55_floor35_risk_on`
+- surviving branch: `rule_sector_cap2_breadth_it_us5_top2_convex_ranked_tail_count5_pen50_floor30_risk_on`
 
 ## Full-period comparison
 
@@ -48,6 +48,11 @@
   - MDD: `-29.27%`
   - Sharpe: `1.6875`
   - Annual turnover: `15.07`
+- `rule_sector_cap2_breadth_it_us5_top2_convex_ranked_tail_count5_pen50_floor30_risk_on`
+  - CAGR: `58.35%`
+  - MDD: `-29.27%`
+  - Sharpe: `1.6888`
+  - Annual turnover: `15.11`
 
 ## Ranked-tail sensitivity review
 
@@ -198,6 +203,33 @@
   - `PLTR/NVDA/MU` excluded residual delta: `+0.006%p`
   - residual months: `10` positive / `9` negative
 - interpretation: softening the tail penalty to `0.55` while keeping a deeper floor at `0.35` improves full-period, walk-forward, and cost together without worsening drawdown, and it keeps a small positive residual edge after removing `PLTR/NVDA/MU`
+
+## Ranked-tail count5/pen50/floor30 candidate review
+
+- versus `rule_sector_cap2_breadth_it_us5_top2_convex_ranked_tail_count5_pen55_floor35_risk_on`
+  - full-period CAGR delta: `+1.25%p`
+  - full-period Sharpe delta: `+0.0013`
+  - walk-forward positive CAGR windows: `3`
+  - walk-forward negative CAGR windows: `0`
+  - average walk-forward CAGR delta: `+1.29%p`
+  - average walk-forward Sharpe delta: `+0.0010`
+  - `75 bps` cost CAGR delta: `+1.13%p`
+  - `75 bps` cost Sharpe delta: `+0.0054`
+  - `SPY UP` average delta: `+0.128%p`
+  - `SPY DOWN` average delta: `+0.030%p`
+  - `KOSPI UP` average delta: `+0.149%p`
+  - `KOSPI DOWN` average delta: `+0.040%p`
+  - positive months: `14`
+  - negative months: `9`
+  - average monthly delta: `+0.097%p`
+  - top 1 positive month share: `22.97%`
+  - top 3 positive month share: `44.86%`
+  - top 1 positive symbol share: `27.33%`
+  - top 3 positive symbol share: `74.08%`
+  - top symbol: `PLTR`
+  - `PLTR/NVDA/MU` excluded residual delta: `+0.006%p`
+  - residual months: `10` positive / `9` negative
+- interpretation: widening the source relief one step further to `penalty=0.50 / floor=0.30` improves headline CAGR, walk-forward, and cost again without worsening drawdown, but fragility does not really improve versus the prior strongest; this is a stronger branch, not a broader one
 
 ## Ranked-tail walk-forward review
 
@@ -473,6 +505,7 @@
 - the new strongest does come with one sharper caution: residual-edge and basket-decay rechecks show that the **incremental** gain from the `count=4 / floor=0.35` step is more tightly tied to `PLTR/NVDA/MU` than the previous ranked-tail promotion was, so this should still be framed as a stronger but not broader mixed-universe aggressive branch
 - the `count=5 / floor=0.40` step improves that trade-off: it still concentrates in the same winner basket, but the incremental gain no longer turns residual edge clearly negative after removing `PLTR/NVDA/MU`, which makes it a stronger compromise between source efficiency and fragility than `count4 / floor35`
 - the `count=5 / penalty=0.55 / floor=0.35` step improves the same source logic one level further: it keeps the broader tail source, relaxes the top-end tail cut slightly, improves CAGR and Sharpe again, and preserves a small positive residual edge after excluding `PLTR/NVDA/MU`
+- the `count=5 / penalty=0.50 / floor=0.30` step improves headline strength one level further again: it relaxes the source cut slightly more, improves CAGR / Sharpe / walk-forward / cost together, but does not materially reduce winner-basket fragility relative to `count5 / pen55 / floor35`
 
 ## Verdict
 
@@ -481,5 +514,6 @@
 - retire `rule_sector_cap2_breadth_it_us5_top2_convex_ranked_tail_risk_on` from active aggressive research focus
 - retire `rule_sector_cap2_breadth_it_us5_top2_convex_ranked_tail_count4_floor35_risk_on` from active aggressive research focus
 - retire `rule_sector_cap2_breadth_it_us5_top2_convex_ranked_tail_count5_floor40_risk_on` from active aggressive research focus
-- keep `rule_sector_cap2_breadth_it_us5_top2_convex_ranked_tail_count5_pen55_floor35_risk_on` as the single aggressive strong branch
+- retire `rule_sector_cap2_breadth_it_us5_top2_convex_ranked_tail_count5_pen55_floor35_risk_on` from active aggressive research focus
+- keep `rule_sector_cap2_breadth_it_us5_top2_convex_ranked_tail_count5_pen50_floor30_risk_on` as the single aggressive strong branch
 - keep operational baseline separate as `rule_breadth_it_us5_cap`
