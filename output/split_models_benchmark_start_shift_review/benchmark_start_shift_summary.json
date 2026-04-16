@@ -1,13 +1,13 @@
 {
-  "model_variant": "rule_sector_cap2_breadth_it_us5_top2_convex_ranked_tail_count7_pen40_floor20_bonus18_pow05_risk_on",
+  "model_variant": "rule_sector_cap2_breadth_it_us5_top2_convex_ranked_tail_count6_pen35_floor20_bonus18_pow05_risk_on",
   "benchmark_variant": "benchmark_xs_mom_12_1_top5_eq",
   "shifts_tested": 5,
   "positive_cagr_shifts": 5,
   "negative_cagr_shifts": 0,
   "positive_sharpe_shifts": 5,
   "negative_sharpe_shifts": 0,
-  "avg_cagr_delta": 0.13921119661781384,
-  "avg_sharpe_delta": 0.9366834681184356,
+  "avg_cagr_delta": 0.14574981987492297,
+  "avg_sharpe_delta": 0.9361842847267103,
   "best_shift_start": "2020-08-31",
   "worst_shift_start": "2021-11-30"
 }
