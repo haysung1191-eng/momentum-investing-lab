@@ -29,7 +29,7 @@ ROOT = REPO_ROOT
 OUTPUT_DIR = ROOT / "output" / "split_models_universe_split_review"
 MODEL_VARIANTS = [
     "rule_breadth_it_us5_cap",
-    "rule_sector_cap2_breadth_it_us5_top2_convex_ranked_tail_count5_floor40_risk_on",
+    "rule_sector_cap2_breadth_it_us5_top2_convex_ranked_tail_count5_pen55_floor35_risk_on",
 ]
 
 
@@ -119,7 +119,7 @@ def main() -> None:
         if len(group) < 2:
             continue
         base = group[group["Variant"] == "rule_breadth_it_us5_cap"]
-        aggr = group[group["Variant"] == "rule_sector_cap2_breadth_it_us5_top2_convex_ranked_tail_count5_floor40_risk_on"]
+        aggr = group[group["Variant"] == "rule_sector_cap2_breadth_it_us5_top2_convex_ranked_tail_count5_pen55_floor35_risk_on"]
         if base.empty or aggr.empty:
             continue
         base_row = base.iloc[0]
@@ -142,7 +142,7 @@ def main() -> None:
         "worst_split_for_aggressive_cagr": None,
         "aggressive_positive_cagr_splits": 0,
     }
-    aggr = summary_df[summary_df["Variant"] == "rule_sector_cap2_breadth_it_us5_top2_convex_ranked_tail_count5_floor40_risk_on"].copy()
+    aggr = summary_df[summary_df["Variant"] == "rule_sector_cap2_breadth_it_us5_top2_convex_ranked_tail_count5_pen55_floor35_risk_on"].copy()
     if not aggr.empty:
         aggr_sorted = aggr.sort_values("CAGR", ascending=False)
         summary["best_split_for_aggressive_cagr"] = str(aggr_sorted.iloc[0]["Split"])

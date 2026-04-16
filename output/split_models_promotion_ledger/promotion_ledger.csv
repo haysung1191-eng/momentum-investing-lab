@@ -1,10 +1,10 @@
 ﻿Axis,BaselineValue,CandidateValue,Delta,Verdict,Note
-full_period_cagr,0.5391428030467884,0.5585123581519118,0.019369555105123393,promote,headline CAGR improved without extra drawdown
-full_period_sharpe,1.6828884517099338,1.6854655565277041,0.0025771048177702927,promote,Sharpe improved while MDD stayed flat
-walkforward_avg_cagr_delta,0.0,0.01752445502989708,0.01752445502989708,promote,"positive CAGR windows=3, negative=0"
-cost_latest_cagr_delta,0.0,0.01790230731982545,0.01790230731982545,promote,cost points ahead=5
-candidate_avg_monthly_delta,0.0,0.001520621365733923,0.001520621365733923,promote,candidate clears promotion with a positive average monthly delta over the retired strongest
-top3_positive_symbol_share,0.7335,0.6619883217079702,-0.07151167829202987,caution,concentration stayed in the same compact-winner range rather than materially worsening
-benchmark_cost_75bps_cagr_delta,0.03142816463750964,0.04933047195733509,0.01790230731982545,promote,candidate stays ahead of hard benchmark even at 75 bps
-universe_split_full_vs_retired,0.0,0.019369555105123393,0.019369555105123393,promote,mixed-universe strong branch improved where the branch family actually wins
+full_period_cagr,0.5585123581519118,0.5709933497835453,0.01248099163163352,promote,headline CAGR improved without extra drawdown
+full_period_sharpe,1.6854655565277041,1.6874551616828117,0.001989605155107599,promote,Sharpe improved while MDD stayed flat
+walkforward_avg_cagr_delta,0.0,0.01278222181133093,0.01278222181133093,promote,"positive CAGR windows=3, negative=0"
+cost_latest_cagr_delta,0.0,0.011301037848025608,0.011301037848025608,promote,cost points ahead=5
+candidate_avg_monthly_delta,0.0,0.0009749892100812028,0.0009749892100812028,promote,candidate clears promotion with a positive average monthly delta over the retired strongest
+top3_positive_symbol_share,0.6619883217079702,0.7408021635970182,0.07881384188904805,caution,concentration is still elevated and slightly worse again than the retired strongest
+benchmark_cost_75bps_cagr_delta,0.04933047195733509,0.060631509805360695,0.011301037848025608,promote,candidate stays ahead of hard benchmark even at 75 bps
+universe_split_full_vs_retired,0.0,0.01248099163163352,0.01248099163163352,promote,mixed-universe strong branch improved where the branch family actually wins
 universe_split_stock_only_vs_retired,0.0,0.0,0.0,caution,not a universal stock-only improvement; interpretation remains mixed-universe
