@@ -110,9 +110,14 @@
    - increased top-slice bonus exposure from `0.15` to `0.18`
    - promoted over `top2_convex_ranked_tail_count7_pen40_floor20_risk_on`
 
+15. `rule_sector_cap2_breadth_it_us5_top2_convex_ranked_tail_count7_pen40_floor20_bonus18_pow05_risk_on`
+   - kept the deeper softer `count=7 / pen=0.40 / floor=0.20` source and the `0.18` top-slice bonus
+   - changed the tail-penalty curve from linear to `power=0.5`
+   - promoted over `top2_convex_ranked_tail_count7_pen40_floor20_bonus18_risk_on`
+
 ### Aggressive branch verdict
 
-- surviving aggressive strong branch: `rule_sector_cap2_breadth_it_us5_top2_convex_ranked_tail_count7_pen40_floor20_bonus18_risk_on`
+- surviving aggressive strong branch: `rule_sector_cap2_breadth_it_us5_top2_convex_ranked_tail_count7_pen40_floor20_bonus18_pow05_risk_on`
 - retired aggressive branches:
   - `rule_sector_cap2`
   - `rule_sector_cap2_breadth_risk_off`
@@ -127,6 +132,7 @@
   - `rule_sector_cap2_breadth_it_us5_top2_convex_ranked_tail_count5_pen55_floor35_risk_on`
   - `rule_sector_cap2_breadth_it_us5_top2_convex_ranked_tail_count5_pen50_floor30_risk_on`
   - `rule_sector_cap2_breadth_it_us5_top2_convex_ranked_tail_count7_pen40_floor20_risk_on`
+  - `rule_sector_cap2_breadth_it_us5_top2_convex_ranked_tail_count7_pen40_floor20_bonus18_risk_on`
 
 ## Killed exploratory branches
 

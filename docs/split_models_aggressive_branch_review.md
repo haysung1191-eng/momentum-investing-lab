@@ -535,4 +535,7 @@
 - retire `rule_sector_cap2_breadth_it_us5_top2_convex_ranked_tail_count7_pen40_floor20_risk_on` from active aggressive research focus
 - retire `rule_sector_cap2_breadth_it_us5_top2_convex_ranked_tail_count7_pen40_floor20_bonus18_risk_on` from active aggressive research focus
 - keep `rule_sector_cap2_breadth_it_us5_top2_convex_ranked_tail_count7_pen40_floor20_bonus18_pow05_risk_on` as the single aggressive strong branch
+- current best interpretation:
+  - stronger than the prior `bonus18` strongest on full-period, walk-forward, cost, and hard benchmark defense
+  - still best understood as a mixed-universe aggressive construction rule rather than a broad stock-only model
 - keep operational baseline separate as `rule_breadth_it_us5_cap`
