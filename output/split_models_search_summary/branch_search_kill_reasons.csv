@@ -3,9 +3,12 @@ weaker_cagr_and_sharpe,5
 dominated_by_top2_risk_on,3
 effectively_identical,3
 weaker_quality_metrics,2
+broader_family_too_weak_for_mainline,1
+broader_but_weaker_than_strongest,1
 dominated_by_existing_risk_on,1
-cagr_cost_too_high,1
 close_but_inferior,1
+cagr_cost_too_high,1
+micro_split_weaker_than_strongest,1
 over_concentrated_and_weaker,1
 micro_tuning_and_weaker_weak_period,1
 weak_period_and_concentration_penalty,1

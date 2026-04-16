@@ -218,6 +218,28 @@
   - top 1 positive month share: `22.97%`
   - top 3 positive month share: `44.86%`
   - top 1 positive symbol share: `27.33%`
+
+## Broader challenger frontier review
+
+- recent broader-challenger work did not replace the current strongest, but it did map the nearby `stronger vs broader` trade-off more clearly
+- `hybrid_top2_plus_third01`
+  - CAGR: `62.84%`
+  - MDD: `-29.23%`
+  - Sharpe: `1.6914`
+  - interpretation: best recent broader challenger; slightly better Sharpe and lower concentration than the strongest, but still weaker on CAGR, cost, and walk-forward promotion quality
+- `top2_split_49_51`
+  - CAGR: `62.84%`
+  - MDD: `-29.25%`
+  - Sharpe: `1.6888`
+  - interpretation: weaker than the hybrid challenger and not a meaningful mainline replacement
+- `alt_family_top3_flat_bonus18`
+  - CAGR: `46.12%`
+  - MDD: `-29.27%`
+  - Sharpe: `1.6105`
+  - interpretation: useful boundary check for a genuinely broader family, but much too weak to remain a live strongest candidate
+- the trade-off frontier therefore stays the same:
+  - current strongest is still the `stronger` point
+  - `hybrid_top2_plus_third01` is the current best `broader-but-weaker` challenger
   - top 3 positive symbol share: `74.08%`
   - top symbol: `PLTR`
   - `PLTR/NVDA/MU` excluded residual delta: `+0.006%p`

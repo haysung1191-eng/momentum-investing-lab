@@ -201,6 +201,18 @@ These were tested and not preserved because they failed one or more of:
 - `rule_sector_cap2_breadth_it_us5_top2_convex_gross_risk_on`
   - higher headline CAGR, but treated as leverage-like micro-tuning and worse weak-period loss-month behavior
 
+- `hybrid_top2_plus_third01`
+  - best recent broader challenger
+  - improved Sharpe and concentration, but still gave up too much CAGR and degraded to a `2-2` walk-forward split
+
+- `top2_split_49_51`
+  - mild top-two internal rebalance
+  - slightly broadened the edge beyond the familiar winner basket, but stayed weaker than both the strongest branch and the hybrid challenger
+
+- `alt_family_top3_flat_bonus18`
+  - explicit broad-family boundary check
+  - much broader and less concentrated, but far too weak on CAGR / Sharpe / walk-forward to remain a live aggressive promotion candidate
+
 ### Killed as cosmetic or effectively identical
 
 - `rule_sector_cap2_breadth_it_us5_buffer4`
@@ -221,6 +233,9 @@ These were tested and not preserved because they failed one or more of:
 - aggressive branch selection is more vulnerable:
   - the final branch is genuinely stronger than its predecessors on several checks
   - but it also came from a non-trivial search process and remains concentration-heavy
+- recent broader-challenger work adds a useful nuance:
+  - the project can produce less concentrated aggressive candidates
+  - but they have not yet matched the strongest branch on full-period plus walk-forward plus cost
 
 - the branch history therefore supports two claims at once:
   1. the final aggressive branch was not selected from a trivial or cosmetic search

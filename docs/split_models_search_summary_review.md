@@ -10,11 +10,11 @@
 
 ## Search inventory summary
 
-- total branches documented: `40`
+- total branches documented: `43`
 - total survivors: `2`
 - total retired mainline branches: `18`
-- total killed branches: `20`
-- exploratory branches: `17`
+- total killed branches: `23`
+- exploratory branches: `20`
 - cosmetic branches: `3`
 
 ## By track
@@ -29,14 +29,14 @@
 
 ### Aggressive track
 
-- documented branches: `36`
+- documented branches: `39`
 - survivors: `1`
 - retired mainline branches: `15`
-- killed branches: `20`
-- exploratory branches: `17`
+- killed branches: `23`
+- exploratory branches: `20`
 - cosmetic branches: `3`
-- survivor rate: `2.8%`
-- killed rate: `55.6%`
+- survivor rate: `2.6%`
+- killed rate: `59.0%`
 
 ## Kill-reason concentration
 
@@ -67,6 +67,7 @@
   - larger search space
   - low survivor rate
   - final branch still carries winner-basket dependence even after the plateau-best curved ranked-tail promotion
+  - even the newer broader-challenger family only produced near-miss branches rather than a clean replacement for the current strongest
 
 ## Verdict
 
