@@ -10,9 +10,9 @@
 
 ## Search inventory summary
 
-- total branches documented: `39`
+- total branches documented: `40`
 - total survivors: `2`
-- total retired mainline branches: `17`
+- total retired mainline branches: `18`
 - total killed branches: `20`
 - exploratory branches: `17`
 - cosmetic branches: `3`
@@ -29,14 +29,14 @@
 
 ### Aggressive track
 
-- documented branches: `35`
+- documented branches: `36`
 - survivors: `1`
-- retired mainline branches: `14`
+- retired mainline branches: `15`
 - killed branches: `20`
 - exploratory branches: `17`
 - cosmetic branches: `3`
-- survivor rate: `2.9%`
-- killed rate: `57.1%`
+- survivor rate: `2.8%`
+- killed rate: `55.6%`
 
 ## Kill-reason concentration
 
@@ -50,7 +50,7 @@
 
 - the aggressive search was not a tiny or trivial branch tree
 - most aggressive branches did **not** survive:
-  - only `1` of `35` documented aggressive branches remains active
+  - only `1` of `36` documented aggressive branches remains active
   - `20` were explicitly killed
 - this helps the project in one way:
   - the final aggressive branch was not selected from a cosmetic or unfiltered search where every small tweak was preserved
@@ -66,7 +66,7 @@
 - aggressive selection looks meaningfully more vulnerable:
   - larger search space
   - low survivor rate
-  - final branch still carries winner-basket dependence even after the curved ranked-tail promotion
+  - final branch still carries winner-basket dependence even after the plateau-best curved ranked-tail promotion
 
 ## Verdict
 

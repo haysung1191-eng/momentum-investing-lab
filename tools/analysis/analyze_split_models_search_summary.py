@@ -166,9 +166,17 @@ BRANCH_ROWS = [
         "Branch": "rule_sector_cap2_breadth_it_us5_top2_convex_ranked_tail_count7_pen40_floor20_bonus18_pow05_risk_on",
         "Track": "aggressive",
         "Stage": "mainline",
+        "Outcome": "retired",
+        "OutcomeReason": "superseded_by_plateau_local_best_branch",
+        "StructuralType": "top2_convex_ranked_tail_count7_pen40_floor20_bonus18_pow05_risk_on",
+    },
+    {
+        "Branch": "rule_sector_cap2_breadth_it_us5_top2_convex_ranked_tail_count6_pen35_floor20_bonus18_pow05_risk_on",
+        "Track": "aggressive",
+        "Stage": "mainline",
         "Outcome": "survivor",
         "OutcomeReason": "current_aggressive_strong_branch",
-        "StructuralType": "top2_convex_ranked_tail_count7_pen40_floor20_bonus18_pow05_risk_on",
+        "StructuralType": "top2_convex_ranked_tail_count6_pen35_floor20_bonus18_pow05_risk_on",
     },
     {
         "Branch": "rule_sector_cap2_us5_cap",
