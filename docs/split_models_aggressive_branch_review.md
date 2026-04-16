@@ -84,6 +84,32 @@
   - top symbol driving the edge: `PLTR`
 - interpretation: the new branch still draws on a compact winner basket, but it is not a single-month artifact and its incremental symbol concentration is not obviously worse than the prior convex branch
 
+## Ranked-tail residual-edge review
+
+- removing the three biggest winner-driven contributors `PLTR`, `NVDA`, and `MU` leaves a small but still positive residual edge
+- total average monthly delta vs `rule_sector_cap2_breadth_it_us5_top2_convex_risk_on`: `+0.128%p`
+- average monthly delta attributable to `PLTR/NVDA/MU`: `+0.110%p`
+- average residual monthly delta after excluding them: `+0.018%p`
+- residual positive months: `9`
+- residual negative months: `11`
+- interpretation: the ranked-tail branch is still meaningfully tied to the familiar US winner basket, but unlike the prior convex branch it does not flip residual edge negative after removing the top three names
+
+## Ranked-tail basket-decay review
+
+- cumulative winner-basket exclusions still show dependence on a compact winner basket, but the decay is slower than the prior convex branch
+- excluding only the top symbol `PLTR` leaves average monthly residual delta of `+0.087%p`
+- excluding the top two symbols `PLTR/NVDA` leaves `+0.050%p`
+- excluding the top three symbols `PLTR/NVDA/MU` leaves `+0.018%p`
+- excluding the top four symbols `PLTR/NVDA/MU/LRCX` still leaves a barely positive `+0.004%p`
+- excluding the top five symbols `PLTR/NVDA/MU/LRCX/0000J0` finally flips residual delta slightly negative at `-0.003%p`
+- residual month balance also degrades more gradually:
+  - top1 excluded: `13` positive vs `7` negative months
+  - top2 excluded: `10` positive vs `10` negative months
+  - top3 excluded: `9` positive vs `11` negative months
+  - top4 excluded: `8` positive vs `12` negative months
+  - top5 excluded: `8` positive vs `12` negative months
+- interpretation: the new branch still depends on a compact winner basket, but the edge is less fragile than the prior convex strongest branch because it survives top-three and even top-four exclusions without turning materially negative
+
 ## Ranked-tail regime review
 
 - the ranked-tail branch keeps a positive average delta in every regime bucket versus `rule_sector_cap2_breadth_it_us5_top2_convex_risk_on`
@@ -276,6 +302,7 @@
 - this remains a high-CAGR research branch, not an operational baseline candidate
 - the new ranked-tail branch improves the convex source logic without changing the winner-harvesting target itself: it takes more weight from the weakest tail names, keeps the same top-two winners, and improves both CAGR and Sharpe while leaving MDD flat
 - sensitivity, walk-forward, cost, and regime checks are all supportive enough to treat it as a genuine improvement over the prior convex branch, even though concentration remains a live caution
+- residual-edge and basket-decay checks are supportive enough to treat this as a real robustness improvement rather than just a more aggressive way to harvest the same top basket: the edge still concentrates in `PLTR/NVDA/MU`, but it no longer turns negative immediately after removing them
 
 ## Verdict
 
