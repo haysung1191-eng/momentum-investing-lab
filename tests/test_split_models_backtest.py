@@ -99,6 +99,16 @@ def test_baseline_variant_map_includes_ranked_tail_count7_pen40_floor20_bonus18(
     assert variant.breadth_bottom_slice_penalty_floor == 0.20
 
 
+def test_baseline_variant_map_includes_ranked_tail_count7_pen40_floor20_bonus18_pow05() -> None:
+    variant = _baseline_variant_map()["rule_sector_cap2_breadth_it_us5_top2_convex_ranked_tail_count7_pen40_floor20_bonus18_pow05_risk_on"]
+
+    assert variant.breadth_top_slice_bonus_exposure == 0.18
+    assert variant.breadth_bottom_slice_count == 7
+    assert variant.breadth_bottom_slice_penalty == 0.40
+    assert variant.breadth_bottom_slice_penalty_floor == 0.20
+    assert variant.breadth_bottom_slice_penalty_power == 0.50
+
+
 def test_build_momentum_candidates_filters_trend_chase_names() -> None:
     metrics = pd.DataFrame(
         [
