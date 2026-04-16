@@ -101,6 +101,32 @@
     - top symbol `PLTR`
 - interpretation: deepening the ranked-tail source to `count=4 / floor=0.35` improved full-period, walk-forward, cost, and regime behavior together, while concentration stayed in the same compact-winner range rather than blowing out materially
 
+## Ranked-tail count4/floor35 residual-edge review
+
+- removing the three biggest winner-driven contributors `PLTR`, `NVDA`, and `MU` now flips the residual edge slightly negative
+- total average monthly delta vs `rule_sector_cap2_breadth_it_us5_top2_convex_ranked_tail_risk_on`: `+0.206%p`
+- average monthly delta attributable to `PLTR/NVDA/MU`: `+0.220%p`
+- average residual monthly delta after excluding them: `-0.014%p`
+- residual positive months: `7`
+- residual negative months: `15`
+- interpretation: the deeper ranked-tail branch is still a real strongest promotion, but its extra gain over the prior ranked-tail strongest is more tightly tied to the familiar `PLTR/NVDA/MU` winner cluster than the previous promotion step was
+
+## Ranked-tail count4/floor35 basket-decay review
+
+- cumulative winner-basket exclusions show the new strongest still survives top-one and top-two exclusions, but it turns negative once the top three winners are removed
+- excluding only the top symbol `PLTR` leaves average monthly residual delta of `+0.124%p`
+- excluding the top two symbols `PLTR/NVDA` leaves `+0.050%p`
+- excluding the top three symbols `PLTR/NVDA/MU` flips residual delta slightly negative at `-0.014%p`
+- excluding the top four symbols `PLTR/NVDA/MU/LRCX` pushes residual delta to `-0.042%p`
+- excluding the top five symbols `PLTR/NVDA/MU/LRCX/0000J0` lowers it further to `-0.055%p`
+- residual month balance also degrades quickly:
+  - top1 excluded: `12` positive vs `10` negative months
+  - top2 excluded: `9` positive vs `13` negative months
+  - top3 excluded: `7` positive vs `15` negative months
+  - top4 excluded: `7` positive vs `15` negative months
+  - top5 excluded: `7` positive vs `15` negative months
+- interpretation: the new strongest still looks better on full-period and robustness axes, but the marginal improvement itself is more basket-dependent than the prior ranked-tail promotion; the count4/floor35 step improved source efficiency more than it broadened the edge
+
 ## Ranked-tail walk-forward review
 
 - 24-month / 12-month-step walk-forward windows compared: `4`
@@ -372,6 +398,7 @@
 - sensitivity, walk-forward, cost, and regime checks are all supportive enough to treat it as a genuine improvement over the prior convex branch, even though concentration remains a live caution
 - residual-edge and basket-decay checks are supportive enough to treat this as a real robustness improvement rather than just a more aggressive way to harvest the same top basket: the edge still concentrates in `PLTR/NVDA/MU`, but it no longer turns negative immediately after removing them
 - the next ranked-tail step, `count=4 / floor=0.35`, improves the same source logic one level further: it deepens the tail cut without changing the winner target, and it cleared the same promotion gates on full-period, walk-forward, cost, regime, and concentration
+- the new strongest does come with one sharper caution: residual-edge and basket-decay rechecks show that the **incremental** gain from the `count=4 / floor=0.35` step is more tightly tied to `PLTR/NVDA/MU` than the previous ranked-tail promotion was, so this should still be framed as a stronger but not broader mixed-universe aggressive branch
 
 ## Verdict
 

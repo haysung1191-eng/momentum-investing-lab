@@ -1,0 +1,88 @@
+﻿Market,Sector,Symbol,Excluded,ContributionDelta
+US,Information Technology,PLTR,1,0.04966859355881696
+US,Information Technology,NVDA,1,0.04512505444635492
+US,Information Technology,MU,1,0.03943271768121416
+US,Information Technology,LRCX,0,0.017108650791611113
+KR,ETF,0000J0,0,0.007476817327021601
+US,Consumer Discretionary,TSLA,0,0.007380428349265077
+US,Information Technology,AVGO,0,0.006096811121781099
+US,Information Technology,AMD,0,0.005078758452500415
+US,Consumer Discretionary,BKNG,0,0.0010448596383568756
+US,Financials,GS,0,0.0009418885356445049
+US,Industrials,UBER,0,0.0007965076275619262
+US,Financials,JPM,0,0.000701202250181495
+US,Industrials,GE,0,0.0006659635977862594
+US,Energy,XOM,0,0.000551652978161659
+US,Communication Services,NFLX,0,0.00016673078502213706
+KR,Information Technology,083450,0,0.0
+KR,Information Technology,080220,0,0.0
+KR,Materials,348370,0,0.0
+KR,Industrials,058610,0,0.0
+KR,Health Care,174900,0,0.0
+KR,Industrials,056080,0,0.0
+KR,Consumer Staples,003230,0,0.0
+KR,Health Care,214370,0,0.0
+US,Information Technology,QCOM,0,0.0
+US,Information Technology,INTU,0,0.0
+US,Industrials,LMT,0,0.0
+US,Consumer Discretionary,GM,0,0.0
+KR,Materials,008350,0,0.0
+US,Consumer Discretionary,AMZN,0,0.0
+US,Communication Services,T,0,0.0
+US,Communication Services,META,0,0.0
+KR,Industrials,319400,0,0.0
+KR,Industrials,099320,0,0.0
+KR,Information Technology,053610,0,0.0
+KR,Information Technology,007810,0,0.0
+US,Energy,XLE,0,0.0
+US,Energy,CVX,0,0.0
+US,Financials,AIG,0,0.0
+US,Consumer Staples,MO,0,0.0
+US,Health Care,BMY,0,0.0
+US,Health Care,LLY,0,0.0
+US,Health Care,CVS,0,0.0
+US,Industrials,BA,0,0.0
+US,Health Care,PFE,0,0.0
+US,Health Care,MRK,0,0.0
+US,Industrials,FDX,0,0.0
+US,Industrials,RTX,0,0.0
+US,Financials,BLK,0,0.0
+US,Financials,BAC,0,0.0
+US,Financials,BK,0,0.0
+US,Financials,V,0,0.0
+US,Financials,PYPL,0,0.0
+US,Financials,SCHW,0,0.0
+US,Financials,MA,0,0.0
+US,Consumer Staples,CL,0,0.0
+US,Materials,DD,0,0.0
+US,Information Technology,ORCL,0,0.0
+US,Information Technology,AMAT,0,0.0
+US,Industrials,UPS,0,0.0
+US,Industrials,GD,0,0.0
+US,Industrials,LIN,0,0.0
+US,Information Technology,INTC,0,0.0
+US,Information Technology,AAPL,0,0.0
+US,Health Care,TMO,0,0.0
+US,Industrials,DE,0,0.0
+US,Health Care,UNH,0,0.0
+US,Information Technology,NOW,0,0.0
+US,Health Care,AMGN,0,-0.00010554185372860627
+US,Financials,WFC,0,-0.00018954536234896307
+US,Financials,BRK.B,0,-0.0003545180419797433
+US,Health Care,GILD,0,-0.00046964850187490885
+US,Financials,MET,0,-0.000652230847730465
+US,Energy,COP,0,-0.0007164880755457124
+US,Information Technology,MSFT,0,-0.0008464912295991032
+US,Health Care,JNJ,0,-0.0011787250775610733
+US,Financials,MS,0,-0.0012583718586720851
+KR,ETF,379800,0,-0.0013686603870170845
+KR,ETF,360750,0,-0.0014811822163556172
+US,Information Technology,ADBE,0,-0.0016721765746620758
+US,Financials,AXP,0,-0.002142154314985463
+US,Industrials,GEV,0,-0.002936436937108844
+US,Financials,COF,0,-0.0034819554599779395
+US,Health Care,BIIB,0,-0.0042658080020443285
+US,Financials,C,0,-0.004330908726362146
+US,Industrials,CAT,0,-0.007310937099437661
+KR,ETF,069500,0,-0.010784851751164046
+US,Health Care,ISRG,0,-0.01091770624437142
