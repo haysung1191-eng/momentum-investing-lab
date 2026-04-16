@@ -5,7 +5,7 @@
 - test the two current surviving models across simple universe splits
 - models:
   - `rule_breadth_it_us5_cap`
-  - `rule_sector_cap2_breadth_it_us5_top2_convex_ranked_tail_count5_pen55_floor35_risk_on`
+  - `rule_sector_cap2_breadth_it_us5_top2_convex_ranked_tail_count5_pen50_floor30_risk_on`
 
 ## Why this review exists
 
@@ -21,13 +21,13 @@
   - CAGR: `33.43%`
   - MDD: `-25.24%`
   - Sharpe: `1.4482`
-- `rule_sector_cap2_breadth_it_us5_top2_convex_ranked_tail_count5_pen55_floor35_risk_on`
-  - CAGR: `57.10%`
+- `rule_sector_cap2_breadth_it_us5_top2_convex_ranked_tail_count5_pen50_floor30_risk_on`
+  - CAGR: `58.35%`
   - MDD: `-29.27%`
-  - Sharpe: `1.6875`
+  - Sharpe: `1.6888`
 - aggressive minus baseline:
-  - CAGR delta: `+23.67%p`
-  - Sharpe delta: `+0.2393`
+  - CAGR delta: `+24.92%p`
+  - Sharpe delta: `+0.2406`
 
 ### US only
 
@@ -35,7 +35,7 @@
   - CAGR: `36.47%`
   - MDD: `-22.18%`
   - Sharpe: `1.4896`
-- `rule_sector_cap2_breadth_it_us5_top2_convex_ranked_tail_count5_pen55_floor35_risk_on`
+- `rule_sector_cap2_breadth_it_us5_top2_convex_ranked_tail_count5_pen50_floor30_risk_on`
   - CAGR: `46.43%`
   - MDD: `-18.92%`
   - Sharpe: `1.7108`
@@ -49,7 +49,7 @@
   - CAGR: `-2.07%`
   - MDD: `-50.36%`
   - Sharpe: `0.0576`
-- `rule_sector_cap2_breadth_it_us5_top2_convex_ranked_tail_count5_pen55_floor35_risk_on`
+- `rule_sector_cap2_breadth_it_us5_top2_convex_ranked_tail_count5_pen50_floor30_risk_on`
   - CAGR: `-0.42%`
   - MDD: `-50.52%`
   - Sharpe: `0.1206`
@@ -63,7 +63,7 @@
   - CAGR: `7.21%`
   - MDD: `-30.10%`
   - Sharpe: `0.6804`
-- `rule_sector_cap2_breadth_it_us5_top2_convex_ranked_tail_count5_pen55_floor35_risk_on`
+- `rule_sector_cap2_breadth_it_us5_top2_convex_ranked_tail_count5_pen50_floor30_risk_on`
   - CAGR: `7.69%`
   - MDD: `-30.10%`
   - Sharpe: `0.7146`
@@ -77,7 +77,7 @@
   - CAGR: `25.49%`
   - MDD: `-24.62%`
   - Sharpe: `1.0217`
-- `rule_sector_cap2_breadth_it_us5_top2_convex_ranked_tail_count5_pen55_floor35_risk_on`
+- `rule_sector_cap2_breadth_it_us5_top2_convex_ranked_tail_count5_pen50_floor30_risk_on`
   - CAGR: `24.89%`
   - MDD: `-24.13%`
   - Sharpe: `0.9822`
@@ -102,7 +102,7 @@
 ## Verdict
 
 - keep `rule_breadth_it_us5_cap` as the operational baseline
-- keep `rule_sector_cap2_breadth_it_us5_top2_convex_ranked_tail_count5_pen55_floor35_risk_on` as the strongest aggressive research branch
+- keep `rule_sector_cap2_breadth_it_us5_top2_convex_ranked_tail_count5_pen50_floor30_risk_on` as the strongest aggressive research branch
 - but narrow the interpretation:
   - it is a strong mixed-universe aggressive branch
   - it is not a universally dominant stock-only or Korea-only rule
