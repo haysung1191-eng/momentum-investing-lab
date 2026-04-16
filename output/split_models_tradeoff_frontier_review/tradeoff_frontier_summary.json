@@ -2,12 +2,12 @@
   "strongest_variant": "rule_sector_cap2_breadth_it_us5_top2_convex_ranked_tail_count6_pen35_floor20_bonus18_pow05_risk_on",
   "variants_compared": [
     "rule_sector_cap2_breadth_it_us5_top2_convex_ranked_tail_count6_pen35_floor20_bonus18_pow05_risk_on",
-    "hybrid_top2_plus_third01",
+    "hybrid_top2_plus_third005",
     "top2_split_49_51",
     "alt_family_top3_flat_bonus18"
   ],
   "best_cagr_variant": "rule_sector_cap2_breadth_it_us5_top2_convex_ranked_tail_count6_pen35_floor20_bonus18_pow05_risk_on",
-  "best_sharpe_challenger": "hybrid_top2_plus_third01",
+  "best_sharpe_challenger": "hybrid_top2_plus_third005",
   "lowest_top3_share_challenger": "alt_family_top3_flat_bonus18",
   "most_positive_residual_challenger": "alt_family_top3_flat_bonus18"
 }
