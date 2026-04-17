@@ -27,6 +27,11 @@
   - MDD `-28.77%`
   - walk-forward `3 positive / 1 negative`
   - takeaway `best headline extension, but Sharpe still stays too weak`
+- stronger-but-more-fragile near-miss: `multi_step_confirm_top1_flowtop2`
+  - CAGR `65.65%`
+  - Sharpe `1.7111`
+  - walk-forward `4 positive / 0 negative`
+  - takeaway `best stronger-but-more-fragile point; headline and Sharpe improve together, but concentration rises too much`
 - stronger-but-lower-quality near-miss: `tail_release_top50_mid50`
   - CAGR `76.47%`
   - MDD `-34.64%`

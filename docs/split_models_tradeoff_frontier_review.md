@@ -12,6 +12,7 @@
   - `tail_skip_entry_flowweakest_new_bottom4_top25_mid75`
   - `tail_release_to_nonbottom_proportional`
   - `tail_release_top50_mid50`
+  - `multi_step_confirm_top1_flowtop2`
   - `top2_split_49_51`
   - `alt_family_top3_flat_bonus18`
 
@@ -77,6 +78,14 @@
   - walk-forward: `4` positive CAGR windows, `0` negative
   - `75 bps` CAGR delta vs strongest: `+13.13%p`
   - top 3 positive symbol share: `43.74%`
+- `multi_step_confirm_top1_flowtop2`
+  - CAGR: `65.65%`
+  - MDD: `-30.25%`
+  - Sharpe: `1.7111`
+  - Annual turnover: `15.75`
+  - walk-forward: `4` positive CAGR windows, `0` negative
+  - `75 bps` CAGR delta vs strongest: `+1.96%p`
+  - top 3 positive symbol share: `75.36%`
 - `top2_split_49_51`
   - CAGR: `62.84%`
   - MDD: `-29.25%`
@@ -124,6 +133,10 @@
   - full-period CAGR jumps the most in the reviewed set
   - Sharpe, walk-forward, cost, and turnover all stay better than expected for such an aggressive challenger
   - but MDD still worsens too much, so it remains non-promotable despite looking much closer than the pure non-bottom redistribution
+- `multi_step_confirm_top1_flowtop2` is the clearest `stronger-but-more-fragile` near-miss
+  - full-period CAGR, Sharpe, walk-forward, and cost all improve versus the strongest
+  - but drawdown still worsens and concentration gets much worse
+  - so it improves quality on paper while worsening fragility, which keeps it outside promotion grade
 - `top2_split_49_51` is weaker than the hybrid challenger
   - it reduces concentration versus the strongest
   - but it does not preserve CAGR or walk-forward quality as well as the hybrid branch
@@ -139,6 +152,7 @@
 - treat `bonus_recipient_top1_third_85_15` as the current best `blended-quality but not promotion-grade` challenger
 - treat `tail_skip_entry_flowweakest_new_bottom4_top25_mid75` as the current best `skip-entry stronger-like but lower-quality` challenger
 - treat `tail_release_top50_mid50` as the current best `redistribution contender`
+- treat `multi_step_confirm_top1_flowtop2` as the current best `stronger-but-more-fragile` challenger
 - treat `tail_release_to_nonbottom_proportional` as the current best `stronger-but-much-lower-quality boundary` challenger
 - treat `top2_split_49_51` as an inferior micro-adjustment candidate
 - treat `alt_family_top3_flat_bonus18` as a useful boundary check rather than a live promotion candidate

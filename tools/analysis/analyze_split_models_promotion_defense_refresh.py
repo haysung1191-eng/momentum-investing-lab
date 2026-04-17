@@ -51,6 +51,15 @@ SUMMARY = {
         "walkforward": "3 positive / 1 negative",
         "takeaway": "best headline extension, but Sharpe still stays too weak",
     },
+    "stronger_but_more_fragile_near_miss": {
+        "variant": "multi_step_confirm_top1_flowtop2",
+        "cagr": "65.65%",
+        "mdd": "-30.25%",
+        "sharpe": "1.7111",
+        "cost_75bps_cagr_delta_vs_strongest": "+1.96%p",
+        "walkforward": "4 positive / 0 negative",
+        "takeaway": "best stronger-but-more-fragile point; headline and Sharpe improve together, but concentration rises too much",
+    },
     "stronger_but_lower_quality_near_miss": {
         "variant": "tail_release_top50_mid50",
         "cagr": "76.47%",
@@ -137,6 +146,7 @@ def _build_markdown(summary: dict) -> str:
     broader = summary["broader_challenger"]
     quality = summary["quality_near_miss"]
     headline = summary["headline_near_miss"]
+    fragile = summary["stronger_but_more_fragile_near_miss"]
     stronger = summary["stronger_but_lower_quality_near_miss"]
 
     lines = [
@@ -169,6 +179,11 @@ def _build_markdown(summary: dict) -> str:
         f"  - MDD `{headline['mdd']}`",
         f"  - walk-forward `{headline['walkforward']}`",
         f"  - takeaway `{headline['takeaway']}`",
+        f"- stronger-but-more-fragile near-miss: `{fragile['variant']}`",
+        f"  - CAGR `{fragile['cagr']}`",
+        f"  - Sharpe `{fragile['sharpe']}`",
+        f"  - walk-forward `{fragile['walkforward']}`",
+        f"  - takeaway `{fragile['takeaway']}`",
         f"- stronger-but-lower-quality near-miss: `{stronger['variant']}`",
         f"  - CAGR `{stronger['cagr']}`",
         f"  - MDD `{stronger['mdd']}`",

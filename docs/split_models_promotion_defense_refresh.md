@@ -15,6 +15,8 @@
   - `bonus_recipient_top1_third_85_15`
 - headline near-miss:
   - `tail_skip_entry_flowweakest_new_bottom4_top25_mid75`
+- stronger-but-more-fragile near-miss:
+  - `multi_step_confirm_top1_flowtop2`
 - stronger-but-lower-quality near-miss:
   - `tail_release_top50_mid50`
 
@@ -37,6 +39,9 @@
 - headline:
   - `tail_skip_entry_flowweakest_new_bottom4_top25_mid75`
   - best lower-turnover headline extension
+- stronger-but-more-fragile:
+  - `multi_step_confirm_top1_flowtop2`
+  - stronger and cleaner on paper, but concentration worsens too much
 - stronger-but-lower-quality:
   - `tail_release_top50_mid50`
   - best redistribution contender: headline and Sharpe both improve, but drawdown is still too weak for promotion

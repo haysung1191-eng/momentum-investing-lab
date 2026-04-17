@@ -293,6 +293,34 @@ def _patch_tail_release_top50_mid50() -> Callable[[pd.DataFrame], pd.DataFrame]:
     return patch
 
 
+def _patch_multi_step_confirm_top1_flowtop2() -> Callable[[pd.DataFrame], pd.DataFrame]:
+    def patch(book: pd.DataFrame) -> pd.DataFrame:
+        if book.empty or len(book) < 3:
+            return book
+        out = book.copy()
+        out["TargetWeight"] = pd.to_numeric(out["TargetWeight"], errors="coerce").fillna(0.0)
+        mom_ranked = out.sort_values(["MomentumScore", "FlowScore", "Symbol"], ascending=[False, False, True])
+        flow_ranked = out.sort_values(["FlowScore", "MomentumScore", "Symbol"], ascending=[False, False, True])
+        top_idx = mom_ranked.index[0]
+        second_idx = mom_ranked.index[1]
+        top_symbol = str(mom_ranked.iloc[0]["Symbol"])
+        top2_flow_symbols = set(flow_ranked.head(2)["Symbol"].astype(str).tolist())
+        if top_symbol in top2_flow_symbols:
+            return out
+        donor_weight = float(out.loc[top_idx, "TargetWeight"])
+        shift = min(0.03, donor_weight * 0.4)
+        if shift <= 0:
+            return out
+        out.loc[top_idx, "TargetWeight"] = donor_weight - shift
+        out.loc[second_idx, "TargetWeight"] = float(out.loc[second_idx, "TargetWeight"]) + shift
+        total_after = float(pd.to_numeric(out["TargetWeight"], errors="coerce").fillna(0.0).sum())
+        if total_after > 0:
+            out["TargetWeight"] = pd.to_numeric(out["TargetWeight"], errors="coerce").fillna(0.0) / total_after
+        return out
+
+    return patch
+
+
 def _summarize_candidate(
     name: str,
     result: dict[str, pd.DataFrame],
@@ -431,6 +459,7 @@ def main() -> None:
         (replace(strongest, name="tail_skip_entry_flowweakest_new_bottom4_top25_mid75"), _patch_skip_entry_flowweakest_new_bottom4_top25_mid75()),
         (replace(strongest, name="tail_release_to_nonbottom_proportional"), _patch_tail_release_to_nonbottom_proportional()),
         (replace(strongest, name="tail_release_top50_mid50"), _patch_tail_release_top50_mid50()),
+        (replace(strongest, name="multi_step_confirm_top1_flowtop2"), _patch_multi_step_confirm_top1_flowtop2()),
         (replace(strongest, name="top2_split_49_51"), _patch_top2_split(0.49, 0.51)),
         (
             replace(
