@@ -1,0 +1,56 @@
+{
+  "strongest_variant": "rule_sector_cap2_breadth_it_us5_top2_convex_ranked_tail_count6_pen35_floor20_bonus18_pow05_risk_on",
+  "family": "tail_release_redistribution_sweep",
+  "best_headline_point": "tail_release_top50_mid50",
+  "best_quality_point": "tail_release_top50_mid50",
+  "best_drawdown_point": "tail_release_top25_mid75",
+  "best_blended_point": "tail_release_top50_mid50",
+  "family_takeaway": "moving released tail weight from broad non-bottom redistribution toward a partial top2 mix improves Sharpe, turnover, walk-forward, and cost, but the whole family still fails promotion because drawdown remains too weak",
+  "rows": [
+    {
+      "variant": "tail_release_to_nonbottom_proportional",
+      "top2_share": "0.00%",
+      "mid_share": "100.00%",
+      "cagr": "70.94%",
+      "mdd": "-37.73%",
+      "sharpe": "1.5096",
+      "annual_turnover": "15.50",
+      "cost_75bps_cagr_delta_vs_strongest": "7.00%p",
+      "cost_75bps_sharpe_delta_vs_strongest": "-0.1248",
+      "walkforward": "3 positive / 1 negative",
+      "walkforward_sharpe_delta": "-0.1515",
+      "top3_positive_symbol_share": "39.20%",
+      "residual_ex_top3": "0.23%p"
+    },
+    {
+      "variant": "tail_release_top25_mid75",
+      "top2_share": "25.00%",
+      "mid_share": "75.00%",
+      "cagr": "75.55%",
+      "mdd": "-34.01%",
+      "sharpe": "1.6951",
+      "annual_turnover": "14.47",
+      "cost_75bps_cagr_delta_vs_strongest": "12.22%p",
+      "cost_75bps_sharpe_delta_vs_strongest": "+0.0548",
+      "walkforward": "4 positive / 0 negative",
+      "walkforward_sharpe_delta": "+0.0457",
+      "top3_positive_symbol_share": "43.42%",
+      "residual_ex_top3": "0.45%p"
+    },
+    {
+      "variant": "tail_release_top50_mid50",
+      "top2_share": "50.00%",
+      "mid_share": "50.00%",
+      "cagr": "76.47%",
+      "mdd": "-34.64%",
+      "sharpe": "1.6967",
+      "annual_turnover": "14.41",
+      "cost_75bps_cagr_delta_vs_strongest": "13.13%p",
+      "cost_75bps_sharpe_delta_vs_strongest": "+0.0593",
+      "walkforward": "4 positive / 0 negative",
+      "walkforward_sharpe_delta": "+0.0503",
+      "top3_positive_symbol_share": "43.74%",
+      "residual_ex_top3": "0.50%p"
+    }
+  ]
+}
