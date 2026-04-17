@@ -15,6 +15,7 @@ OUTPUT_DIR = ROOT / "output" / "split_models_quality_vs_headline_review"
 STRONGEST = "rule_sector_cap2_breadth_it_us5_top2_convex_ranked_tail_count6_pen35_floor20_bonus18_pow05_risk_on"
 QUALITY_NEAR_MISS = "bonus_recipient_top1_third_85_15"
 SKIP_ENTRY_NEAR_MISS = "tail_skip_entry_flowweakest_new_bottom4_top25_mid75"
+RISK_OFF_STRENGTH_NEAR_MISS = "risk_off_strength_breadth080"
 
 ROWS = [
     {
@@ -59,6 +60,20 @@ ROWS = [
         "MDDDeltaVsStrongest": 0.0051,
         "SharpeDeltaVsStrongest": -0.0268,
     },
+    {
+        "Variant": RISK_OFF_STRENGTH_NEAR_MISS,
+        "CAGR": 0.6350,
+        "MDD": -0.2995,
+        "Sharpe": 1.6847,
+        "AnnualTurnover": 15.57,
+        "Cost75BpsCAGRDelta": 0.0012,
+        "PositiveCAGRWindows": 3,
+        "NegativeCAGRWindows": 1,
+        "Top3PositiveSymbolShare": 0.4655,
+        "CAGRDeltaVsStrongest": 0.0034,
+        "MDDDeltaVsStrongest": -0.0068,
+        "SharpeDeltaVsStrongest": -0.0046,
+    },
 ]
 
 
@@ -74,16 +89,19 @@ def _build_summary() -> dict:
     strongest = next(row for row in ROWS if row["Variant"] == STRONGEST)
     quality = next(row for row in ROWS if row["Variant"] == QUALITY_NEAR_MISS)
     skip_entry = next(row for row in ROWS if row["Variant"] == SKIP_ENTRY_NEAR_MISS)
+    risk_off = next(row for row in ROWS if row["Variant"] == RISK_OFF_STRENGTH_NEAR_MISS)
 
     summary = {
         "strongest_variant": STRONGEST,
         "quality_near_miss_variant": QUALITY_NEAR_MISS,
         "skip_entry_near_miss_variant": SKIP_ENTRY_NEAR_MISS,
+        "risk_off_strength_near_miss_variant": RISK_OFF_STRENGTH_NEAR_MISS,
         "headline_leader": max(ROWS, key=lambda row: row["CAGR"])["Variant"],
         "quality_leader": max(ROWS, key=lambda row: row["Sharpe"])["Variant"],
         "lowest_turnover_variant": min(ROWS, key=lambda row: row["AnnualTurnover"])["Variant"],
         "quality_vs_headline_takeaway": (
             "skip-entry near miss is the best headline extension, "
+            "risk-off-strength near miss is the closest defensive headline-ish extension, "
             "quality near miss is the best quality extension, "
             "and the strongest remains the only balanced promotion-grade branch"
         ),
@@ -112,6 +130,12 @@ def _build_summary() -> dict:
             "sharpe_delta": f"{float(skip_entry['SharpeDeltaVsStrongest']):+.4f}",
             "cost_75bps_cagr_delta": _pct_point(float(skip_entry["Cost75BpsCAGRDelta"])),
         },
+        "risk_off_strength_near_miss_delta_vs_strongest": {
+            "cagr_delta": _pct_point(float(risk_off["CAGRDeltaVsStrongest"])),
+            "mdd_delta": _pct_point(float(risk_off["MDDDeltaVsStrongest"])),
+            "sharpe_delta": f"{float(risk_off['SharpeDeltaVsStrongest']):+.4f}",
+            "cost_75bps_cagr_delta": _pct_point(float(risk_off["Cost75BpsCAGRDelta"])),
+        },
     }
     return summary
 
@@ -120,6 +144,7 @@ def _build_markdown(summary: dict) -> str:
     rows = {row["variant"]: row for row in summary["rows"]}
     quality = rows[QUALITY_NEAR_MISS]
     skip_entry = rows[SKIP_ENTRY_NEAR_MISS]
+    risk_off = rows[RISK_OFF_STRENGTH_NEAR_MISS]
     return "\n".join(
         [
             "# Split Models Quality vs Headline Review",
@@ -133,6 +158,8 @@ def _build_markdown(summary: dict) -> str:
             f"  - `{QUALITY_NEAR_MISS}`",
             "- skip-entry near-miss:",
             f"  - `{SKIP_ENTRY_NEAR_MISS}`",
+            "- risk-off-strength near-miss:",
+            f"  - `{RISK_OFF_STRENGTH_NEAR_MISS}`",
             "",
             "## Result",
             "",
@@ -160,6 +187,16 @@ def _build_markdown(summary: dict) -> str:
             f"- walk-forward: `{skip_entry['walkforward']}`",
             f"- top 3 positive symbol share: `{skip_entry['top3_positive_symbol_share']}`",
             "",
+            "## Risk-Off-Strength Near-Miss",
+            "",
+            f"- CAGR: `{risk_off['cagr']}`",
+            f"- MDD: `{risk_off['mdd']}`",
+            f"- Sharpe: `{risk_off['sharpe']}`",
+            f"- Annual turnover: `{risk_off['annual_turnover']}`",
+            f"- `75 bps` cost CAGR delta vs strongest: `{risk_off['cost_75bps_cagr_delta_vs_strongest']}`",
+            f"- walk-forward: `{risk_off['walkforward']}`",
+            f"- top 3 positive symbol share: `{risk_off['top3_positive_symbol_share']}`",
+            "",
             "## Interpretation",
             "",
             "- `bonus_recipient_top1_third_85_15` is the best blended quality extension",
@@ -169,6 +206,9 @@ def _build_markdown(summary: dict) -> str:
             "- `tail_skip_entry_flowweakest_new_bottom4_top25_mid75` is the best headline extension",
             "  - CAGR and turnover improve together",
             "  - but Sharpe still stays materially below the strongest",
+            "- `risk_off_strength_breadth080` is the closest defensive headline-ish extension",
+            "  - CAGR is slightly above the strongest",
+            "  - but drawdown gets worse and Sharpe still slips",
             "- the strongest remains the only branch that stays balanced enough across headline, quality, and promotion robustness",
             "",
             "## Verdict",
@@ -176,6 +216,7 @@ def _build_markdown(summary: dict) -> str:
             "- keep the current strongest as the single aggressive mainline branch",
             "- treat the quality near-miss as the best quality-tilted alternative",
             "- treat the skip-entry near-miss as the best headline-tilted alternative",
+            "- treat the risk-off-strength near-miss as a defensive headline-ish alternative, not a promotion",
             "- do not promote either near-miss without solving their remaining quality gap",
             "",
         ]

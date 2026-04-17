@@ -2,10 +2,11 @@
   "strongest_variant": "rule_sector_cap2_breadth_it_us5_top2_convex_ranked_tail_count6_pen35_floor20_bonus18_pow05_risk_on",
   "quality_near_miss_variant": "bonus_recipient_top1_third_85_15",
   "skip_entry_near_miss_variant": "tail_skip_entry_flowweakest_new_bottom4_top25_mid75",
+  "risk_off_strength_near_miss_variant": "risk_off_strength_breadth080",
   "headline_leader": "bonus_recipient_top1_third_85_15",
   "quality_leader": "bonus_recipient_top1_third_85_15",
   "lowest_turnover_variant": "tail_skip_entry_flowweakest_new_bottom4_top25_mid75",
-  "quality_vs_headline_takeaway": "skip-entry near miss is the best headline extension, quality near miss is the best quality extension, and the strongest remains the only balanced promotion-grade branch",
+  "quality_vs_headline_takeaway": "skip-entry near miss is the best headline extension, risk-off-strength near miss is the closest defensive headline-ish extension, quality near miss is the best quality extension, and the strongest remains the only balanced promotion-grade branch",
   "rows": [
     {
       "variant": "rule_sector_cap2_breadth_it_us5_top2_convex_ranked_tail_count6_pen35_floor20_bonus18_pow05_risk_on",
@@ -36,6 +37,16 @@
       "cost_75bps_cagr_delta_vs_strongest": "0.53%p",
       "walkforward": "3 positive / 1 negative",
       "top3_positive_symbol_share": "49.04%"
+    },
+    {
+      "variant": "risk_off_strength_breadth080",
+      "cagr": "63.50%",
+      "mdd": "-29.95%",
+      "sharpe": "1.6847",
+      "annual_turnover": "15.57",
+      "cost_75bps_cagr_delta_vs_strongest": "0.12%p",
+      "walkforward": "3 positive / 1 negative",
+      "top3_positive_symbol_share": "46.55%"
     }
   ],
   "quality_near_miss_delta_vs_strongest": {
@@ -49,5 +60,11 @@
     "mdd_delta": "0.51%p",
     "sharpe_delta": "-0.0268",
     "cost_75bps_cagr_delta": "0.53%p"
+  },
+  "risk_off_strength_near_miss_delta_vs_strongest": {
+    "cagr_delta": "0.34%p",
+    "mdd_delta": "-0.68%p",
+    "sharpe_delta": "-0.0046",
+    "cost_75bps_cagr_delta": "0.12%p"
   }
 }
