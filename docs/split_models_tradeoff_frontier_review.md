@@ -11,6 +11,7 @@
   - `bonus_recipient_top1_third_85_15`
   - `tail_skip_entry_flowweakest_new_bottom4_top25_mid75`
   - `tail_release_to_nonbottom_proportional`
+  - `tail_release_top50_mid50`
   - `top2_split_49_51`
   - `alt_family_top3_flat_bonus18`
 
@@ -68,6 +69,14 @@
   - walk-forward: `3` positive CAGR windows, `1` negative
   - `75 bps` CAGR delta vs strongest: `+7.00%p`
   - top 3 positive symbol share: `39.20%`
+- `tail_release_top50_mid50`
+  - CAGR: `76.47%`
+  - MDD: `-34.64%`
+  - Sharpe: `1.6967`
+  - Annual turnover: `14.41`
+  - walk-forward: `4` positive CAGR windows, `0` negative
+  - `75 bps` CAGR delta vs strongest: `+13.13%p`
+  - top 3 positive symbol share: `43.74%`
 - `top2_split_49_51`
   - CAGR: `62.84%`
   - MDD: `-29.25%`
@@ -111,6 +120,10 @@
   - headline CAGR jumps sharply and walk-forward remains positive at `3-1`
   - concentration and residual also improve
   - but drawdown worsens badly and Sharpe collapses, so it is not remotely promotion-grade
+- `tail_release_top50_mid50` is the strongest `redistribution contender`
+  - full-period CAGR jumps the most in the reviewed set
+  - Sharpe, walk-forward, cost, and turnover all stay better than expected for such an aggressive challenger
+  - but MDD still worsens too much, so it remains non-promotable despite looking much closer than the pure non-bottom redistribution
 - `top2_split_49_51` is weaker than the hybrid challenger
   - it reduces concentration versus the strongest
   - but it does not preserve CAGR or walk-forward quality as well as the hybrid branch
@@ -125,6 +138,7 @@
 - treat `bonus_schedule_first55_second45` as the current best `stronger-like but not promotion-grade` challenger
 - treat `bonus_recipient_top1_third_85_15` as the current best `blended-quality but not promotion-grade` challenger
 - treat `tail_skip_entry_flowweakest_new_bottom4_top25_mid75` as the current best `skip-entry stronger-like but lower-quality` challenger
-- treat `tail_release_to_nonbottom_proportional` as the current best `stronger-but-much-lower-quality` challenger
+- treat `tail_release_top50_mid50` as the current best `redistribution contender`
+- treat `tail_release_to_nonbottom_proportional` as the current best `stronger-but-much-lower-quality boundary` challenger
 - treat `top2_split_49_51` as an inferior micro-adjustment candidate
 - treat `alt_family_top3_flat_bonus18` as a useful boundary check rather than a live promotion candidate

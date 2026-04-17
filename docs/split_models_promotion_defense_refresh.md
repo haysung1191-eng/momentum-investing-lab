@@ -16,7 +16,7 @@
 - headline near-miss:
   - `tail_skip_entry_flowweakest_new_bottom4_top25_mid75`
 - stronger-but-lower-quality near-miss:
-  - `tail_release_to_nonbottom_proportional`
+  - `tail_release_top50_mid50`
 
 ## What changed in this search batch
 
@@ -38,8 +38,8 @@
   - `tail_skip_entry_flowweakest_new_bottom4_top25_mid75`
   - best lower-turnover headline extension
 - stronger-but-lower-quality:
-  - `tail_release_to_nonbottom_proportional`
-  - strongest raw CAGR jump, but far too much quality loss for promotion
+  - `tail_release_top50_mid50`
+  - best redistribution contender: headline and Sharpe both improve, but drawdown is still too weak for promotion
 
 ## Dead or Saturated Families
 
@@ -58,7 +58,7 @@
 - flow filter / soft blacklist / dynamic bonus:
   - they weakened alpha more than they fixed fragility
 - aggressive redistribution:
-  - headline surged, but quality collapsed
+  - headline surged, but drawdown still failed promotion grade
 
 ## Verdict
 

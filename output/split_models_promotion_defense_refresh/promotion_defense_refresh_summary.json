@@ -38,13 +38,13 @@
     "takeaway": "best headline extension, but Sharpe still stays too weak"
   },
   "stronger_but_lower_quality_near_miss": {
-    "variant": "tail_release_to_nonbottom_proportional",
-    "cagr": "70.94%",
-    "mdd": "-37.73%",
-    "sharpe": "1.5096",
-    "cost_75bps_cagr_delta_vs_strongest": "+7.00%p",
-    "walkforward": "3 positive / 1 negative",
-    "takeaway": "best stronger-but-much-lower-quality point; headline jumps, but quality collapses too much for promotion"
+    "variant": "tail_release_top50_mid50",
+    "cagr": "76.47%",
+    "mdd": "-34.64%",
+    "sharpe": "1.6967",
+    "cost_75bps_cagr_delta_vs_strongest": "+13.13%p",
+    "walkforward": "4 positive / 0 negative",
+    "takeaway": "best redistribution contender; headline and Sharpe both improve, but drawdown still worsens too much for promotion"
   },
   "recent_failed_families": [
     {
@@ -109,9 +109,9 @@
     },
     {
       "family": "aggressive redistribution",
-      "best_tested_point": "tail_release_to_nonbottom_proportional",
-      "headline": "+7.78%p CAGR and +7.00%p cost CAGR delta",
-      "failure": "MDD delta -8.46%p and Sharpe delta -0.1796 made it clearly non-promotable"
+      "best_tested_point": "tail_release_top50_mid50",
+      "headline": "+13.31%p CAGR, +0.0075 Sharpe, and 4 positive / 0 negative walk-forward windows",
+      "failure": "MDD delta -5.37%p still leaves it outside promotion grade despite the much stronger headline"
     }
   ],
   "promotion_defense_verdict": "keep the current strongest; recent search widened the near-miss map but did not produce a new promotion-grade stronger branch"
