@@ -14,7 +14,7 @@
 - quality near-miss:
   - `bonus_recipient_top1_third_67_33`
 - headline near-miss:
-  - `tail_skip_entry_flowweakest_new_bottom4_top50_mid50`
+  - `tail_skip_entry_flowweakest_new_bottom4_top25_mid75`
 
 ## Guardrail
 

@@ -14,7 +14,7 @@ OUTPUT_DIR = ROOT / "output" / "split_models_quality_vs_headline_review"
 
 STRONGEST = "rule_sector_cap2_breadth_it_us5_top2_convex_ranked_tail_count6_pen35_floor20_bonus18_pow05_risk_on"
 QUALITY_NEAR_MISS = "bonus_recipient_top1_third_67_33"
-SKIP_ENTRY_NEAR_MISS = "tail_skip_entry_flowweakest_new_bottom4_top50_mid50"
+SKIP_ENTRY_NEAR_MISS = "tail_skip_entry_flowweakest_new_bottom4_top25_mid75"
 
 ROWS = [
     {
@@ -47,17 +47,17 @@ ROWS = [
     },
     {
         "Variant": SKIP_ENTRY_NEAR_MISS,
-        "CAGR": 0.6375,
-        "MDD": -0.2923,
-        "Sharpe": 1.6636,
-        "AnnualTurnover": 14.72,
-        "Cost75BpsCAGRDelta": 0.0104,
+        "CAGR": 0.6321,
+        "MDD": -0.2877,
+        "Sharpe": 1.6625,
+        "AnnualTurnover": 14.73,
+        "Cost75BpsCAGRDelta": 0.0053,
         "PositiveCAGRWindows": 3,
         "NegativeCAGRWindows": 1,
-        "Top3PositiveSymbolShare": 0.4802,
-        "CAGRDeltaVsStrongest": 0.0059,
-        "MDDDeltaVsStrongest": 0.0004,
-        "SharpeDeltaVsStrongest": -0.0256,
+        "Top3PositiveSymbolShare": 0.4904,
+        "CAGRDeltaVsStrongest": 0.0006,
+        "MDDDeltaVsStrongest": 0.0051,
+        "SharpeDeltaVsStrongest": -0.0268,
     },
 ]
 
@@ -165,7 +165,7 @@ def _build_markdown(summary: dict) -> str:
             "- `bonus_recipient_top1_third_67_33` is the best quality extension",
             "  - Sharpe and MDD improve the most",
             "  - but turnover jumps and cost-adjusted CAGR turns negative",
-            "- `tail_skip_entry_flowweakest_new_bottom4_top50_mid50` is the best headline extension",
+            "- `tail_skip_entry_flowweakest_new_bottom4_top25_mid75` is the best headline extension",
             "  - CAGR and turnover improve together",
             "  - but Sharpe still stays materially below the strongest",
             "- the strongest remains the only branch that stays balanced enough across headline, quality, and promotion robustness",

@@ -8,7 +8,7 @@
 - quality near-miss:
   - `bonus_recipient_top1_third_67_33`
 - skip-entry near-miss:
-  - `tail_skip_entry_flowweakest_new_bottom4_top50_mid50`
+  - `tail_skip_entry_flowweakest_new_bottom4_top25_mid75`
 
 ## Why this review exists
 
@@ -23,9 +23,9 @@
   - Sharpe improves materially
   - MDD improves as well
   - but turnover rises and cost-adjusted CAGR turns negative
-- `tail_skip_entry_flowweakest_new_bottom4_top50_mid50` is the best headline extension
-  - CAGR improves
-  - turnover improves
+- `tail_skip_entry_flowweakest_new_bottom4_top25_mid75` is the best headline extension
+  - CAGR stays at strongest level
+  - drawdown and turnover improve
   - but Sharpe remains clearly below the strongest
 - the current strongest still matters because it stays the most balanced point across:
   - headline CAGR

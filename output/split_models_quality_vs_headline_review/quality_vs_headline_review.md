@@ -8,13 +8,13 @@
 - quality near-miss:
   - `bonus_recipient_top1_third_67_33`
 - skip-entry near-miss:
-  - `tail_skip_entry_flowweakest_new_bottom4_top50_mid50`
+  - `tail_skip_entry_flowweakest_new_bottom4_top25_mid75`
 
 ## Result
 
-- headline leader: `tail_skip_entry_flowweakest_new_bottom4_top50_mid50`
+- headline leader: `bonus_recipient_top1_third_67_33`
 - quality leader: `bonus_recipient_top1_third_67_33`
-- lowest turnover variant: `tail_skip_entry_flowweakest_new_bottom4_top50_mid50`
+- lowest turnover variant: `tail_skip_entry_flowweakest_new_bottom4_top25_mid75`
 
 ## Quality Near-Miss
 
@@ -28,20 +28,20 @@
 
 ## Skip-Entry Near-Miss
 
-- CAGR: `63.75%`
-- MDD: `-29.23%`
-- Sharpe: `1.6636`
-- Annual turnover: `14.72`
-- `75 bps` cost CAGR delta vs strongest: `1.04%p`
+- CAGR: `63.21%`
+- MDD: `-28.77%`
+- Sharpe: `1.6625`
+- Annual turnover: `14.73`
+- `75 bps` cost CAGR delta vs strongest: `0.53%p`
 - walk-forward: `3 positive / 1 negative`
-- top 3 positive symbol share: `48.02%`
+- top 3 positive symbol share: `49.04%`
 
 ## Interpretation
 
 - `bonus_recipient_top1_third_67_33` is the best quality extension
   - Sharpe and MDD improve the most
   - but turnover jumps and cost-adjusted CAGR turns negative
-- `tail_skip_entry_flowweakest_new_bottom4_top50_mid50` is the best headline extension
+- `tail_skip_entry_flowweakest_new_bottom4_top25_mid75` is the best headline extension
   - CAGR and turnover improve together
   - but Sharpe still stays materially below the strongest
 - the strongest remains the only branch that stays balanced enough across headline, quality, and promotion robustness

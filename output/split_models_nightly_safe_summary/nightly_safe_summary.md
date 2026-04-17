@@ -59,13 +59,13 @@
 
 ## Skip-Entry Near-Miss
 
-- variant: `tail_skip_entry_flowweakest_new_bottom4_top50_mid50`
-- CAGR: `63.75%`
-- MDD: `-29.23%`
-- Sharpe: `1.6636`
-- `75 bps` cost CAGR delta vs strongest: `+1.04%p`
+- variant: `tail_skip_entry_flowweakest_new_bottom4_top25_mid75`
+- CAGR: `63.21%`
+- MDD: `-28.77%`
+- Sharpe: `1.6625`
+- `75 bps` cost CAGR delta vs strongest: `+0.53%p`
 - walk-forward: `3 positive / 1 negative`
-- verdict: `headline, breadth, and turnover all improve, but Sharpe still remains meaningfully weaker than the strongest`
+- verdict: `headline, drawdown, and turnover all improve, but Sharpe still remains meaningfully weaker than the strongest`
 
 ## Nightly verdict
 

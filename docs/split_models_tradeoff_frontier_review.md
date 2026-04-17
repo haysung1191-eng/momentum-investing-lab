@@ -9,7 +9,7 @@
   - `hybrid_top2_plus_third00125`
   - `bonus_schedule_first55_second45`
   - `bonus_recipient_top1_third_67_33`
-  - `tail_skip_entry_flowweakest_new_bottom4_top50_mid50`
+  - `tail_skip_entry_flowweakest_new_bottom4_top25_mid75`
   - `top2_split_49_51`
   - `alt_family_top3_flat_bonus18`
 
@@ -51,14 +51,14 @@
   - walk-forward: `2` positive CAGR windows, `2` negative
   - `75 bps` CAGR delta vs strongest: `-0.46%p`
   - top 3 positive symbol share: `35.09%`
-- `tail_skip_entry_flowweakest_new_bottom4_top50_mid50`
-  - CAGR: `63.75%`
-  - MDD: `-29.23%`
-  - Sharpe: `1.6636`
-  - Annual turnover: `14.72`
+- `tail_skip_entry_flowweakest_new_bottom4_top25_mid75`
+  - CAGR: `63.21%`
+  - MDD: `-28.77%`
+  - Sharpe: `1.6625`
+  - Annual turnover: `14.73`
   - walk-forward: `3` positive CAGR windows, `1` negative
-  - `75 bps` CAGR delta vs strongest: `+1.04%p`
-  - top 3 positive symbol share: `48.02%`
+  - `75 bps` CAGR delta vs strongest: `+0.53%p`
+  - top 3 positive symbol share: `49.04%`
 - `top2_split_49_51`
   - CAGR: `62.84%`
   - MDD: `-29.25%`
@@ -94,8 +94,8 @@
   - Sharpe improves materially and drawdown improves as well
   - concentration drops a lot versus the strongest
   - but turnover jumps and `75 bps` cost CAGR turns negative, so it also misses promotion grade
-- `tail_skip_entry_flowweakest_new_bottom4_top50_mid50` is the best `skip-entry stronger-like` near-miss
-  - CAGR, breadth, and turnover all improve versus the strongest
+- `tail_skip_entry_flowweakest_new_bottom4_top25_mid75` is the best `skip-entry stronger-like` near-miss
+  - CAGR, drawdown, and turnover all improve versus the strongest
   - walk-forward also stays mostly positive at `3-1`
   - but Sharpe remains meaningfully lower than the strongest, so it still misses promotion grade
 - `top2_split_49_51` is weaker than the hybrid challenger
@@ -111,6 +111,6 @@
 - treat `hybrid_top2_plus_third00125` as the current best `broader-but-weaker` challenger
 - treat `bonus_schedule_first55_second45` as the current best `stronger-like but not promotion-grade` challenger
 - treat `bonus_recipient_top1_third_67_33` as the current best `higher-quality but cost-weaker` challenger
-- treat `tail_skip_entry_flowweakest_new_bottom4_top50_mid50` as the current best `skip-entry stronger-like but lower-quality` challenger
+- treat `tail_skip_entry_flowweakest_new_bottom4_top25_mid75` as the current best `skip-entry stronger-like but lower-quality` challenger
 - treat `top2_split_49_51` as an inferior micro-adjustment candidate
 - treat `alt_family_top3_flat_bonus18` as a useful boundary check rather than a live promotion candidate

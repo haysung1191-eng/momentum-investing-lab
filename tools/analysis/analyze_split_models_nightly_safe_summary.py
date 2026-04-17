@@ -68,13 +68,13 @@ SUMMARY = {
         "verdict": "quality-improving and broader, but turnover jumps and cost-adjusted CAGR turns negative",
     },
     "skip_entry_near_miss": {
-        "variant": "tail_skip_entry_flowweakest_new_bottom4_top50_mid50",
-        "cagr": "63.75%",
-        "mdd": "-29.23%",
-        "sharpe": "1.6636",
-        "cost_75bps_cagr_delta_vs_strongest": "+1.04%p",
+        "variant": "tail_skip_entry_flowweakest_new_bottom4_top25_mid75",
+        "cagr": "63.21%",
+        "mdd": "-28.77%",
+        "sharpe": "1.6625",
+        "cost_75bps_cagr_delta_vs_strongest": "+0.53%p",
         "walkforward": "3 positive / 1 negative",
-        "verdict": "headline, breadth, and turnover all improve, but Sharpe still remains meaningfully weaker than the strongest",
+        "verdict": "headline, drawdown, and turnover all improve, but Sharpe still remains meaningfully weaker than the strongest",
     },
 }
 
