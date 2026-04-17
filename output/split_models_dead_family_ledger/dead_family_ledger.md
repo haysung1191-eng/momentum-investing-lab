@@ -71,8 +71,113 @@
   - strongest signal: `none`
   - kill reason: `CAGR delta -42.03%p, MDD got worse, Sharpe collapsed, turnover rose`
   - retry rule: `do not retry min_rel_volume around 1.05 or higher as a mainline branch search axis`
+- book size: `no-op`
+  - best tested point: `book_size10_strongest / book_size8_strongest`
+  - strongest signal: `identical to strongest`
+  - kill reason: `selection and outcome did not change at all`
+  - retry rule: `do not retry book-size toggles unless the base selection cardinality logic changes`
+- winner cap: `dead`
+  - best tested point: `top1_weight_cap18`
+  - strongest signal: `+0.335%p residual ex PLTR/NVDA/MU`
+  - kill reason: `CAGR delta -7.23%p, MDD worsened, Sharpe delta -0.0877, turnover rose`
+  - retry rule: `do not retry simple post-weight top1 caps around 18% as a mainline branch search axis`
+- mid-book recipient: `dead`
+  - best tested point: `bonus_recipient_top1_fourth_85_15`
+  - strongest signal: `+2.40%p CAGR and +1.82%p cost CAGR`
+  - kill reason: `MDD worsened, walk-forward stayed 2 positive / 2 negative, and cost Sharpe stayed negative`
+  - retry rule: `do not retry simple top1 plus fourth recipient variants without a new robustness offset`
+- tail penalty shape: `dead`
+  - best tested point: `tail_penalty_shape_pow075`
+  - strongest signal: `+7.66%p CAGR and +6.87%p cost CAGR`
+  - kill reason: `MDD worsened by -8.39%p and Sharpe delta fell to -0.1799`
+  - retry rule: `do not retry stronger tail-penalty curves that only push the branch into redistribution-like behavior`
+- book ordering: `dead`
+  - best tested point: `book_order_flow_first_weight_map`
+  - strongest signal: `lower concentration`
+  - kill reason: `CAGR slipped, MDD worsened, Sharpe delta -0.0850, and cost weakened clearly`
+  - retry rule: `do not retry FlowScore-first weight remapping inside the selected book`
+- rebalance timing: `dead`
+  - best tested point: `rebalance_every_2m`
+  - strongest signal: `+9.04%p MDD improvement and +0.3821 Sharpe`
+  - kill reason: `CAGR delta -25.13%p and cost CAGR delta -18.45%p`
+  - retry rule: `do not retry slower rebalance cadence as a mainline strongest search axis`
+- risk budget: `dead`
+  - best tested point: `risk_budget_toptrim10_to_tail`
+  - strongest signal: `+0.049%p residual ex PLTR/NVDA/MU`
+  - kill reason: `CAGR delta -4.09%p, MDD worsened, Sharpe delta -0.0835, and walk-forward fell to 1 positive / 3 negative`
+  - retry rule: `do not retry simple top-trim to tail risk-budget transfers`
+- signal smoothing: `dead`
+  - best tested point: `signal_smoothing_sqrt_weights`
+  - strongest signal: `lower concentration`
+  - kill reason: `CAGR delta -10.38%p, MDD worsened, Sharpe delta -0.1186, and cost weakened materially`
+  - retry rule: `do not retry generic sqrt-style smoothing of the strongest weight map`
+- cost-aware incumbency: `no-op`
+  - best tested point: `cost_aware_incumbent_bonus05`
+  - strongest signal: `identical to strongest`
+  - kill reason: `incumbent bonus did not alter the realized book or outcome`
+  - retry rule: `do not retry simple incumbent bonus overlays unless the rebalance admission logic changes`
+- sector rotation trigger: `dead`
+  - best tested point: `sector_rotation_trigger_alt_sector03`
+  - strongest signal: `sector concentration eased slightly`
+  - kill reason: `CAGR delta -0.24%p, MDD worsened, Sharpe delta -0.0425, and cost weakened`
+  - retry rule: `do not retry same-sector handoff triggers near 0.03`
+- cross-market handoff: `dead`
+  - best tested point: `cross_market_handoff_alt_market03`
+  - strongest signal: `+0.046%p residual ex PLTR/NVDA/MU`
+  - kill reason: `CAGR delta -0.85%p, MDD worsened, Sharpe delta -0.0402, and walk-forward fell to 1 positive / 3 negative`
+  - retry rule: `do not retry same-market handoff triggers near 0.03`
+- symbol memory: `no-op`
+  - best tested point: `symbol_memory_top1_bonus03`
+  - strongest signal: `identical to strongest`
+  - kill reason: `memory bonus did not alter the realized book or outcome`
+  - retry rule: `do not retry simple top1 memory bonuses unless the rank transition logic changes`
+- dual-score gating: `dead`
+  - best tested point: `dual_score_gate_top2_flowtop3`
+  - strongest signal: `slightly positive walk-forward CAGR`
+  - kill reason: `CAGR delta -1.27%p, Sharpe delta -0.0320, cost weakened, and residual turned negative`
+  - retry rule: `do not retry momentum-plus-flow admission gates without a truly different payout rule`
+- state-mixed ranking: `dead`
+  - best tested point: `state_mixed_rank_flow30_if_top242`
+  - strongest signal: `+0.0008 walk-forward Sharpe delta`
+  - kill reason: `CAGR delta -1.50%p, Sharpe delta -0.0348, cost weakened, and fragility got worse`
+  - retry rule: `do not retry top2-concentration-triggered mixed ranking overlays`
+- two-stage weight map: `dead`
+  - best tested point: `two_stage_weight_map_top58_rest42`
+  - strongest signal: `+0.185%p residual ex PLTR/NVDA/MU`
+  - kill reason: `CAGR delta -7.80%p, MDD worsened, Sharpe delta -0.1292, and walk-forward fell to 1 positive / 3 negative`
+  - retry rule: `do not retry bucketized top-versus-rest weight maps around 58/42`
+- conditional tail count: `dead`
+  - best tested point: `conditional_tail_count4_if_top242`
+  - strongest signal: `+6.53%p CAGR and +5.85%p cost CAGR`
+  - kill reason: `MDD worsened by -8.46%p and Sharpe delta fell to -0.1827`
+  - retry rule: `do not retry top2-concentration-triggered tail-count compression without a separate drawdown control`
+- conditional bonus size: `dead`
+  - best tested point: `conditional_bonus14_if_top242`
+  - strongest signal: `slightly lower turnover`
+  - kill reason: `CAGR delta -2.81%p, Sharpe delta -0.0387, and walk-forward stayed 0 positive / 3 negative`
+  - retry rule: `do not retry conditional bonus tightening around 0.14 if based only on top2 concentration`
+- exposure ladder: `dead`
+  - best tested point: `exposure_ladder_top26_top18`
+  - strongest signal: `lower concentration`
+  - kill reason: `CAGR delta -16.16%p, MDD worsened, Sharpe delta -0.1815, and cost weakened materially`
+  - retry rule: `do not retry explicit top1/top2 cap ladders as a strongest replacement axis`
+- candidate admission: `dead`
+  - best tested point: `candidate_admission_flow_floor0`
+  - strongest signal: `none`
+  - kill reason: `CAGR delta -5.01%p, MDD worsened, Sharpe delta -0.1132, and walk-forward fell to 0 positive / 4 negative`
+  - retry rule: `do not retry simple negative-flow admission bans inside the realized book`
+- cash sleeve: `dead`
+  - best tested point: `cash_sleeve_toptrim05 / state_cash_top2conc42_trim05`
+  - strongest signal: `slightly higher Sharpe and lower turnover`
+  - kill reason: `both static and state-dependent cash trims weakened CAGR and failed walk-forward robustness`
+  - retry rule: `do not retry cash sleeve overlays unless the cash decision is paired with a new alpha source`
+- rank stability: `dead`
+  - best tested point: `rank_stability_bonus_third_if_gap015`
+  - strongest signal: `+0.042%p residual ex PLTR/NVDA/MU`
+  - kill reason: `CAGR slipped, MDD worsened, Sharpe delta -0.0425, and cost weakened`
+  - retry rule: `do not retry gap-based rank-sharing between first and third names around 0.15 / 0.03`
 
 ## Verdict
 
-- recent search has enough evidence to stop repeating these families under the current strongest
+- recent search has enough evidence to stop repeating these dead or no-op families under the current strongest
 - future search should favor genuinely different families instead of recycling these axes
