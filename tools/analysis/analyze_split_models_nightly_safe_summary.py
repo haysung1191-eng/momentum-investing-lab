@@ -58,6 +58,15 @@ SUMMARY = {
         "walkforward": "2 positive / 2 negative",
         "verdict": "headline-strong but still below promotion grade because walk-forward stays mixed and drawdown is slightly worse",
     },
+    "quality_near_miss": {
+        "variant": "bonus_recipient_top1_third_67_33",
+        "cagr": "63.21%",
+        "mdd": "-29.09%",
+        "sharpe": "1.7018",
+        "cost_75bps_cagr_delta_vs_strongest": "-0.46%p",
+        "walkforward": "2 positive / 2 negative",
+        "verdict": "quality-improving and broader, but turnover jumps and cost-adjusted CAGR turns negative",
+    },
 }
 
 
@@ -69,6 +78,7 @@ def _build_markdown(summary: dict) -> str:
     broader_delta = summary["broader_challenger_delta_vs_strongest"]
     benchmark = summary["benchmark_check"]
     bonus_near_miss = summary["bonus_near_miss"]
+    quality_near_miss = summary["quality_near_miss"]
 
     return "\n".join(
         [
@@ -121,10 +131,21 @@ def _build_markdown(summary: dict) -> str:
             f"- walk-forward: `{bonus_near_miss['walkforward']}`",
             f"- verdict: `{bonus_near_miss['verdict']}`",
             "",
+            "## Quality Near-Miss",
+            "",
+            f"- variant: `{quality_near_miss['variant']}`",
+            f"- CAGR: `{quality_near_miss['cagr']}`",
+            f"- MDD: `{quality_near_miss['mdd']}`",
+            f"- Sharpe: `{quality_near_miss['sharpe']}`",
+            f"- `75 bps` cost CAGR delta vs strongest: `{quality_near_miss['cost_75bps_cagr_delta_vs_strongest']}`",
+            f"- walk-forward: `{quality_near_miss['walkforward']}`",
+            f"- verdict: `{quality_near_miss['verdict']}`",
+            "",
             "## Nightly verdict",
             "",
             "- keep the current strongest as the mainline aggressive branch",
             "- treat the broader challenger as a near-miss, not a promotion",
+            "- treat the quality near-miss as a quality-tilted alternative, not a promotion",
             "- if more overnight work is run, prefer broader-challenger exploration over disturbing the strongest baseline again",
             "",
         ]

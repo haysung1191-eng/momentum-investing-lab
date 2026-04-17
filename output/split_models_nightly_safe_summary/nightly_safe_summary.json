@@ -42,5 +42,14 @@
     "cost_75bps_cagr_delta_vs_strongest": "+0.37%p",
     "walkforward": "2 positive / 2 negative",
     "verdict": "headline-strong but still below promotion grade because walk-forward stays mixed and drawdown is slightly worse"
+  },
+  "quality_near_miss": {
+    "variant": "bonus_recipient_top1_third_67_33",
+    "cagr": "63.21%",
+    "mdd": "-29.09%",
+    "sharpe": "1.7018",
+    "cost_75bps_cagr_delta_vs_strongest": "-0.46%p",
+    "walkforward": "2 positive / 2 negative",
+    "verdict": "quality-improving and broader, but turnover jumps and cost-adjusted CAGR turns negative"
   }
 }

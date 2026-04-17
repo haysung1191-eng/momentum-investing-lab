@@ -47,8 +47,19 @@
 - walk-forward: `2 positive / 2 negative`
 - verdict: `headline-strong but still below promotion grade because walk-forward stays mixed and drawdown is slightly worse`
 
+## Quality Near-Miss
+
+- variant: `bonus_recipient_top1_third_67_33`
+- CAGR: `63.21%`
+- MDD: `-29.09%`
+- Sharpe: `1.7018`
+- `75 bps` cost CAGR delta vs strongest: `-0.46%p`
+- walk-forward: `2 positive / 2 negative`
+- verdict: `quality-improving and broader, but turnover jumps and cost-adjusted CAGR turns negative`
+
 ## Nightly verdict
 
 - keep the current strongest as the mainline aggressive branch
 - treat the broader challenger as a near-miss, not a promotion
+- treat the quality near-miss as a quality-tilted alternative, not a promotion
 - if more overnight work is run, prefer broader-challenger exploration over disturbing the strongest baseline again

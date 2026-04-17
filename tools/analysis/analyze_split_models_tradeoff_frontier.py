@@ -146,6 +146,29 @@ def _patch_bonus_schedule(first_share: float, second_share: float, bonus_total: 
     return patch
 
 
+def _patch_bonus_recipients(first_share: float, third_share: float, bonus_total: float = 0.18) -> Callable[[pd.DataFrame], pd.DataFrame]:
+    def patch(book: pd.DataFrame) -> pd.DataFrame:
+        if book.empty or len(book) < 3:
+            return book
+        out = book.copy()
+        original_total = float(pd.to_numeric(out["TargetWeight"], errors="coerce").fillna(0.0).sum())
+        ranked = out.sort_values(["MomentumScore", "FlowScore", "Symbol"], ascending=[False, False, True])
+        first_index = ranked.index[0]
+        second_index = ranked.index[1]
+        third_index = ranked.index[2]
+        equal_piece = float(bonus_total) / 2.0
+        out.loc[first_index, "TargetWeight"] = float(out.loc[first_index, "TargetWeight"]) - equal_piece
+        out.loc[second_index, "TargetWeight"] = float(out.loc[second_index, "TargetWeight"]) - equal_piece
+        out.loc[first_index, "TargetWeight"] = float(out.loc[first_index, "TargetWeight"]) + float(bonus_total) * float(first_share)
+        out.loc[third_index, "TargetWeight"] = float(out.loc[third_index, "TargetWeight"]) + float(bonus_total) * float(third_share)
+        new_total = float(pd.to_numeric(out["TargetWeight"], errors="coerce").fillna(0.0).sum())
+        if new_total > 0:
+            out["TargetWeight"] = pd.to_numeric(out["TargetWeight"], errors="coerce").fillna(0.0) * (original_total / new_total)
+        return out
+
+    return patch
+
+
 def _summarize_candidate(
     name: str,
     result: dict[str, pd.DataFrame],
@@ -280,6 +303,7 @@ def main() -> None:
         (strongest, None),
         (replace(strongest, name="hybrid_top2_plus_third00125"), _patch_hybrid_top2_plus_third(0.00125)),
         (replace(strongest, name="bonus_schedule_first55_second45"), _patch_bonus_schedule(0.55, 0.45)),
+        (replace(strongest, name="bonus_recipient_top1_third_67_33"), _patch_bonus_recipients(0.67, 0.33)),
         (replace(strongest, name="top2_split_49_51"), _patch_top2_split(0.49, 0.51)),
         (
             replace(
