@@ -1,0 +1,80 @@
+{
+  "strongest_variant": "rule_sector_cap2_breadth_it_us5_top2_convex_ranked_tail_count6_pen35_floor20_bonus18_pow05_risk_on",
+  "family": "bonus_recipient_top1_third_sweep",
+  "best_quality_point": "bonus_recipient_top1_third_67_33",
+  "best_blended_point": "bonus_recipient_top1_third_85_15",
+  "best_headline_point": "bonus_recipient_top1_third_90_10",
+  "family_takeaway": "moving from 67/33 toward 90/10 keeps increasing headline CAGR, but walk-forward Sharpe robustness weakens; 85/15 is the best blended point",
+  "rows": [
+    {
+      "variant": "bonus_recipient_top1_third_67_33",
+      "top1_share": "67.00%",
+      "top3_share": "33.00%",
+      "cagr": "63.21%",
+      "mdd": "-29.09%",
+      "sharpe": "1.7018",
+      "annual_turnover": "15.94",
+      "cost_75bps_cagr_delta_vs_strongest": "-0.46%p",
+      "walkforward": "2 positive / 2 negative",
+      "walkforward_sharpe_delta": "+0.0044",
+      "top3_positive_symbol_share": "35.09%",
+      "residual_ex_top3": "0.06%p"
+    },
+    {
+      "variant": "bonus_recipient_top1_third_75_25",
+      "top1_share": "75.00%",
+      "top3_share": "25.00%",
+      "cagr": "64.20%",
+      "mdd": "-29.28%",
+      "sharpe": "1.6982",
+      "annual_turnover": "15.87",
+      "cost_75bps_cagr_delta_vs_strongest": "0.50%p",
+      "walkforward": "2 positive / 2 negative",
+      "walkforward_sharpe_delta": "-0.0026",
+      "top3_positive_symbol_share": "40.46%",
+      "residual_ex_top3": "0.18%p"
+    },
+    {
+      "variant": "bonus_recipient_top1_third_80_20",
+      "top1_share": "80.00%",
+      "top3_share": "20.00%",
+      "cagr": "64.82%",
+      "mdd": "-29.40%",
+      "sharpe": "1.6956",
+      "annual_turnover": "15.84",
+      "cost_75bps_cagr_delta_vs_strongest": "1.09%p",
+      "walkforward": "3 positive / 1 negative",
+      "walkforward_sharpe_delta": "-0.0074",
+      "top3_positive_symbol_share": "45.37%",
+      "residual_ex_top3": "0.26%p"
+    },
+    {
+      "variant": "bonus_recipient_top1_third_85_15",
+      "top1_share": "85.00%",
+      "top3_share": "15.00%",
+      "cagr": "65.43%",
+      "mdd": "-29.52%",
+      "sharpe": "1.6927",
+      "annual_turnover": "15.81",
+      "cost_75bps_cagr_delta_vs_strongest": "1.68%p",
+      "walkforward": "3 positive / 1 negative",
+      "walkforward_sharpe_delta": "-0.0124",
+      "top3_positive_symbol_share": "49.58%",
+      "residual_ex_top3": "0.33%p"
+    },
+    {
+      "variant": "bonus_recipient_top1_third_90_10",
+      "top1_share": "90.00%",
+      "top3_share": "10.00%",
+      "cagr": "66.03%",
+      "mdd": "-29.65%",
+      "sharpe": "1.6896",
+      "annual_turnover": "15.78",
+      "cost_75bps_cagr_delta_vs_strongest": "2.26%p",
+      "walkforward": "3 positive / 1 negative",
+      "walkforward_sharpe_delta": "-0.0176",
+      "top3_positive_symbol_share": "53.35%",
+      "residual_ex_top3": "0.40%p"
+    }
+  ]
+}
