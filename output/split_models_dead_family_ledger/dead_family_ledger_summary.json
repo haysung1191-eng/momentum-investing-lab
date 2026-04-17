@@ -1,0 +1,105 @@
+{
+  "as_of_date": "2026-04-17",
+  "repo": "momentum",
+  "asset_class": "stocks_etfs",
+  "strongest": "rule_sector_cap2_breadth_it_us5_top2_convex_ranked_tail_count6_pen35_floor20_bonus18_pow05_risk_on",
+  "ledgers": [
+    {
+      "family": "quality-headline hybrid",
+      "status": "dead",
+      "best_tested_point": "hybrid_quality85_skipentry_top25_mid75",
+      "headline_signal": "+1.56%p CAGR, +0.25%p MDD, walk-forward 4 positive / 0 negative",
+      "kill_reason": "Sharpe delta -0.0394 and both walk-forward/cost Sharpe stayed clearly negative",
+      "retry_rule": "do not retry unless the hybrid changes a different robustness axis than recipient plus skip-entry mixing"
+    },
+    {
+      "family": "risk-on exposure",
+      "status": "dead",
+      "best_tested_point": "risk_on_exposure_106",
+      "headline_signal": "none; scanned points stayed weaker than strongest",
+      "kill_reason": "CAGR, walk-forward, and cost all weakened together",
+      "retry_rule": "do not retry simple exposure bumps around 1.02-1.06"
+    },
+    {
+      "family": "risk-off tightening",
+      "status": "dead",
+      "best_tested_point": "risk_off_tighten_sector075",
+      "headline_signal": "+0.0150 Sharpe",
+      "kill_reason": "headline strength collapsed; CAGR delta -1.53%p with 1 positive / 3 negative walk-forward windows",
+      "retry_rule": "do not retry tighter sector risk-off without a separate offsetting alpha source"
+    },
+    {
+      "family": "entry filter",
+      "status": "dead",
+      "best_tested_point": "entry_filter_soft_r1m20_pen50",
+      "headline_signal": "+0.50%p MDD improvement",
+      "kill_reason": "CAGR and Sharpe both weakened and walk-forward stayed 2 positive / 2 negative",
+      "retry_rule": "do not retry simple entrant overheat penalties around soft r1m 0.20"
+    },
+    {
+      "family": "hold buffer",
+      "status": "no-op",
+      "best_tested_point": "hold_buffer1 / hold_buffer2",
+      "headline_signal": "identical to strongest",
+      "kill_reason": "selection did not change at all",
+      "retry_rule": "do not retry hold-buffer variants unless the base selection logic itself changes"
+    },
+    {
+      "family": "position cap",
+      "status": "dead",
+      "best_tested_point": "position_cap_us4",
+      "headline_signal": "+2.40%p MDD improvement and lower turnover",
+      "kill_reason": "CAGR delta -22.78%p and walk-forward 0 positive / 4 negative",
+      "retry_rule": "do not retry harder US cap reductions around 5 -> 4"
+    },
+    {
+      "family": "sector cap relaxation",
+      "status": "dead",
+      "best_tested_point": "sector_cap3",
+      "headline_signal": "+2.18%p MDD improvement and lower turnover",
+      "kill_reason": "CAGR delta -6.07%p and walk-forward 0 positive / 4 negative",
+      "retry_rule": "do not retry looser sector cap around 2 -> 3"
+    },
+    {
+      "family": "flow filter",
+      "status": "dead",
+      "best_tested_point": "flow_filter_uscap035",
+      "headline_signal": "none",
+      "kill_reason": "CAGR delta -33.00%p, Sharpe delta -0.3538, cost and residual both collapsed",
+      "retry_rule": "do not retry simple US flow caps near 0.35"
+    },
+    {
+      "family": "soft blacklist",
+      "status": "dead",
+      "best_tested_point": "soft_blacklist_top3_pen85",
+      "headline_signal": "+0.20%p MDD improvement and lower winner dependence",
+      "kill_reason": "CAGR delta -2.05%p and Sharpe delta -0.0824",
+      "retry_rule": "do not retry direct soft penalties on PLTR/NVDA/MU without a compensating new alpha source"
+    },
+    {
+      "family": "dynamic bonus sizing",
+      "status": "dead",
+      "best_tested_point": "dynamic_bonus_tight14_if_top42",
+      "headline_signal": "slightly lower turnover",
+      "kill_reason": "CAGR delta -1.51%p and fragility actually worsened",
+      "retry_rule": "do not retry simple bonus-tightening rules based only on top2 concentration"
+    },
+    {
+      "family": "KR unknown exclusion",
+      "status": "no-op",
+      "best_tested_point": "exclude_kr_unknown_strongest",
+      "headline_signal": "identical to strongest",
+      "kill_reason": "selection did not change at all",
+      "retry_rule": "do not retry this family unless KR unknown names start entering the strongest book"
+    },
+    {
+      "family": "liquidity gate",
+      "status": "dead",
+      "best_tested_point": "liquidity_gate_relvol105",
+      "headline_signal": "none",
+      "kill_reason": "CAGR delta -42.03%p, MDD got worse, Sharpe collapsed, turnover rose",
+      "retry_rule": "do not retry min_rel_volume around 1.05 or higher as a mainline branch search axis"
+    }
+  ],
+  "ledger_verdict": "recent search has enough evidence to stop repeating these families under the current strongest"
+}
