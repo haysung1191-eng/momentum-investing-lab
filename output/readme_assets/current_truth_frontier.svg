@@ -1,0 +1,53 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="980" height="640" viewBox="0 0 980 640" role="img" aria-label="current_truth_frontier">
+<rect width="100%" height="100%" fill="#f7f4ec"/>
+<text x="50" y="44" font-family="Segoe UI, Arial, sans-serif" font-size="28" font-weight="700" fill="#16324f" text-anchor="start">Current Truth Frontier</text>
+<text x="50" y="68" font-family="Segoe UI, Arial, sans-serif" font-size="14" font-weight="400" fill="#5c6b73" text-anchor="start">x = drawdown severity (lower is better)   y = CAGR   bubble size = Sharpe</text>
+<rect x="90" y="90" width="810" height="460" fill="#fffdfa" stroke="#d7d0c4"/>
+<line x1="90.0" y1="90" x2="90.0" y2="550" stroke="#ece6db"/>
+<line x1="90" y1="90.0" x2="900" y2="90.0" stroke="#ece6db"/>
+<text x="90.0" y="576" font-family="Segoe UI, Arial, sans-serif" font-size="12" font-weight="400" fill="#5c6b73" text-anchor="middle">28.27%</text>
+<text x="78" y="94.0" font-family="Segoe UI, Arial, sans-serif" font-size="12" font-weight="400" fill="#5c6b73" text-anchor="end">77.47%</text>
+<line x1="252.0" y1="90" x2="252.0" y2="550" stroke="#ece6db"/>
+<line x1="90" y1="182.0" x2="900" y2="182.0" stroke="#ece6db"/>
+<text x="252.0" y="576" font-family="Segoe UI, Arial, sans-serif" font-size="12" font-weight="400" fill="#5c6b73" text-anchor="middle">29.64%</text>
+<text x="78" y="186.0" font-family="Segoe UI, Arial, sans-serif" font-size="12" font-weight="400" fill="#5c6b73" text-anchor="end">74.27%</text>
+<line x1="414.0" y1="90" x2="414.0" y2="550" stroke="#ece6db"/>
+<line x1="90" y1="274.0" x2="900" y2="274.0" stroke="#ece6db"/>
+<text x="414.0" y="576" font-family="Segoe UI, Arial, sans-serif" font-size="12" font-weight="400" fill="#5c6b73" text-anchor="middle">31.02%</text>
+<text x="78" y="278.0" font-family="Segoe UI, Arial, sans-serif" font-size="12" font-weight="400" fill="#5c6b73" text-anchor="end">71.07%</text>
+<line x1="576.0" y1="90" x2="576.0" y2="550" stroke="#ece6db"/>
+<line x1="90" y1="366.0" x2="900" y2="366.0" stroke="#ece6db"/>
+<text x="576.0" y="576" font-family="Segoe UI, Arial, sans-serif" font-size="12" font-weight="400" fill="#5c6b73" text-anchor="middle">32.39%</text>
+<text x="78" y="370.0" font-family="Segoe UI, Arial, sans-serif" font-size="12" font-weight="400" fill="#5c6b73" text-anchor="end">67.87%</text>
+<line x1="738.0" y1="90" x2="738.0" y2="550" stroke="#ece6db"/>
+<line x1="90" y1="458.0" x2="900" y2="458.0" stroke="#ece6db"/>
+<text x="738.0" y="576" font-family="Segoe UI, Arial, sans-serif" font-size="12" font-weight="400" fill="#5c6b73" text-anchor="middle">33.77%</text>
+<text x="78" y="462.0" font-family="Segoe UI, Arial, sans-serif" font-size="12" font-weight="400" fill="#5c6b73" text-anchor="end">64.67%</text>
+<line x1="900.0" y1="90" x2="900.0" y2="550" stroke="#ece6db"/>
+<line x1="90" y1="550.0" x2="900" y2="550.0" stroke="#ece6db"/>
+<text x="900.0" y="576" font-family="Segoe UI, Arial, sans-serif" font-size="12" font-weight="400" fill="#5c6b73" text-anchor="middle">35.14%</text>
+<text x="78" y="554.0" font-family="Segoe UI, Arial, sans-serif" font-size="12" font-weight="400" fill="#5c6b73" text-anchor="end">61.47%</text>
+<text x="495.0" y="616" font-family="Segoe UI, Arial, sans-serif" font-size="14" font-weight="600" fill="#36454f" text-anchor="middle">Max Drawdown (absolute)</text>
+<g transform="translate(24 320.0) rotate(-90)"><text x="0" y="0" font-family="Segoe UI, Arial, sans-serif" font-size="14" font-weight="600" fill="#36454f" text-anchor="middle">CAGR</text></g>
+<circle cx="208.4" cy="501.5" r="20.8" fill="#16324f" fill-opacity="0.84" stroke="#ffffff" stroke-width="2"/>
+<text x="208.38435846509776" y="472.68424475354635" font-family="Segoe UI, Arial, sans-serif" font-size="13" font-weight="600" fill="#16324f" text-anchor="middle">strongest</text>
+<text x="208.38435846509776" y="540.280774753277" font-family="Segoe UI, Arial, sans-serif" font-size="11" font-weight="400" fill="#5c6b73" text-anchor="middle">1.689 Sharpe</text>
+<circle cx="207.8" cy="502.6" r="20.9" fill="#7c9d96" fill-opacity="0.84" stroke="#ffffff" stroke-width="2"/>
+<text x="207.84039308735285" y="473.7543657282812" font-family="Segoe UI, Arial, sans-serif" font-size="13" font-weight="600" fill="#7c9d96" text-anchor="middle">broader</text>
+<text x="207.84039308735285" y="541.4829070208232" font-family="Segoe UI, Arial, sans-serif" font-size="11" font-weight="400" fill="#5c6b73" text-anchor="middle">1.690 Sharpe</text>
+<circle cx="238.2" cy="436.3" r="21.6" fill="#2a7f62" fill-opacity="0.84" stroke="#ffffff" stroke-width="2"/>
+<text x="238.1856959136575" y="406.6334247061095" font-family="Segoe UI, Arial, sans-serif" font-size="13" font-weight="600" fill="#2a7f62" text-anchor="middle">quality</text>
+<text x="238.1856959136575" y="475.8767017098553" font-family="Segoe UI, Arial, sans-serif" font-size="11" font-weight="400" fill="#5c6b73" text-anchor="middle">1.693 Sharpe</text>
+<circle cx="148.9" cy="521.2" r="10.0" fill="#c56b2d" fill-opacity="0.84" stroke="#ffffff" stroke-width="2"/>
+<text x="148.87277480543275" y="503.2463229604265" font-family="Segoe UI, Arial, sans-serif" font-size="13" font-weight="600" fill="#c56b2d" text-anchor="middle">headline</text>
+<text x="148.87277480543275" y="549.2463229604265" font-family="Segoe UI, Arial, sans-serif" font-size="11" font-weight="400" fill="#5c6b73" text-anchor="middle">1.644 Sharpe</text>
+<circle cx="841.1" cy="118.8" r="22.6" fill="#8d5a97" fill-opacity="0.84" stroke="#ffffff" stroke-width="2"/>
+<text x="841.1272251945672" y="88.1712080744056" font-family="Segoe UI, Arial, sans-serif" font-size="13" font-weight="600" fill="#8d5a97" text-anchor="middle">redistribution</text>
+<text x="841.1272251945672" y="159.33614600474144" font-family="Segoe UI, Arial, sans-serif" font-size="11" font-weight="400" fill="#5c6b73" text-anchor="middle">1.697 Sharpe</text>
+<circle cx="324.1" cy="429.7" r="26.0" fill="#b8405e" fill-opacity="0.84" stroke="#ffffff" stroke-width="2"/>
+<text x="324.10127155875773" y="395.67310193703815" font-family="Segoe UI, Arial, sans-serif" font-size="13" font-weight="600" fill="#b8405e" text-anchor="middle">fragile</text>
+<text x="324.10127155875773" y="473.67310146027717" font-family="Segoe UI, Arial, sans-serif" font-size="11" font-weight="400" fill="#5c6b73" text-anchor="middle">1.711 Sharpe</text>
+<circle cx="208.4" cy="504.2" r="21.6" fill="#596a7b" fill-opacity="0.84" stroke="#ffffff" stroke-width="2"/>
+<text x="208.38435846509645" y="474.6236264876713" font-family="Segoe UI, Arial, sans-serif" font-size="13" font-weight="600" fill="#596a7b" text-anchor="middle">defensive</text>
+<text x="208.38435846509645" y="543.875802815148" font-family="Segoe UI, Arial, sans-serif" font-size="11" font-weight="400" fill="#5c6b73" text-anchor="middle">1.693 Sharpe</text>
+</svg>

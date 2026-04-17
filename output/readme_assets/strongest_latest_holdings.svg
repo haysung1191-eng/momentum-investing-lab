@@ -1,0 +1,41 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="980" height="520" viewBox="0 0 980 520" role="img" aria-label="strongest_latest_holdings">
+<rect width="100%" height="100%" fill="#f7f4ec"/>
+<text x="50" y="44" font-family="Segoe UI, Arial, sans-serif" font-size="28" font-weight="700" fill="#16324f" text-anchor="start">Latest Strongest Holdings Snapshot</text>
+<text x="50" y="68" font-family="Segoe UI, Arial, sans-serif" font-size="14" font-weight="400" fill="#5c6b73" text-anchor="start">Signal date 2026-01-30   entered 0000J0, CAT, GILD, GS, JNJ, LMT</text>
+<text x="50" y="114" font-family="Segoe UI, Arial, sans-serif" font-size="15" font-weight="700" fill="#16324f" text-anchor="start">KR:069500</text>
+<text x="50" y="132" font-family="Segoe UI, Arial, sans-serif" font-size="12" font-weight="400" fill="#5c6b73" text-anchor="start">069500</text>
+<rect x="220" y="90" width="660" height="36" rx="8" fill="#ebe5da"/>
+<rect x="220" y="90" width="660.0" height="36" rx="8" fill="#16324f"/>
+<text x="874" y="114" font-family="Segoe UI, Arial, sans-serif" font-size="14" font-weight="700" fill="#16324f" text-anchor="start">49.79%</text>
+<text x="50" y="168" font-family="Segoe UI, Arial, sans-serif" font-size="15" font-weight="700" fill="#16324f" text-anchor="start">KR:0000J0</text>
+<text x="50" y="186" font-family="Segoe UI, Arial, sans-serif" font-size="12" font-weight="400" fill="#5c6b73" text-anchor="start">0000J0</text>
+<rect x="220" y="144" width="660" height="36" rx="8" fill="#ebe5da"/>
+<rect x="220" y="144" width="660.0" height="36" rx="8" fill="#16324f"/>
+<text x="874" y="168" font-family="Segoe UI, Arial, sans-serif" font-size="14" font-weight="700" fill="#16324f" text-anchor="start">49.79%</text>
+<text x="50" y="222" font-family="Segoe UI, Arial, sans-serif" font-size="15" font-weight="700" fill="#16324f" text-anchor="start">US:LMT</text>
+<text x="50" y="240" font-family="Segoe UI, Arial, sans-serif" font-size="12" font-weight="400" fill="#5c6b73" text-anchor="start">Lockheed Martin</text>
+<rect x="220" y="198" width="660" height="36" rx="8" fill="#ebe5da"/>
+<rect x="220" y="198" width="66.3" height="36" rx="8" fill="#c56b2d"/>
+<text x="300.27490831971016" y="222" font-family="Segoe UI, Arial, sans-serif" font-size="14" font-weight="700" fill="#16324f" text-anchor="start">5.00%</text>
+<text x="50" y="276" font-family="Segoe UI, Arial, sans-serif" font-size="15" font-weight="700" fill="#16324f" text-anchor="start">US:CAT</text>
+<text x="50" y="294" font-family="Segoe UI, Arial, sans-serif" font-size="12" font-weight="400" fill="#5c6b73" text-anchor="start">Caterpillar</text>
+<rect x="220" y="252" width="660" height="36" rx="8" fill="#ebe5da"/>
+<rect x="220" y="252" width="52.1" height="36" rx="8" fill="#c56b2d"/>
+<text x="286.07352096496265" y="276" font-family="Segoe UI, Arial, sans-serif" font-size="14" font-weight="700" fill="#16324f" text-anchor="start">3.93%</text>
+<text x="50" y="330" font-family="Segoe UI, Arial, sans-serif" font-size="15" font-weight="700" fill="#16324f" text-anchor="start">US:JNJ</text>
+<text x="50" y="348" font-family="Segoe UI, Arial, sans-serif" font-size="12" font-weight="400" fill="#5c6b73" text-anchor="start">Johnson &amp; Johnson</text>
+<rect x="220" y="306" width="660" height="36" rx="8" fill="#ebe5da"/>
+<rect x="220" y="306" width="46.2" height="36" rx="8" fill="#c56b2d"/>
+<text x="280.1909601025052" y="330" font-family="Segoe UI, Arial, sans-serif" font-size="14" font-weight="700" fill="#16324f" text-anchor="start">3.48%</text>
+<text x="50" y="384" font-family="Segoe UI, Arial, sans-serif" font-size="15" font-weight="700" fill="#16324f" text-anchor="start">US:GILD</text>
+<text x="50" y="402" font-family="Segoe UI, Arial, sans-serif" font-size="12" font-weight="400" fill="#5c6b73" text-anchor="start">Gilead</text>
+<rect x="220" y="360" width="660" height="36" rx="8" fill="#ebe5da"/>
+<rect x="220" y="360" width="41.7" height="36" rx="8" fill="#c56b2d"/>
+<text x="275.67631334776655" y="384" font-family="Segoe UI, Arial, sans-serif" font-size="14" font-weight="700" fill="#16324f" text-anchor="start">3.14%</text>
+<text x="50" y="438" font-family="Segoe UI, Arial, sans-serif" font-size="15" font-weight="700" fill="#16324f" text-anchor="start">US:GS</text>
+<text x="50" y="456" font-family="Segoe UI, Arial, sans-serif" font-size="12" font-weight="400" fill="#5c6b73" text-anchor="start">Goldman Sachs</text>
+<rect x="220" y="414" width="660" height="36" rx="8" fill="#ebe5da"/>
+<rect x="220" y="414" width="37.9" height="36" rx="8" fill="#c56b2d"/>
+<text x="271.8708081120488" y="438" font-family="Segoe UI, Arial, sans-serif" font-size="14" font-weight="700" fill="#16324f" text-anchor="start">2.86%</text>
+<text x="50" y="492" font-family="Segoe UI, Arial, sans-serif" font-size="14" font-weight="400" fill="#5c6b73" text-anchor="start">Top 2 KR ETF sleeve dominates the latest book, with US industrial / health care names filling the residual tail.</text>
+</svg>

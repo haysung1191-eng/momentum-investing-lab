@@ -4,6 +4,8 @@ Research-first momentum investing lab for stocks and ETFs.
 
 This repository is a public research record for how a mixed-universe momentum model is explored, promoted, killed, and defended over time. It is built around one practical baseline, one current aggressive strongest branch, and a growing audit trail for why alternatives survived or failed.
 
+![Current Truth Frontier](output/readme_assets/current_truth_frontier.svg)
+
 ## What This Repo Does
 
 - builds and compares momentum variants across KR/US stocks and ETFs
@@ -87,6 +89,8 @@ Latest strongest top holdings snapshot includes:
 - `US:LMT`
 - `US:CAT`
 - `US:JNJ`
+
+![Latest Strongest Holdings](output/readme_assets/strongest_latest_holdings.svg)
 
 See:
 
