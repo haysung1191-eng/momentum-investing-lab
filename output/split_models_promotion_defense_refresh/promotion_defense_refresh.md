@@ -27,6 +27,11 @@
   - MDD `-28.77%`
   - walk-forward `3 positive / 1 negative`
   - takeaway `best headline extension, but Sharpe still stays too weak`
+- stronger-but-lower-quality near-miss: `tail_release_to_nonbottom_proportional`
+  - CAGR `70.94%`
+  - MDD `-37.73%`
+  - walk-forward `3 positive / 1 negative`
+  - takeaway `best stronger-but-much-lower-quality point; headline jumps, but quality collapses too much for promotion`
 
 ## Recent Failed Families
 
@@ -60,6 +65,9 @@
 - dynamic bonus sizing: `dynamic_bonus_tight14_if_top42`
   - strongest signal: `slightly lower turnover`
   - failure reason: `CAGR delta -1.51%p and fragility worsened`
+- aggressive redistribution: `tail_release_to_nonbottom_proportional`
+  - strongest signal: `+7.78%p CAGR and +7.00%p cost CAGR delta`
+  - failure reason: `MDD delta -8.46%p and Sharpe delta -0.1796 made it clearly non-promotable`
 
 ## Verdict
 

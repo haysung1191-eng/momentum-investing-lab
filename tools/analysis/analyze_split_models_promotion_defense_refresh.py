@@ -51,6 +51,15 @@ SUMMARY = {
         "walkforward": "3 positive / 1 negative",
         "takeaway": "best headline extension, but Sharpe still stays too weak",
     },
+    "stronger_but_lower_quality_near_miss": {
+        "variant": "tail_release_to_nonbottom_proportional",
+        "cagr": "70.94%",
+        "mdd": "-37.73%",
+        "sharpe": "1.5096",
+        "cost_75bps_cagr_delta_vs_strongest": "+7.00%p",
+        "walkforward": "3 positive / 1 negative",
+        "takeaway": "best stronger-but-much-lower-quality point; headline jumps, but quality collapses too much for promotion",
+    },
     "recent_failed_families": [
         {
             "family": "quality-headline hybrid",
@@ -112,6 +121,12 @@ SUMMARY = {
             "headline": "slightly lower turnover",
             "failure": "CAGR delta -1.51%p and fragility worsened",
         },
+        {
+            "family": "aggressive redistribution",
+            "best_tested_point": "tail_release_to_nonbottom_proportional",
+            "headline": "+7.78%p CAGR and +7.00%p cost CAGR delta",
+            "failure": "MDD delta -8.46%p and Sharpe delta -0.1796 made it clearly non-promotable",
+        },
     ],
     "promotion_defense_verdict": "keep the current strongest; recent search widened the near-miss map but did not produce a new promotion-grade stronger branch",
 }
@@ -122,6 +137,7 @@ def _build_markdown(summary: dict) -> str:
     broader = summary["broader_challenger"]
     quality = summary["quality_near_miss"]
     headline = summary["headline_near_miss"]
+    stronger = summary["stronger_but_lower_quality_near_miss"]
 
     lines = [
         "# Split Models Promotion Defense Refresh",
@@ -153,6 +169,11 @@ def _build_markdown(summary: dict) -> str:
         f"  - MDD `{headline['mdd']}`",
         f"  - walk-forward `{headline['walkforward']}`",
         f"  - takeaway `{headline['takeaway']}`",
+        f"- stronger-but-lower-quality near-miss: `{stronger['variant']}`",
+        f"  - CAGR `{stronger['cagr']}`",
+        f"  - MDD `{stronger['mdd']}`",
+        f"  - walk-forward `{stronger['walkforward']}`",
+        f"  - takeaway `{stronger['takeaway']}`",
         "",
         "## Recent Failed Families",
         "",

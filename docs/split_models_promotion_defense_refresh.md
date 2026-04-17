@@ -15,35 +15,53 @@
   - `bonus_recipient_top1_third_85_15`
 - headline near-miss:
   - `tail_skip_entry_flowweakest_new_bottom4_top25_mid75`
+- stronger-but-lower-quality near-miss:
+  - `tail_release_to_nonbottom_proportional`
 
 ## What changed in this search batch
 
-- stronger / broader / quality / headline 축은 더 선명해졌습니다
-- 하지만 strongest를 실제로 교체할 promotion-grade branch는 나오지 않았습니다
-- 최근에 많이 본 새 family들은 대부분:
-  - headline은 조금 좋아지지만 Sharpe robustness가 약했고
-  - quality는 조금 좋아지지만 CAGR이 약했고
-  - 어떤 건 아예 no-op 이었습니다
+- stronger / broader / quality / headline / redistribution axes are now all visible at once
+- several challengers improved one part of the frontier, but none cleared promotion grade
+- the newest redistribution family showed the clearest split between headline strength and quality collapse
+
+## Axis interpretation
+
+- strongest:
+  - still the only branch that keeps headline, Sharpe, drawdown, and promotion robustness in balance
+- broader:
+  - `hybrid_top2_plus_third00125`
+  - best "broader-but-weaker" point
+- quality:
+  - `bonus_recipient_top1_third_85_15`
+  - best blended-quality extension
+- headline:
+  - `tail_skip_entry_flowweakest_new_bottom4_top25_mid75`
+  - best lower-turnover headline extension
+- stronger-but-lower-quality:
+  - `tail_release_to_nonbottom_proportional`
+  - strongest raw CAGR jump, but far too much quality loss for promotion
 
 ## Dead or Saturated Families
 
 - quality-headline hybrid:
-  - blended 숫자는 좋았지만 Sharpe 하락이 너무 큼
+  - blended numbers improved, but Sharpe loss stayed too large
 - risk-on exposure:
-  - stronger branch를 못 만들고 오히려 약해짐
+  - no point beat strongest on headline and robustness together
 - risk-off tightening:
-  - quality는 좋아져도 headline이 너무 약해짐
+  - quality improved a little, but headline weakened too much
 - entry filter:
-  - 안정성은 좋아져도 strongest를 못 넘음
+  - more stable near-miss shapes, but no strongest replacement
 - hold buffer:
-  - strongest와 사실상 동일한 no-op
+  - strongest-equivalent no-op
 - position-cap / sector-cap:
-  - breadth는 좋아져도 알파 손실이 너무 큼
+  - breadth improved, but alpha was cut too aggressively
 - flow filter / soft blacklist / dynamic bonus:
-  - 구조 약점 완화보다 알파 훼손이 더 큼
+  - they weakened alpha more than they fixed fragility
+- aggressive redistribution:
+  - headline surged, but quality collapsed
 
 ## Verdict
 
-- strongest는 그대로 유지하는 게 맞습니다
-- recent search는 strongest replacement를 찾았다기보다, near-miss map을 더 정확하게 만든 검색 배치였습니다
-- 다음 탐색은 dead family를 반복하지 말고, genuinely different family로 넘어가는 게 맞습니다
+- strongest should still stay as-is
+- this batch improved the defense map more than it improved the mainline branch
+- future search should avoid dead families and focus only on genuinely different structures
