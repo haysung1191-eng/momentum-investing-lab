@@ -6,7 +6,7 @@
 - strongest:
   - `rule_sector_cap2_breadth_it_us5_top2_convex_ranked_tail_count6_pen35_floor20_bonus18_pow05_risk_on`
 - quality near-miss:
-  - `bonus_recipient_top1_third_80_20`
+  - `bonus_recipient_top1_third_85_15`
 - skip-entry near-miss:
   - `tail_skip_entry_flowweakest_new_bottom4_top25_mid75`
 
@@ -19,9 +19,9 @@
 
 ## Current reading
 
-- `bonus_recipient_top1_third_80_20` is the best blended quality extension
-  - CAGR and Sharpe both improve
-  - walk-forward also improves to `3-1`
+- `bonus_recipient_top1_third_85_15` is the best blended quality extension
+  - CAGR improves the most
+  - walk-forward stays at `3-1`
   - but drawdown is slightly worse and turnover still rises
 - `tail_skip_entry_flowweakest_new_bottom4_top25_mid75` is the best headline extension
   - CAGR stays at strongest level

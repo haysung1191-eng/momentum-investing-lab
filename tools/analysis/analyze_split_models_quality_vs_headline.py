@@ -13,7 +13,7 @@ ROOT = REPO_ROOT
 OUTPUT_DIR = ROOT / "output" / "split_models_quality_vs_headline_review"
 
 STRONGEST = "rule_sector_cap2_breadth_it_us5_top2_convex_ranked_tail_count6_pen35_floor20_bonus18_pow05_risk_on"
-QUALITY_NEAR_MISS = "bonus_recipient_top1_third_80_20"
+QUALITY_NEAR_MISS = "bonus_recipient_top1_third_85_15"
 SKIP_ENTRY_NEAR_MISS = "tail_skip_entry_flowweakest_new_bottom4_top25_mid75"
 
 ROWS = [
@@ -33,17 +33,17 @@ ROWS = [
     },
     {
         "Variant": QUALITY_NEAR_MISS,
-        "CAGR": 0.6482,
-        "MDD": -0.2940,
-        "Sharpe": 1.6956,
-        "AnnualTurnover": 15.84,
-        "Cost75BpsCAGRDelta": 0.0109,
+        "CAGR": 0.6543,
+        "MDD": -0.2952,
+        "Sharpe": 1.6927,
+        "AnnualTurnover": 15.81,
+        "Cost75BpsCAGRDelta": 0.0168,
         "PositiveCAGRWindows": 3,
         "NegativeCAGRWindows": 1,
-        "Top3PositiveSymbolShare": 0.4537,
-        "CAGRDeltaVsStrongest": 0.0166,
-        "MDDDeltaVsStrongest": -0.0013,
-        "SharpeDeltaVsStrongest": 0.0063,
+        "Top3PositiveSymbolShare": 0.4958,
+        "CAGRDeltaVsStrongest": 0.0227,
+        "MDDDeltaVsStrongest": -0.0025,
+        "SharpeDeltaVsStrongest": 0.0035,
     },
     {
         "Variant": SKIP_ENTRY_NEAR_MISS,
@@ -162,9 +162,9 @@ def _build_markdown(summary: dict) -> str:
             "",
             "## Interpretation",
             "",
-            "- `bonus_recipient_top1_third_80_20` is the best blended quality extension",
-            "  - CAGR and Sharpe both improve",
-            "  - walk-forward also improves to `3-1`",
+            "- `bonus_recipient_top1_third_85_15` is the best blended quality extension",
+            "  - CAGR improves even more",
+            "  - walk-forward stays at `3-1` and cost stays positive",
             "  - but drawdown is slightly worse and turnover still rises",
             "- `tail_skip_entry_flowweakest_new_bottom4_top25_mid75` is the best headline extension",
             "  - CAGR and turnover improve together",

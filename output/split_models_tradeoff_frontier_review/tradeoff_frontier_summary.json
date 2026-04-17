@@ -4,14 +4,14 @@
     "rule_sector_cap2_breadth_it_us5_top2_convex_ranked_tail_count6_pen35_floor20_bonus18_pow05_risk_on",
     "hybrid_top2_plus_third00125",
     "bonus_schedule_first55_second45",
-    "bonus_recipient_top1_third_80_20",
+    "bonus_recipient_top1_third_85_15",
     "tail_skip_entry_flowweakest_new_bottom4_top25_mid75",
     "top2_split_49_51",
     "alt_family_top3_flat_bonus18"
   ],
-  "best_cagr_variant": "bonus_recipient_top1_third_80_20",
-  "best_sharpe_challenger": "bonus_recipient_top1_third_80_20",
+  "best_cagr_variant": "bonus_recipient_top1_third_85_15",
+  "best_sharpe_challenger": "bonus_recipient_top1_third_85_15",
   "best_lower_turnover_challenger": "tail_skip_entry_flowweakest_new_bottom4_top25_mid75",
   "lowest_top3_share_challenger": "alt_family_top3_flat_bonus18",
-  "most_positive_residual_challenger": "alt_family_top3_flat_bonus18"
+  "most_positive_residual_challenger": "bonus_recipient_top1_third_85_15"
 }

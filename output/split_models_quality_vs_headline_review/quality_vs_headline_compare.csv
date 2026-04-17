@@ -1,4 +1,4 @@
 ﻿Variant,CAGR,MDD,Sharpe,AnnualTurnover,Cost75BpsCAGRDelta,PositiveCAGRWindows,NegativeCAGRWindows,Top3PositiveSymbolShare,CAGRDeltaVsStrongest,MDDDeltaVsStrongest,SharpeDeltaVsStrongest
 rule_sector_cap2_breadth_it_us5_top2_convex_ranked_tail_count6_pen35_floor20_bonus18_pow05_risk_on,0.6316,-0.2927,1.6892,15.32,0.0,0,0,0.0,0.0,0.0,0.0
-bonus_recipient_top1_third_80_20,0.6482,-0.294,1.6956,15.84,0.0109,3,1,0.4537,0.0166,-0.0013,0.0063
+bonus_recipient_top1_third_85_15,0.6543,-0.2952,1.6927,15.81,0.0168,3,1,0.4958,0.0227,-0.0025,0.0035
 tail_skip_entry_flowweakest_new_bottom4_top25_mid75,0.6321,-0.2877,1.6625,14.73,0.0053,3,1,0.4904,0.0006,0.0051,-0.0268
