@@ -337,7 +337,7 @@ def main() -> None:
         (strongest, None),
         (replace(strongest, name="hybrid_top2_plus_third00125"), _patch_hybrid_top2_plus_third(0.00125)),
         (replace(strongest, name="bonus_schedule_first55_second45"), _patch_bonus_schedule(0.55, 0.45)),
-        (replace(strongest, name="bonus_recipient_top1_third_67_33"), _patch_bonus_recipients(0.67, 0.33)),
+        (replace(strongest, name="bonus_recipient_top1_third_75_25"), _patch_bonus_recipients(0.75, 0.25)),
         (replace(strongest, name="tail_skip_entry_flowweakest_new_bottom4_top25_mid75"), _patch_skip_entry_flowweakest_new_bottom4_top25_mid75()),
         (replace(strongest, name="top2_split_49_51"), _patch_top2_split(0.49, 0.51)),
         (

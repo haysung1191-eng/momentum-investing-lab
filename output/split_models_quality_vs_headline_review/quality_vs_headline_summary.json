@@ -1,9 +1,9 @@
 {
   "strongest_variant": "rule_sector_cap2_breadth_it_us5_top2_convex_ranked_tail_count6_pen35_floor20_bonus18_pow05_risk_on",
-  "quality_near_miss_variant": "bonus_recipient_top1_third_67_33",
+  "quality_near_miss_variant": "bonus_recipient_top1_third_75_25",
   "skip_entry_near_miss_variant": "tail_skip_entry_flowweakest_new_bottom4_top25_mid75",
-  "headline_leader": "bonus_recipient_top1_third_67_33",
-  "quality_leader": "bonus_recipient_top1_third_67_33",
+  "headline_leader": "bonus_recipient_top1_third_75_25",
+  "quality_leader": "bonus_recipient_top1_third_75_25",
   "lowest_turnover_variant": "tail_skip_entry_flowweakest_new_bottom4_top25_mid75",
   "quality_vs_headline_takeaway": "skip-entry near miss is the best headline extension, quality near miss is the best quality extension, and the strongest remains the only balanced promotion-grade branch",
   "rows": [
@@ -18,14 +18,14 @@
       "top3_positive_symbol_share": "0.00%"
     },
     {
-      "variant": "bonus_recipient_top1_third_67_33",
-      "cagr": "63.21%",
-      "mdd": "-29.09%",
-      "sharpe": "1.7018",
-      "annual_turnover": "15.94",
-      "cost_75bps_cagr_delta_vs_strongest": "-0.46%p",
+      "variant": "bonus_recipient_top1_third_75_25",
+      "cagr": "64.20%",
+      "mdd": "-29.28%",
+      "sharpe": "1.6982",
+      "annual_turnover": "15.87",
+      "cost_75bps_cagr_delta_vs_strongest": "0.50%p",
       "walkforward": "2 positive / 2 negative",
-      "top3_positive_symbol_share": "35.09%"
+      "top3_positive_symbol_share": "40.46%"
     },
     {
       "variant": "tail_skip_entry_flowweakest_new_bottom4_top25_mid75",
@@ -39,10 +39,10 @@
     }
   ],
   "quality_near_miss_delta_vs_strongest": {
-    "cagr_delta": "0.06%p",
-    "mdd_delta": "0.18%p",
-    "sharpe_delta": "+0.0126",
-    "cost_75bps_cagr_delta": "-0.46%p"
+    "cagr_delta": "1.05%p",
+    "mdd_delta": "-0.01%p",
+    "sharpe_delta": "+0.0090",
+    "cost_75bps_cagr_delta": "0.50%p"
   },
   "skip_entry_near_miss_delta_vs_strongest": {
     "cagr_delta": "0.06%p",

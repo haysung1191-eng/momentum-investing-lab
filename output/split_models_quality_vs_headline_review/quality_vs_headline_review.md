@@ -6,25 +6,25 @@
 - strongest:
   - `rule_sector_cap2_breadth_it_us5_top2_convex_ranked_tail_count6_pen35_floor20_bonus18_pow05_risk_on`
 - quality near-miss:
-  - `bonus_recipient_top1_third_67_33`
+  - `bonus_recipient_top1_third_75_25`
 - skip-entry near-miss:
   - `tail_skip_entry_flowweakest_new_bottom4_top25_mid75`
 
 ## Result
 
-- headline leader: `bonus_recipient_top1_third_67_33`
-- quality leader: `bonus_recipient_top1_third_67_33`
+- headline leader: `bonus_recipient_top1_third_75_25`
+- quality leader: `bonus_recipient_top1_third_75_25`
 - lowest turnover variant: `tail_skip_entry_flowweakest_new_bottom4_top25_mid75`
 
 ## Quality Near-Miss
 
-- CAGR: `63.21%`
-- MDD: `-29.09%`
-- Sharpe: `1.7018`
-- Annual turnover: `15.94`
-- `75 bps` cost CAGR delta vs strongest: `-0.46%p`
+- CAGR: `64.20%`
+- MDD: `-29.28%`
+- Sharpe: `1.6982`
+- Annual turnover: `15.87`
+- `75 bps` cost CAGR delta vs strongest: `0.50%p`
 - walk-forward: `2 positive / 2 negative`
-- top 3 positive symbol share: `35.09%`
+- top 3 positive symbol share: `40.46%`
 
 ## Skip-Entry Near-Miss
 
@@ -38,9 +38,10 @@
 
 ## Interpretation
 
-- `bonus_recipient_top1_third_67_33` is the best quality extension
-  - Sharpe and MDD improve the most
-  - but turnover jumps and cost-adjusted CAGR turns negative
+- `bonus_recipient_top1_third_75_25` is the best blended quality extension
+  - CAGR and Sharpe both improve
+  - concentration stays much lower than the strongest
+  - but walk-forward still stays mixed and turnover still rises
 - `tail_skip_entry_flowweakest_new_bottom4_top25_mid75` is the best headline extension
   - CAGR and turnover improve together
   - but Sharpe still stays materially below the strongest

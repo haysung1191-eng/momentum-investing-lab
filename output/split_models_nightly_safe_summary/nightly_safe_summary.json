@@ -44,13 +44,13 @@
     "verdict": "headline-strong but still below promotion grade because walk-forward stays mixed and drawdown is slightly worse"
   },
   "quality_near_miss": {
-    "variant": "bonus_recipient_top1_third_67_33",
-    "cagr": "63.21%",
-    "mdd": "-29.09%",
-    "sharpe": "1.7018",
-    "cost_75bps_cagr_delta_vs_strongest": "-0.46%p",
+    "variant": "bonus_recipient_top1_third_75_25",
+    "cagr": "64.20%",
+    "mdd": "-29.28%",
+    "sharpe": "1.6982",
+    "cost_75bps_cagr_delta_vs_strongest": "+0.50%p",
     "walkforward": "2 positive / 2 negative",
-    "verdict": "quality-improving and broader, but turnover jumps and cost-adjusted CAGR turns negative"
+    "verdict": "CAGR and Sharpe both improve with lower concentration, but walk-forward stays mixed and turnover remains higher"
   },
   "skip_entry_near_miss": {
     "variant": "tail_skip_entry_flowweakest_new_bottom4_top25_mid75",

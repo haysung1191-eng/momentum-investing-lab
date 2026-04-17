@@ -12,7 +12,7 @@
 - broader challenger:
   - `hybrid_top2_plus_third00125`
 - quality near-miss:
-  - `bonus_recipient_top1_third_67_33`
+  - `bonus_recipient_top1_third_75_25`
 - headline near-miss:
   - `tail_skip_entry_flowweakest_new_bottom4_top25_mid75`
 

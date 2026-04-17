@@ -20,7 +20,7 @@ SUMMARY = {
     "operational_baseline": "rule_breadth_it_us5_cap",
     "aggressive_strongest": "rule_sector_cap2_breadth_it_us5_top2_convex_ranked_tail_count6_pen35_floor20_bonus18_pow05_risk_on",
     "broader_challenger": "hybrid_top2_plus_third00125",
-    "quality_near_miss": "bonus_recipient_top1_third_67_33",
+    "quality_near_miss": "bonus_recipient_top1_third_75_25",
     "headline_near_miss": "tail_skip_entry_flowweakest_new_bottom4_top25_mid75",
     "kill_immediately_if": [
         "full-period CAGR is below the strongest by more than 0.50%p",

@@ -8,7 +8,7 @@
 - challenger set:
   - `hybrid_top2_plus_third00125`
   - `bonus_schedule_first55_second45`
-  - `bonus_recipient_top1_third_67_33`
+  - `bonus_recipient_top1_third_75_25`
   - `tail_skip_entry_flowweakest_new_bottom4_top25_mid75`
   - `top2_split_49_51`
   - `alt_family_top3_flat_bonus18`
@@ -43,14 +43,14 @@
   - walk-forward: `2` positive CAGR windows, `2` negative
   - `75 bps` CAGR delta vs strongest: `+0.37%p`
   - top 3 positive symbol share: `57.68%`
-- `bonus_recipient_top1_third_67_33`
-  - CAGR: `63.21%`
-  - MDD: `-29.09%`
-  - Sharpe: `1.7018`
-  - Annual turnover: `15.94`
+- `bonus_recipient_top1_third_75_25`
+  - CAGR: `64.20%`
+  - MDD: `-29.28%`
+  - Sharpe: `1.6982`
+  - Annual turnover: `15.87`
   - walk-forward: `2` positive CAGR windows, `2` negative
-  - `75 bps` CAGR delta vs strongest: `-0.46%p`
-  - top 3 positive symbol share: `35.09%`
+  - `75 bps` CAGR delta vs strongest: `+0.50%p`
+  - top 3 positive symbol share: `40.46%`
 - `tail_skip_entry_flowweakest_new_bottom4_top25_mid75`
   - CAGR: `63.21%`
   - MDD: `-28.77%`
@@ -90,10 +90,10 @@
   - full-period CAGR, Sharpe, and `75 bps` cost all improve versus the strongest
   - but walk-forward still stays `2-2`
   - drawdown also gets slightly worse, so it does not clear the promotion stack
-- `bonus_recipient_top1_third_67_33` is the best `higher-quality` near-miss
-  - Sharpe improves materially and drawdown improves as well
-  - concentration drops a lot versus the strongest
-  - but turnover jumps and `75 bps` cost CAGR turns negative, so it also misses promotion grade
+- `bonus_recipient_top1_third_75_25` is the best `blended quality` near-miss
+  - CAGR and Sharpe both improve versus the strongest
+  - concentration still drops a lot versus the strongest
+  - but walk-forward stays `2-2` and turnover remains higher, so it still misses promotion grade
 - `tail_skip_entry_flowweakest_new_bottom4_top25_mid75` is the best `skip-entry stronger-like` near-miss
   - CAGR, drawdown, and turnover all improve versus the strongest
   - walk-forward also stays mostly positive at `3-1`
@@ -110,7 +110,7 @@
 - keep `rule_sector_cap2_breadth_it_us5_top2_convex_ranked_tail_count6_pen35_floor20_bonus18_pow05_risk_on` as the single aggressive strong branch
 - treat `hybrid_top2_plus_third00125` as the current best `broader-but-weaker` challenger
 - treat `bonus_schedule_first55_second45` as the current best `stronger-like but not promotion-grade` challenger
-- treat `bonus_recipient_top1_third_67_33` as the current best `higher-quality but cost-weaker` challenger
+- treat `bonus_recipient_top1_third_75_25` as the current best `blended-quality but not promotion-grade` challenger
 - treat `tail_skip_entry_flowweakest_new_bottom4_top25_mid75` as the current best `skip-entry stronger-like but lower-quality` challenger
 - treat `top2_split_49_51` as an inferior micro-adjustment candidate
 - treat `alt_family_top3_flat_bonus18` as a useful boundary check rather than a live promotion candidate

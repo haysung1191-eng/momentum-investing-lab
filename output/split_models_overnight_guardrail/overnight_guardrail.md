@@ -12,7 +12,7 @@
 - operational baseline: `rule_breadth_it_us5_cap`
 - aggressive strongest: `rule_sector_cap2_breadth_it_us5_top2_convex_ranked_tail_count6_pen35_floor20_bonus18_pow05_risk_on`
 - broader challenger: `hybrid_top2_plus_third00125`
-- quality near-miss: `bonus_recipient_top1_third_67_33`
+- quality near-miss: `bonus_recipient_top1_third_75_25`
 - headline near-miss: `tail_skip_entry_flowweakest_new_bottom4_top25_mid75`
 
 ## Kill Immediately
