@@ -6,6 +6,7 @@ from pathlib import Path
 import sys
 from typing import Callable
 
+import numpy as np
 import pandas as pd
 
 REPO_ROOT = Path(__file__).resolve().parents[2]
@@ -203,6 +204,46 @@ def _patch_skip_entry_flowweakest_new_bottom4_top25_mid75() -> Callable[[pd.Data
     return patch
 
 
+def _patch_tail_release_to_nonbottom_proportional() -> Callable[[pd.DataFrame], pd.DataFrame]:
+    def patch(book: pd.DataFrame) -> pd.DataFrame:
+        if book.empty or len(book) < 4:
+            return book
+        out = book.copy()
+        ranked = out.sort_values(["MomentumScore", "FlowScore", "Symbol"], ascending=[False, False, True])
+        top_index = ranked.head(2).index
+        candidate_bottom = ranked.loc[~ranked.index.isin(top_index)]
+        if candidate_bottom.empty:
+            return out
+        bottom_count = min(6, len(candidate_bottom))
+        bottom_index = candidate_bottom.tail(bottom_count).index
+        bottom_before = pd.to_numeric(out.loc[bottom_index, "TargetWeight"], errors="coerce").fillna(0.0).copy()
+        if len(bottom_index) > 1:
+            penalty_steps = pd.Series(np.linspace(0.0, 1.0, len(bottom_index)) ** 0.50, index=bottom_index)
+            penalty_series = pd.Series(0.35 + (0.20 - 0.35) * penalty_steps, index=bottom_index)
+            out.loc[bottom_index, "TargetWeight"] = (
+                pd.to_numeric(out.loc[bottom_index, "TargetWeight"], errors="coerce").fillna(0.0) * penalty_series
+            )
+        else:
+            out.loc[bottom_index, "TargetWeight"] = (
+                pd.to_numeric(out.loc[bottom_index, "TargetWeight"], errors="coerce").fillna(0.0) * 0.35
+            )
+        released = float(
+            bottom_before.sum() - pd.to_numeric(out.loc[bottom_index, "TargetWeight"], errors="coerce").fillna(0.0).sum()
+        )
+        if released > 0:
+            recipients = ranked.loc[~ranked.index.isin(bottom_index)].index
+            recipient_weights = pd.to_numeric(out.loc[recipients, "TargetWeight"], errors="coerce").fillna(0.0)
+            total = float(recipient_weights.sum())
+            if total > 0:
+                out.loc[recipients, "TargetWeight"] = recipient_weights + released * (recipient_weights / total)
+        total_after = float(pd.to_numeric(out["TargetWeight"], errors="coerce").fillna(0.0).sum())
+        if total_after > 0:
+            out["TargetWeight"] = pd.to_numeric(out["TargetWeight"], errors="coerce").fillna(0.0) / total_after
+        return out
+
+    return patch
+
+
 def _summarize_candidate(
     name: str,
     result: dict[str, pd.DataFrame],
@@ -339,6 +380,7 @@ def main() -> None:
         (replace(strongest, name="bonus_schedule_first55_second45"), _patch_bonus_schedule(0.55, 0.45)),
         (replace(strongest, name="bonus_recipient_top1_third_85_15"), _patch_bonus_recipients(0.85, 0.15)),
         (replace(strongest, name="tail_skip_entry_flowweakest_new_bottom4_top25_mid75"), _patch_skip_entry_flowweakest_new_bottom4_top25_mid75()),
+        (replace(strongest, name="tail_release_to_nonbottom_proportional"), _patch_tail_release_to_nonbottom_proportional()),
         (replace(strongest, name="top2_split_49_51"), _patch_top2_split(0.49, 0.51)),
         (
             replace(

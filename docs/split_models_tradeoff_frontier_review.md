@@ -10,6 +10,7 @@
   - `bonus_schedule_first55_second45`
   - `bonus_recipient_top1_third_85_15`
   - `tail_skip_entry_flowweakest_new_bottom4_top25_mid75`
+  - `tail_release_to_nonbottom_proportional`
   - `top2_split_49_51`
   - `alt_family_top3_flat_bonus18`
 
@@ -59,6 +60,14 @@
   - walk-forward: `3` positive CAGR windows, `1` negative
   - `75 bps` CAGR delta vs strongest: `+0.53%p`
   - top 3 positive symbol share: `49.04%`
+- `tail_release_to_nonbottom_proportional`
+  - CAGR: `70.94%`
+  - MDD: `-37.73%`
+  - Sharpe: `1.5096`
+  - Annual turnover: `15.50`
+  - walk-forward: `3` positive CAGR windows, `1` negative
+  - `75 bps` CAGR delta vs strongest: `+7.00%p`
+  - top 3 positive symbol share: `39.20%`
 - `top2_split_49_51`
   - CAGR: `62.84%`
   - MDD: `-29.25%`
@@ -98,6 +107,10 @@
   - CAGR, drawdown, and turnover all improve versus the strongest
   - walk-forward also stays mostly positive at `3-1`
   - but Sharpe remains meaningfully lower than the strongest, so it still misses promotion grade
+- `tail_release_to_nonbottom_proportional` is the clearest `stronger-but-lower-quality` near-miss
+  - headline CAGR jumps sharply and walk-forward remains positive at `3-1`
+  - concentration and residual also improve
+  - but drawdown worsens badly and Sharpe collapses, so it is not remotely promotion-grade
 - `top2_split_49_51` is weaker than the hybrid challenger
   - it reduces concentration versus the strongest
   - but it does not preserve CAGR or walk-forward quality as well as the hybrid branch
@@ -112,5 +125,6 @@
 - treat `bonus_schedule_first55_second45` as the current best `stronger-like but not promotion-grade` challenger
 - treat `bonus_recipient_top1_third_85_15` as the current best `blended-quality but not promotion-grade` challenger
 - treat `tail_skip_entry_flowweakest_new_bottom4_top25_mid75` as the current best `skip-entry stronger-like but lower-quality` challenger
+- treat `tail_release_to_nonbottom_proportional` as the current best `stronger-but-much-lower-quality` challenger
 - treat `top2_split_49_51` as an inferior micro-adjustment candidate
 - treat `alt_family_top3_flat_bonus18` as a useful boundary check rather than a live promotion candidate

@@ -6,12 +6,13 @@
     "bonus_schedule_first55_second45",
     "bonus_recipient_top1_third_85_15",
     "tail_skip_entry_flowweakest_new_bottom4_top25_mid75",
+    "tail_release_to_nonbottom_proportional",
     "top2_split_49_51",
     "alt_family_top3_flat_bonus18"
   ],
-  "best_cagr_variant": "bonus_recipient_top1_third_85_15",
+  "best_cagr_variant": "tail_release_to_nonbottom_proportional",
   "best_sharpe_challenger": "bonus_recipient_top1_third_85_15",
   "best_lower_turnover_challenger": "tail_skip_entry_flowweakest_new_bottom4_top25_mid75",
   "lowest_top3_share_challenger": "alt_family_top3_flat_bonus18",
-  "most_positive_residual_challenger": "bonus_recipient_top1_third_85_15"
+  "most_positive_residual_challenger": "tail_release_to_nonbottom_proportional"
 }
