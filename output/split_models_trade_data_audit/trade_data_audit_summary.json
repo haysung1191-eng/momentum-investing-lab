@@ -1,0 +1,684 @@
+{
+  "as_of_date": "2026-04-17",
+  "repo": "momentum",
+  "asset_class": "stocks_etfs",
+  "today_work": [
+    "tradeoff frontier refresh",
+    "quality-vs-headline refresh",
+    "nightly safe summary",
+    "overnight guardrail",
+    "quality recipient family review",
+    "promotion defense refresh",
+    "dead family ledger refresh",
+    "redistribution family saturation review",
+    "tail-rescue saturation fix",
+    "many inline genuinely-different family validations"
+  ],
+  "models": [
+    {
+      "label": "strongest",
+      "variant": "rule_sector_cap2_breadth_it_us5_top2_convex_ranked_tail_count6_pen35_floor20_bonus18_pow05_risk_on",
+      "latest_signal_date": "2026-01-30",
+      "latest_next_date": "2026-02-27",
+      "holdings": [
+        {
+          "market": "KR",
+          "symbol": "069500",
+          "name": "069500",
+          "sector": "ETF",
+          "target_weight": 0.497926,
+          "momentum_score": 0.163947,
+          "flow_score": null
+        },
+        {
+          "market": "KR",
+          "symbol": "0000J0",
+          "name": "0000J0",
+          "sector": "ETF",
+          "target_weight": 0.497926,
+          "momentum_score": 0.129746,
+          "flow_score": null
+        },
+        {
+          "market": "US",
+          "symbol": "LMT",
+          "name": "Lockheed Martin",
+          "sector": "Industrials",
+          "target_weight": 0.05,
+          "momentum_score": 0.100263,
+          "flow_score": 0.305742
+        },
+        {
+          "market": "US",
+          "symbol": "CAT",
+          "name": "Caterpillar",
+          "sector": "Industrials",
+          "target_weight": 0.039286,
+          "momentum_score": 0.08934,
+          "flow_score": 0.158032
+        },
+        {
+          "market": "US",
+          "symbol": "JNJ",
+          "name": "Johnson & Johnson",
+          "sector": "Health Care",
+          "target_weight": 0.034848,
+          "momentum_score": 0.079188,
+          "flow_score": 0.174038
+        },
+        {
+          "market": "US",
+          "symbol": "GILD",
+          "name": "Gilead",
+          "sector": "Health Care",
+          "target_weight": 0.031442,
+          "momentum_score": 0.070479,
+          "flow_score": 0.140159
+        },
+        {
+          "market": "US",
+          "symbol": "GS",
+          "name": "Goldman Sachs",
+          "sector": "Financials",
+          "target_weight": 0.028571,
+          "momentum_score": 0.065753,
+          "flow_score": 0.151123
+        }
+      ],
+      "entered_symbols": [
+        "0000J0",
+        "CAT",
+        "GILD",
+        "GS",
+        "JNJ",
+        "LMT"
+      ],
+      "exited_symbols": [
+        "360750",
+        "BIIB",
+        "C",
+        "LLY",
+        "LRCX",
+        "MU"
+      ]
+    },
+    {
+      "label": "broader",
+      "variant": "hybrid_top2_plus_third00125",
+      "latest_signal_date": "2026-01-30",
+      "latest_next_date": "2026-02-27",
+      "holdings": [
+        {
+          "market": "KR",
+          "symbol": "069500",
+          "name": "069500",
+          "sector": "ETF",
+          "target_weight": 0.4974,
+          "momentum_score": 0.163947,
+          "flow_score": null
+        },
+        {
+          "market": "KR",
+          "symbol": "0000J0",
+          "name": "0000J0",
+          "sector": "ETF",
+          "target_weight": 0.4974,
+          "momentum_score": 0.129746,
+          "flow_score": null
+        },
+        {
+          "market": "US",
+          "symbol": "LMT",
+          "name": "Lockheed Martin",
+          "sector": "Industrials",
+          "target_weight": 0.051196,
+          "momentum_score": 0.100263,
+          "flow_score": 0.305742
+        },
+        {
+          "market": "US",
+          "symbol": "CAT",
+          "name": "Caterpillar",
+          "sector": "Industrials",
+          "target_weight": 0.039244,
+          "momentum_score": 0.08934,
+          "flow_score": 0.158032
+        },
+        {
+          "market": "US",
+          "symbol": "JNJ",
+          "name": "Johnson & Johnson",
+          "sector": "Health Care",
+          "target_weight": 0.034811,
+          "momentum_score": 0.079188,
+          "flow_score": 0.174038
+        },
+        {
+          "market": "US",
+          "symbol": "GILD",
+          "name": "Gilead",
+          "sector": "Health Care",
+          "target_weight": 0.031409,
+          "momentum_score": 0.070479,
+          "flow_score": 0.140159
+        },
+        {
+          "market": "US",
+          "symbol": "GS",
+          "name": "Goldman Sachs",
+          "sector": "Financials",
+          "target_weight": 0.028541,
+          "momentum_score": 0.065753,
+          "flow_score": 0.151123
+        }
+      ],
+      "entered_symbols": [
+        "0000J0",
+        "CAT",
+        "GILD",
+        "GS",
+        "JNJ",
+        "LMT"
+      ],
+      "exited_symbols": [
+        "360750",
+        "BIIB",
+        "C",
+        "LLY",
+        "LRCX",
+        "MU"
+      ]
+    },
+    {
+      "label": "quality",
+      "variant": "bonus_recipient_top1_third_85_15",
+      "latest_signal_date": "2026-01-30",
+      "latest_next_date": "2026-02-27",
+      "holdings": [
+        {
+          "market": "KR",
+          "symbol": "069500",
+          "name": "069500",
+          "sector": "ETF",
+          "target_weight": 0.560926,
+          "momentum_score": 0.163947,
+          "flow_score": null
+        },
+        {
+          "market": "KR",
+          "symbol": "0000J0",
+          "name": "0000J0",
+          "sector": "ETF",
+          "target_weight": 0.407926,
+          "momentum_score": 0.129746,
+          "flow_score": null
+        },
+        {
+          "market": "US",
+          "symbol": "LMT",
+          "name": "Lockheed Martin",
+          "sector": "Industrials",
+          "target_weight": 0.077,
+          "momentum_score": 0.100263,
+          "flow_score": 0.305742
+        },
+        {
+          "market": "US",
+          "symbol": "CAT",
+          "name": "Caterpillar",
+          "sector": "Industrials",
+          "target_weight": 0.039286,
+          "momentum_score": 0.08934,
+          "flow_score": 0.158032
+        },
+        {
+          "market": "US",
+          "symbol": "JNJ",
+          "name": "Johnson & Johnson",
+          "sector": "Health Care",
+          "target_weight": 0.034848,
+          "momentum_score": 0.079188,
+          "flow_score": 0.174038
+        },
+        {
+          "market": "US",
+          "symbol": "GILD",
+          "name": "Gilead",
+          "sector": "Health Care",
+          "target_weight": 0.031442,
+          "momentum_score": 0.070479,
+          "flow_score": 0.140159
+        },
+        {
+          "market": "US",
+          "symbol": "GS",
+          "name": "Goldman Sachs",
+          "sector": "Financials",
+          "target_weight": 0.028571,
+          "momentum_score": 0.065753,
+          "flow_score": 0.151123
+        }
+      ],
+      "entered_symbols": [
+        "0000J0",
+        "CAT",
+        "GILD",
+        "GS",
+        "JNJ",
+        "LMT"
+      ],
+      "exited_symbols": [
+        "360750",
+        "BIIB",
+        "C",
+        "LLY",
+        "LRCX",
+        "MU"
+      ]
+    },
+    {
+      "label": "headline",
+      "variant": "tail_skip_entry_flowweakest_new_bottom4_top25_mid75",
+      "latest_signal_date": "2026-01-30",
+      "latest_next_date": "2026-02-27",
+      "holdings": [
+        {
+          "market": "KR",
+          "symbol": "069500",
+          "name": "069500",
+          "sector": "ETF",
+          "target_weight": 0.425302,
+          "momentum_score": 0.163947,
+          "flow_score": null
+        },
+        {
+          "market": "KR",
+          "symbol": "0000J0",
+          "name": "0000J0",
+          "sector": "ETF",
+          "target_weight": 0.425302,
+          "momentum_score": 0.129746,
+          "flow_score": null
+        },
+        {
+          "market": "US",
+          "symbol": "LMT",
+          "name": "Lockheed Martin",
+          "sector": "Industrials",
+          "target_weight": 0.049034,
+          "momentum_score": 0.100263,
+          "flow_score": 0.305742
+        },
+        {
+          "market": "US",
+          "symbol": "CAT",
+          "name": "Caterpillar",
+          "sector": "Industrials",
+          "target_weight": 0.039954,
+          "momentum_score": 0.08934,
+          "flow_score": 0.158032
+        },
+        {
+          "market": "US",
+          "symbol": "JNJ",
+          "name": "Johnson & Johnson",
+          "sector": "Health Care",
+          "target_weight": 0.036193,
+          "momentum_score": 0.079188,
+          "flow_score": 0.174038
+        },
+        {
+          "market": "US",
+          "symbol": "GS",
+          "name": "Goldman Sachs",
+          "sector": "Financials",
+          "target_weight": 0.024213,
+          "momentum_score": 0.065753,
+          "flow_score": 0.151123
+        }
+      ],
+      "entered_symbols": [
+        "0000J0",
+        "CAT",
+        "GS",
+        "JNJ",
+        "LMT"
+      ],
+      "exited_symbols": [
+        "360750",
+        "BIIB",
+        "LLY",
+        "LRCX",
+        "MU"
+      ]
+    },
+    {
+      "label": "defensive_weighting",
+      "variant": "regime_weight_defensive_if_top2flowsoft",
+      "latest_signal_date": "2026-01-30",
+      "latest_next_date": "2026-02-27",
+      "holdings": [
+        {
+          "market": "KR",
+          "symbol": "069500",
+          "name": "069500",
+          "sector": "ETF",
+          "target_weight": 0.400785,
+          "momentum_score": 0.163947,
+          "flow_score": 0.0
+        },
+        {
+          "market": "KR",
+          "symbol": "0000J0",
+          "name": "0000J0",
+          "sector": "ETF",
+          "target_weight": 0.400785,
+          "momentum_score": 0.129746,
+          "flow_score": 0.0
+        },
+        {
+          "market": "US",
+          "symbol": "LMT",
+          "name": "Lockheed Martin",
+          "sector": "Industrials",
+          "target_weight": 0.053878,
+          "momentum_score": 0.100263,
+          "flow_score": 0.305742
+        },
+        {
+          "market": "US",
+          "symbol": "CAT",
+          "name": "Caterpillar",
+          "sector": "Industrials",
+          "target_weight": 0.042333,
+          "momentum_score": 0.08934,
+          "flow_score": 0.158032
+        },
+        {
+          "market": "US",
+          "symbol": "JNJ",
+          "name": "Johnson & Johnson",
+          "sector": "Health Care",
+          "target_weight": 0.037551,
+          "momentum_score": 0.079188,
+          "flow_score": 0.174038
+        },
+        {
+          "market": "US",
+          "symbol": "GILD",
+          "name": "Gilead",
+          "sector": "Health Care",
+          "target_weight": 0.033881,
+          "momentum_score": 0.070479,
+          "flow_score": 0.140159
+        },
+        {
+          "market": "US",
+          "symbol": "GS",
+          "name": "Goldman Sachs",
+          "sector": "Financials",
+          "target_weight": 0.030787,
+          "momentum_score": 0.065753,
+          "flow_score": 0.151123
+        }
+      ],
+      "entered_symbols": [
+        "0000J0",
+        "CAT",
+        "GILD",
+        "GS",
+        "JNJ",
+        "LMT"
+      ],
+      "exited_symbols": [
+        "360750",
+        "BIIB",
+        "C",
+        "LLY",
+        "LRCX",
+        "MU"
+      ]
+    },
+    {
+      "label": "stronger_but_more_fragile",
+      "variant": "multi_step_confirm_top1_flowtop2",
+      "latest_signal_date": "2026-01-30",
+      "latest_next_date": "2026-02-27",
+      "holdings": [
+        {
+          "market": "KR",
+          "symbol": "0000J0",
+          "name": "0000J0",
+          "sector": "ETF",
+          "target_weight": 0.447395,
+          "momentum_score": 0.129746,
+          "flow_score": null
+        },
+        {
+          "market": "KR",
+          "symbol": "069500",
+          "name": "069500",
+          "sector": "ETF",
+          "target_weight": 0.396548,
+          "momentum_score": 0.163947,
+          "flow_score": null
+        },
+        {
+          "market": "US",
+          "symbol": "LMT",
+          "name": "Lockheed Martin",
+          "sector": "Industrials",
+          "target_weight": 0.042373,
+          "momentum_score": 0.100263,
+          "flow_score": 0.305742
+        },
+        {
+          "market": "US",
+          "symbol": "CAT",
+          "name": "Caterpillar",
+          "sector": "Industrials",
+          "target_weight": 0.033293,
+          "momentum_score": 0.08934,
+          "flow_score": 0.158032
+        },
+        {
+          "market": "US",
+          "symbol": "JNJ",
+          "name": "Johnson & Johnson",
+          "sector": "Health Care",
+          "target_weight": 0.029532,
+          "momentum_score": 0.079188,
+          "flow_score": 0.174038
+        },
+        {
+          "market": "US",
+          "symbol": "GILD",
+          "name": "Gilead",
+          "sector": "Health Care",
+          "target_weight": 0.026646,
+          "momentum_score": 0.070479,
+          "flow_score": 0.140159
+        },
+        {
+          "market": "US",
+          "symbol": "GS",
+          "name": "Goldman Sachs",
+          "sector": "Financials",
+          "target_weight": 0.024213,
+          "momentum_score": 0.065753,
+          "flow_score": 0.151123
+        }
+      ],
+      "entered_symbols": [
+        "0000J0",
+        "CAT",
+        "GILD",
+        "GS",
+        "JNJ",
+        "LMT"
+      ],
+      "exited_symbols": [
+        "360750",
+        "BIIB",
+        "C",
+        "LLY",
+        "LRCX",
+        "MU"
+      ]
+    },
+    {
+      "label": "redistribution",
+      "variant": "tail_release_top50_mid50",
+      "latest_signal_date": "2026-01-30",
+      "latest_next_date": "2026-02-27",
+      "holdings": [
+        {
+          "market": "KR",
+          "symbol": "069500",
+          "name": "069500",
+          "sector": "ETF",
+          "target_weight": 0.477783,
+          "momentum_score": 0.163947,
+          "flow_score": null
+        },
+        {
+          "market": "KR",
+          "symbol": "0000J0",
+          "name": "0000J0",
+          "sector": "ETF",
+          "target_weight": 0.477783,
+          "momentum_score": 0.129746,
+          "flow_score": null
+        },
+        {
+          "market": "US",
+          "symbol": "LMT",
+          "name": "Lockheed Martin",
+          "sector": "Industrials",
+          "target_weight": 0.015728,
+          "momentum_score": 0.100263,
+          "flow_score": 0.305742
+        },
+        {
+          "market": "US",
+          "symbol": "CAT",
+          "name": "Caterpillar",
+          "sector": "Industrials",
+          "target_weight": 0.00971,
+          "momentum_score": 0.08934,
+          "flow_score": 0.158032
+        },
+        {
+          "market": "US",
+          "symbol": "JNJ",
+          "name": "Johnson & Johnson",
+          "sector": "Health Care",
+          "target_weight": 0.00764,
+          "momentum_score": 0.079188,
+          "flow_score": 0.174038
+        },
+        {
+          "market": "US",
+          "symbol": "GILD",
+          "name": "Gilead",
+          "sector": "Health Care",
+          "target_weight": 0.00622,
+          "momentum_score": 0.070479,
+          "flow_score": 0.140159
+        },
+        {
+          "market": "US",
+          "symbol": "GS",
+          "name": "Goldman Sachs",
+          "sector": "Financials",
+          "target_weight": 0.005136,
+          "momentum_score": 0.065753,
+          "flow_score": 0.151123
+        }
+      ],
+      "entered_symbols": [
+        "0000J0",
+        "CAT",
+        "GILD",
+        "GS",
+        "JNJ",
+        "LMT"
+      ],
+      "exited_symbols": [
+        "360750",
+        "BIIB",
+        "C",
+        "LLY",
+        "LRCX",
+        "MU"
+      ]
+    }
+  ],
+  "price_audit": [
+    {
+      "market": "KR",
+      "asset_type": "ETF",
+      "symbol": "069500",
+      "name": "069500",
+      "price_path": "C:\\AI\\momentum\\data\\prices_operating_institutional_v1\\etf\\069500.csv.gz",
+      "file_exists": true,
+      "rows": 2001,
+      "start_date": "2018-02-12",
+      "end_date": "2026-04-10",
+      "nonpositive_close_rows": 0,
+      "duplicate_date_rows": 0
+    },
+    {
+      "market": "KR",
+      "asset_type": "ETF",
+      "symbol": "0000J0",
+      "name": "0000J0",
+      "price_path": "C:\\AI\\momentum\\data\\prices_operating_institutional_v1\\etf\\0000J0.csv.gz",
+      "file_exists": true,
+      "rows": 313,
+      "start_date": "2024-12-24",
+      "end_date": "2026-04-10",
+      "nonpositive_close_rows": 0,
+      "duplicate_date_rows": 0
+    },
+    {
+      "market": "US",
+      "asset_type": "STOCK",
+      "symbol": "LMT",
+      "name": "Lockheed Martin",
+      "price_path": "C:\\AI\\momentum\\data\\prices_us_stock_sp100_pitwiki\\stock\\LMT.csv.gz",
+      "file_exists": true,
+      "rows": 2825,
+      "start_date": "2015-01-02",
+      "end_date": "2026-03-27",
+      "nonpositive_close_rows": 0,
+      "duplicate_date_rows": 0
+    },
+    {
+      "market": "US",
+      "asset_type": "STOCK",
+      "symbol": "CAT",
+      "name": "Caterpillar",
+      "price_path": "C:\\AI\\momentum\\data\\prices_us_stock_sp100_pitwiki\\stock\\CAT.csv.gz",
+      "file_exists": true,
+      "rows": 2825,
+      "start_date": "2015-01-02",
+      "end_date": "2026-03-27",
+      "nonpositive_close_rows": 0,
+      "duplicate_date_rows": 0
+    },
+    {
+      "market": "US",
+      "asset_type": "STOCK",
+      "symbol": "JNJ",
+      "name": "Johnson & Johnson",
+      "price_path": "C:\\AI\\momentum\\data\\prices_us_stock_sp100_pitwiki\\stock\\JNJ.csv.gz",
+      "file_exists": true,
+      "rows": 2825,
+      "start_date": "2015-01-02",
+      "end_date": "2026-03-27",
+      "nonpositive_close_rows": 0,
+      "duplicate_date_rows": 0
+    }
+  ]
+}
