@@ -9,6 +9,7 @@
     "tail_release_to_nonbottom_proportional",
     "tail_release_top50_mid50",
     "multi_step_confirm_top1_flowtop2",
+    "regime_weight_defensive_if_top2flowsoft",
     "top2_split_49_51",
     "alt_family_top3_flat_bonus18"
   ],

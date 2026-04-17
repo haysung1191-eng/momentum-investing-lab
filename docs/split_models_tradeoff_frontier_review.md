@@ -13,6 +13,7 @@
   - `tail_release_to_nonbottom_proportional`
   - `tail_release_top50_mid50`
   - `multi_step_confirm_top1_flowtop2`
+  - `regime_weight_defensive_if_top2flowsoft`
   - `top2_split_49_51`
   - `alt_family_top3_flat_bonus18`
 
@@ -86,6 +87,14 @@
   - walk-forward: `4` positive CAGR windows, `0` negative
   - `75 bps` CAGR delta vs strongest: `+1.96%p`
   - top 3 positive symbol share: `75.36%`
+- `regime_weight_defensive_if_top2flowsoft`
+  - CAGR: `63.06%`
+  - MDD: `-29.27%`
+  - Sharpe: `1.6927`
+  - Annual turnover: `15.55`
+  - walk-forward: `3` positive CAGR windows, `1` negative
+  - `75 bps` CAGR delta vs strongest: `-0.28%p`
+  - top 3 positive symbol share: `67.57%`
 - `top2_split_49_51`
   - CAGR: `62.84%`
   - MDD: `-29.25%`
@@ -137,6 +146,10 @@
   - full-period CAGR, Sharpe, walk-forward, and cost all improve versus the strongest
   - but drawdown still worsens and concentration gets much worse
   - so it improves quality on paper while worsening fragility, which keeps it outside promotion grade
+- `regime_weight_defensive_if_top2flowsoft` is the closest `defensive weighting` near-miss
+  - Sharpe, walk-forward Sharpe, and drawdown stay very close to the strongest
+  - but CAGR still slips slightly, cost turns slightly negative, and fragility worsens
+  - so it is a useful near-miss, but not a promotion-grade replacement
 - `top2_split_49_51` is weaker than the hybrid challenger
   - it reduces concentration versus the strongest
   - but it does not preserve CAGR or walk-forward quality as well as the hybrid branch
@@ -153,6 +166,7 @@
 - treat `tail_skip_entry_flowweakest_new_bottom4_top25_mid75` as the current best `skip-entry stronger-like but lower-quality` challenger
 - treat `tail_release_top50_mid50` as the current best `redistribution contender`
 - treat `multi_step_confirm_top1_flowtop2` as the current best `stronger-but-more-fragile` challenger
+- treat `regime_weight_defensive_if_top2flowsoft` as the current best `defensive weighting` challenger
 - treat `tail_release_to_nonbottom_proportional` as the current best `stronger-but-much-lower-quality boundary` challenger
 - treat `top2_split_49_51` as an inferior micro-adjustment candidate
 - treat `alt_family_top3_flat_bonus18` as a useful boundary check rather than a live promotion candidate

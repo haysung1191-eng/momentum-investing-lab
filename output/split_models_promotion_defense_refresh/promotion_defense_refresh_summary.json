@@ -37,6 +37,15 @@
     "walkforward": "3 positive / 1 negative",
     "takeaway": "best headline extension, but Sharpe still stays too weak"
   },
+  "defensive_weighting_near_miss": {
+    "variant": "regime_weight_defensive_if_top2flowsoft",
+    "cagr": "63.06%",
+    "mdd": "-29.27%",
+    "sharpe": "1.6927",
+    "cost_75bps_cagr_delta_vs_strongest": "-0.28%p",
+    "walkforward": "3 positive / 1 negative",
+    "takeaway": "closest defensive weighting point; Sharpe improves slightly, but cost and fragility still slip"
+  },
   "stronger_but_more_fragile_near_miss": {
     "variant": "multi_step_confirm_top1_flowtop2",
     "cagr": "65.65%",

@@ -27,6 +27,11 @@
   - MDD `-28.77%`
   - walk-forward `3 positive / 1 negative`
   - takeaway `best headline extension, but Sharpe still stays too weak`
+- defensive weighting near-miss: `regime_weight_defensive_if_top2flowsoft`
+  - CAGR `63.06%`
+  - Sharpe `1.6927`
+  - walk-forward `3 positive / 1 negative`
+  - takeaway `closest defensive weighting point; Sharpe improves slightly, but cost and fragility still slip`
 - stronger-but-more-fragile near-miss: `multi_step_confirm_top1_flowtop2`
   - CAGR `65.65%`
   - Sharpe `1.7111`

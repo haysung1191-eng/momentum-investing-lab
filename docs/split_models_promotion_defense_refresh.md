@@ -15,6 +15,8 @@
   - `bonus_recipient_top1_third_85_15`
 - headline near-miss:
   - `tail_skip_entry_flowweakest_new_bottom4_top25_mid75`
+- defensive weighting near-miss:
+  - `regime_weight_defensive_if_top2flowsoft`
 - stronger-but-more-fragile near-miss:
   - `multi_step_confirm_top1_flowtop2`
 - stronger-but-lower-quality near-miss:
@@ -39,6 +41,9 @@
 - headline:
   - `tail_skip_entry_flowweakest_new_bottom4_top25_mid75`
   - best lower-turnover headline extension
+- defensive weighting:
+  - `regime_weight_defensive_if_top2flowsoft`
+  - closest defensive weighting point, but still slightly weaker on cost and fragility
 - stronger-but-more-fragile:
   - `multi_step_confirm_top1_flowtop2`
   - stronger and cleaner on paper, but concentration worsens too much

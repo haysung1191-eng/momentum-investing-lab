@@ -321,6 +321,40 @@ def _patch_multi_step_confirm_top1_flowtop2() -> Callable[[pd.DataFrame], pd.Dat
     return patch
 
 
+def _patch_regime_weight_defensive_if_top2flowsoft() -> Callable[[pd.DataFrame], pd.DataFrame]:
+    def patch(book: pd.DataFrame) -> pd.DataFrame:
+        if book.empty or len(book) < 4 or "FlowScore" not in book.columns:
+            return book
+        out = book.copy()
+        out["TargetWeight"] = pd.to_numeric(out["TargetWeight"], errors="coerce").fillna(0.0)
+        out["FlowScore"] = pd.to_numeric(out["FlowScore"], errors="coerce").fillna(0.0)
+        ranked = out.sort_values(["MomentumScore", "FlowScore", "Symbol"], ascending=[False, False, True])
+        top_idx = ranked.head(2).index
+        top_flow_avg = float(ranked.head(2)["FlowScore"].mean())
+        book_flow_median = float(ranked["FlowScore"].median())
+        if top_flow_avg >= book_flow_median:
+            return out
+        top_weights = pd.to_numeric(out.loc[top_idx, "TargetWeight"], errors="coerce").fillna(0.0)
+        top_total = float(top_weights.sum())
+        shift = min(0.05, top_total * 0.25)
+        if shift <= 0:
+            return out
+        out.loc[top_idx, "TargetWeight"] = top_weights - shift * (top_weights / top_total)
+        rest_idx = ranked.index[2:]
+        rest_weights = pd.to_numeric(out.loc[rest_idx, "TargetWeight"], errors="coerce").fillna(0.0)
+        rest_total = float(rest_weights.sum())
+        if rest_total > 0:
+            out.loc[rest_idx, "TargetWeight"] = rest_weights + shift * (rest_weights / rest_total)
+        else:
+            out.loc[rest_idx, "TargetWeight"] = rest_weights + shift / float(len(rest_idx))
+        total_after = float(pd.to_numeric(out["TargetWeight"], errors="coerce").fillna(0.0).sum())
+        if total_after > 0:
+            out["TargetWeight"] = pd.to_numeric(out["TargetWeight"], errors="coerce").fillna(0.0) / total_after
+        return out
+
+    return patch
+
+
 def _summarize_candidate(
     name: str,
     result: dict[str, pd.DataFrame],
@@ -460,6 +494,7 @@ def main() -> None:
         (replace(strongest, name="tail_release_to_nonbottom_proportional"), _patch_tail_release_to_nonbottom_proportional()),
         (replace(strongest, name="tail_release_top50_mid50"), _patch_tail_release_top50_mid50()),
         (replace(strongest, name="multi_step_confirm_top1_flowtop2"), _patch_multi_step_confirm_top1_flowtop2()),
+        (replace(strongest, name="regime_weight_defensive_if_top2flowsoft"), _patch_regime_weight_defensive_if_top2flowsoft()),
         (replace(strongest, name="top2_split_49_51"), _patch_top2_split(0.49, 0.51)),
         (
             replace(
