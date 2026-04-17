@@ -169,6 +169,40 @@ def _patch_bonus_recipients(first_share: float, third_share: float, bonus_total:
     return patch
 
 
+def _patch_skip_entry_flowweakest_new_bottom4_top50_mid50() -> Callable[[pd.DataFrame], pd.DataFrame]:
+    def patch(book: pd.DataFrame) -> pd.DataFrame:
+        if book.empty or len(book) < 6:
+            return book
+        out = book.copy()
+        ranked = out.sort_values(["MomentumScore", "FlowScore", "Symbol"], ascending=[False, False, True])
+        candidate_pool = ranked.iloc[2:].copy()
+        if candidate_pool.empty:
+            return out
+        bottom_slice = candidate_pool.tail(min(4, len(candidate_pool)))
+        if bottom_slice.empty:
+            return out
+        drop_row = bottom_slice.sort_values(["FlowScore", "MomentumScore", "Symbol"], ascending=[True, True, True]).head(1)
+        drop_index = drop_row.index[0]
+        released = float(out.loc[drop_index, "TargetWeight"])
+        out = out.drop(index=drop_index).copy()
+        if released > 0 and not out.empty:
+            reranked = out.sort_values(["MomentumScore", "FlowScore", "Symbol"], ascending=[False, False, True])
+            top_index = reranked.head(2).index
+            mid_index = reranked.iloc[2:5].index
+            top_share = released * 0.5
+            mid_share = released * 0.5
+            if len(top_index) > 0:
+                out.loc[top_index, "TargetWeight"] = out.loc[top_index, "TargetWeight"].astype(float) + top_share / float(len(top_index))
+            if len(mid_index) > 0:
+                out.loc[mid_index, "TargetWeight"] = out.loc[mid_index, "TargetWeight"].astype(float) + mid_share / float(len(mid_index))
+            total = float(pd.to_numeric(out["TargetWeight"], errors="coerce").fillna(0.0).sum())
+            if total > 0:
+                out["TargetWeight"] = pd.to_numeric(out["TargetWeight"], errors="coerce").fillna(0.0) / total
+        return out
+
+    return patch
+
+
 def _summarize_candidate(
     name: str,
     result: dict[str, pd.DataFrame],
@@ -304,6 +338,7 @@ def main() -> None:
         (replace(strongest, name="hybrid_top2_plus_third00125"), _patch_hybrid_top2_plus_third(0.00125)),
         (replace(strongest, name="bonus_schedule_first55_second45"), _patch_bonus_schedule(0.55, 0.45)),
         (replace(strongest, name="bonus_recipient_top1_third_67_33"), _patch_bonus_recipients(0.67, 0.33)),
+        (replace(strongest, name="tail_skip_entry_flowweakest_new_bottom4_top50_mid50"), _patch_skip_entry_flowweakest_new_bottom4_top50_mid50()),
         (replace(strongest, name="top2_split_49_51"), _patch_top2_split(0.49, 0.51)),
         (
             replace(
@@ -344,6 +379,7 @@ def main() -> None:
         "variants_compared": compare["Variant"].astype(str).tolist(),
         "best_cagr_variant": str(compare.sort_values("CAGR", ascending=False).iloc[0]["Variant"]),
         "best_sharpe_challenger": str(challengers.sort_values("Sharpe", ascending=False).iloc[0]["Variant"]),
+        "best_lower_turnover_challenger": str(challengers.sort_values("AnnualTurnover", ascending=True).iloc[0]["Variant"]),
         "lowest_top3_share_challenger": str(challengers.sort_values("Top3PositiveSymbolShare", ascending=True).iloc[0]["Variant"]),
         "most_positive_residual_challenger": str(challengers.sort_values("ResidualExTop3", ascending=False).iloc[0]["Variant"]),
     }

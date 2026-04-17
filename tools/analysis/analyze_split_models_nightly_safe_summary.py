@@ -67,6 +67,15 @@ SUMMARY = {
         "walkforward": "2 positive / 2 negative",
         "verdict": "quality-improving and broader, but turnover jumps and cost-adjusted CAGR turns negative",
     },
+    "skip_entry_near_miss": {
+        "variant": "tail_skip_entry_flowweakest_new_bottom4_top50_mid50",
+        "cagr": "63.75%",
+        "mdd": "-29.23%",
+        "sharpe": "1.6636",
+        "cost_75bps_cagr_delta_vs_strongest": "+1.04%p",
+        "walkforward": "3 positive / 1 negative",
+        "verdict": "headline, breadth, and turnover all improve, but Sharpe still remains meaningfully weaker than the strongest",
+    },
 }
 
 
@@ -79,6 +88,7 @@ def _build_markdown(summary: dict) -> str:
     benchmark = summary["benchmark_check"]
     bonus_near_miss = summary["bonus_near_miss"]
     quality_near_miss = summary["quality_near_miss"]
+    skip_entry_near_miss = summary["skip_entry_near_miss"]
 
     return "\n".join(
         [
@@ -141,11 +151,22 @@ def _build_markdown(summary: dict) -> str:
             f"- walk-forward: `{quality_near_miss['walkforward']}`",
             f"- verdict: `{quality_near_miss['verdict']}`",
             "",
+            "## Skip-Entry Near-Miss",
+            "",
+            f"- variant: `{skip_entry_near_miss['variant']}`",
+            f"- CAGR: `{skip_entry_near_miss['cagr']}`",
+            f"- MDD: `{skip_entry_near_miss['mdd']}`",
+            f"- Sharpe: `{skip_entry_near_miss['sharpe']}`",
+            f"- `75 bps` cost CAGR delta vs strongest: `{skip_entry_near_miss['cost_75bps_cagr_delta_vs_strongest']}`",
+            f"- walk-forward: `{skip_entry_near_miss['walkforward']}`",
+            f"- verdict: `{skip_entry_near_miss['verdict']}`",
+            "",
             "## Nightly verdict",
             "",
             "- keep the current strongest as the mainline aggressive branch",
             "- treat the broader challenger as a near-miss, not a promotion",
             "- treat the quality near-miss as a quality-tilted alternative, not a promotion",
+            "- treat the skip-entry near-miss as a stronger-but-lower-quality alternative, not a promotion",
             "- if more overnight work is run, prefer broader-challenger exploration over disturbing the strongest baseline again",
             "",
         ]

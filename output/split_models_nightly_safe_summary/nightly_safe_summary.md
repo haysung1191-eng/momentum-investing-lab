@@ -57,9 +57,20 @@
 - walk-forward: `2 positive / 2 negative`
 - verdict: `quality-improving and broader, but turnover jumps and cost-adjusted CAGR turns negative`
 
+## Skip-Entry Near-Miss
+
+- variant: `tail_skip_entry_flowweakest_new_bottom4_top50_mid50`
+- CAGR: `63.75%`
+- MDD: `-29.23%`
+- Sharpe: `1.6636`
+- `75 bps` cost CAGR delta vs strongest: `+1.04%p`
+- walk-forward: `3 positive / 1 negative`
+- verdict: `headline, breadth, and turnover all improve, but Sharpe still remains meaningfully weaker than the strongest`
+
 ## Nightly verdict
 
 - keep the current strongest as the mainline aggressive branch
 - treat the broader challenger as a near-miss, not a promotion
 - treat the quality near-miss as a quality-tilted alternative, not a promotion
+- treat the skip-entry near-miss as a stronger-but-lower-quality alternative, not a promotion
 - if more overnight work is run, prefer broader-challenger exploration over disturbing the strongest baseline again
