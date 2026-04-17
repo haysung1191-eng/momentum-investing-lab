@@ -49,13 +49,13 @@
 
 ## Quality Near-Miss
 
-- variant: `bonus_recipient_top1_third_75_25`
-- CAGR: `64.20%`
-- MDD: `-29.28%`
-- Sharpe: `1.6982`
-- `75 bps` cost CAGR delta vs strongest: `+0.50%p`
-- walk-forward: `2 positive / 2 negative`
-- verdict: `CAGR and Sharpe both improve with lower concentration, but walk-forward stays mixed and turnover remains higher`
+- variant: `bonus_recipient_top1_third_80_20`
+- CAGR: `64.82%`
+- MDD: `-29.40%`
+- Sharpe: `1.6956`
+- `75 bps` cost CAGR delta vs strongest: `+1.09%p`
+- walk-forward: `3 positive / 1 negative`
+- verdict: `CAGR and Sharpe both improve and walk-forward strengthens, but drawdown is slightly worse and turnover remains higher`
 
 ## Skip-Entry Near-Miss
 

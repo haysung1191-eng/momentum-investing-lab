@@ -13,7 +13,7 @@ ROOT = REPO_ROOT
 OUTPUT_DIR = ROOT / "output" / "split_models_quality_vs_headline_review"
 
 STRONGEST = "rule_sector_cap2_breadth_it_us5_top2_convex_ranked_tail_count6_pen35_floor20_bonus18_pow05_risk_on"
-QUALITY_NEAR_MISS = "bonus_recipient_top1_third_75_25"
+QUALITY_NEAR_MISS = "bonus_recipient_top1_third_80_20"
 SKIP_ENTRY_NEAR_MISS = "tail_skip_entry_flowweakest_new_bottom4_top25_mid75"
 
 ROWS = [
@@ -33,17 +33,17 @@ ROWS = [
     },
     {
         "Variant": QUALITY_NEAR_MISS,
-        "CAGR": 0.6420,
-        "MDD": -0.2928,
-        "Sharpe": 1.6982,
-        "AnnualTurnover": 15.87,
-        "Cost75BpsCAGRDelta": 0.0050,
-        "PositiveCAGRWindows": 2,
-        "NegativeCAGRWindows": 2,
-        "Top3PositiveSymbolShare": 0.4046,
-        "CAGRDeltaVsStrongest": 0.0105,
-        "MDDDeltaVsStrongest": -0.0001,
-        "SharpeDeltaVsStrongest": 0.0090,
+        "CAGR": 0.6482,
+        "MDD": -0.2940,
+        "Sharpe": 1.6956,
+        "AnnualTurnover": 15.84,
+        "Cost75BpsCAGRDelta": 0.0109,
+        "PositiveCAGRWindows": 3,
+        "NegativeCAGRWindows": 1,
+        "Top3PositiveSymbolShare": 0.4537,
+        "CAGRDeltaVsStrongest": 0.0166,
+        "MDDDeltaVsStrongest": -0.0013,
+        "SharpeDeltaVsStrongest": 0.0063,
     },
     {
         "Variant": SKIP_ENTRY_NEAR_MISS,
@@ -162,10 +162,10 @@ def _build_markdown(summary: dict) -> str:
             "",
             "## Interpretation",
             "",
-            "- `bonus_recipient_top1_third_75_25` is the best blended quality extension",
+            "- `bonus_recipient_top1_third_80_20` is the best blended quality extension",
             "  - CAGR and Sharpe both improve",
-            "  - concentration stays much lower than the strongest",
-            "  - but walk-forward still stays mixed and turnover still rises",
+            "  - walk-forward also improves to `3-1`",
+            "  - but drawdown is slightly worse and turnover still rises",
             "- `tail_skip_entry_flowweakest_new_bottom4_top25_mid75` is the best headline extension",
             "  - CAGR and turnover improve together",
             "  - but Sharpe still stays materially below the strongest",
