@@ -5,7 +5,7 @@
   "best_quality_point": "tail_release_top50_mid50",
   "best_drawdown_point": "tail_release_top25_mid75",
   "best_blended_point": "tail_release_top50_mid50",
-  "family_takeaway": "moving released tail weight from broad non-bottom redistribution toward a partial top2 mix improves Sharpe, turnover, walk-forward, and cost, but the whole family still fails promotion because drawdown remains too weak",
+  "family_takeaway": "moving released tail weight from broad non-bottom redistribution toward a partial top2 mix improves Sharpe, turnover, walk-forward, and cost, while tail-rescue variants land in almost the same saturation zone; the whole family still fails promotion because drawdown remains too weak",
   "rows": [
     {
       "variant": "tail_release_to_nonbottom_proportional",
@@ -51,6 +51,21 @@
       "walkforward_sharpe_delta": "+0.0503",
       "top3_positive_symbol_share": "43.74%",
       "residual_ex_top3": "0.50%p"
+    },
+    {
+      "variant": "tail_rescue_bestflow_if_above_median",
+      "top2_share": "50.00%",
+      "mid_share": "50.00%",
+      "cagr": "76.22%",
+      "mdd": "-34.92%",
+      "sharpe": "1.6909",
+      "annual_turnover": "14.45",
+      "cost_75bps_cagr_delta_vs_strongest": "12.87%p",
+      "cost_75bps_sharpe_delta_vs_strongest": "+0.0535",
+      "walkforward": "4 positive / 0 negative",
+      "walkforward_sharpe_delta": "+0.0457",
+      "top3_positive_symbol_share": "43.99%",
+      "residual_ex_top3": "0.49%p"
     }
   ]
 }

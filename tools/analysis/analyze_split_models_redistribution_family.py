@@ -62,6 +62,22 @@ FAMILY_ROWS = [
         "Top3PositiveSymbolShare": 0.4374,
         "ResidualExTop3": 0.0050,
     },
+    {
+        "Variant": "tail_rescue_bestflow_if_above_median",
+        "Top2Share": 0.50,
+        "MidShare": 0.50,
+        "CAGR": 0.7622,
+        "MDD": -0.3492,
+        "Sharpe": 1.6909,
+        "AnnualTurnover": 14.45,
+        "Cost75BpsCAGRDeltaVsStrongest": 0.1287,
+        "Cost75BpsSharpeDeltaVsStrongest": 0.0535,
+        "WalkForwardPositive": 4,
+        "WalkForwardNegative": 0,
+        "WalkForwardSharpeDelta": 0.0457,
+        "Top3PositiveSymbolShare": 0.4399,
+        "ResidualExTop3": 0.0049,
+    },
 ]
 
 
@@ -88,8 +104,8 @@ def _build_summary() -> dict:
         "best_blended_point": best_blended["Variant"],
         "family_takeaway": (
             "moving released tail weight from broad non-bottom redistribution toward a partial top2 mix "
-            "improves Sharpe, turnover, walk-forward, and cost, but the whole family still fails promotion "
-            "because drawdown remains too weak"
+            "improves Sharpe, turnover, walk-forward, and cost, while tail-rescue variants land in almost the "
+            "same saturation zone; the whole family still fails promotion because drawdown remains too weak"
         ),
         "rows": [
             {
@@ -131,11 +147,13 @@ def _build_markdown(summary: dict) -> str:
             "  - `top0 / mid100`",
             "  - `top25 / mid75`",
             "  - `top50 / mid50`",
+            "  - `tail rescue best-flow`",
             "",
             "## Family Pattern",
             "",
             "- all reviewed redistribution points produce much higher headline CAGR than the strongest",
             "- adding some top2 share improves Sharpe, cost response, and turnover materially",
+            "- the tail-rescue variant lands in almost the same zone as `top50 / mid50`, not in a separate family frontier",
             "- the family stays non-promotable because drawdown remains too weak even at the best blended point",
             "",
             "## Best Headline Point",
@@ -180,6 +198,7 @@ def _build_markdown(summary: dict) -> str:
             "- `top0 / mid100` is the raw boundary point: very strong headline, but quality collapses too much",
             "- `top25 / mid75` improves quality a lot while keeping very strong headline support",
             "- `top50 / mid50` is the best blended redistribution point because Sharpe, walk-forward, cost, and turnover all remain strong",
+            "- `tail_rescue_bestflow_if_above_median` is effectively a redistribution saturation variant: it stays very close to `top50 / mid50` but does not beat it on any major axis",
             "- even `top50 / mid50` still fails promotion grade because drawdown deterioration is too large",
             "",
             "## Verdict",

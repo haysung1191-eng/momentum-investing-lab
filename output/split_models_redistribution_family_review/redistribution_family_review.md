@@ -8,11 +8,13 @@
   - `top0 / mid100`
   - `top25 / mid75`
   - `top50 / mid50`
+  - `tail rescue best-flow`
 
 ## Family Pattern
 
 - all reviewed redistribution points produce much higher headline CAGR than the strongest
 - adding some top2 share improves Sharpe, cost response, and turnover materially
+- the tail-rescue variant lands in almost the same zone as `top50 / mid50`, not in a separate family frontier
 - the family stays non-promotable because drawdown remains too weak even at the best blended point
 
 ## Best Headline Point
@@ -57,6 +59,7 @@
 - `top0 / mid100` is the raw boundary point: very strong headline, but quality collapses too much
 - `top25 / mid75` improves quality a lot while keeping very strong headline support
 - `top50 / mid50` is the best blended redistribution point because Sharpe, walk-forward, cost, and turnover all remain strong
+- `tail_rescue_bestflow_if_above_median` is effectively a redistribution saturation variant: it stays very close to `top50 / mid50` but does not beat it on any major axis
 - even `top50 / mid50` still fails promotion grade because drawdown deterioration is too large
 
 ## Verdict

@@ -145,6 +145,12 @@ SUMMARY = {
             "headline": "+13.31%p CAGR, +0.0075 Sharpe, and 4 positive / 0 negative walk-forward windows",
             "failure": "MDD delta -5.37%p still leaves it outside promotion grade despite the much stronger headline",
         },
+        {
+            "family": "tail rescue saturation",
+            "best_tested_point": "tail_rescue_bestflow_if_above_median",
+            "headline": "+13.06%p CAGR, +0.0016 Sharpe, and 4 positive / 0 negative walk-forward windows",
+            "failure": "it lands in the same redistribution saturation zone as tail_release_top50_mid50 and still fails on drawdown",
+        },
     ],
     "promotion_defense_verdict": "keep the current strongest; recent search widened the near-miss map but did not produce a new promotion-grade stronger branch",
 }

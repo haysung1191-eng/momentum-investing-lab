@@ -50,6 +50,10 @@
 - stronger-but-lower-quality:
   - `tail_release_top50_mid50`
   - best redistribution contender: headline and Sharpe both improve, but drawdown is still too weak for promotion
+- tail rescue saturation:
+  - `tail_rescue_bestflow_if_above_median`
+  - effectively the same redistribution saturation zone as `tail_release_top50_mid50`
+  - not a separate promotable frontier
 
 ## Dead or Saturated Families
 
@@ -69,6 +73,8 @@
   - they weakened alpha more than they fixed fragility
 - aggressive redistribution:
   - headline surged, but drawdown still failed promotion grade
+- tail rescue saturation:
+  - almost identical to the redistribution frontier, but still weaker than `tail_release_top50_mid50`
 
 ## Verdict
 

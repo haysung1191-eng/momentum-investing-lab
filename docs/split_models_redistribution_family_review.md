@@ -31,9 +31,14 @@
   - best blended redistribution point
   - strongest mix of CAGR, Sharpe, walk-forward, cost support, and lower turnover
   - this is the current redistribution-family truth
+- `tail_rescue_bestflow_if_above_median`
+  - practically the same saturation zone as `top50 / mid50`
+  - numbers stay very close
+  - but it does not beat `top50 / mid50` on CAGR, Sharpe, drawdown, cost, or turnover
 
 ## Verdict
 
 - keep `tail_release_top50_mid50` as the redistribution-family current truth
 - treat the whole redistribution family as a strong but non-promotable aggressive frontier
+- treat `tail_rescue_bestflow_if_above_median` as a redistribution saturation variant, not a separate frontier
 - stop pushing this family further unless a new drawdown-control axis is introduced
