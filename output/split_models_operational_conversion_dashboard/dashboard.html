@@ -1,0 +1,194 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Operational Conversion Dashboard</title>
+  <style>
+    :root {
+      --accent: #9d2b2b;
+      --bg1: #f7f1e8;
+      --bg2: #eef3fb;
+      --ink: #1f2430;
+      --muted: #5f6673;
+      --panel: rgba(255,255,255,0.86);
+      --border: rgba(20,20,20,0.08);
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: "Segoe UI", "Apple SD Gothic Neo", sans-serif;
+      color: var(--ink);
+      background: linear-gradient(180deg, var(--bg1), var(--bg2));
+    }
+    .wrap {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 32px 20px 56px;
+    }
+    .hero {
+      background: linear-gradient(135deg, rgba(255,255,255,0.92), rgba(255,255,255,0.7));
+      border: 1px solid var(--border);
+      border-radius: 24px;
+      padding: 28px;
+      box-shadow: 0 18px 50px rgba(40, 48, 71, 0.08);
+    }
+    .eyebrow {
+      color: var(--muted);
+      font-size: 14px;
+      margin-bottom: 10px;
+    }
+    h1 {
+      margin: 0 0 8px;
+      font-size: 36px;
+    }
+    .subtitle {
+      color: var(--muted);
+      line-height: 1.6;
+      max-width: 760px;
+    }
+    .pills {
+      margin-top: 18px;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+    .pill {
+      padding: 10px 14px;
+      border-radius: 999px;
+      color: white;
+      font-weight: 700;
+    }
+    .pill.blue { background: #3b5b92; }
+    .pill.brown { background: #5d4037; }
+    .metrics {
+      margin-top: 22px;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      gap: 14px;
+    }
+    .card {
+      background: var(--panel);
+      border: 1px solid var(--border);
+      border-radius: 18px;
+      padding: 16px;
+    }
+    .label {
+      color: var(--muted);
+      font-size: 13px;
+      margin-bottom: 8px;
+    }
+    .value {
+      font-size: 24px;
+      font-weight: 700;
+      line-height: 1.25;
+      word-break: break-word;
+    }
+    .grid {
+      margin-top: 18px;
+      display: grid;
+      grid-template-columns: 1.2fr 0.9fr;
+      gap: 18px;
+    }
+    .panel {
+      background: var(--panel);
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      padding: 20px;
+    }
+    h2 {
+      margin-top: 0;
+      font-size: 22px;
+    }
+    ul {
+      margin: 0;
+      padding-left: 18px;
+      line-height: 1.7;
+    }
+    code, pre {
+      font-family: Consolas, monospace;
+    }
+    .cmd {
+      background: #101522;
+      color: #edf2ff;
+      border-radius: 14px;
+      padding: 12px 14px;
+      margin: 10px 0;
+      overflow-x: auto;
+    }
+    .small {
+      color: var(--muted);
+      font-size: 14px;
+    }
+    @media (max-width: 900px) {
+      .grid { grid-template-columns: 1fr; }
+      h1 { font-size: 30px; }
+    }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <section class="hero">
+      <div class="eyebrow">Split Models Operational Conversion Branch</div>
+      <h1>한눈 대시보드</h1>
+      <div class="subtitle">
+        지금 이 branch는 운영 승격이 막혀 있습니다. 핵심 이유는 anchor drawdown이 baseline보다 더 깊고,
+        지금까지 시험한 축 중 drawdown을 실제로 고친 구조가 없기 때문입니다.
+      </div>
+      <div class="pills">
+        <div class="pill" style="background:#9d2b2b">Gate: BLOCKED</div>
+        <div class="pill blue">Promotion: blocked_by_drawdown</div>
+        <div class="pill brown">Anchor: tail_release_top25_mid75_pen35_floor25</div>
+      </div>
+      <div class="metrics">
+        <div class='card'><div class='label'>Anchor MDD</div><div class='value'>-33.83%</div></div>
+        <div class='card'><div class='label'>Baseline MDD</div><div class='value'>-25.24%</div></div>
+        <div class='card'><div class='label'>Drawdown Gap</div><div class='value'>-8.59%</div></div>
+        <div class='card'><div class='label'>Best Quality Overlay</div><div class='value'>tail_release_top25_mid75_pen35_floor25_sectorguard_cut10_gap00</div></div>
+        <div class='card'><div class='label'>Drawdown Improvers</div><div class='value'>0</div></div>
+        <div class='card'><div class='label'>Quality Overlays</div><div class='value'>6</div></div>
+        <div class='card'><div class='label'>No-op Axes</div><div class='value'>6</div></div>
+      </div>
+    </section>
+
+    <section class="grid">
+      <div class="panel">
+        <h2>쉽게 보면</h2>
+        <ul>
+          <li>현재 상태는 <code>BLOCKED</code> 입니다.</li>
+          <li>운영 승격이 막힌 직접 이유는 <code>blocked_by_drawdown</code> 입니다.</li>
+          <li>가장 좋은 기준 anchor는 <code>tail_release_top25_mid75_pen35_floor25</code> 입니다.</li>
+          <li>품질만 좋아지는 overlay는 있었지만, drawdown 자체를 고친 축은 없었습니다.</li>
+          <li>그래서 이 branch는 새 구조가 생길 때만 다시 열도록 닫혀 있습니다.</li>
+        </ul>
+      </div>
+      <div class="panel">
+        <h2>검증 상태</h2>
+        <ul>
+          <li>Doctor smoke: <code>ok</code></li>
+          <li>Probe smoke: <code>ok</code></li>
+          <li>Probe exit codes: python <code>2</code>,
+              powershell <code>2</code>,
+              cmd <code>2</code></li>
+        </ul>
+      </div>
+    </section>
+
+    <section class="grid">
+      <div class="panel">
+        <h2>지금 쓰면 되는 명령</h2>
+        <div class="cmd">python tools/analysis/doctor_split_models_operational_conversion_state.py</div>
+        <div class="cmd">python tools/analysis/probe_split_models_operational_conversion_gate.py</div>
+        <div class="cmd">python tools/analysis/check_split_models_operational_conversion_state.py</div>
+      </div>
+      <div class="panel">
+        <h2>지금 보면 되는 파일</h2>
+        <div class="cmd">output/split_models_operational_conversion_current_state.json</div>
+        <div class="small">
+          사람이 볼 때는 doctor, 프로세스가 판정할 때는 probe, 원본 상태는 current_state.json 하나만 보면 됩니다.
+        </div>
+      </div>
+    </section>
+  </div>
+</body>
+</html>

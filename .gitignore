@@ -13,4 +13,6 @@ __pycache__/
 tmp_*/
 output/split_models_backtest_*_eval/
 output/split_models_it_overlay_review/
+output/split_models_operational_conversion.lock
+output/split_models_operational_conversion.lockdir/
 

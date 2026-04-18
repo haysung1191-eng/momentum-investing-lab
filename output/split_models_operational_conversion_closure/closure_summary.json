@@ -1,0 +1,19 @@
+{
+  "closure_version": 1,
+  "gate_status": "BLOCKED",
+  "promotion_status": "blocked_by_drawdown",
+  "anchor_variant": "tail_release_top25_mid75_pen35_floor25",
+  "anchor_mdd_display": "-33.83%",
+  "baseline_mdd_display": "-25.24%",
+  "drawdown_gap_vs_baseline_display": "-8.59%",
+  "doctor_command": "python tools/analysis/doctor_split_models_operational_conversion_state.py",
+  "gate_probe_command": "python tools/analysis/probe_split_models_operational_conversion_gate.py",
+  "primary_read_file": "output/split_models_operational_conversion_current_state.json",
+  "doctor_smoke_test_status": "ok",
+  "doctor_smoke_process_a": 0,
+  "doctor_smoke_process_b": 0,
+  "probe_smoke_test_status": "ok",
+  "python_probe_exit_code": 2,
+  "powershell_probe_exit_code": 2,
+  "cmd_probe_exit_code": 2
+}

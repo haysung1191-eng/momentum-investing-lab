@@ -1,0 +1,20 @@
+{
+  "state_file_version": 1,
+  "source": "output/split_models_operational_conversion_status_snapshot/status_snapshot_summary.json",
+  "gate_status": "BLOCKED",
+  "promotion_status": "blocked_by_drawdown",
+  "anchor_variant": "tail_release_top25_mid75_pen35_floor25",
+  "best_quality_variant": "tail_release_top25_mid75_pen35_floor25_sectorguard_cut10_gap00",
+  "anchor_mdd": -0.3383321870730238,
+  "anchor_mdd_display": "-33.83%",
+  "baseline_mdd": -0.2524158832009178,
+  "baseline_mdd_display": "-25.24%",
+  "drawdown_gap_vs_baseline": -0.08591630387210603,
+  "drawdown_gap_vs_baseline_display": "-8.59%",
+  "drawdown_improver_count": 0,
+  "quality_overlay_count": 6,
+  "no_op_count": 6,
+  "verdict_file": "output/split_models_operational_conversion_verdict/operational_conversion_verdict_summary.json",
+  "promotion_gate_file": "output/split_models_operational_conversion_promotion_gate/promotion_gate_summary.json",
+  "guardrail_matrix_file": "output/split_models_operational_conversion_guardrail_matrix/guardrail_matrix_summary.json"
+}

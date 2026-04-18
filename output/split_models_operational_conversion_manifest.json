@@ -1,0 +1,16 @@
+{
+  "manifest_version": 1,
+  "doctor_command": "python tools/analysis/doctor_split_models_operational_conversion_state.py",
+  "sync_command": "python tools/analysis/sync_split_models_operational_conversion_state.py",
+  "refresh_command": "python tools/analysis/refresh_split_models_operational_conversion_state.py",
+  "gate_probe_command": "python tools/analysis/probe_split_models_operational_conversion_gate.py",
+  "primary_read_file": "output/split_models_operational_conversion_current_state.json",
+  "gate_status": "BLOCKED",
+  "promotion_status": "blocked_by_drawdown",
+  "anchor_variant": "tail_release_top25_mid75_pen35_floor25",
+  "secondary_files": [
+    "output/split_models_operational_conversion_verdict/operational_conversion_verdict_summary.json",
+    "output/split_models_operational_conversion_promotion_gate/promotion_gate_summary.json",
+    "output/split_models_operational_conversion_guardrail_matrix/guardrail_matrix_summary.json"
+  ]
+}
